@@ -1,59 +1,62 @@
-# LeaseInsight
+## 📌 LeaseInsight
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.1.
+<img src="./Banner LeaseInsight.png"/>
 
-## Development server
+##
 
-To start a local development server, run:
+### 📄 Descrição
+<p>&emsp;LeaseInsight é um software desenvolvido em Java Spring para a administração de locação de imóveis. Este projeto visa simplificar a gestão de propriedades, inquilinos, contratos de aluguel e pagamentos, proporcionando uma solução eficiente e organizada para a administração imobiliária.</p>
 
-```bash
-ng serve
-```
+##
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+#### Arquitetura
+<p>O projeto LeaseInsight utiliza a Arquitetura em Camadas (Layered Architecture), promovendo a separação de responsabilidades e a modularidade do código. A estrutura do projeto é organizada em três camadas principais:</p>
+<ol>
+  <li>
+    <p>Camada de Apresentação (Presentation Layer):</p>
+    <ul>
+      <li>Implementada com Controladores REST que lidam com as requisições HTTP e retornam as respostas adequadas.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Camada de Serviço (Service Layer):</p>
+    <ul>
+      <li>Contém a lógica de negócios da aplicação. Os serviços chamam os repositórios para acessar e manipular os dados conforme necessário.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Camada de Persistência (Persistence Layer):</p>
+    <ul>
+      <li>Gerencia a interação com o banco de dados. Os Repositórios são responsáveis por executar operações de CRUD (Create, Read, Update, Delete) no banco de dados.</li>
+    </ul>
+  </li>
+</ol>
 
-## Code scaffolding
+<img align="center" alt="architecture" src="https://miro.medium.com/v2/resize:fit:1400/1*neBcAZJyLGpE7KHc3sH8bw.png" alt="architecture" width="500" height="228"/>
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+##
 
-```bash
-ng generate component component-name
-```
+### 💡 Proposta
+<p>&emsp;A motivação para criar o "LeaseInsight" surgiu de experiências pessoais envolvendo um proprietário que enfrentava dificuldades na administração de um grande volume de imóveis de forma autônoma, devido à falta de ferramentas adequadas para controle eficiente. Diante disso, o sistema foi concebido para oferecer uma solução moderna que simplifica a gestão de contratos, pagamentos e relações com inquilinos, centralizando informações e automatizando processos de maneira intuitiva. Com foco em organização e eficácia, o "LeaseInsight" busca reduzir erros manuais, economizar tempo e proporcionar maior tranquilidade para administradores e proprietários, estabelecendo um novo padrão de gestão imobiliária.</p>
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+##
 
-```bash
-ng generate --help
-```
+### 🛠️ Stack
+<div>
+  <img align="center" alt="Rapha-Spring" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/spring/spring-original.svg">
+  <img align="center" alt="Rapha-Postgresql" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg">  
+  <img align="center" alt="Rapha-Redis" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redis/redis-original.svg">  
+  <img align="center" alt="Rapha-JUnit" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/junit/junit-original.svg">  
+  <img align="center" alt="Rapha-Docker" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg">  
+</div>
+<ul>
+  <li>Multithreading</li>
+  <li>JPA/Hibernate</li>
+  <li>H2 Database</li>
+  <li>Maven</li>
+</ul>
 
-## Building
+##
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### 🧭 Tutorial para iniciar projeto
+<p>Soon</p>
