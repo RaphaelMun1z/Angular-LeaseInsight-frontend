@@ -1,0 +1,23 @@
+.container{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+    padding: 1vh 0;
+    
+    p-menubar{
+        width: 75% !important;
+        z-index: 999;
+    }
+
+    ::ng-deep p-menubar .p-menubar{
+        display: flex;
+        justify-content: space-between !important;
+
+        .p-menubar-end{
+            margin-left: 0 !important;
+        }
+    }
+}
