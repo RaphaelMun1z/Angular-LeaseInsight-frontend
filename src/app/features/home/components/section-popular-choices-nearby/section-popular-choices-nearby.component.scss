@@ -1,0 +1,80 @@
+:host{
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.content-container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 75%;
+    height: fit-content;
+    align-items: center;
+    gap: 7vh;
+    
+    .header{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        width: fit-content;
+        height: fit-content;
+        align-items: center;
+        justify-content: center;
+        
+        p{
+            font-size: 1vw;
+            font-family: "Noto Serif", serif;
+        }
+        
+        h1{
+            font-size: 2.5vw;
+            font-weight: 500;
+        }
+        
+        .places-container{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            width: fit-content;
+            height: fit-content;
+            background-color: #fff;
+            border-radius: 30px;
+            padding: 5px;
+            margin-top: 2.5vh;
+            
+            .item{
+                position: relative;
+                display: flex;
+                width: fit-content;
+                height: fit-content;
+                border-radius: 30px;
+                background-color: transparent;
+                padding: 1vh 1vw;
+                font-weight: 500;
+                color: #222;
+                
+                &.active{
+                    background-color: rgb(242, 241, 239);
+                }
+            }
+        }
+    }
+    
+    .properties-container{
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        
+        .item{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: fit-content;
+        }
+    }
+}

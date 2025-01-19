@@ -1,0 +1,217 @@
+:host{
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.content-container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    gap: 7vh;
+    background-color: #353128;
+    justify-content: center;
+    align-items: center;
+    padding: 15vh 12vw;
+    
+    .main-container{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        height: 100%;
+        
+        .child{
+            position: relative;
+            display: flex;
+            width: 50%;
+            height: 100%;
+            align-items: center;
+            
+            &.child-image{
+                padding-right: 1.5vw;
+                
+                img{
+                    position: relative;
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 30px;
+                }
+            }
+            
+            &.child-text{
+                padding-left: 1.5vw;
+                
+                .inside-content{
+                    position: relative;
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: column;
+                    width: 100%;
+                    height: fit-content;
+                    gap: 1.5vh;
+                    
+                    #header-sticker{
+                        position: relative;
+                        display: flex;
+                        width: fit-content;
+                        background-color: #fff;
+                        border-radius: 30px;
+                        
+                        a{
+                            color: #222;
+                            padding: 1vh 1vw;
+                            font-family: "Noto Serif", serif;
+                            font-weight: 500;
+                            font-size: 1vw;
+                        }
+                    }
+                    
+                    #title{
+                        font-size: 2.5vw;
+                        color: #fff;
+                        font-weight: 500;
+                        line-height: 6vh;
+                    }
+                    
+                    #description{
+                        font-size: 1vw;
+                        color: #cacaca;
+                    }
+                    
+                    .buttons-container{
+                        position: relative;
+                        display: flex;
+                        flex-wrap: wrap;
+                        width: 100%;
+                        height: fit-content;
+                        gap: 1vw;
+                        margin: 2vh 0;
+                        
+                        .btn{
+                            position: relative;
+                            display: flex;
+                            flex-wrap: wrap;
+                            width: fit-content;
+                            height: fit-content;
+                            background-color: #fff;
+                            border-radius: 40px;
+                            padding: 2vh 1vw 2vh 1.5vw;
+                            align-items: center;
+                            gap: .5vw;
+                            
+                            p{
+                                font-weight: 600;
+                                font-size: 1vw;
+                            }
+                            
+                            &.second{
+                                background: transparent;
+                                border: 2px solid #fff;
+                                
+                                p,i{
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                    
+                    .team-container{
+                        position: relative;
+                        display: flex;
+                        flex-wrap: wrap;
+                        width: 100%;
+                        height: fit-content;
+                        overflow: hidden;
+                        border-radius: 20px;
+                        background-color: #413c33;
+                        justify-content: space-between;
+                        align-items: center;
+                        
+                        .divider{
+                            position: relative;
+                            display: flex;
+                            height: 60px;
+                            width: 1px;
+                            background-color: rgb(95, 95, 95);
+                        }
+                        
+                        .team-item{
+                            position: relative;
+                            display: flex;
+                            width: calc(96%/2);
+                            height: fit-content;
+                            justify-content: space-between;
+                            padding: 2vh .7vw;
+                            
+                            .block{
+                                position: relative;
+                                display: flex;
+                                flex-wrap: wrap;
+                                align-items: center;
+                                width: fit-content;
+                                height: fit-content;
+                                gap: .5vw;
+                                
+                                img{
+                                    position: relative;
+                                    display: flex;
+                                    width: 50px;
+                                    height: 50px;
+                                    background-color: grey;
+                                    justify-content: center;
+                                    align-items: center;
+                                    object-fit: cover;
+                                    color: #fff;
+                                    border-radius: 5px;
+                                }
+                                
+                                .profile-container{
+                                    position: relative;
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    flex-direction: column;
+                                    width: fit-content;
+                                    height: fit-content;
+                                    
+                                    h2{
+                                        color: #fff;
+                                    }
+                                    
+                                    p{
+                                        color: #bdbdbd;
+                                    }
+                                }
+                                
+                                .icon{
+                                    position: relative;
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    width: 50px;
+                                    height: 50px;
+                                    aspect-ratio: 1/1;
+                                    justify-content: center;
+                                    align-items: center;
+                                    background-color: #fff;
+                                    padding: .5vh;
+                                    border-radius: 10px;
+                                    
+                                    i{
+                                        font-size: 1.5vw;
+                                        color: #222;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
