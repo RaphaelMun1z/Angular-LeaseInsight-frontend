@@ -1,7 +1,10 @@
 <div class="container">
-    <p-menubar [model]="items" [style]="{'background-color': '#fff', 'padding': '1rem 1rem 1rem 1.5rem'}">
+    <p-menubar [model]="items" [style]="{'background-color': '#fff'}">
         <ng-template #start>
-            LOGO
+            <div class="img-container">
+                <img src="assets/logo.png" alt="Logo">
+                <h3>LeaseInsight</h3>
+            </div>
         </ng-template>
         <ng-template #item let-item let-root="root">
             <a pRipple class="flex items-center p-menubar-item-link">
@@ -12,7 +15,7 @@
             </a>
         </ng-template>
         <ng-template #end>
-            <p-splitbutton label="Meu Imóvel" [model]="btnOptions" />
+            <p-splitbutton severity="contrast" label="Anuncie seu imóvel" [model]="btnOptions" />
         </ng-template> 
     </p-menubar>
 </div>

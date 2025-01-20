@@ -10,9 +10,17 @@
         </div>
     </div>
     <div class="carousel-container">
-        <p-carousel [value]="properties" [numVisible]="4" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="5000" [showNavigators]="false" [ngClass]="'w-full'">
+        <p-carousel 
+        [value]="properties" 
+        [numVisible]="3.5" 
+        [numScroll]="1" 
+        [circular]="false" 
+        [responsiveOptions]="responsiveOptions" 
+        autoplayInterval="5000" 
+        [showNavigators]="false" 
+        [ngClass]="'w-full'">
             <ng-template let-property #item>
-                <div class="rounded-border mx-4 overflow-hidden h-full" [ngStyle]="{backgroundColor:'#fff'}">
+                <div class="rounded-border mr-4 overflow-hidden h-full" [ngStyle]="{backgroundColor:'#fff'}">
                     <div>
                         <div class="relative">
                             <img [src]="'assets/images/' + property.imagePath" [alt]="property.title" class="w-full h-80" />

@@ -1,0 +1,172 @@
+footer{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+    background-color: #353128;
+    margin-top: 20vh;
+    
+    .content-container{
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 9vh;
+        
+        .company-info{
+            width: fit-content;
+            
+            .company{
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                gap: 4.5vh;
+                
+                .img-container{
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    gap: .5vw;
+
+                    img{
+                        width: fit-content;
+                        height: fit-content;
+                        object-fit: contain;
+                        color: #fff;
+                        font-weight: 600;
+                    }
+
+                    h3{
+                        color: #fff;
+                        font-size: 2.3vw;
+                    }
+                }
+                
+                #bottom{
+                    position: relative;
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: column;
+                    gap: 1vh;
+                    
+                    h2{
+                        font-size: 1vw;
+                        font-weight: 500;
+                        color: #fff;
+                        width: fit-content;
+                    }
+                    
+                    #description{
+                        width: fit-content;
+                        font-size: .9vw;
+                        color: #9f9d99;
+                        font-weight: 400;
+                        width: 400px;
+                    }
+                    
+                    .btn{
+                        position: relative;
+                        display: flex;
+                        flex-wrap: wrap;
+                        width: fit-content;
+                        height: fit-content;
+                        background-color: #f2f1ef;
+                        border-radius: 40px;
+                        padding: 1.5vh 1vw 1.5vh 1.5vw;
+                        align-items: center;
+                        gap: 0.5vw;
+                        border: none;
+                        margin-top: 1vh;
+                        
+                        p{
+                            font-weight: 600;
+                            font-size: .9vw;
+                            color: #353128;
+                        }
+                        
+                        span{
+                            display: flex;
+                            align-items: center;
+                            color: #353128;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .nav-container{
+            width: fit-content;
+            
+            .navbar{
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                height: fit-content;
+                justify-content: space-between;
+                gap: 5vw;
+                
+                ::ng-deep .p-menu{
+                    background-color: transparent;
+                    border: none;
+                }
+                
+                ::ng-deep .p-menu-submenu-label span{
+                    color: #fff;
+                }
+                
+                ::ng-deep .p-menu-item-link{
+                    color:  #c1acac;
+                }
+                
+                ::ng-deep .p-menu-item:not(.p-disabled) .p-menu-item-content:hover{
+                    background-color: transparent !important;
+                    opacity: .5;
+                }
+                
+                ::ng-deep .p-menu-item.p-focus .p-menu-item-content{
+                    background-color: grey;
+                }
+            }
+        }
+    }
+    
+    .aditional-info-container{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 3vh 0;
+        border-top: 1px solid #9f9d992e;
+        
+        .developed-by{
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            height: fit-content;
+            gap: 1vw;
+            
+            p{
+                color: #9f9d99;
+                font-size: 1vw;
+                font-weight: 600;
+            }
+        }
+        
+        .copyright{
+            position: relative;
+            display: flex;
+            width: fit-content;
+            height: fit-content;
+            
+            p{
+                color: #9f9d99;
+                font-size: 1vw;
+                font-weight: 600;
+            }
+        }
+    }
+}

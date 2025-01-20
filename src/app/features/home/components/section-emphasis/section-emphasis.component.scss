@@ -10,9 +10,10 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    align-items: center;
-    width: 75%;
+    align-items: flex-start;
+    width: 100%;
     height: fit-content;
+    padding-left: 12vw;
     gap: 7vh;
     
     .header{
@@ -23,6 +24,7 @@
         height: fit-content;
         justify-content: space-between;
         align-items: center;
+        padding-right: 12vw;
         
         .child{
             position: relative;
@@ -80,8 +82,26 @@
         width: 100%;
         height: fit-content;
         
+        ::ng-deep .p-carousel{
+            &::after{
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 70px;
+                height: 100%;
+                background: linear-gradient(270deg, rgba(242, 241, 239, 1), rgba(242, 241, 239, .1));
+                z-index: 10;
+                pointer-events: none !important;
+            }
+        }
+        
         ::ng-deep .p-carousel-viewport{
             padding-bottom: 1vh !important;
+        }
+        
+        ::ng-deep .p-carousel-item {
+            min-width: 0;
         }
     }
 }

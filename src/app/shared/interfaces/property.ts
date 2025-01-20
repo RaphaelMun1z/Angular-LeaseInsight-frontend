@@ -10,4 +10,5 @@ export interface Property {
     garageSpaces: number;
     imagePath: string;
     type: string;
+    listingType: string;
 }

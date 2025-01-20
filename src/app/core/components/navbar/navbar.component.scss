@@ -6,16 +6,59 @@
     justify-content: center;
     align-items: center;
     padding: 1vh 0;
+    margin-bottom: 2.5vh;
     
     p-menubar{
         width: 75% !important;
         z-index: 999;
-    }
+        
+        ::ng-deep .p-menubar{
+            border-radius: 50px !important;
+            padding: 1rem 3.5rem !important;
+        }
+        
+        ::ng-deep .p-splitbutton{
+            border-radius: 50px !important;
+        }
+        
+        ::ng-deep .p-splitbutton-button{
+            padding: 1.2vh .5vw 1.2vh 1vw !important;
+            border-radius: 50px 0 0 50px;
+            background-color: #353128;
+            border-color: #353128;
+        }
 
+        ::ng-deep .p-splitbutton-dropdown{
+            padding: 1vh 1vw 1vh .5vw !important;
+            border-radius: 0 50px 50px 0;
+            background-color: #353128;
+            border-color: #353128;
+        }
+        
+        .img-container{
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: .2vw;
+            
+            img{
+                width: fit-content;
+                height: 50px;
+                object-fit: contain;
+                font-weight: 600;
+                filter: invert(85%);
+            }
+            
+            h3{
+                font-size: 1.3vw;
+            }
+        }
+    }
+    
     ::ng-deep p-menubar .p-menubar{
         display: flex;
         justify-content: space-between !important;
-
+        
         .p-menubar-end{
             margin-left: 0 !important;
         }

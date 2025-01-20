@@ -24,11 +24,14 @@
         height: fit-content;
         align-items: center;
         justify-content: center;
+        gap: 1vh;
         
-        p{
-            font-size: 1.25vw;
+        p#top{
+            font-size: 1.2vw;
             font-family: "Playfair", serif;
-            font-weight: lighter;
+            background-color: #fff;
+            border-radius: 30px;
+            padding: .5vh 1.5vw;
         }
         
         h1{
@@ -36,32 +39,10 @@
             font-weight: 600;
         }
         
-        .places-container{
-            position: relative;
-            display: flex;
-            flex-wrap: wrap;
-            width: fit-content;
-            height: fit-content;
-            background-color: #fff;
-            border-radius: 30px;
-            padding: 5px;
-            margin-top: 2.5vh;
-            
-            .item{
-                position: relative;
-                display: flex;
-                width: fit-content;
-                height: fit-content;
-                border-radius: 30px;
-                background-color: transparent;
-                padding: 1vh 1vw;
-                font-weight: 500;
-                color: #222;
-                
-                &.active{
-                    background-color: rgb(242, 241, 239);
-                }
-            }
+        #bottom{
+            font-size: .9vw !important;
+            width: 84% !important;
+            text-align: center;
         }
     }
     
@@ -76,6 +57,31 @@
             flex-wrap: wrap;
             width: 100%;
             height: fit-content;
+            border-radius: 20px;
+
+            #accordion-title{
+                width: 90%;
+                color: #4b4b4b;
+                font-size: 1.1vw;
+                font-weight: 500;
+            }
+
+            ::ng-deep .p-accordionpanel{
+                border: none;
+            }
+
+            ::ng-deep .p-accordioncontent-content{
+                padding: 0 !important;
+            }
+
+            ::ng-deep .p-accordioncontent-content p{
+                font-family: "Playfair", serif !important;
+                font-size: 1.1vw;
+            }
+
+            ::ng-deep .p-accordionpanel > .p-accordionheader{
+                padding: 0;
+            }
         }
     }
 }

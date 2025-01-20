@@ -1,0 +1,91 @@
+<footer class="grid flex-col grid-col-1 px-60 py-16 pb-0">
+    <div class="content-container w-full flex">
+        <div class="company-info w-auto">
+            <div class="company">
+                <div class="img-container">
+                    <img src="assets/logo.png" alt="Logo">
+                    <h3>LeaseInsight</h3>
+                </div>
+                <div id="bottom">
+                    <h2>Book a Call For Free Consultation</h2>
+                    <p id="description">Experienced team delivering exceptional digital solutions tailored to your brand.</p>
+                    <button href="#" class="btn">
+                        <p>Contate-nos</p>
+                        <span><i class="pi pi-angle-right"></i></span>
+                    </button>
+                </div> 
+            </div>
+        </div>
+        <div class="nav-container w-auto">
+            <ul class="navbar">
+                <li>
+                    <p-menu [model]="items">
+                        <ng-template #item let-item>
+                            <ng-container *ngIf="item.route; else elseBlock">
+                                <a [routerLink]="item.route" class="p-menu-item-link">
+                                    <span [class]="item.icon"></span>
+                                    <span class="ml-2">{{ item.label }}</span>
+                                </a>
+                            </ng-container>
+                            <ng-template #elseBlock>
+                                <a [href]="item.url" class="p-menu-item-link">
+                                    <span [class]="item.icon"></span>
+                                    <span class="ml-2">{{ item.label }}</span>
+                                </a>
+                            </ng-template>
+                        </ng-template>
+                    </p-menu>
+                </li>
+                <li>
+                    <p-menu [model]="items">
+                        <ng-template #item let-item>
+                            <ng-container *ngIf="item.route; else elseBlock">
+                                <a [routerLink]="item.route" class="p-menu-item-link">
+                                    <span [class]="item.icon"></span>
+                                    <span class="ml-2">{{ item.label }}</span>
+                                </a>
+                            </ng-container>
+                            <ng-template #elseBlock>
+                                <a [href]="item.url" class="p-menu-item-link">
+                                    <span [class]="item.icon"></span>
+                                    <span class="ml-2">{{ item.label }}</span>
+                                </a>
+                            </ng-template>
+                        </ng-template>
+                    </p-menu>
+                </li>
+                <li>
+                    <p-menu [model]="items">
+                        <ng-template #item let-item>
+                            <ng-container *ngIf="item.route; else elseBlock">
+                                <a [routerLink]="item.route" class="p-menu-item-link">
+                                    <span [class]="item.icon"></span>
+                                    <span class="ml-2">{{ item.label }}</span>
+                                </a>
+                            </ng-container>
+                            <ng-template #elseBlock>
+                                <a [href]="item.url" class="p-menu-item-link">
+                                    <span [class]="item.icon"></span>
+                                    <span class="ml-2">{{ item.label }}</span>
+                                </a>
+                            </ng-template>
+                        </ng-template>
+                    </p-menu>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="aditional-info-container w-full">
+        <div class="developed-by">
+            <p>Desenvolvido por:</p>
+            <div>
+                <p-avatar label="V" styleClass="mr-2" size="large" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" />
+            </div>
+        </div>
+        <div class="copyright">
+            <p>    
+                &copy;LeaseInsight, 2025. Todos Direitos Reservados.
+            </p>
+        </div>
+    </div>
+</footer>

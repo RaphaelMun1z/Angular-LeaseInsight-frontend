@@ -1,0 +1,59 @@
+:host{
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.content-container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    height: fit-content;
+    padding: 10vh 0 10vh 12vw;
+    gap: 7vh;
+    background-color: #ede8e2;
+    
+    .header{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        width: 75%;
+        height: fit-content;
+        justify-content: space-between;
+        align-items: center;
+        
+        .child{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            width: fit-content;
+            height: fit-content;
+            
+            h1{
+                font-size: 2.5vw;
+                font-weight: 600;
+                line-height: 7vh;
+            }
+        }
+    }
+    
+    .cards-container{
+        position: relative;
+        display: flex;
+        width: 100%;
+        height: fit-content;
+        
+        .testimonial-text{
+            font-family: "Playfair", serif;
+        }
+
+        .card{
+            background-color: #f2f1ef !important;
+        }
+    }
+}
