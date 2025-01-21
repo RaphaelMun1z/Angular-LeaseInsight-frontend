@@ -20,7 +20,7 @@
         [showNavigators]="false" 
         [ngClass]="'w-full'">
             <ng-template let-property #item>
-                <div class="rounded-border mr-4 overflow-hidden h-full" [ngStyle]="{backgroundColor:'#fff'}">
+                <div class="rounded-border mr-4 overflow-hidden h-full" [ngStyle]="{backgroundColor:'#fff'}" [routerLink]="['/imovel']" [style]="{'cursor': 'pointer'}">
                     <div>
                         <div class="relative">
                             <img [src]="'assets/images/' + property.imagePath" [alt]="property.title" class="w-full h-80" />

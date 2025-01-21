@@ -1,0 +1,17 @@
+:host{
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.content-container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: fit-content;
+    justify-content: center;
+    gap: 20vh;
+    padding-top: 6vh;
+}

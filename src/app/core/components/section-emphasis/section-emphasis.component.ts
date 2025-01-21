@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-import { Property } from '../../../../shared/interfaces/property';
-import { PropertyService } from '../../../../shared/services/property.service';
+import { Property } from '../../../shared/interfaces/property';
+import { PropertyService } from '../../../shared/services/property.service';
+
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
@@ -10,7 +12,7 @@ import { DividerModule } from 'primeng/divider';
 
 @Component({
     selector: 'app-section-emphasis',
-    imports: [CommonModule, CarouselModule, ButtonModule, TagModule, DividerModule],
+    imports: [CommonModule, CarouselModule, ButtonModule, TagModule, DividerModule, RouterModule],
     templateUrl: './section-emphasis.component.html',
     styleUrl: './section-emphasis.component.scss',
     providers: [PropertyService]

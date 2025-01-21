@@ -1,0 +1,48 @@
+<div class="contact-form">
+    <div class="item item-1">
+        <div class="header">
+            <p id="type">Contato</p>
+            <h1>Entre em contato com nosso suporte</h1>
+            <p id="description">Fale com nossa equipe de suporte para esclarecer dúvidas ou obter ajuda no que precisar. Estamos aqui para ajudar!</p>
+        </div>
+        <div class="contact-methods-container">
+            <div class="item">
+                <h2>Endereço</h2>
+                <p>Lorem ipsum dolor sit amet consectetur.</p>
+            </div>
+            <div class="item">
+                <h2>E-mail</h2>
+                <p>suporte&#64;leaseinsight.com</p>
+            </div>
+        </div>
+        <div class="contact-form">
+            <div class="grid-container">
+                <div class="cont-input-1">
+                    <div class="w-full">
+                        <span class="font-medium block mb-2">Nome Completo</span>
+                        <input class="w-full" pInputText [(ngModel)]="name" placeholder="Nome*" />
+                    </div>
+                </div>
+                <div class="cont-input-2">
+                    <div class="w-full">
+                        <span class="font-medium block mb-2">E-mail</span>
+                        <input class="w-full" pInputText [(ngModel)]="email" placeholder="E-mail*" />
+                    </div>
+                </div>
+                <div class="cont-input-3">
+                    <span class="font-medium block mb-2">Mensagem</span>
+                    <p-iftalabel [style]="{'width': '100%'}">
+                        <textarea class="w-full" id="message" pTextarea [(ngModel)]="message" rows="5" cols="30" style="resize: none"></textarea>
+                        <label for="message">Escreva sua mensagem</label>
+                    </p-iftalabel>
+                </div>
+                <div class="cont-input-4">
+                    <p-button label="Enviar Mensagem" class="btn-submit" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item item-2">
+        <img src="https://amaisd.com.br/wp-content/uploads/2023/12/image-90.png" alt="Imagem ilustrativa">
+    </div>
+</div>

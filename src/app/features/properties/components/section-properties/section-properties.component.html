@@ -10,7 +10,7 @@
     </div>
     <div class="properties-container grid grid-cols-3 gap-10">
         <div class="item" *ngFor="let property of properties">
-            <div class="rounded-border overflow-hidden h-full w-full" [ngStyle]="{backgroundColor:'#fff'}">
+            <div class="rounded-border overflow-hidden h-full w-full" [ngStyle]="{backgroundColor:'#fff'}" [routerLink]="['/imovel']" [style]="{'cursor': 'pointer'}">
                 <div>
                     <div class="relative">
                         <img [src]="'assets/images/' + property.imagePath" [alt]="property.title" class="w-full h-96" />

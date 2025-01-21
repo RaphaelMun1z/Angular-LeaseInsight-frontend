@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { Property } from '../../../../shared/interfaces/property';
 import { PropertyService } from '../../../../shared/services/property.service';
@@ -20,7 +21,7 @@ interface PageEvent {
 
 @Component({
     selector: 'app-section-properties',
-    imports: [CommonModule, PaginatorModule, ButtonModule, TagModule, DividerModule, SplitButtonModule, SplitButton],
+    imports: [CommonModule, RouterModule, PaginatorModule, ButtonModule, TagModule, DividerModule, SplitButtonModule, SplitButton],
     templateUrl: './section-properties.component.html',
     styleUrl: './section-properties.component.scss',
     providers: [PropertyService]

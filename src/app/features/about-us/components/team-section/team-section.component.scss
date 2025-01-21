@@ -1,23 +1,21 @@
 :host{
-    width: 100%;
+    width: 75%;
 }
 
-.section-page{
+.container{
     position: relative;
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     height: fit-content;
-    background-color: transparent;
     justify-content: center;
-    padding-top: 8vh;
-    gap: 12vh;
+    gap: 8vh;
     
     .header{
         position: relative;
         display: flex;
         flex-wrap: wrap;
-        width: 75%;
+        width: 100%;
         height: fit-content;
         justify-content: space-between;
         align-items: center;
@@ -62,9 +60,9 @@
     .grid-container{
         position: relative;
         display: grid;
-        width: 75%;
+        width: 100%;
         grid-template-columns: repeat(4, 1fr); 
-        grid-template-rows: repeat(2, 1fr); 
+        grid-template-rows: repeat(1, 1fr); 
         gap: 1.5vw;
         
         .item{
