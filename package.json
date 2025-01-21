@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "deploy:ghdocs": "ng build --configuration production --output-path docs --base-href /Angular-LeaseInsight-frontend/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
