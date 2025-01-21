@@ -14,7 +14,7 @@ import { Ripple } from 'primeng/ripple';
     selector: 'app-navbar',
     imports: [RouterModule, Menubar, BadgeModule, SplitButton, InputTextModule, Ripple, CommonModule],
     templateUrl: './navbar.component.html',
-    styleUrl: './navbar.component.scss'
+    styleUrls: ["./navbar.component.scss", "./navbar-responsive.component.scss"]
 })
 
 export class NavbarComponent  implements OnInit {    

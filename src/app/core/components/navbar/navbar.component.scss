@@ -13,12 +13,12 @@
     margin-bottom: 2.5vh;
     
     p-menubar{
-        width: 75% !important;
+        width: 75%;
         z-index: 999;
         
         ::ng-deep .p-menubar{
             border-radius: 50px !important;
-            padding: 1rem 3.5rem !important;
+            padding: 1rem 3.5rem;
         }
         
         ::ng-deep .p-splitbutton{
@@ -26,10 +26,11 @@
         }
         
         ::ng-deep .p-splitbutton-button{
-            padding: 1.2vh .5vw 1.2vh 1vw !important;
+            padding: 1.2vh .5vw 1.2vh 1vw;
             border-radius: 50px 0 0 50px;
             background-color: #353128;
             border-color: #353128;
+            font-size: max(.8vw, 10px);
         }
 
         ::ng-deep .p-splitbutton-dropdown{
@@ -55,7 +56,7 @@
             }
             
             h3{
-                font-size: 1.3vw;
+                font-size: max(1.3vw, 15px);
             }
         }
     }

@@ -15,7 +15,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr); 
     grid-template-rows: repeat(2, 1fr); 
-    background-image: url("/assets/bg.png");
+    background-image: url("https://blog.archtrends.com/wp-content/uploads/2022/10/casas-modernas.jpg");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     overflow: hidden;
@@ -75,14 +75,14 @@
                             padding: 5%;
                             
                             #title{
-                                font-size: 4vw;
+                                font-size: max(4vw, 50px);
                                 font-weight: 600;
                                 color: #222;
                                 line-height: 9vh;
                             }
                             
                             #description{
-                                font-size: 1vw;
+                                font-size: max(1vw, 12px);
                                 font-weight: 400;
                                 color: #222;
                             }
@@ -146,7 +146,7 @@
                         }
                         
                         &>#text{
-                            font-size: 1vw;
+                            font-size: max(1vw, 12px);
                             font-weight: 300;
                             color: #222;
                             padding: 0 !important;
@@ -155,21 +155,21 @@
                     
                     &>#text{
                         color: #222;
-                        font-size: 1vw;
+                        font-size: max(1vw, 12px);
                         padding: 0 1vw;
                         font-weight: 400;
                     }
                 }
                 
                 &>#title{
-                    font-size: 4vw;
+                    font-size: max(4vw, 50px);
                     color: #fff;
                     line-height: 11vh;
                     font-weight: 500;
                 }
                 
                 #description{
-                    font-size: 1vw;
+                    font-size: max(1vw, 12px);
                     color: #bab9b7;
                     max-width: 80%;
                     font-weight: 500;
@@ -188,17 +188,17 @@
                     gap: .5vw;
                     
                     p{
-                        font-size: 1vw;
+                        font-size: max(1vw, 12px);
                     }
                     
                     i{
-                        font-size: 1vw;
+                        font-size: max(1vw, 12px);
                     }
                 }
                 
                 &.partners{
                     &>#title{
-                        font-size: 1vw !important;
+                        font-size: max(1vw, 12px) !important;
                         line-height: normal !important;
                     }
                     
@@ -219,7 +219,7 @@
                             gap: 0 .5vw;
                             
                             p{
-                                font-size: 1vw;
+                                font-size: max(1vw, 12px);
                                 color: #fff;
                             }
                             

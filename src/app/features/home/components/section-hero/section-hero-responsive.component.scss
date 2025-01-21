@@ -1,0 +1,49 @@
+@media only screen and (max-width: 768px) {
+    .content-container{
+        grid-template-columns: repeat(1, 1fr) !important; 
+        grid-template-rows: auto !important;
+        overflow: hidden !important;
+        background-image: none !important;
+
+        >.item{
+            grid-column: 1 / 2 !important;
+            grid-row: auto !important;
+
+            .content{
+                padding: 3vh 7vw !important;
+                border-radius: 30px !important;
+                gap: 5vh !important;
+
+                .child{
+                    #title{
+                        line-height: inherit !important;
+                    }
+
+                    #button-link{
+                        padding: 1.5vh 5vw 1.5vh 5.5vw !important;
+                    }
+                }
+            }
+        }
+
+        .item.right-bottom-item{
+            .auxiliary-block{
+                border-radius: 0 !important;
+            }
+        }
+
+        .item.main-item{
+            border-radius: 30px !important;
+            background-image: url("https://blog.archtrends.com/wp-content/uploads/2022/10/casas-modernas.jpg") !important;
+            background-size: cover !important;
+        }
+
+        #header-info-container{
+            padding: 7px !important;
+
+            #text{
+                padding: 0 3vw !important;
+            }
+        }
+    }
+}

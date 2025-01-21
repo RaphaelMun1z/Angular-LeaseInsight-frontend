@@ -1,0 +1,22 @@
+@media only screen and (max-width: 768px) {
+    p-menubar{
+        width: 95% !important;
+    }
+    
+    ::ng-deep .p-menubar{
+        padding: 1rem 1.5rem !important;
+    }
+    
+    ::ng-deep .p-menubar-mobile .p-menubar-button{  
+        margin-left: auto;
+    }
+    
+    ::ng-deep .p-menubar-mobile .p-menubar-button svg{
+        width: 20px;
+        height: 20px;
+    }
+    
+    ::ng-deep .p-menubar-end{
+        display: none;
+    }
+}
