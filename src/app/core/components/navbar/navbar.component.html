@@ -1,7 +1,7 @@
 <div class="container">
     <p-menubar [model]="items" [style]="{'background-color': '#fff'}">
         <ng-template #start>
-            <div class="img-container">
+            <div class="img-container" [routerLink]="['/']">
                 <img src="assets/logo.png" alt="Logo">
                 <h3>LeaseInsight</h3>
             </div>

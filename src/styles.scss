@@ -9,17 +9,25 @@
 }
 
 body{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
     width: 100% !important;
     height: fit-content;
+    min-height: 100vh;
     background-color: rgb(242, 241, 239);
 }
 
 h1, h2, h3, h4, h5, h6, p {
-    color: #222;
+    color: #353128;
 }
 
 .container{
     max-width: inherit !important;
+}
+
+.section-page{
+    min-height: 100vh;
 }
 
 @layer tailwind-base, primeng, tailwind-utilities;

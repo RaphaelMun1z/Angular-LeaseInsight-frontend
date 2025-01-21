@@ -1,0 +1,298 @@
+:host{
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.content-container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 75%;
+    height: fit-content;
+    gap: 7vh;
+    padding-top: 7vh;
+    
+    .property-hero-container{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        gap: 3vh;
+        
+        .header{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: fit-content;
+            justify-content: space-between;
+            align-items: center;
+            
+            .child{
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                width: fit-content;
+                height: fit-content;
+                
+                h1{
+                    font-size: 2.5vw;
+                    font-weight: 600;
+                    line-height: 7vh;
+                }
+                
+                #type{
+                    color: grey;
+                    font-weight: 500;
+                    font-size: .9vw;
+                    text-transform: uppercase;
+                }
+                
+                #address{
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    font-size: .85vw;
+                    color: grey;
+                    font-weight: 400;
+                    
+                    span{
+                        margin-left: .2vw;
+                    }
+                }
+            }
+        }
+        
+        .grid-container{
+            position: relative;
+            display: grid;
+            width: 100%;
+            grid-template-columns: repeat(4, 1fr); 
+            grid-template-rows: repeat(2, 1fr); 
+            
+            .item{
+                aspect-ratio: 1/1;
+                padding: 1vw;
+                
+                &#i1{
+                    grid-row: 1 / 3;   
+                    grid-column: 1 / 3;
+                    padding-left: 0;
+                }
+                
+                .block{
+                    position: relative;
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                    background-color: grey;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    
+                    #title{
+                        position: absolute;
+                        display: flex;
+                        bottom: 2vh;
+                        left: 2vw;
+                        color: #fff;
+                        z-index: 5;
+                        font-size: 2vw;
+                        font-weight: 700;
+                    }
+                    
+                    img{
+                        position: relative;
+                        display: flex;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+            }
+        }
+    }
+    
+    .property-details-container{
+        position: relative;
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%;
+        height: fit-content;
+        
+        .main{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            width: 70%;
+            height: fit-content;
+            padding-right: 6vw;
+            
+            .topic{
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                width: 100%;
+                height: fit-content;
+                border-bottom: 1px solid rgba(159, 157, 153, 0.3);
+                padding: 4vh 0;
+                gap: 1vh;
+                
+                .title{
+                    font-size: 1.7vw;
+                    font-weight: 500;
+                }
+                
+                .text{
+                    font-size: 1vw;
+                    color: gray;
+                    font-weight: 300;
+                }
+                
+                .list{
+                    list-style-type: disc;
+                    padding-left: 2vw;
+                    
+                    li{
+                        font-size: 1vw;
+                        color: gray;
+                        font-weight: 300;
+                    }
+                }
+                
+                .items-number-container{
+                    position: relative;
+                    display: flex;
+                    flex-wrap: nowrap;
+                    align-items: center;
+                    width: 100%;
+                    height: fit-content;
+                    padding: 2vh 0;
+                    gap: 1.5vw;
+                }
+                
+                .amenities-container{
+                    position: relative;
+                    display: grid;
+                    width: 100%;
+                    grid-template-columns: repeat(3, 1fr); 
+                    grid-template-rows: auto; 
+                    gap: .8vw;
+                    
+                    .item{
+                        position: relative;
+                        display: flex;
+                        flex-wrap: wrap;
+                        background-color: #fff;
+                        border-radius: 5px;
+                        overflow: hidden;
+                        
+                        .icon{
+                            position: relative;
+                            display: flex;
+                            flex-wrap: wrap;
+                            width: fit-content;
+                            height: 100%;
+                            justify-content: center;
+                            align-items: center;
+                            background-color: #353128;
+                            aspect-ratio: 1/1;
+                            
+                            i{
+                                color: #fff;
+                                font-size: 1.5vw;
+                                font-weight: lighter;
+                            }
+                        }
+                        
+                        .name{
+                            padding: 2vh 1vw;
+                            font-size: 1vw;
+                            font-weight: 400;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .aside{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            width: 30%;
+            height: fit-content;
+            gap: 4vh;
+            
+            .block-content{
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                height: fit-content;
+                flex-direction: column;
+                background-color: #fff;
+                border-radius: 20px;
+                justify-content: center;
+                align-items: center;
+                padding: 3vh 2vw;
+            }
+            
+            .price-block{   
+                .price{
+                    font-size: 2.5vw;
+                    font-weight: 600;
+                }
+                
+                .text{
+                    font-size: .9vw;
+                    color: grey;
+                }
+            }
+            
+            .contact-block{
+                .title{
+                    width: 100%;
+                    font-size: 1.3vw !important;
+                    font-weight: 500;
+                    text-align: center;
+                }
+                
+                form{
+                    position: relative;
+                    display: flex;
+                    flex-wrap: wrap;
+                    width: 100%;
+                    height: fit-content;
+                    margin-top: 4vh;
+                    gap: 2vh;
+                    
+                    input,
+                    textarea,
+                    ::ng-deep .p-inputtext{
+                        background-color: #f2f1ef !important;
+                    }
+                    
+                    textarea{
+                        border-radius: 6px;
+                    }
+                    
+                    ::ng-deep .p-button{
+                        width: 100%;
+                        padding: 1.2vh 1vw !important;
+                        border-radius: 50px;
+                        background-color: #353128;
+                        border-color: #353128;
+                        font-size: 1vw;
+                    }
+                }
+            }
+        }
+    }
+}

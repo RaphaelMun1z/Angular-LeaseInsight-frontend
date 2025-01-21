@@ -1,0 +1,107 @@
+:host{
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.content-container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 75%;
+    height: fit-content;
+    align-items: center;
+    gap: 7vh;
+    padding-top: 7vh;
+    
+    .header{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        width: fit-content;
+        height: fit-content;
+        align-items: center;
+        justify-content: center;
+        
+        p{
+            font-size: 1.25vw;
+            font-family: "Playfair", serif;
+            font-weight: lighter;
+        }
+        
+        h1{
+            font-size: 2.6vw;
+            font-weight: 600;
+        }
+        
+        .places-container{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            width: fit-content;
+            height: fit-content;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1vw;
+            margin-top: 2.5vh;
+            gap: 1vw;
+            
+            .item{
+                position: relative;
+                display: flex;
+                width: fit-content;
+                height: fit-content;
+                border-radius: 10px;
+                background-color: rgb(242, 241, 239);
+                font-weight: 500;
+                color: #222;
+                
+                ::ng-deep .p-button-secondary{
+                    background-color: transparent;
+                    padding: 1.2vh 1.3vw;
+                }
+                
+                ::ng-deep .p-button-label,
+                ::ng-deep .p-icon{
+                    font-size: 1vw;
+                    color: #353128;
+                }
+                
+                ::ng-deep .p-splitbutton-dropdown{
+                    padding: 0 1.5vw;
+                }
+            }
+            
+            ::ng-deep .submit>.p-button{
+                background-color: #353128 !important;
+                border-color: #353128;
+                padding: 1vh 1vw;
+                gap: 1vw;
+                
+                ::ng-deep .p-button-label{
+                    color: #fff;
+                }
+            }
+        }
+    }
+    
+    .properties-container{
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        
+        .item{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: fit-content;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+        }
+    }
+}
