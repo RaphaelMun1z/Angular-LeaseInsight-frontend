@@ -1,0 +1,72 @@
+[
+    {
+        "id": "1",
+        "text": "Este sistema revolucionou a forma como gerimos nossas operações. Incrivelmente eficiente!",
+        "name": "João Silva",
+        "position": "Gerente de Operações",
+        "personImagePath": "example.png"
+    },
+    {
+        "id": "2",
+        "text": "Nunca foi tão fácil organizar os dados da empresa. Recomendo a todos!",
+        "name": "Maria Oliveira",
+        "position": "Diretora Executiva",
+        "personImagePath": "example.png"
+    },
+    {
+        "id": "3",
+        "text": "A usabilidade e performance do sistema são impressionantes. Parabéns à equipe!",
+        "name": "Carlos Souza",
+        "position": "Analista de Sistemas",
+        "personImagePath": "example.png"
+    },
+    {
+        "id": "4",
+        "text": "Finalmente encontramos uma solução que atende nossas necessidades. Muito satisfeito!",
+        "name": "Ana Pereira",
+        "position": "Supervisora de Projetos",
+        "personImagePath": "example.png"
+    },
+    {
+        "id": "5",
+        "text": "A integração com nossos processos internos foi perfeita. Excelente trabalho!",
+        "name": "Roberto Lima",
+        "position": "CFO",
+        "personImagePath": "example.png"
+    },
+    {
+        "id": "6",
+        "text": "Nosso time se adaptou rapidamente à ferramenta. Intuitiva e poderosa.",
+        "name": "Fernanda Alves",
+        "position": "Coordenadora de TI",
+        "personImagePath": "example.png"
+    },
+    {
+        "id": "7",
+        "text": "Desde que implementamos o sistema, economizamos tempo e recursos. Fantástico!",
+        "name": "Paulo Mendes",
+        "position": "Consultor de Negócios",
+        "personImagePath": "example.png"
+    },
+    {
+        "id": "8",
+        "text": "A equipe de suporte é excepcional. Sempre disponíveis para ajudar!",
+        "name": "Juliana Costa",
+        "position": "Gerente de Atendimento",
+        "personImagePath": "example.png"
+    },
+    {
+        "id": "9",
+        "text": "A segurança do sistema nos trouxe tranquilidade para gerir nossos dados.",
+        "name": "Renato Farias",
+        "position": "Diretor de Segurança",
+        "personImagePath": "example.png"
+    },
+    {
+        "id": "10",
+        "text": "Recomendo sem hesitar! O sistema transformou nossa produtividade.",
+        "name": "Camila Barbosa",
+        "position": "CEO",
+        "personImagePath": "example.png"
+    }
+]
