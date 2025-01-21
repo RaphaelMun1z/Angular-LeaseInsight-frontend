@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/features/property/components/recommended/recommended.component.scss"],
-  "sourcesContent": [":host{\r\n    width: 100%;\r\n}\r\n\r\n.recommended-container{\r\n    position: relative;\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    flex-direction: column;\r\n    align-items: flex-start;\r\n    width: 100%;\r\n    height: fit-content;\r\n    gap: 7vh;\r\n    margin-top: 12vh;\r\n}"],
-  "mappings": ";AAAA;AACI,SAAA;;AAGJ,CAAA;AACI,YAAA;AACA,WAAA;AACA,aAAA;AACA,kBAAA;AACA,eAAA;AACA,SAAA;AACA,UAAA;AACA,OAAA;AACA,cAAA;;",
-  "names": []
-}
