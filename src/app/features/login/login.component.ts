@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputMaskModule } from 'primeng/inputmask';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { AuthService } from '../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -17,6 +18,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class LoginComponent {
     form: FormGroup;
     authService = inject(AuthService);
+    router = inject(Router)
     
     constructor(private fb: FormBuilder){
         this.form = this.fb.group({
@@ -27,10 +29,9 @@ export class LoginComponent {
     
     onSubmit() {
         if(this.form.valid){
-            console.log(this.form.value)
             this.authService.login(this.form.value).subscribe({
                 next: (response) => {
-                    console.log(response);
+                    this.router.navigate(['']);;
                 }
             })
         }

@@ -6,8 +6,9 @@ import { AboutUsComponent } from './features/about-us/about-us.component';
 import { ContactComponent } from './features/contact/contact.component';
 import { LoginComponent } from './features/login/login.component';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
-import { AppComponent } from './app.component';
 import { LayoutComponent } from './core/layouts/layout/layout.component';
+import { authGuard } from './core/guards/auth.guard';
+import { guestGuard } from './core/guards/guest.guard';
 
 export const routes: Routes = [
     {
@@ -21,8 +22,7 @@ export const routes: Routes = [
             },
             {
                 path: 'home',
-                component: HomeComponent,
-                children: []
+                component: HomeComponent
             },
             {
                 path: 'imoveis',
@@ -38,13 +38,15 @@ export const routes: Routes = [
             },
             {
                 path: 'contato',
-                component: ContactComponent
+                component: ContactComponent,
+                canActivate: [authGuard]
             },
         ]
     },
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [guestGuard]
     },
     {
         path: '**',

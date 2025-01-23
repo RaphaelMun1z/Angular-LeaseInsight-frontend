@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { BadgeModule } from 'primeng/badge';
 import { InputTextModule } from 'primeng/inputtext';
 import { SplitButton } from 'primeng/splitbutton';
 import { Ripple } from 'primeng/ripple';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-navbar',
@@ -17,7 +18,10 @@ import { Ripple } from 'primeng/ripple';
     styleUrls: ["./navbar.component.scss", "./navbar-responsive.component.scss"]
 })
 
-export class NavbarComponent  implements OnInit {    
+export class NavbarComponent implements OnInit {  
+    @Input() authService : any; 
+    @Input() isLoggedIn : any;
+
     items: MenuItem[] | undefined;
     btnOptions: MenuItem[] | undefined;
     
@@ -93,5 +97,9 @@ export class NavbarComponent  implements OnInit {
                 } 
             },
         ];
+    }
+
+    logout(){
+        this.authService.logout();
     }
 }

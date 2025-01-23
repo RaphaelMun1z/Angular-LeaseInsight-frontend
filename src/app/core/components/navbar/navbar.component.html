@@ -16,6 +16,11 @@
         </ng-template>
         <ng-template #end>
             <p-splitbutton severity="contrast" label="Anuncie seu imóvel" [model]="btnOptions" />
+            @if(isLoggedIn){
+                <button type="button" (click)="logout()">Sair</button>
+            }@else {
+                <button type="button" [routerLink]="'login'">Acessar</button>
+            }
         </ng-template> 
     </p-menubar>
 </div>
