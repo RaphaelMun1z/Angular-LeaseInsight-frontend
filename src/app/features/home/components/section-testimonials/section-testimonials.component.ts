@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Testimonial } from '../../../../shared/interfaces/testimonial';
-import { TestimonialService } from '../../../../shared/services/testimonial.service';
+import { TestimonialService } from '../../../../core/services/testimonial.service';
 import { CarouselModule } from 'primeng/carousel';
 import { AvatarModule } from 'primeng/avatar';
 

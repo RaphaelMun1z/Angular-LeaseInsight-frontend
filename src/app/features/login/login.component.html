@@ -1,1 +1,34 @@
-<p>login works!</p>
+<section class="login-container">
+    <div class="child">
+        <div class="form">
+            <div class="header">
+                <img src="assets/logo.png" alt="Logo">
+                <h3>LeaseInsight</h3>
+            </div>
+            <p>Faça login na plataforma para ter acesso ao portal corporativo.</p>
+            <form class="inputs" [formGroup]="form" (submit)="onSubmit()">
+                <div class="w-full">
+                    <span class="font-medium block mb-2">E-mail</span>
+                    <input class="w-full" formControlName="email" pInputText name="email" placeholder="E-mail*" />
+                </div>
+                <div class="w-full">
+                    <span class="font-medium block mb-2">Senha</span>
+                    <input class="w-full" formControlName="password" pInputText name="password" placeholder="Senha*" />
+                </div>
+                <p-button type="submit" label="Acessar" class="submit-button"/>
+                <a href="#" class="forgot-pass"><p>Esqueceu sua senha?</p></a>
+            </form>
+        </div>
+    </div>
+    <div class="child c-2">
+        <div class="bg">
+            <img src="https://i.pinimg.com/736x/d0/60/1b/d0601b4a6b90f0f9843cbf3fd1c68e1f.jpg" alt="Imagem Ilustrativa">
+        </div>
+        <div class="logo">   
+            <div class="header">
+                <img src="assets/logo.png" alt="Logo">
+                <h3>LeaseInsight</h3>
+            </div>
+        </div>
+    </div>
+</section>

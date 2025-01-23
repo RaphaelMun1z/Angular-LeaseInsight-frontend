@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { Property } from '../../../shared/interfaces/property';
-import { PropertyService } from '../../../shared/services/property.service';
+import { PropertyService } from '../../services/property.service';
 
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';

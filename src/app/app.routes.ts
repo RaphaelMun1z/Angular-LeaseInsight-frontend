@@ -6,34 +6,48 @@ import { AboutUsComponent } from './features/about-us/about-us.component';
 import { ContactComponent } from './features/contact/contact.component';
 import { LoginComponent } from './features/login/login.component';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
+import { AppComponent } from './app.component';
+import { LayoutComponent } from './core/layouts/layout/layout.component';
 
 export const routes: Routes = [
     {
         path: '',
-        component: HomeComponent
+        component: LayoutComponent,
+        children: [
+            {
+                path: '',
+                redirectTo: 'home',
+                pathMatch: 'full'
+            },
+            {
+                path: 'home',
+                component: HomeComponent,
+                children: []
+            },
+            {
+                path: 'imoveis',
+                component: PropertiesComponent
+            },
+            {
+                path: 'imovel',
+                component: PropertyComponent
+            },
+            {
+                path: 'nosso-time',
+                component: AboutUsComponent
+            },
+            {
+                path: 'contato',
+                component: ContactComponent
+            },
+        ]
     },
     {
-        path: 'imoveis',
-        component: PropertiesComponent
-    },
-    {
-        path: 'imovel',
-        component: PropertyComponent
-    },
-    {
-        path: 'nosso-time',
-        component: AboutUsComponent
-    },
-    {
-        path: 'contato',
-        component: ContactComponent
-    },
-    {
-        path: 'acessar',
+        path: 'login',
         component: LoginComponent
     },
     {
         path: '**',
         component: NotFoundComponent
-    },
+    }
 ];

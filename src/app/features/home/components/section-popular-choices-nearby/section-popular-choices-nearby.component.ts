@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Property } from '../../../../shared/interfaces/property';
-import { PropertyService } from '../../../../shared/services/property.service';
+import { PropertyService } from '../../../../core/services/property.service';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { DividerModule } from 'primeng/divider';

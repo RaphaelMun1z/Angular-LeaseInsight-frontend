@@ -1,0 +1,134 @@
+.login-container{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    
+    .child{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        height: 100%;
+        
+        .form{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            width: 60%;
+            height: fit-content;
+            background-color: #fff;
+            padding: 5vh 4vw;
+            justify-content: center;
+            border-radius: 20px;
+            
+            p{
+                font-size: .9vw;
+                text-align: center;
+            }
+            
+            .inputs{
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                height: fit-content;
+                gap: 2vh;
+                margin-top: 3vh;
+                
+                .p-inputtext{
+                    padding: 2vh 1vw;
+                }
+                
+                .submit-button{
+                    width: 100%;
+                    margin-top: 1vh;
+                    
+                    ::ng-deep .p-button{
+                        width: 100%;
+                        padding: 1.2vh 1vw;
+                        border-radius: 30px;
+                        background-color: #353128;
+                        border-color: #353128;
+                        font-size: max(1.2vw, 15px);
+                    }
+                }
+                
+                .forgot-pass{
+                    width: fit-content;
+                    margin: 0 auto;
+                    
+                    p{
+                        color: grey !important;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+        
+        &.c-2{
+            overflow: hidden;
+            background-color: #353128;
+            
+            .bg{
+                position: relative;
+                display: flex;
+                width: 100%;
+                height: 100%;
+                
+                img{
+                    object-fit: cover;
+                    mix-blend-mode: overlay;
+                    opacity: .4;
+                }
+            }    
+        }
+        
+        .logo{
+            position: absolute;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: brightness(45%);
+            box-shadow: inset 0 0 1000px rgb(66, 66, 66);
+            
+            .header{
+                gap: 1vw;
+                
+                img{
+                    width: 7vw;
+                    filter: none !important;
+                    object-fit: contain;
+                }
+                
+                h3{
+                    font-size: max(3.5vw, 40px);
+                    font-weight: 500 !important;
+                    color: #fff !important;
+                } 
+            }
+        }
+        
+        .header{
+            position: relative;
+            display: flex;
+            width: fit-content;
+            height: fit-content;
+            flex-wrap: wrap;
+            flex-direction: row;
+            align-items: center;
+            
+            img{
+                filter: invert(85%);
+            }
+            
+            h3{
+                font-size: max(1.3vw, 15px);
+            }
+        }
+    }
+}
