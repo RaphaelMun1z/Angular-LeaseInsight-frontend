@@ -1,0 +1,106 @@
+:host{
+    width: 100% !important;
+}
+
+.data-child{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    
+    &.grid-container{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        grid-template-rows: repeat(3, 1fr);
+        gap: 1vw;
+        
+        .item{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1vh 2vw;
+            justify-content: center;
+            border: 1px solid rgba(17,17,17,.2196078431);
+            
+            h2{
+                font-size: 1.8vw;
+            }
+            
+            p{
+                font-size: 1vw;
+                color: grey;
+            }
+        }
+    }
+    
+    &.chart-container{       
+        border-radius: 10px;
+        padding: 2vh 2vw;
+        background-color: #fff;
+        border: 1px solid rgba(17,17,17,.2196078431);
+        
+        ::ng-deep canvas{
+            height: 350px !important;
+        }
+    }
+}
+
+.highlights-container{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: repeat(1, 1fr);
+    gap: 1vw;
+    width: 100%;
+    height: fit-content;
+    
+    .img-item{
+        position: relative;
+        display: flex;
+        border: 1px solid rgba(17, 17, 17, 0.2196078431);
+        border-radius: 20px;
+        overflow: hidden;
+        
+        img{
+            position: relative;
+            display: flex;
+            width: 100%;
+            height: fit-content;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+            background-color: grey;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+        
+        .details{
+            position: absolute;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: fit-content;
+            bottom: 0;
+            left: 0;
+            background-color: #fff;
+            padding: 2vh 1.5vw;
+            gap: .5vh;
+            
+            li{
+                font-size: 0.8vw;
+                font-weight: 600;
+                color: rgb(122, 122, 255);
+                list-style: disc;
+                list-style-position: inside;
+            }
+            
+            h2{
+                font-size: 1.2vw;
+                font-weight: 600;
+            }
+        }
+    }
+}

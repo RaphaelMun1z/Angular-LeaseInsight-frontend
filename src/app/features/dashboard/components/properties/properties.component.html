@@ -1,0 +1,23 @@
+<app-dashboard-base [title]="'Imóveis'">
+    <app-content-block [title]="'Imóveis cadastrados'" [type]="'Residências'">
+        <div class="container">
+            <div class="item" *ngFor="let product of data">
+                <div class="p-2 w-full rounded border border-transparent transition-all transition-duration-200"
+                [ngClass]="{ 'border-primary': selectedId === product.id }"
+                >
+                <div class="flex flex-wrap p-2 items-center gap-4">
+                    <img class="w-28 aspect-square shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                    <div class="flex-1 flex flex-col gap-1">
+                        <p class="font-light text-sm text-gray-500">23 de Junho de 2023</p>
+                        <span class="font-semibold text-2xl">{{ product.name }}</span>
+                        <div class="flex items-center gap-2 mt-2">
+                            <p-tag severity="success" value="Alugado" />
+                            <p-tag severity="danger" value="Atrasado" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-content-block>
+</app-dashboard-base>

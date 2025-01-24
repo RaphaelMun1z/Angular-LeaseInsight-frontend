@@ -1,0 +1,19 @@
+:host{
+    width: 100% !important;
+}
+
+.scrollable-view{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    padding: 2.5vw;
+    
+    #section-title{
+        font-size: 2vw;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+}

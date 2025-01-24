@@ -1,0 +1,11 @@
+:host{
+    width: 100%;
+}
+
+p-chart{
+    width: 100%;
+}
+
+::ng-deep p-chart div{
+    height: 100% !important;
+}
