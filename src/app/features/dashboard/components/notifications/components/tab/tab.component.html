@@ -1,0 +1,13 @@
+<div class="card">
+    <p-tabs value="/notificacoes" class="mb-2">
+        <p-tablist>
+            @for(tab of tabs; track tab.route){
+                <p-tab [value]="tab.route" [routerLink]="tab.route">
+                    <i [class]="tab.icon"></i>
+                    <span>{{ tab.label }}</span>
+                </p-tab>
+            }
+        </p-tablist>
+    </p-tabs>
+    <ng-content></ng-content>
+</div>

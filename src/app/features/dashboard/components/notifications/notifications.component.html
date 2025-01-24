@@ -1,4 +1,7 @@
 <app-dashboard-base [title]="'Avisos e Notificações'">
-    <app-content-block></app-content-block>
-    <app-content-block></app-content-block>
+    <app-content-block [title]="'Todos os comunicados'" [type]="'Lista'">
+        <app-tab>
+            <router-outlet></router-outlet>
+        </app-tab>
+    </app-content-block>
 </app-dashboard-base>

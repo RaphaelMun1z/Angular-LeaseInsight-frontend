@@ -1,26 +1,48 @@
 <div class="container">
-    <p-menubar [model]="items" [style]="{'background-color': '#fff'}">
+    <p-megamenu [model]="items" [style]="{'background-color': '#fff'}">
         <ng-template #start>
             <div class="img-container" [routerLink]="['/']">
                 <img src="assets/logo.png" alt="Logo">
                 <h3>LeaseInsight</h3>
             </div>
         </ng-template>
-        <ng-template #item let-item let-root="root">
-            <a pRipple class="flex items-center p-menubar-item-link">
-                <span>{{ item.label }}</span>
-                <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-                <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
-            </a>
+        <ng-template #item let-item>
+            <ng-container class="grid gap-4">
+                <a [routerLink]="item.route" class="p-menuitem-link">
+                    <span [class]="item.icon"></span>
+                    <span class="ml-2">{{ item.label }}</span>
+                </a>
+            </ng-container>
         </ng-template>
         <ng-template #end>
-            <p-splitbutton severity="contrast" label="Anuncie seu imóvel" [model]="btnOptions" />
             @if(isLoggedIn){
-                <button type="button" (click)="logout()">Sair</button>
+                <p-drawer [(visible)]="visible" [closable]="false">
+                    <ng-template #header>
+                        <div class="flex items-center gap-2">
+                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                            <span class="font-bold">Amy Elsner</span>
+                        </div>
+                    </ng-template>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                    </p>
+                    <ng-template #footer>
+                        <div class="flex items-center gap-2">
+                            <button pButton label="Account" icon="pi pi-user" class="w-full" outlined></button>
+                            <button pButton label="Logout" icon="pi pi-sign-out" (click)="logout()" class="w-full" severity="danger" text></button>
+                        </div>
+                    </ng-template>
+                </p-drawer>
+                <button pButton (click)="visible = true" class="bg-transparent text-black border-transparent p-0 w-fit text-lg config-btn">
+                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" [style]="{ width: '47px', height: '47px' }" />
+                </button>
             }@else {
-                <button type="button" [routerLink]="'login'">Acessar</button>
+                <p-splitbutton severity="contrast" label="Anuncie seu imóvel" [model]="btnOptions" />
+                <button type="button" [routerLink]="'login'" class="flex items-center ml-2">
+                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" [style]="{ width: '47px', height: '47px' }" />
+                </button>
             }
         </ng-template> 
-    </p-menubar>
+    </p-megamenu>
 </div>

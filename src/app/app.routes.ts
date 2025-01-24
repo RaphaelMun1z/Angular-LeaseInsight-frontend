@@ -18,6 +18,9 @@ import { ClientsComponent } from './features/dashboard/components/clients/client
 import { NotificationsComponent } from './features/dashboard/components/notifications/notifications.component';
 import { SuportComponent } from './features/dashboard/components/suport/suport.component';
 import { ContractsComponent } from './features/dashboard/components/contracts/contracts.component';
+import { TabComponent } from './features/dashboard/components/notifications/components/tab/tab.component';
+import { ReadComponent } from './features/dashboard/components/notifications/components/read/read.component';
+import { UnreadComponent } from './features/dashboard/components/notifications/components/unread/unread.component';
 
 export const routes: Routes = [
     {
@@ -92,7 +95,22 @@ export const routes: Routes = [
             },
             {
                 path: 'notificacoes',
-                component: NotificationsComponent
+                component: NotificationsComponent,
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'lidos',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'lidos',
+                        component: ReadComponent
+                    },
+                    {
+                        path: 'nao-lidos',
+                        component: UnreadComponent
+                    },
+                ]
             },
             {
                 path: 'suporte',

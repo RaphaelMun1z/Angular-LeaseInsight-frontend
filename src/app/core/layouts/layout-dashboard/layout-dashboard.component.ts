@@ -143,6 +143,11 @@ export class LayoutDashboardComponent implements OnInit {
                 label: 'Suporte',
                 routerLink: ['/dashboard/suporte'],
                 icon: 'pi pi-question-circle'
+            },
+            {
+                label: 'Home',
+                routerLink: ['/'],
+                icon: 'pi pi-home'
             }
         ]
     }

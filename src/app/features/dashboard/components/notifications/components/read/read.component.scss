@@ -1,0 +1,17 @@
+:host{
+    width: 100% !important;
+}
+
+.data-child{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: .5vw;
+
+    .item{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+    }
+}

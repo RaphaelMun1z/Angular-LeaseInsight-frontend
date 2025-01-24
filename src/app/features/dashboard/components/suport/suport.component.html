@@ -1,4 +1,22 @@
 <app-dashboard-base [title]="'Suporte'">
-    <app-content-block></app-content-block>
-    <app-content-block></app-content-block>
+    <app-content-block [title]="'Dúvidas frequentes'" [type]="'FAQ'">
+        <div class="container">
+            <p-tabs value="0" scrollable class="w-full">
+                <p-tablist>
+                    @for(tab of scrollableTabs; track tab.value){
+                        <p-tab [value]="tab.value">
+                            {{ tab.title }}
+                        </p-tab>
+                    }
+                </p-tablist>
+                <p-tabpanels>
+                    @for(tab of scrollableTabs; track tab.value){
+                        <p-tabpanel [value]="tab.value">
+                            <p class="m-0">{{ tab.content }}</p>
+                        </p-tabpanel>
+                    }
+                </p-tabpanels>
+            </p-tabs>
+        </div>
+    </app-content-block>
 </app-dashboard-base>
