@@ -1,0 +1,137 @@
+<div class="container">
+    <p-toolbar styleClass="mb-6" class="!w-full">
+        <ng-template #start>
+            <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+            <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedContracts()" [disabled]="!selectedContracts || !selectedContracts.length" />
+        </ng-template>
+        
+        <ng-template #end>
+            <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+        </ng-template>
+    </p-toolbar>
+    
+    <p-table
+    #dt
+    [value]="contracts"
+    [rows]="10"
+    [columns]="cols"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'phone', 'email']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedContracts"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Mostrando {first} para {last} de {totalRecords} entradas"
+    [showCurrentPageReport]="true"
+    class="!w-full"
+    >
+    <ng-template #caption>
+        <div class="flex items-center justify-between">
+            <h5 class="m-0">Manage Contracts</h5>
+            <p-iconfield>
+                <p-inputicon styleClass="pi pi-search" />
+                <input pInputText type="text" (input)="dt.filterGlobal($event, 'contains')" placeholder="Search..." />                 
+            </p-iconfield>
+        </div>
+    </ng-template>
+    <ng-template #header>
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox />
+            </th>
+            <th style="min-width: 16rem">Code</th>
+            <th pSortableColumn="contractStartDate" style="min-width:12rem">
+                Início
+                <p-sortIcon field="contractStartDate" />
+            </th>
+            <th pSortableColumn="contractEndDate" style="min-width:12rem">
+                Fim
+                <p-sortIcon field="contractEndDate" />
+            </th>
+            <th pSortableColumn="defaultRentalValue" style="min-width:12rem">
+                Valor
+                <p-sortIcon field="defaultRentalValue" />
+            </th>
+            <th pSortableColumn="contractStatus" style="min-width:12rem">
+                Status
+                <p-sortIcon field="contractStatus" />
+            </th>
+            <th pSortableColumn="tenantName" style="min-width:12rem">
+                Inquilino
+                <p-sortIcon field="tenantName" />
+            </th>
+            <th pSortableColumn="residenceAddress" style="min-width:12rem">
+                Endereço da Residência
+                <p-sortIcon field="residenceAddress" />
+            </th>
+            <th style="min-width: 12rem"></th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-contract>
+        <tr>
+            <td style="width: 3rem">
+                <p-tableCheckbox [value]="contract" />
+            </td>
+            <td style="min-width: 12rem">{{ contract.id }}</td>
+            <td style="min-width: 12rem">{{ contract.contractStartDate }}</td>
+            <td style="min-width: 12rem">{{ contract.contractEndDate }}</td>
+            <td style="min-width: 12rem">{{ contract.defaultRentalValue }}</td>
+            <td style="min-width: 12rem">{{ contract.contractStatus }}</td>
+            <td style="min-width: 12rem">{{ contract.tenantName }}</td>
+            <td style="min-width: 12rem">{{ contract.residenceAddress }}</td>
+            <td>
+                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editContract(contract)" />
+                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteContract(contract)" />
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template #summary>
+        <div class="flex items-center justify-between">Total de {{ contracts ? contracts.length : 0 }} contratos.</div>
+    </ng-template>
+</p-table>
+<p-toast></p-toast>
+
+<p-dialog [(visible)]="contractDialog" [style]="{ width: '450px' }" header="Criando Contrato" [modal]="true">
+    <ng-template #content>
+        <div class="flex flex-col gap-6">
+            <div>
+                <label for="contractStartDate" class="block font-bold mb-3">Data Início</label>
+                <p-datepicker [(ngModel)]="contract.contractStartDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
+                <small class="text-red-500" *ngIf="submitted && !contract.contractStartDate">Data de início é obrigatório.</small>
+            </div>
+            <div>
+                <label for="contractEndDate" class="block font-bold mb-3">Data Fim</label>
+                <p-datepicker [(ngModel)]="contract.contractEndDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
+                <small class="text-red-500" *ngIf="submitted && !contract.contractEndDate">Data fim é obrigatório.</small>
+            </div>
+            <div>
+                <label for="defaultRentalValue" class="block font-bold mb-3">Valor</label>
+                <p-inputnumber [(ngModel)]="contract.defaultRentalValue" inputId="locale-user" [minFractionDigits]="2" />
+                <small class="text-red-500" *ngIf="submitted && !contract.defaultRentalValue">Valor é obrigatório.</small>
+            </div>
+            <div>
+                <label for="contractStatus" class="block font-bold mb-3">Status</label>
+                <input type="text" pInputText id="contractStatus" [(ngModel)]="contract.contractStatus" required autofocus fluid />
+                <small class="text-red-500" *ngIf="submitted && !contract.contractStatus">Status é obrigatório.</small>
+            </div>
+            <div>
+                <label for="tenantName" class="block font-bold mb-3">Nome do Inquilino</label>
+                <input type="text" pInputText id="tenantName" [(ngModel)]="contract.tenantName" required autofocus fluid />
+                <small class="text-red-500" *ngIf="submitted && !contract.tenantName">Nome do inquilino é obrigatório.</small>
+            </div>
+            <div>
+                <label for="residenceAddress" class="block font-bold mb-3">Endereço</label>
+                <input type="text" pInputText id="residenceAddress" [(ngModel)]="contract.residenceAddress" required autofocus fluid />
+                <small class="text-red-500" *ngIf="submitted && !contract.residenceAddress">Endereço é obrigatório.</small>
+            </div>
+        </div>
+    </ng-template>
+    
+    <ng-template #footer>
+        <p-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()" />
+        <p-button label="Save" icon="pi pi-check" (click)="saveContract()" />
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }" />     
+</div>  

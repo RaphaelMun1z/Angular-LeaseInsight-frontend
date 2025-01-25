@@ -28,9 +28,10 @@
                         consequat.
                     </p>
                     <ng-template #footer>
+                        <button [routerLink]="'dashboard'" pButton label="Dashboard" icon="pi pi-objects-column" class="w-full mb-2" severity="info" outlined></button>
                         <div class="flex items-center gap-2">
-                            <button pButton label="Account" icon="pi pi-user" class="w-full" outlined></button>
-                            <button pButton label="Logout" icon="pi pi-sign-out" (click)="logout()" class="w-full" severity="danger" text></button>
+                            <button pButton label="Perfil" icon="pi pi-user" class="w-full" outlined></button>
+                            <button pButton label="Sair" icon="pi pi-sign-out" (click)="logout()" class="w-full" severity="danger" outlined></button>
                         </div>
                     </ng-template>
                 </p-drawer>

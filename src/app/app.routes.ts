@@ -50,8 +50,7 @@ export const routes: Routes = [
             },
             {
                 path: 'contato',
-                component: ContactComponent,
-                canActivate: [authGuard]
+                component: ContactComponent
             },
         ]
     },
@@ -63,6 +62,7 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         component: LayoutDashboardComponent,
+        canActivate: [authGuard],
         children: [
             {
                 path: '',
