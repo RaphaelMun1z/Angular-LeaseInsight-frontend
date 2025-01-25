@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Client } from '../../shared/interfaces/client';
+import { Employee } from '../../shared/interfaces/employee';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class ClientService { 
+export class EmployeeService { 
     private url = environment.api;
     
     constructor(private http: HttpClient) { }
     
-    getClients(): Observable<Client[]> {
-        return this.http.get<Client[]>(this.url + "/tenants");
+    getEmployees(): Observable<Employee[]> {
+        return this.http.get<Employee[]>(this.url + "/staffs");
     }
 }

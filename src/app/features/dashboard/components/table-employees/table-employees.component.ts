@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { Dialog } from 'primeng/dialog';
@@ -16,13 +16,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { Table } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
-
-interface Employee {
-    id: string,
-    name: string,
-    phone: string,
-    email: string
-}
+import { Employee } from '../../../../shared/interfaces/employee';
 
 interface Column {
     field: string;
@@ -45,7 +39,7 @@ interface ExportColumn {
 
 export class TableEmployeesComponent implements OnInit{
     employeeDialog: boolean = false; 
-    employees: Employee[] = [];
+    @Input() employees: Employee[] = [];
     employee!: Employee;
     selectedEmployees!: Employee[] | null;
     submitted: boolean = false;
@@ -70,7 +64,6 @@ export class TableEmployeesComponent implements OnInit{
     }
     
     loadDemoData() {
-        this.employees = [];
         this.cd.markForCheck();
         
         this.statuses = [

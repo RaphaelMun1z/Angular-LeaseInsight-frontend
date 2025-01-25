@@ -1,14 +1,16 @@
 export interface Property {
-    id: string;
-    title: string;
-    price: number;
-    description: string;
-    city: string;
-    state: string;
-    bedrooms: number;
-    area: number;
-    garageSpaces: number;
-    imagePath: string;
-    type: string;
-    listingType: string;
+    id: string,
+    residenceAddress: {
+        street: string;
+        district: string;
+        city: string;
+        state: string;
+        country: string;
+        cep: string;
+        complement?: string; 
+    };
+    number: number,
+    rentalValue: number;
+    occupancyStatus: number; 
+    propertyType: number; 
 }

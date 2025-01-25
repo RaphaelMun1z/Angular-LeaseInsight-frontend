@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { Tag } from 'primeng/tag';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
@@ -19,20 +20,7 @@ import { Table } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FluidModule } from 'primeng/fluid';
-
-interface Contract {
-    id: string;
-    contractStartDate: string; 
-    contractEndDate: string; 
-    defaultRentalValue: number;
-    contractStatus: "ACTIVE" | "INACTIVE" | "PENDING" | "TERMINATED" | "";
-    tenantName: string;
-    residenceAddress: {
-        street: string;
-        city: string;
-        state: string;
-    }
-}
+import { Contract } from '../../../../shared/interfaces/contract';
 
 interface Column {
     field: string;
@@ -47,7 +35,7 @@ interface ExportColumn {
 
 @Component({
     selector: 'app-table-contracts',
-    imports: [FormsModule, DatePickerModule, InputNumber, FluidModule, ButtonModule, TableModule, Dialog, SelectModule, ToastModule, ToolbarModule, ConfirmDialog, InputTextModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
+    imports: [FormsModule, Tag, DatePickerModule, InputNumber, FluidModule, ButtonModule, TableModule, Dialog, SelectModule, ToastModule, ToolbarModule, ConfirmDialog, InputTextModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
     providers: [MessageService, ConfirmationService],
     templateUrl: './table-contracts.component.html',
     styleUrl: './table-contracts.component.scss'
@@ -55,7 +43,7 @@ interface ExportColumn {
 
 export class TableContractsComponent implements OnInit{
     contractDialog: boolean = false; 
-    contracts: Contract[] = [];
+    @Input() contracts: Contract[] = [];
     contract!: Contract;
     selectedContracts!: Contract[] | null;
     submitted: boolean = false;
@@ -80,7 +68,6 @@ export class TableContractsComponent implements OnInit{
     }
     
     loadDemoData() {
-        this.contracts = [];
         this.cd.markForCheck();
         
         this.statuses = [
@@ -106,12 +93,19 @@ export class TableContractsComponent implements OnInit{
             contractEndDate: '',
             defaultRentalValue: 0,
             contractStatus: '',
-            tenantName: '',
-            residenceAddress: {
-                street: '',
-                city: '',
-                state: '',
+            tenant: {
+                name: '',
             },
+            residence: {
+                number: 0,
+                residenceAddress: {
+                    street: '',
+                    district: '',
+                    city: '',
+                    state: '',
+                    country: ''
+                },
+            }
         } 
         this.submitted = false;
         this.contractDialog = true;
@@ -158,12 +152,19 @@ export class TableContractsComponent implements OnInit{
                     contractEndDate: '',
                     defaultRentalValue: 0,
                     contractStatus: '',
-                    tenantName: '',
-                    residenceAddress: {
-                        street: '',
-                        city: '',
-                        state: '',
+                    tenant: {
+                        name: '',
                     },
+                    residence: {
+                        number: 0,
+                        residenceAddress: {
+                            street: '',
+                            district: '',
+                            city: '',
+                            state: '',
+                            country: ''
+                        },
+                    }
                 } 
                 this.messageService.add({
                     severity: 'success',
@@ -198,11 +199,11 @@ export class TableContractsComponent implements OnInit{
     
     getSeverity(status: string) {
         switch (status) {
-            case 'INSTOCK':
+            case 'ACTIVE':
             return 'success';
             case 'LOWSTOCK':
             return 'warn';
-            case 'OUTOFSTOCK':
+            case 'TERMINATED':
             return 'danger';
             default:
             return 'info';
@@ -239,12 +240,19 @@ export class TableContractsComponent implements OnInit{
             contractEndDate: '',
             defaultRentalValue: 0,
             contractStatus: '',
-            tenantName: '',
-            residenceAddress: {
-                street: '',
-                city: '',
-                state: '',
+            tenant: {
+                name: '',
             },
+            residence: {
+                number: 0,
+                residenceAddress: {
+                    street: '',
+                    district: '',
+                    city: '',
+                    state: '',
+                    country: ''
+                },
+            }
         }
     }
     

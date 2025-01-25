@@ -23,7 +23,7 @@ export class SectionPopularChoicesNearbyComponent implements OnInit {
     constructor(private service: PropertyService) {}
     
     ngOnInit() {
-        this.service.getPopular().subscribe((response) => {
+        this.service.getProperties().subscribe((response) => {
             if (response) {
                 this.properties = response;
             }

@@ -42,7 +42,7 @@ export class SectionPropertiesComponent  implements OnInit {
     }
     
     ngOnInit() {
-        this.service.getAll().subscribe((response) => {
+        this.service.getProperties().subscribe((response) => {
             if (response) {
                 this.properties = response;
             }

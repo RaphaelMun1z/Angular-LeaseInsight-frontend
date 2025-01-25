@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="item" *ngFor="let property of properties">
+        <div class="p-2 w-full rounded border border-transparent transition-all transition-duration-200"
+        [ngClass]="{ 'border-primary': selectedId === property.id}"
+        >
+        <div class="flex flex-wrap p-2 items-center gap-4">
+            <img class="w-28 aspect-square shrink-0 rounded" src="https://ventramelidecor.com.br/wp-content/uploads/2024/05/casa-moderna-linhas-retas.jpg" [alt]="'property.name'" />
+            <div class="flex-1 flex flex-col gap-1">
+                <p class="font-light text-sm text-gray-500">{{ getType(property.propertyType) }}</p>
+                <span class="font-semibold text-2xl">{{ property.residenceAddress.street }}, {{ property.number }}, {{ property.residenceAddress.district }}, {{ property.residenceAddress.city }}, {{ property.residenceAddress.state }}, {{ property.residenceAddress.country }}</span>
+                <div class="flex items-center gap-2 mt-2">
+                    <p-tag severity="info" value="R$ {{ property.rentalValue }}"/>
+                    <p-tag severity="success" value="{{ getStatus(property.occupancyStatus)}}" [severity]="getSeverity(property.occupancyStatus)"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -56,9 +56,9 @@
                 Status
                 <p-sortIcon field="contractStatus" />
             </th>
-            <th pSortableColumn="tenantName" style="min-width:12rem">
+            <th pSortableColumn="tenant.name" style="min-width:12rem">
                 Inquilino
-                <p-sortIcon field="tenantName" />
+                <p-sortIcon field="tenant.name" />
             </th>
             <th pSortableColumn="residenceAddress" style="min-width:12rem">
                 Endereço da Residência
@@ -76,9 +76,9 @@
             <td style="min-width: 12rem">{{ contract.contractStartDate }}</td>
             <td style="min-width: 12rem">{{ contract.contractEndDate }}</td>
             <td style="min-width: 12rem">{{ contract.defaultRentalValue }}</td>
-            <td style="min-width: 12rem">{{ contract.contractStatus }}</td>
-            <td style="min-width: 12rem">{{ contract.tenantName }}</td>
-            <td style="min-width: 12rem">{{ contract.residenceAddress }}</td>
+            <td style="min-width: 12rem"><p-tag [value]="contract.contractStatus" [severity]="getSeverity(contract.contractStatus)" /></td>
+            <td style="min-width: 12rem">{{ contract.tenant.name }}</td>
+            <td style="min-width: 12rem">{{ contract.residence.residenceAddress.street }}, {{ contract.residence.number }}, {{ contract.residence.residenceAddress.district }}, {{ contract.residence.residenceAddress.city }}, {{ contract.residence.residenceAddress.state }}, {{ contract.residence.residenceAddress.country }}</td>
             <td>
                 <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editContract(contract)" />
                 <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteContract(contract)" />
@@ -115,14 +115,14 @@
                 <small class="text-red-500" *ngIf="submitted && !contract.contractStatus">Status é obrigatório.</small>
             </div>
             <div>
-                <label for="tenantName" class="block font-bold mb-3">Nome do Inquilino</label>
-                <input type="text" pInputText id="tenantName" [(ngModel)]="contract.tenantName" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !contract.tenantName">Nome do inquilino é obrigatório.</small>
+                <label for="tenantname" class="block font-bold mb-3">Nome do Inquilino</label>
+                <input type="text" pInputText id="tenantname" [(ngModel)]="contract.tenant.name" required autofocus fluid />
+                <small class="text-red-500" *ngIf="submitted && !contract.tenant.name">Nome do inquilino é obrigatório.</small>
             </div>
             <div>
                 <label for="residenceAddress" class="block font-bold mb-3">Endereço</label>
-                <input type="text" pInputText id="residenceAddress" [(ngModel)]="contract.residenceAddress" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !contract.residenceAddress">Endereço é obrigatório.</small>
+                <input type="text" pInputText id="residenceAddress" [(ngModel)]="contract.residence.residenceAddress" required autofocus fluid />
+                <small class="text-red-500" *ngIf="submitted && !contract.residence.residenceAddress">Endereço é obrigatório.</small>
             </div>
         </div>
     </ng-template>
