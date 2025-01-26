@@ -21,6 +21,7 @@ import { ContractsComponent } from './features/dashboard/components/contracts/co
 import { TabComponent } from './features/dashboard/components/notifications/components/tab/tab.component';
 import { ReadComponent } from './features/dashboard/components/notifications/components/read/read.component';
 import { UnreadComponent } from './features/dashboard/components/notifications/components/unread/unread.component';
+import { CreateClientComponent } from './features/dashboard/components/forms/create-client/create-client.component';
 
 export const routes: Routes = [
     {
@@ -88,6 +89,10 @@ export const routes: Routes = [
             {
                 path: 'clientes',
                 component: ClientsComponent
+            },
+            {
+                path: 'clientes/criar',
+                component: CreateClientComponent
             },
             {
                 path: 'contratos',

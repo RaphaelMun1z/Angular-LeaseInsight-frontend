@@ -39,7 +39,18 @@ export class LayoutDashboardComponent implements OnInit {
             {
                 label: 'Clientes',
                 icon: 'pi pi-users',
-                routerLink: ['/dashboard/clientes'],
+                items: [
+                    {
+                        icon: 'pi pi-list-check',
+                        label: 'Listar',
+                        routerLink: ['/dashboard/clientes'],
+                    },
+                    {
+                        icon: 'pi pi-plus',
+                        label: 'Criar',
+                        routerLink: ['/dashboard/clientes/criar'],
+                    },
+                ]
             },
             {
                 label: 'Contratos',

@@ -1,0 +1,23 @@
+:host{
+    width: 100%;
+}
+
+.form-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    height: fit-content;
+    gap: 3vh;
+}
+
+::ng-deep {
+    .p-inputgroup .p-inputtext,
+    .p-datepicker,
+    .p-password{
+        width: 100%;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}

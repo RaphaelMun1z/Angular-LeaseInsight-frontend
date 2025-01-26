@@ -31,7 +31,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
                 router.navigate(['']);
             }
             
-            const error = e.error.message || e.statusText;
+            const error = e.error;
             return throwError(() => error);
         })
     );
