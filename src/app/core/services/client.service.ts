@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Client } from '../../shared/interfaces/client';
+import { Client, ClientCreate } from '../../shared/interfaces/client';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -16,4 +16,9 @@ export class ClientService {
     getClients(): Observable<Client[]> {
         return this.http.get<Client[]>(this.url + "/tenants");
     }
+
+    saveClient(client: ClientCreate): any {
+        return this.http.post<ClientCreate>(this.url + "/tenants", client);
+    }
+
 }
