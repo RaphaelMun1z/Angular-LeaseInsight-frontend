@@ -14,15 +14,15 @@
             <div class="rounded-border overflow-hidden h-full w-full" [ngStyle]="{backgroundColor:'#fff'}">
                 <div>
                     <div class="relative">
-                        <img [src]="'assets/images/' + property.imagePath" [alt]="property.title" class="w-full h-96" />
-                        <p-tag [value]="property.listingType" [severity]="'success'" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                        <img [src]="'assets/images/' + 'property.imagePath'" [alt]="'property.title'" class="w-full h-96" />
+                        <p-tag [value]="'property.listingType'" [severity]="'success'" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                     </div>
                 </div>
                 <div class="p-4">
-                    <div class="mb-2 font-medium text-xl text-gray-500 font-medium">{{ property.type }}</div>
+                    <div class="mb-2 font-medium text-xl text-gray-500 font-medium">{{ 'property.type' }}</div>
                     <div class="flex justify-between items-center">
                         <div class="mt-0 mb-2 font-semibold text-3xl text-emerald-900 flex items-center">
-                            {{ 'R$ ' + property.price }} 
+                            {{ 'R$ ' + 'property.price' }} 
                             <span class="text-base text-gray-500 font-normal ml-1.5">/mês</span> 
                         </div>
                         <span>
@@ -30,20 +30,20 @@
                             <p-button icon="pi pi-eye" styleClass="ml-2" />
                         </span>
                     </div>
-                    <div class="mb-4 font-medium text-gray-600 font-normal">{{ property.city }}, {{ property.state }}</div>
+                    <div class="mb-4 font-medium text-gray-600 font-normal">{{ 'property.city' }}, {{ 'property.state' }}</div>
                     <p-divider />
                     <div class="flex justify-between items-center flex-nowrap space-x-6">
                         <div class="flex space-x-4 items-center">
                             <i class="pi pi-moon text-gray-500"></i>
-                            <p class="!text-gray-500 whitespace-nowrap">{{ property.bedrooms }} Quartos</p>
+                            <p class="!text-gray-500 whitespace-nowrap">{{ 'property.bedrooms' }} Quartos</p>
                         </div>
                         <div class="flex space-x-4 items-center">
                             <i class="pi pi-window-minimize text-gray-500"></i>
-                            <p class="!text-gray-500 whitespace-nowrap">{{ property.area }} m<sup>2</sup></p>
+                            <p class="!text-gray-500 whitespace-nowrap">{{ 'property.area' }} m<sup>2</sup></p>
                         </div>
                         <div class="flex space-x-4 items-center">
                             <i class="pi pi-car text-gray-500"></i>
-                            <p class="!text-gray-500 whitespace-nowrap">{{ property.garageSpaces }} Vagas</p>
+                            <p class="!text-gray-500 whitespace-nowrap">{{ 'property.garageSpaces' }} Vagas</p>
                         </div>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { Table } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
-import { Client } from '../../../../shared/interfaces/client';
+import { Client, ClientCreate } from '../../../../shared/interfaces/client';
 
 interface Column {
     field: string;
@@ -42,6 +42,7 @@ export class TableClientsComponent implements OnInit{
     clientDialog: boolean = false; 
     @Input() clients: Client[] = [];
     client!: Client;
+    clientCreate!: ClientCreate;
     selectedClients!: Client[] | null;
     submitted: boolean = false;
     statuses!: any[];
@@ -84,37 +85,85 @@ export class TableClientsComponent implements OnInit{
         this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
     }
     
+    // =============| Create |=============
+    
     openNew() {
-        this.client =  {
-            id: '',
+        this.clientCreate =  {
+            id: null,
             name: '',
             phone: '',
             email: '',
+            password: '',
             dateOfBirth: '',
             cpf: '',
             rg: '',
             registrationDate: '',
             tenantStatus: '',
             tenantBillingAddress: {
-                id: '',
-                street: '',
-                district: '',
-                city: '',
-                state: '',
-                country: '',
-                cep: '',
-                complement: '',
-                number: 0
+                id: ''
             }
         }
         this.submitted = false;
         this.clientDialog = true;
     }
     
-    editClient(client: Client) {
-        this.client = { ...client };
+    saveClient() {
+        this.submitted = true;
+        
+        if (this.clientCreate.name?.trim()) {
+            if (this.clientCreate.id) {
+                // Update
+                console.log("Update")
+                this.clients[this.findIndexById(this.clientCreate.id)] = this.client;
+                
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Operação Realizada',
+                    detail: 'Cliente Atualizado',
+                    life: 3000
+                });
+            } else {
+                // Create
+                //this.client.id = this.createId();
+                //this.clients.push(this.client);
+                console.log("Create")
+                
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Operação Realizada',
+                    detail: 'Cliente Criado',
+                    life: 3000
+                });
+            }
+            
+            this.clients = [...this.clients];
+            this.clientDialog = false;
+            this.clientCreate =  {
+                id: null,
+                name: '',
+                phone: '',
+                email: '',
+                password: '',
+                dateOfBirth: '',
+                cpf: '',
+                rg: '',
+                registrationDate: '',
+                tenantStatus: '',
+                tenantBillingAddress: {
+                    id: ''
+                }
+            }
+        }
+    }
+    
+    // =============| Edit |=============
+    
+    editClient(client: ClientCreate) {
+        this.clientCreate = { ...client };
         this.clientDialog = true;
     }
+    
+    // =============| Delete |=============
     
     deleteSelectedClients() {
         this.confirmationService.confirm({
@@ -134,11 +183,6 @@ export class TableClientsComponent implements OnInit{
         });
     }
     
-    hideDialog() {
-        this.clientDialog = false;
-        this.submitted = false;
-    }
-    
     deleteClient(client: Client) {
         this.confirmationService.confirm({
             message: 'Você tem certeza que você quer deletar ' + client.name + '?',
@@ -146,7 +190,7 @@ export class TableClientsComponent implements OnInit{
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.clients = this.clients.filter((val) => val.id !== client.id);
-                this.client =  {
+                this.client = {
                     id: '',
                     name: '',
                     phone: '',
@@ -176,6 +220,13 @@ export class TableClientsComponent implements OnInit{
                 });
             }
         });
+    }
+    
+    // =============| Other |=============
+    
+    hideDialog() {
+        this.clientDialog = false;
+        this.submitted = false;
     }
     
     findIndexById(id: string): number {
@@ -209,56 +260,6 @@ export class TableClientsComponent implements OnInit{
             return 'danger';
             default:
             return 'info';
-        }
-    }
-    
-    saveClient() {
-        this.submitted = true;
-        
-        if (this.client.name?.trim()) {
-            if (this.client.id) {
-                this.clients[this.findIndexById(this.client.id)] = this.client;
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Operação Realizada',
-                    detail: 'Cliente Atualizado',
-                    life: 3000
-                });
-            } else {
-                this.client.id = this.createId();
-                this.clients.push(this.client);
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Operação Realizada',
-                    detail: 'Cliente Criado',
-                    life: 3000
-                });
-            }
-            
-            this.clients = [...this.clients];
-            this.clientDialog = false;
-            this.client =  {
-                id: '',
-                name: '',
-                phone: '',
-                email: '',
-                dateOfBirth: '',
-                cpf: '',
-                rg: '',
-                registrationDate: '',
-                tenantStatus: '',
-                tenantBillingAddress: {
-                    id: '',
-                    street: '',
-                    district: '',
-                    city: '',
-                    state: '',
-                    country: '',
-                    cep: '',
-                    complement: '',
-                    number: 0
-                }
-            }
         }
     }
     

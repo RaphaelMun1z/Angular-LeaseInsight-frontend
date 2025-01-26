@@ -27,12 +27,12 @@ interface PageEvent {
     providers: [PropertyService]
 })
 
-export class SectionPropertiesComponent  implements OnInit {
+export class SectionPropertiesComponent implements OnInit {
     first: number = 0;
     rows: number = 10;
 
     items!: MenuItem[];
-    properties!: Property[];
+    properties: Property[] = [];
 
     constructor(private service: PropertyService) {}
 

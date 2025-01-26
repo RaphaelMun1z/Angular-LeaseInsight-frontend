@@ -12,11 +12,15 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
     const router = inject(Router);
     
     if(authService.isLoggedIn()){
-        req = req.clone({
-            setHeaders: {
-                Authorization: `Bearer ${authService.getUserToken()}`,
-            }
-        });
+        if(authService.tokenExpired(authService.getUserToken())){
+            authService.logout();
+        }else{    
+            req = req.clone({
+                setHeaders: {
+                    Authorization: `Bearer ${authService.getUserToken()}`,
+                }
+            });
+        }
     }
     
     return next(req).pipe(

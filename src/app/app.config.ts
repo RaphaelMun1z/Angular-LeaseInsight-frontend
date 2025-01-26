@@ -7,6 +7,7 @@ import Aura from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
 import { httpInterceptor } from './core/interceptors/http.interceptor';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -25,6 +26,7 @@ export const appConfig: ApplicationConfig = {
                     }
                 }
             }
-        })
+        }),
+        MessageService
     ]
 };
