@@ -79,7 +79,7 @@
                         <i class="pi pi-circle-off"></i>
                     </p-inputgroup-addon>
                     <p-floatlabel>
-                        <p-select id="tenantStatus" formControlName="tenantStatus" [options]="status" placeholder="Status" class="w-full md:w-56" />
+                        <p-select id="tenantStatus" formControlName="tenantStatus" [options]="status" class="w-full md:w-56" />
                         <label for="tenantStatus">Status</label>
                     </p-floatlabel>
                 </p-inputgroup>
@@ -107,9 +107,13 @@
                 </p-inputgroup>
                 <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['tenantBillingAddress'].invalid">Endereço de Cobrança é obrigatório</p-message>
             </div>
-            <p-button label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="submit()"/>
+            <div class="flex">
+                <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="submit()"/>
+                <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="cleanForm()"/>
+            </div>
         </form>
-        <ul class="ml-2">
+        <ul class="ml-2 w-full alerts-container">
+            <p-message *ngIf="loading" severity="info" icon="pi pi-send" text="Carregando..." />
             <p-message *ngIf="sendSuccess" severity="success" icon="pi pi-check-circle" styleClass="mb-2">Cliente criado com sucesso!</p-message>
             <p-message *ngFor="let err of errorList" severity="error" icon="pi pi-times-circle" styleClass="mb-2">
                 {{ err.field }}: {{ err.message }}

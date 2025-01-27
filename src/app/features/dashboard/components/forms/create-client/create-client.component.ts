@@ -30,12 +30,15 @@ export class CreateClientComponent implements OnInit {
     errors: { [key: string]: string } = {};
     errorList: { field: string; message: string }[] = [];
     sendSuccess: boolean = false;
+    loading: boolean = false;
     
     private formBuilderService = inject(UntypedFormBuilder);
     private clientService = inject(ClientService);
     
     ngOnInit() {
         this.sendSuccess = false;
+        this.loading = false;
+        
         this.status = [
             "PENDING",
             "ACTIVE"
@@ -76,6 +79,8 @@ export class CreateClientComponent implements OnInit {
             return;
         }
         
+        this.loading = true;
+        
         const formValue = this.form.value;
         formValue.dateOfBirth = this.formatDate(formValue.dateOfBirth);
         formValue.tenantBillingAddress = { "id": formValue.tenantBillingAddress.id.code};
@@ -83,17 +88,17 @@ export class CreateClientComponent implements OnInit {
     }
     
     postClient(client: ClientCreate){
-        console.log(JSON.stringify(client, null, 2));
         this.clientService.saveClient(client).subscribe({
             next: (res: any) => {    
+                this.loading = false;
                 this.sendSuccess = true;
                 setTimeout(() => {
                     this.sendSuccess = false;
                 }, 5000)
             },
-            error: (err: any) => { 
+            error: (err: { [key: string]: string }) => { 
+                this.loading = false;
                 this.errors = err;
-                console.log(this.errors)
                 this.updateErrorList(); 
             }
         });
@@ -111,5 +116,9 @@ export class CreateClientComponent implements OnInit {
             field,
             message
         }));
+    }
+    
+    cleanForm(){
+        this.form.reset();
     }
 }
