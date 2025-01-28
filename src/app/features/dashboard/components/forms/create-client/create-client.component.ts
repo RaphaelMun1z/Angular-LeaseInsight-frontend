@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { DashboardBaseComponent } from '../../dashboard-base/dashboard-base.component';
 import { ContentBlockComponent } from '../../content-block/content-block.component';
-import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -15,38 +15,53 @@ import { CommonModule } from '@angular/common';
 import { SelectModule } from 'primeng/select';
 import { ClientService } from '../../../../../core/services/client.service';
 import { ClientCreate } from '../../../../../shared/interfaces/client';
+import { BillingAddress } from '../../../../../shared/interfaces/billingAddress';
+import { Observable } from 'rxjs';
+import { BillingAddressStateService } from '../../../../../core/states/billing-address-state.service';
+import { CreateBillingAddressComponent } from '../create-billing-address/create-billing-address.component';
 
 @Component({
     selector: 'app-create-client',
-    imports: [DashboardBaseComponent, ContentBlockComponent, SelectModule, Message, ButtonModule, CommonModule, InputMask, DatePicker, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
+    imports: [DashboardBaseComponent, ContentBlockComponent, FormsModule, CreateBillingAddressComponent, SelectModule, Message, ButtonModule, CommonModule, InputMask, DatePicker, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
     templateUrl: './create-client.component.html',
     styleUrl: './create-client.component.scss'
 })
 
 export class CreateClientComponent implements OnInit {
-    status!: string[];
-    addresses: { name: string, code: string }[] = [];
-    selectedOption!: { name: string, code: string };
+    addresses: BillingAddress[] = [];
+    protected addresses$ = new Observable<BillingAddress[]>();
+    addressFormIsOpen: boolean = false;
+    selectedOption!: BillingAddress;
+    
     errors: { [key: string]: string } = {};
     errorList: { field: string; message: string }[] = [];
     sendSuccess: boolean = false;
     loading: boolean = false;
+    status!: string[];
     
     private formBuilderService = inject(UntypedFormBuilder);
     private clientService = inject(ClientService);
+    
+    constructor(private billingAddressStateService: BillingAddressStateService){
+        this.billingAddressStateService.loadBillingAddresses();
+    }
     
     ngOnInit() {
         this.sendSuccess = false;
         this.loading = false;
         
         this.status = [
+            "ACTIVE",
+            "INACTIVE",
             "PENDING",
-            "ACTIVE"
+            "FORMER",
+            "PROSPECTIVE"
         ];
         
-        this.addresses = [
-            { name: 'Teste', code: 'bc6e2e04-45e5-4ae5-b898-87c2c5331381' }
-        ];
+        this.getBillingAdresses();
+        this.addresses$.subscribe((data: BillingAddress[]) => {
+            this.addresses = data;
+        });
         
         const currentDate = new Date();
         const formattedDate = currentDate.toISOString().split('T')[0];
@@ -83,8 +98,12 @@ export class CreateClientComponent implements OnInit {
         
         const formValue = this.form.value;
         formValue.dateOfBirth = this.formatDate(formValue.dateOfBirth);
-        formValue.tenantBillingAddress = { "id": formValue.tenantBillingAddress.id.code};
+        formValue.tenantBillingAddress = { "id": this.selectedOption.id};
         this.postClient(formValue);
+    }
+    
+    getBillingAdresses(){
+        this.addresses$ = this.billingAddressStateService.listenToChanges();
     }
     
     postClient(client: ClientCreate){
@@ -98,7 +117,11 @@ export class CreateClientComponent implements OnInit {
             },
             error: (err: { [key: string]: string }) => { 
                 this.loading = false;
-                this.errors = err;
+                if((err['status'] == '422')){
+                    this.errors = {"erros": err['message']};
+                }else{
+                    this.errors = err;
+                }
                 this.updateErrorList(); 
             }
         });
@@ -120,5 +143,9 @@ export class CreateClientComponent implements OnInit {
     
     cleanForm(){
         this.form.reset();
+    }
+    
+    addressFormStatus(status: boolean){
+        this.addressFormIsOpen = status;
     }
 }

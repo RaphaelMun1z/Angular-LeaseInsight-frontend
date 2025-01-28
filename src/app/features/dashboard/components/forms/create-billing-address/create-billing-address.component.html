@@ -1,0 +1,116 @@
+<app-dashboard-base [title]="'Endereço de Cobrança'" class="container">
+    <app-content-block [title]="'Cadastrar novo endereço'" [type]="'Formulário'">
+        <div class="child">
+            <form class="form-container" [formGroup]="form">
+                <div class="flex flex-col gap-1">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-map-marker"></i>
+                        </p-inputgroup-addon>
+                        <p-floatlabel>
+                            <p-inputmask id="cep" mask="99.999-999" formControlName="cep" class="w-full"/>
+                            <label for="cep">Cep</label>
+                        </p-floatlabel>
+                    </p-inputgroup>
+                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['cep'].invalid">Cep é obrigatório</p-message>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-map"></i>
+                        </p-inputgroup-addon>
+                        <p-floatlabel>
+                            <input type="text" id="street" pInputText formControlName="street"/>
+                            <label for="street">Rua/Avenida</label>
+                        </p-floatlabel>
+                    </p-inputgroup>
+                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['street'].invalid">Rua/Avenida é obrigatório</p-message>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-sort-numeric-up-alt"></i>
+                        </p-inputgroup-addon>
+                        <p-floatlabel>
+                            <p-inputnumber id="number" inputId="integeronly" formControlName="number" />
+                            <label for="number">Número do imóvel</label>
+                        </p-floatlabel>
+                    </p-inputgroup>
+                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['number'].invalid">Número do imóvel é obrigatório</p-message>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-map"></i>
+                        </p-inputgroup-addon>
+                        <p-floatlabel>
+                            <input type="text" id="district" pInputText formControlName="district"/>
+                            <label for="district">Bairro</label>
+                        </p-floatlabel>
+                    </p-inputgroup>
+                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['district'].invalid">Bairro é obrigatório</p-message>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-map"></i>
+                        </p-inputgroup-addon>
+                        <p-floatlabel>
+                            <input type="text" id="city" pInputText formControlName="city"/>
+                            <label for="city">Cidade</label>
+                        </p-floatlabel>
+                    </p-inputgroup>
+                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['city'].invalid">Cidade é obrigatório</p-message>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-map"></i>
+                        </p-inputgroup-addon>
+                        <p-floatlabel>
+                            <input type="text" id="state" pInputText formControlName="state"/>
+                            <label for="state">Estado</label>
+                        </p-floatlabel>
+                    </p-inputgroup>
+                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['state'].invalid">Estado é obrigatório</p-message>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-map"></i>
+                        </p-inputgroup-addon>
+                        <p-floatlabel>
+                            <input type="text" id="country" pInputText formControlName="country"/>
+                            <label for="country">País</label>
+                        </p-floatlabel>
+                    </p-inputgroup>
+                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['country'].invalid">País é obrigatório</p-message>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p-inputgroup>
+                        <p-inputgroup-addon>
+                            <i class="pi pi-compass"></i>
+                        </p-inputgroup-addon>
+                        <p-floatlabel>
+                            <input type="text" id="complement" pInputText formControlName="complement"/>
+                            <label for="complement">Complemento</label>
+                        </p-floatlabel>
+                    </p-inputgroup>
+                </div>
+                <div class="flex">
+                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="submit()"/>
+                    <p-button class="mr-2" label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="cleanForm()"/>
+                    <p-button label="Fechar" icon="pi pi-times" iconPos="right" severity="danger" (onClick)="closeForm()"/>
+                </div>
+            </form>
+            <ul class="ml-2 w-full alerts-container">
+                <p-message *ngIf="loading" severity="info" icon="pi pi-send" text="Carregando..." />
+                <p-message *ngIf="sendSuccess" severity="success" icon="pi pi-check-circle" styleClass="mb-2">Endereço criado com sucesso!</p-message>
+                <p-message *ngIf="cepError" severity="error" icon="pi pi-times-circle" styleClass="mb-2">CEP Inválido!</p-message>
+                <p-message *ngFor="let err of errorList" severity="error" icon="pi pi-times-circle" styleClass="mb-2">
+                    {{ err.field }}: {{ err.message }}
+                </p-message>
+            </ul>
+        </div>
+    </app-content-block>
+</app-dashboard-base>

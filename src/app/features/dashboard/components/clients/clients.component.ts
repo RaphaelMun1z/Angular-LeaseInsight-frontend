@@ -18,7 +18,7 @@ export class ClientsComponent implements OnInit {
     protected clients$ = new Observable<Client[]>();
     clients : Client[] = [];
     
-    constructor(private clientStateService: ClientStateService, private clientService: ClientService){
+    constructor(private clientStateService: ClientStateService){
         this.clientStateService.loadClientes();
     }
     

@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { ApiResponse, LoginPayload, User } from '../models/commom.model';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { MessageService } from 'primeng/api';
+import { Token } from '../../shared/interfaces/token';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthService {
     isLoggedIn = signal<boolean>(false);
     router = inject(Router);
     messageService = inject(MessageService);
-
+    
     constructor(private _http: HttpClient) { 
         if(this.getUserToken()){
             this.isLoggedIn.update(() => true);
@@ -25,10 +26,10 @@ export class AuthService {
     }
     
     login(payload: LoginPayload){
-        return this._http.post<ApiResponse<User>>(`${this.url}/auth/login`, payload)
+        return this._http.post<Token>(`${this.url}/auth/login`, payload)
         .pipe(map((response) => {
-            if(response.token){
-                localStorage.setItem(this.tokenName, response.token);
+            if(response.token && response.token.accessToken){
+                localStorage.setItem(this.tokenName, response.token.accessToken);
                 this.isLoggedIn.update(() => true);
             }
             return response;
@@ -43,7 +44,7 @@ export class AuthService {
         return localStorage.getItem(this.tokenName);
     }
     
-    tokenExpired(token: string | null) {
+    tokenExpired(token: string | null): boolean {
         if(token){
             const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
             return (Math.floor((new Date).getTime() / 1000)) >= expiry;
