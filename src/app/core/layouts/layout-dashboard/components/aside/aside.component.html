@@ -1,0 +1,227 @@
+<p-drawer #drawerRef [(visible)]="visible">
+    <ng-template #headless>
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between px-6 pt-4 shrink-0">
+                <span class="inline-flex items-center gap-2">
+                    <img src="/assets/logo.png" alt="Logo" class="w-12 aspect-square invert-[.85]">
+                    <span class="font-semibold text-2xl text-primary">LeaseInsight</span>
+                </span>
+                <span>
+                    <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-8 w-8"></p-button>
+                </span>
+            </div>
+            <div class="overflow-y-auto">
+                <ul class="list-none p-4 m-0">
+                    <li>
+                        <div
+                        pRipple
+                        pStyleClass="@next"
+                        enterFromClass="hidden"
+                        enterActiveClass="animate-slidedown"
+                        leaveToClass="hidden"
+                        leaveActiveClass="animate-slideup"
+                        class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple">
+                        <span class="font-medium">FAVORITOS</span>
+                        <i class="pi pi-chevron-down"></i>
+                    </div>
+                    <ul class="list-none p-0 m-0 overflow-hidden">
+                        <li>
+                            <a
+                            pRipple
+                            pStyleClass="@next"
+                            enterFromClass="hidden"
+                            enterActiveClass="animate-slidedown"
+                            leaveToClass="hidden"
+                            leaveActiveClass="animate-slideup"
+                            class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+                            >
+                            <i class="pi pi-home mr-2"></i>
+                            <span class="font-medium">Imóveis</span>
+                            <i class="pi pi-chevron-down ml-auto"></i>
+                        </a>
+                        <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
+                            <li>
+                                <a [routerLink]="'/dashboard/imoveis'" pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                    <i class="pi pi-list-check mr-2"></i>
+                                    <span class="font-medium">Listar</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                    <i class="pi pi-plus mr-2"></i>
+                                    <span class="font-medium">Cadastrar</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a
+                        pRipple
+                        pStyleClass="@next"
+                        enterFromClass="hidden"
+                        enterActiveClass="animate-slidedown"
+                        leaveToClass="hidden"
+                        leaveActiveClass="animate-slideup"
+                        class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+                        >
+                        <i class="pi pi-users mr-2"></i>
+                        <span class="font-medium">Clientes</span>
+                        <i class="pi pi-chevron-down ml-auto"></i>
+                    </a>
+                    <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
+                        <li>
+                            <a [routerLink]="'/dashboard/clientes'" pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                <i class="pi pi-list-check mr-2"></i>
+                                <span class="font-medium">Listar</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="'/dashboard/clientes/criar'" pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                <i class="pi pi-plus mr-2"></i>
+                                <span class="font-medium">Cadastrar</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li>
+                    <a
+                    pRipple
+                    pStyleClass="@next"
+                    enterFromClass="hidden"
+                    enterActiveClass="animate-slidedown"
+                    leaveToClass="hidden"
+                    leaveActiveClass="animate-slideup"
+                    class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+                    >
+                    <i class="pi pi-users mr-2"></i>
+                    <span class="font-medium">Funcionários</span>
+                    <i class="pi pi-chevron-down ml-auto"></i>
+                </a>
+                <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
+                    <li>
+                        <a [routerLink]="'/dashboard/funcionarios'" pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                            <i class="pi pi-list-check mr-2"></i>
+                            <span class="font-medium">Listar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="'/dashboard/funcionarios/criar'" pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                            <i class="pi pi-plus mr-2"></i>
+                            <span class="font-medium">Cadastrar</span>
+                        </a>
+                    </li>
+                </ul>
+            </li> 
+            <li>
+                <a
+                pRipple
+                pStyleClass="@next"
+                enterFromClass="hidden"
+                enterActiveClass="animate-slidedown"
+                leaveToClass="hidden"
+                leaveActiveClass="animate-slideup"
+                class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+                >
+                <i class="pi pi-paperclip mr-2"></i>
+                <span class="font-medium">Contratos</span>
+                <i class="pi pi-chevron-down ml-auto"></i>
+            </a>
+            <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
+                <li>
+                    <a [routerLink]="'/dashboard/contratos'" pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                        <i class="pi pi-list-check mr-2"></i>
+                        <span class="font-medium">Listar</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="'/dashboard/contratos/criar'" pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                        <i class="pi pi-plus mr-2"></i>
+                        <span class="font-medium">Cadastrar</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</li>
+</ul>
+<ul class="list-none p-4 m-0">
+    <li>
+        <div
+        pRipple
+        pStyleClass="@next"
+        enterFromClass="hidden"
+        enterActiveClass="animate-slidedown"
+        leaveToClass="hidden"
+        leaveActiveClass="animate-slideup"
+        class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
+        >
+        <span class="font-medium">MENU</span>
+        <i class="pi pi-chevron-down"></i>
+    </div>
+    <ul class="list-none p-0 m-0 overflow-hidden">
+        <li>
+            <a [routerLink]="'/'" pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                <i class="pi pi-home mr-2"></i>
+                <span class="font-medium">Home</span>
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="'/dashboard'" pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                <i class="pi pi-objects-column mr-2"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="'/dashboard/financa'" pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                <i class="pi pi-chart-line mr-2"></i>
+                <span class="font-medium">Financeiro</span>
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="'/dashboard/notificacoes'" pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                <i class="pi pi-bell mr-2"></i>
+                <span class="font-medium">Avisos e Notificações</span>
+                <span class="inline-flex items-center justify-center ml-auto bg-primary text-primary-contrast rounded-full" style="min-width: 1.5rem; height: 1.5rem">3</span>
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="'/dashboard/suporte'" pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                <i class="pi pi-question-circle mr-2"></i>
+                <span class="font-medium">Suporte</span>
+            </a>
+        </li>
+        <li>
+            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                <i class="pi pi-folder mr-2"></i>
+                <span class="font-medium">Arquivados</span>
+            </a>
+        </li>
+        <li>
+            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                <i class="pi pi-chart-bar mr-2"></i>
+                <span class="font-medium">Análises</span>
+            </a>
+        </li>
+        <li>
+            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                <i class="pi pi-cog mr-2"></i>
+                <span class="font-medium">Configurações</span>
+            </a>
+        </li>
+    </ul>
+</li>
+</ul>
+</div>
+<div class="mt-auto">
+    <hr class="mb-4 mx-4 border-t border-0 border-surface" />
+    <a pRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+        <span class="font-bold">Amy Elsner</span>
+    </a>
+</div>
+</div>
+</ng-template>
+</p-drawer>
+<p-button (click)="visible = true" icon="pi pi-bars" />

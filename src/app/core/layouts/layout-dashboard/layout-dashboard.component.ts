@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { TieredMenu } from 'primeng/tieredmenu';
 import { MenuItem } from 'primeng/api';
+import { AsideComponent } from "./components/aside/aside.component";
 
 @Component({
     selector: 'app-layout-dashboard',
-    imports: [RouterOutlet, TieredMenu],
+    imports: [RouterOutlet, AsideComponent],
     templateUrl: './layout-dashboard.component.html',
     styleUrl: './layout-dashboard.component.scss'
 })

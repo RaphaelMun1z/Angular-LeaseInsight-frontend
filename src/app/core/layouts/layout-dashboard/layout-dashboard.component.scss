@@ -12,74 +12,37 @@
         height: 100%;
         
         &.aside{
-            width: 20%;
+            position: relative;
+            display: flex;
+            flex-wrap: nowrap;
+            width: fit-content;
             z-index: 2;
+            align-items: center;
+            gap: 1vw;
+            flex-direction: row-reverse;
+            padding: 0 12vw;
+            margin: 2vh 0 5vh 0;
             
-            .container{
-                position: fixed;
+            .header{
+                position: relative;
                 display: flex;
-                flex-wrap: wrap;
-                width: 20%;
-                height: 100vh;
-                left: 0;
-                top: 0;
-                background-color: #222;
-                padding: 7vh 1.5vw;
-                align-content: flex-start;
-                gap: 7vh;
+                width: 100%;
+                height: fit-content;
+                align-items: center;
                 
-                .header{
-                    position: relative;
-                    display: flex;
-                    width: 100%;
-                    height: fit-content;
-                    align-items: center;
-                    
-                    img{
-                        object-fit: contain;
-                    }
-                    
-                    p{
-                        font-size: 2vw;
-                        color: #fff;
-                    }
+                img{
+                    object-fit: contain;
                 }
                 
-                p-tieredmenu{
-                    width: 100% !important;
-                    
-                }
-                ::ng-deep p-tieredmenu .p-tieredmenu {
-                    background: transparent !important;
-                    border: none !important;
-                }
-                
-                ::ng-deep p-tieredmenu .p-tieredmenu-item-link,
-                ::ng-deep p-tieredmenu .pi::before{
-                    color: #9a9894;
-                    font-size: 1.2vw !important;
-                }
-                
-                ::ng-deep .p-tieredmenu-item-active > .p-tieredmenu-item-content{
-                    background-color: transparent !important;
-                    
-                    a, .pi::before, .p-icon{
-                        color: #fff !important;
-                    }
-                }
-                
-                ::ng-deep .p-tieredmenu-item:not(.p-disabled) > .p-tieredmenu-item-content:hover{
-                    background-color: rgb(55, 58, 62) !important;
-                }
-                
-                ::ng-deep p-tieredmenusub ul{
-                    gap: 2.5vh !important;
+                p{
+                    font-size: 2vw;
+                    color: #222;
                 }
             }
         }
         
         &.content{
-            width: 80%;
+            width: 100%;
             z-index: 1;
         }
     }

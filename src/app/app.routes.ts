@@ -22,6 +22,8 @@ import { TabComponent } from './features/dashboard/components/notifications/comp
 import { ReadComponent } from './features/dashboard/components/notifications/components/read/read.component';
 import { UnreadComponent } from './features/dashboard/components/notifications/components/unread/unread.component';
 import { CreateClientComponent } from './features/dashboard/components/forms/create-client/create-client.component';
+import { CreateEmployeesComponent } from './features/dashboard/components/forms/create-employees/create-employees.component';
+import { CreateContractComponent } from './features/dashboard/components/forms/create-contract/create-contract.component';
 
 export const routes: Routes = [
     {
@@ -87,6 +89,10 @@ export const routes: Routes = [
                 component: EmployeesComponent
             },
             {
+                path: 'funcionarios/criar',
+                component: CreateEmployeesComponent
+            },
+            {
                 path: 'clientes',
                 component: ClientsComponent
             },
@@ -97,6 +103,10 @@ export const routes: Routes = [
             {
                 path: 'contratos',
                 component: ContractsComponent
+            },
+            {
+                path: 'contratos/criar',
+                component: CreateContractComponent
             },
             {
                 path: 'notificacoes',

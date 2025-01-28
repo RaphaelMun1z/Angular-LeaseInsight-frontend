@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Employee } from '../../shared/interfaces/employee';
+import { Employee, EmployeeCreate } from '../../shared/interfaces/employee';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -15,5 +15,9 @@ export class EmployeeService {
     
     getEmployees(): Observable<Employee[]> {
         return this.http.get<Employee[]>(this.url + "/staffs");
+    }
+    
+    saveEmployee(staff: EmployeeCreate): any {
+        return this.http.post<EmployeeCreate>(this.url + "/staffs", staff);
     }
 }

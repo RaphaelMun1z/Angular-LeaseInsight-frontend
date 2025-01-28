@@ -1,0 +1,10 @@
+<app-dashboard-base [title]="'Contratos'">
+    <app-content-block [title]="'Cadastrar Contrato'" [type]="'Formulário'">
+        <div class="child">
+            <div class="card w-full">
+                <p-steps [model]="items" [readonly]="false" />
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+    </app-content-block>
+</app-dashboard-base>
