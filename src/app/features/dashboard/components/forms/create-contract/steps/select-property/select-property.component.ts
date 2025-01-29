@@ -1,23 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { DataView } from 'primeng/dataview';
 import { Tag } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { SelectButton } from 'primeng/selectbutton';
 import { SelectItem, SelectModule } from 'primeng/select';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { PropertyStateService } from '../../../../../../../core/states/property-state.service';
 import { Property } from '../../../../../../../shared/interfaces/property';
+import { CreateContractComponent } from '../../create-contract.component';
 
 @Component({
     selector: 'app-select-property',
-    imports: [DataView, Tag, SelectModule, ButtonModule, CommonModule, SelectButton, FormsModule],
+    imports: [ReactiveFormsModule, DataView, Tag, SelectModule, ButtonModule, CommonModule, SelectButton, FormsModule],
     templateUrl: './select-property.component.html',
     styleUrl: './select-property.component.scss'
 })
 
 export class SelectPropertyComponent implements OnInit {
+    form!: FormGroup;
+    
     layout: any = 'grid';
     options = ['list', 'grid'];
     sortOptions!: {label: string, value: string}[];
@@ -28,12 +31,14 @@ export class SelectPropertyComponent implements OnInit {
     protected properties$ = new Observable<Property[]>();
     properties : Property[] = [];
     
-    
+    private formContainer = inject(CreateContractComponent);
     constructor(private propertyStateService: PropertyStateService){
         this.propertyStateService.loadProperties();
     }
     
     ngOnInit(): void {
+        this.form = this.formContainer.getStep1Form();
+        
         this.getPropertys();
         this.properties$.subscribe((data: Property[]) => {
             this.properties = data;
@@ -127,8 +132,12 @@ export class SelectPropertyComponent implements OnInit {
             return 'Outros';
         }
     }
+    
+    selected(idSelected: string){
+        this.form.patchValue({
+            residence: {
+                id: idSelected
+            }
+        });
+    }
 }
-function signal<T>(arg0: never[]): Property[] {
-    throw new Error('Function not implemented.');
-}
-

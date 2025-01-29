@@ -2,9 +2,11 @@
     <app-content-block [title]="'Cadastrar Contrato'" [type]="'Formulário'">
         <div class="child">
             <div class="card w-full">
-                <p-steps [model]="items" [readonly]="false" />
+                <p-steps [model]="steps" [readonly]="false" />
             </div>
-            <router-outlet></router-outlet>
+            <form [formGroup]="form" storage="contract-form">
+                <router-outlet></router-outlet>
+            </form>
         </div>
     </app-content-block>
 </app-dashboard-base>

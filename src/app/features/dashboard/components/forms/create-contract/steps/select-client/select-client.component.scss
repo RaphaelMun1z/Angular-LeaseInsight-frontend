@@ -9,12 +9,24 @@
     flex-direction: column;
     width: 100%;
     height: fit-content;
-    margin-top: 2vh;
-
+    margin-top: 5vh;
+    gap: 2vh;
+    
     .title{
         font-size: 2vw;
         font-weight: 500;
     }
+    
+    .card{
+        width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+}
+
+.activated{
+    background-color: #2bbf2b3d !important;
+    border-color: #2bbf2b !important;
 }
 
 ::ng-deep{

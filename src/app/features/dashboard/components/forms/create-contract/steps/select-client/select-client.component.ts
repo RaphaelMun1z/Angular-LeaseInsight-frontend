@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -12,7 +12,8 @@ import { TableModule } from 'primeng/table';
 import { ClientStateService } from '../../../../../../../core/states/client-state.service';
 import { Client } from '../../../../../../../shared/interfaces/client';
 import { Observable } from 'rxjs';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule } from '@angular/forms';
+import { CreateContractComponent } from '../../create-contract.component';
 
 @Component({
     selector: 'app-select-client',
@@ -22,19 +23,24 @@ import { FormsModule } from '@angular/forms';
 })
 
 export class SelectClientComponent implements OnInit {
-    protected clients$ = new Observable<Client[]>();
-    clients : Client[] = [];
+    form!: FormGroup;
     
     @ViewChild('dt') dt!: Table;
     statuses!: any[];
     loading: boolean = true;
     activityValues: number[] = [0, 100];
     
+    protected clients$ = new Observable<Client[]>();
+    clients : Client[] = [];
+    
+    private formContainer = inject(CreateContractComponent);
     constructor(private clientStateService: ClientStateService){
         this.clientStateService.loadClientes();
     }
     
     ngOnInit() {
+        this.form = this.formContainer.getStep2Form();
+        
         this.getClientes();
         this.clients$.subscribe((data: Client[]) => {
             this.clients = data;
@@ -57,5 +63,13 @@ export class SelectClientComponent implements OnInit {
     
     clear(table: Table) {
         table.clear();
+    }
+    
+    selected(idSelected: string){
+        this.form.patchValue({
+            tenant: {
+                id: idSelected
+            }
+        });
     }
 }
