@@ -211,8 +211,4 @@ export class TableEmployeesComponent implements OnInit{
             }
         }
     }
-    
-    applyFilterGlobal($event: any, stringVal: any) {
-        this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
-    } 
 }

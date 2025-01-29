@@ -24,6 +24,10 @@ import { UnreadComponent } from './features/dashboard/components/notifications/c
 import { CreateClientComponent } from './features/dashboard/components/forms/create-client/create-client.component';
 import { CreateEmployeesComponent } from './features/dashboard/components/forms/create-employees/create-employees.component';
 import { CreateContractComponent } from './features/dashboard/components/forms/create-contract/create-contract.component';
+import { SelectPropertyComponent } from './features/dashboard/components/forms/create-contract/steps/select-property/select-property.component';
+import { SelectClientComponent } from './features/dashboard/components/forms/create-contract/steps/select-client/select-client.component';
+import { DetailsComponent } from './features/dashboard/components/forms/create-contract/steps/details/details.component';
+import { ConfirmComponent } from './features/dashboard/components/forms/create-contract/steps/confirm/confirm.component';
 
 export const routes: Routes = [
     {
@@ -106,7 +110,30 @@ export const routes: Routes = [
             },
             {
                 path: 'contratos/criar',
-                component: CreateContractComponent
+                component: CreateContractComponent,
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'selecionar-imovel',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'selecionar-imovel',
+                        component: SelectPropertyComponent
+                    },
+                    {
+                        path: 'selecionar-cliente',
+                        component: SelectClientComponent
+                    },
+                    {
+                        path: 'detalhes',
+                        component: DetailsComponent
+                    },
+                    {
+                        path: 'confirmacao',
+                        component: ConfirmComponent
+                    },
+                ]
             },
             {
                 path: 'notificacoes',

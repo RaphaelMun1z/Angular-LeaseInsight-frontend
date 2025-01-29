@@ -1,0 +1,25 @@
+:host{
+    width: 100%;
+}
+
+.container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    margin-top: 2vh;
+
+    .title{
+        font-size: 2vw;
+        font-weight: 500;
+    }
+}
+
+::ng-deep{
+    .p-dataview-content,
+    .p-dataview-header{
+        background-color: transparent;
+    }
+}

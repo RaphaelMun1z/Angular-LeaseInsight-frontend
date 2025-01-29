@@ -30,7 +30,11 @@
             <h5 class="m-0">Manage Employees</h5>
             <p-iconfield>
                 <p-inputicon styleClass="pi pi-search" />
-                <input pInputText type="text" (input)="dt.filterGlobal($event, 'contains')" placeholder="Search..." />                 
+                <input 
+                pInputText 
+                type="text" 
+                (input)="dt.filterGlobal($any($event.target).value, 'contains')" 
+                placeholder="Busca por palavra chave" />                 
             </p-iconfield>
         </div>
     </ng-template>

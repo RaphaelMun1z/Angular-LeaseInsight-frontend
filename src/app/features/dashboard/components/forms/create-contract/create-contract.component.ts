@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { StepsModule } from 'primeng/steps';
 import { RouterModule } from '@angular/router';
-import { Breadcrumb } from 'primeng/breadcrumb';
 import { DashboardBaseComponent } from '../../dashboard-base/dashboard-base.component';
 import { ContentBlockComponent } from '../../content-block/content-block.component';
 
 @Component({
     selector: 'app-create-contract',
-    imports: [StepsModule, Breadcrumb, RouterModule, DashboardBaseComponent, ContentBlockComponent],
+    imports: [StepsModule, RouterModule, DashboardBaseComponent, ContentBlockComponent],
     templateUrl: './create-contract.component.html',
     styleUrl: './create-contract.component.scss'
 })
