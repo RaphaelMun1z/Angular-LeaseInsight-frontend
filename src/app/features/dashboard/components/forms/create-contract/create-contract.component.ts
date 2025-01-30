@@ -54,9 +54,9 @@ export class CreateContractComponent  implements OnInit {
         step3: this.formBuilderService.group({
             contractStartDate: ['', Validators.required],
             contractEndDate: ['', Validators.required],
-            defaultRentalValue: [0, Validators.required],
+            defaultRentalValue: [null, Validators.required],
             contractStatus: ['', Validators.required],
-            invoiceDueDate: [0, Validators.required],
+            invoiceDueDate: [null, Validators.required],
         }),
     })
     
@@ -70,5 +70,9 @@ export class CreateContractComponent  implements OnInit {
 
     getStep3Form(): FormGroup {
         return this.form.get('step3') as FormGroup;
+    }
+
+    getAllSteps(): FormGroup {
+        return this.form as FormGroup;
     }
 }

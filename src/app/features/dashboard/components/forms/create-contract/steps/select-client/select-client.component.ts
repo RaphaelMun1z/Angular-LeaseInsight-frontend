@@ -1,19 +1,19 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { Table } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { FormGroup, FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { ClientStateService } from '../../../../../../../core/states/client-state.service';
+import { CreateContractComponent } from '../../create-contract.component';
+import { Client } from '../../../../../../../shared/interfaces/client';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectModule } from 'primeng/select';
-import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { ClientStateService } from '../../../../../../../core/states/client-state.service';
-import { Client } from '../../../../../../../shared/interfaces/client';
-import { Observable } from 'rxjs';
-import { FormGroup, FormsModule } from '@angular/forms';
-import { CreateContractComponent } from '../../create-contract.component';
+import { TagModule } from 'primeng/tag';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'app-select-client',

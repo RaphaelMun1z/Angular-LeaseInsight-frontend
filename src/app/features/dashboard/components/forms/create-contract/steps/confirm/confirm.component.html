@@ -1,1 +1,121 @@
-<input type="text" placeholder="confirmação">
+<div class="container">
+    <h1 class="title">Confirme os Detalhes do Contrato</h1>
+    <div class="confirm-container">
+        <div class="grid grid-cols-3 gap-4">
+            <p-fieldset>
+                <ng-template #header>
+                    <div class="flex items-center gap-2 px-2">
+                        <div>
+                            <i class="pi pi-home"></i>
+                        </div>
+                        <span class="font-bold">Imóvel</span>
+                    </div>
+                </ng-template>
+                <div class="flex gap-2 flex-col">
+                    <p-divider />
+                    <div class="flex gap-2">
+                        <h2 class="font-semibold">Tipo: </h2>
+                        <p class="m-0">Casa</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Descrição: </h2>
+                        <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium quasi quidem omnis inventore saepe veritatis labore id eos voluptas ab optio, vitae provident temporibus? Modi eaque obcaecati ea ducimus commodi?</p>
+                    </div>
+                    <p-divider />
+                    <p-fieldset legend="Características" [toggleable]="true">
+                        <p>
+                            Lorem ipsum dolor sit amet...
+                        </p>
+                    </p-fieldset>
+                    <p-fieldset legend="Endereço" [toggleable]="true">
+                        <p>
+                            Lorem ipsum dolor sit amet...
+                        </p>
+                    </p-fieldset>
+                </div>
+            </p-fieldset>
+            <p-fieldset>
+                <ng-template #header>
+                    <div class="flex items-center gap-2 px-2">
+                        <div>
+                            <i class="pi pi-user"></i>
+                        </div>
+                        <span class="font-bold">Inquilino</span>
+                    </div>
+                </ng-template>
+                <div class="flex gap-2 flex-col">
+                    <p-divider />
+                    <div class="flex gap-2">
+                        <h2 class="font-semibold">Nome: </h2>
+                        <p class="m-0">{{ form.get('step2.tenant.id')?.value }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2">
+                        <h2 class="font-semibold">Telefone: </h2>
+                        <p class="m-0">(99) 99999-9999</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2">
+                        <h2 class="font-semibold">E-mail: </h2>
+                        <p class="m-0">emailgmail.com</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2">
+                        <h2 class="font-semibold">CPF: </h2>
+                        <p class="m-0">999.999.999-99</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2">
+                        <h2 class="font-semibold">RG: </h2>
+                        <p class="m-0">99.999.999-9</p>
+                    </div>
+                    <p-divider />
+                </div>
+                <p-fieldset legend="Endereço" [toggleable]="true">
+                    <p>
+                        Lorem ipsum dolor sit amet...
+                    </p>
+                </p-fieldset>
+            </p-fieldset>
+            <p-fieldset>
+                <ng-template #header>
+                    <div class="flex items-center gap-2 px-2">
+                        <div>
+                            <i class="pi pi-paperclip"></i>
+                        </div>
+                        <span class="font-bold">Contrato</span>
+                    </div>
+                </ng-template>
+                <div class="flex gap-2 flex-col">
+                    <p-divider />
+                    <div class="flex gap-2">
+                        <h2 class="font-semibold">Valor aluguel: </h2>
+                        <p class="m-0">{{ form.get('step3.defaultRentalValue')?.value | currency: 'BRL' }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2">
+                        <h2 class="font-semibold">Dia do vencimento da fatura: </h2>
+                        <p class="m-0">Dia {{ form.get('step3.invoiceDueDate')?.value }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2">
+                        <h2 class="font-semibold">Data início do contrato: </h2>
+                        <p class="m-0">{{ form.get('step3.contractStartDate')?.value | date: 'dd/MM/yyyy' }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2">
+                        <h2 class="font-semibold">Data fim do contrato: </h2>
+                        <p class="m-0">{{ form.get('step3.contractEndDate')?.value | date: 'dd/MM/yyyy' }}</p>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="card flex gap-2">
+            <p-button (click)="confirm1($event)" label="Salvar" [outlined]="true" />
+            <p-button (click)="confirm2($event)" label="Cancelar" severity="danger" [outlined]="true" />
+            <p-toast />
+            <p-confirmdialog />
+        </div>
+    </div>
+</div>
