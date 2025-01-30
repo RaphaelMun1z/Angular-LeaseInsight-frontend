@@ -14,40 +14,27 @@ import { Property } from '../../../../shared/interfaces/property';
 export class TablePropertiesComponent {
     @Input() properties: Property[] = [];
     selectedId!: string;
-
-    getSeverity(status: number) {
-        switch (status) {
-            case 1:
-            return 'success';
-            case 2:
-            return 'warn';
-            case 3:
-            return 'danger';
-            default:
-            return 'info';
-        }
-    }
-
-    getType(status: number) {
-        switch (status) {
-            case 1:
+    
+    getType(type: string) {
+        switch (type) {
+            case "HOUSE":
             return 'Casa';
-            case 2:
+            case "APARTMENT":
             return 'Apartamento';
-            case 3:
+            case "CONDO":
             return 'Lote';
             default:
             return 'Outros';
         }
     }
-
-    getStatus(status: number) {
+    
+    getStatus(status: string) {
         switch (status) {
-            case 1:
+            case "VACANT":
             return 'Livre';
-            case 2:
+            case "OCCUPIED":
             return 'Ocupado';
-            case 3:
+            case "UNDER_RENOVATION":
             return 'Reservado';
             default:
             return 'Outros';

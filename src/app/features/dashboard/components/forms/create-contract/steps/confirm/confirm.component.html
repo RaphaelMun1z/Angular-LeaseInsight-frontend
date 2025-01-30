@@ -11,27 +11,109 @@
                         <span class="font-bold">Imóvel</span>
                     </div>
                 </ng-template>
-                <div class="flex gap-2 flex-col">
-                    <p-divider />
-                    <div class="flex gap-2">
-                        <h2 class="font-semibold">Tipo: </h2>
-                        <p class="m-0">Casa</p>
-                    </div>
+                <div class="flex gap-2 flex-col" *ngIf="property">
                     <p-divider />
                     <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">Descrição: </h2>
-                        <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium quasi quidem omnis inventore saepe veritatis labore id eos voluptas ab optio, vitae provident temporibus? Modi eaque obcaecati ea ducimus commodi?</p>
+                        <p class="m-0">{{ property.description }}</p>
                     </div>
                     <p-divider />
-                    <p-fieldset legend="Características" [toggleable]="true">
-                        <p>
-                            Lorem ipsum dolor sit amet...
-                        </p>
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Status de Ocupação: </h2>
+                        <p class="m-0">{{ property.occupancyStatus }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Valor de Mercado: </h2>
+                        <p class="m-0">{{ property.marketValue | currency: 'BRL' }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Valor de Aluguel: </h2>
+                        <p class="m-0">{{ property.rentalValue | currency: 'BRL' }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Última Renovação: </h2>
+                        <p class="m-0">{{ property.dateLastRenovation }}</p>
+                    </div>
+                    <p-divider />
+                    <p-fieldset legend="Características" [toggleable]="true" [collapsed]="true">
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Quartos: </h2>
+                            <p class="m-0">{{ property.numberBedrooms }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Banheiros: </h2>
+                            <p class="m-0">{{ property.numberBathrooms }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Suítes: </h2>
+                            <p class="m-0">{{ property.numberSuites }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Área Total: </h2>
+                            <p class="m-0">{{ property.totalArea }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Área Construída: </h2>
+                            <p class="m-0">{{ property.builtArea }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Vagas de Garagem: </h2>
+                            <p class="m-0">{{ property.garageSpaces }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Ano de Construção: </h2>
+                            <p class="m-0">{{ property.yearConstruction }}</p>
+                        </div>
                     </p-fieldset>
-                    <p-fieldset legend="Endereço" [toggleable]="true">
-                        <p>
-                            Lorem ipsum dolor sit amet...
-                        </p>
+                    <p-fieldset legend="Endereço" [toggleable]="true" [collapsed]="true">
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Rua/Avenida: </h2>
+                            <p class="m-0">{{ property.residenceAddress.street }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Número: </h2>
+                            <p class="m-0">{{ property.number }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Bairro: </h2>
+                            <p class="m-0">{{ property.residenceAddress.district }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Cidade: </h2>
+                            <p class="m-0">{{ property.residenceAddress.city }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Estado: </h2>
+                            <p class="m-0">{{ property.residenceAddress.state }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">País: </h2>
+                            <p class="m-0">{{ property.residenceAddress.country }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">CEP: </h2>
+                            <p class="m-0">{{ property.residenceAddress.cep }}</p>
+                        </div>
+                        <p-divider />
+                        <div class="flex gap-2 flex-col">
+                            <h2 class="font-semibold">Complemento: </h2>
+                            <p class="m-0">{{ property.residenceAddress.complement }}</p>
+                        </div>
                     </p-fieldset>
                 </div>
             </p-fieldset>
@@ -117,5 +199,12 @@
             <p-toast />
             <p-confirmdialog />
         </div>
+        <ul class="ml-2 w-full alerts-container">
+            <p-message *ngIf="loading" severity="info" icon="pi pi-send" text="Carregando..." />
+            <p-message *ngIf="sendSuccess" severity="success" icon="pi pi-check-circle" styleClass="mb-2">Cliente criado com sucesso!</p-message>
+            <p-message *ngFor="let err of errorList" severity="error" icon="pi pi-times-circle" styleClass="mb-2">
+                {{ err.field }}: {{ err.message }}
+            </p-message>
+        </ul>
     </div>
 </div>

@@ -97,7 +97,7 @@
                                 icon="pi pi-check-circle"
                                 label="Selecionar"
                                 (click)="selected(property.id)"
-                                [disabled]="getStatus(property.occupancyStatus) === 'Reservado'"
+                                [disabled]="property.occupancyStatus === 'OCCUPIED'"
                                 class="flex-auto whitespace-nowrap"
                                 ></button>
                             </div>

@@ -107,31 +107,31 @@ export class SelectPropertyComponent implements OnInit {
         }
     }
     
-    getType(status: number) {
+    getType(status: string) {
         switch (status) {
-            case 1:
+            case "HOUSE":
             return 'Casa';
-            case 2:
+            case "APARTMENT":
             return 'Apartamento';
-            case 3:
+            case "CONDO":
             return 'Lote';
             default:
             return 'Outros';
         }
     }
     
-    getStatus(status: number) {
+    getStatus(status: string) {
         switch (status) {
-            case 1:
+            case "VACANT":
             return 'Livre';
-            case 2:
+            case "OCCUPIED":
             return 'Ocupado';
-            case 3:
+            case "UNDER_RENOVATION":
             return 'Reservado';
             default:
             return 'Outros';
         }
-    }
+    } 
     
     selected(idSelected: string){
         this.form.patchValue({

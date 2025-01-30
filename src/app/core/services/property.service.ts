@@ -16,5 +16,8 @@ export class PropertyService {
     getProperties(): Observable<Property[]> {
         return this.http.get<Property[]>(this.url + "/residences");
     }
-    
+
+    getPropertyById(id: string): Observable<Property> {
+        return this.http.get<Property>(this.url + "/residences/" + id);
+    }
 }
