@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { StepsModule } from 'primeng/steps';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { DashboardBaseComponent } from '../../dashboard-base/dashboard-base.component';
 import { ContentBlockComponent } from '../../content-block/content-block.component';
 import { FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { FormStorageDirective } from './steps/form-storage.directive';
+import { ContractFormService } from '../../../../../core/services/contract-form.service';
 
 @Component({
     selector: 'app-create-contract',
@@ -18,25 +19,66 @@ export class CreateContractComponent  implements OnInit {
     steps!: MenuItem[];
     
     private formBuilderService = inject(UntypedFormBuilder);
+    private contractFormService = inject(ContractFormService);
     
     ngOnInit() {
+        this.contractFormService.setForm(this.form);
+        this.updateSteps();
+        
+        this.form.valueChanges.subscribe(() => {
+            this.contractFormService.updateStepValidation();
+        });
+        
+        this.contractFormService.stepValidations$.subscribe(() => {
+            this.updateSteps();
+        });
+        
         this.steps = [
             {
                 label: 'Selecionar Imóvel',
-                routerLink: 'selecionar-imovel'
+                routerLink: 'selecionar-imovel',
+                disabled: false
             },
             {
                 label: 'Selecionar Cliente',
-                routerLink: 'selecionar-cliente'
+                routerLink: 'selecionar-cliente',
+                disabled: !this.contractFormService.isStepAllowed('selecionar-cliente')
             },
             {
                 label: 'Detalhes',
-                routerLink: 'detalhes'
+                routerLink: 'detalhes',
+                disabled: !this.contractFormService.isStepAllowed('detalhes')
             },
             {
                 label: 'Confirmação',
-                routerLink: 'confirmacao'
+                routerLink: 'confirmacao',
+                disabled: !this.contractFormService.isStepAllowed('confirmacao')
             }
+        ];
+    }
+    
+    private updateSteps() {
+        this.steps = [
+            { 
+                label: 'Selecionar Imóvel', 
+                routerLink: 'selecionar-imovel', 
+                disabled: false 
+            },
+            { 
+                label: 'Selecionar Cliente', 
+                routerLink: 'selecionar-cliente', 
+                disabled: !this.contractFormService.isStepAllowed('selecionar-cliente') 
+            },
+            { 
+                label: 'Detalhes', 
+                routerLink: 'detalhes', 
+                disabled: !this.contractFormService.isStepAllowed('detalhes') 
+            },
+            { 
+                label: 'Confirmação', 
+                routerLink: 'confirmacao',
+                disabled: !this.contractFormService.isStepAllowed('confirmacao') 
+            },
         ];
     }
     
@@ -67,11 +109,11 @@ export class CreateContractComponent  implements OnInit {
     getStep2Form(): FormGroup {
         return this.form.get('step2') as FormGroup;
     }
-
+    
     getStep3Form(): FormGroup {
         return this.form.get('step3') as FormGroup;
     }
-
+    
     getAllSteps(): FormGroup {
         return this.form as FormGroup;
     }

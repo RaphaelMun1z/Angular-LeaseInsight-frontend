@@ -19,7 +19,7 @@ export class ClientsComponent implements OnInit {
     clients : Client[] = [];
     
     constructor(private clientStateService: ClientStateService){
-        this.clientStateService.loadClientes();
+        this.clientStateService.loadClients();
     }
     
     ngOnInit(): void {

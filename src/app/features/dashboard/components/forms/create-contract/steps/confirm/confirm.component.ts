@@ -6,6 +6,7 @@ import { ConfirmDialog } from 'primeng/confirmdialog';
 import { FieldsetModule } from 'primeng/fieldset';
 import { AvatarModule } from 'primeng/avatar';
 import { ToastModule } from 'primeng/toast';
+import { ImageModule } from 'primeng/image';
 import { DividerModule } from 'primeng/divider';
 import { Message } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
@@ -15,10 +16,12 @@ import { Property } from '../../../../../../../shared/interfaces/property';
 import { Observable } from 'rxjs';
 import { ContractCreate } from '../../../../../../../shared/interfaces/contract';
 import { ContractService } from '../../../../../../../core/services/contract.service';
+import { Client } from '../../../../../../../shared/interfaces/client';
+import { ClientStateService } from '../../../../../../../core/states/client-state.service';
 
 @Component({
     selector: 'app-confirm',
-    imports: [DividerModule, Message, FieldsetModule, AvatarModule, CommonModule, ConfirmDialog, ToastModule, ButtonModule],
+    imports: [DividerModule, ImageModule, Message, FieldsetModule, AvatarModule, CommonModule, ConfirmDialog, ToastModule, ButtonModule],
     providers: [ConfirmationService, MessageService],
     templateUrl: './confirm.component.html',
     styleUrl: './confirm.component.scss'
@@ -27,7 +30,9 @@ import { ContractService } from '../../../../../../../core/services/contract.ser
 export class ConfirmComponent implements OnInit{
     form!: FormGroup;
     protected property$ = new Observable<Property | null>();
+    protected client$ = new Observable<Client | null>();
     property! : Property;
+    client!: Client;
     
     errors: { [key: string]: string } = {};
     errorList: { field: string; message: string }[] = [];
@@ -37,12 +42,20 @@ export class ConfirmComponent implements OnInit{
     
     private formContainer = inject(CreateContractComponent);
     private contractService = inject(ContractService);
+    private propertyStateService = inject(PropertyStateService);
+    private clientStateService = inject(ClientStateService);
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
     
-    constructor(private propertyStateService: PropertyStateService, private confirmationService: ConfirmationService, private messageService: MessageService) {
+    constructor() {
         this.form = this.formContainer.getAllSteps();
-        console.log(this.form.value)
+        
         if(this.form.get('step1.residence.id')?.value){
             this.propertyStateService.loadProperty(this.form.get('step1.residence.id')?.value);
+        }
+        
+        if(this.form.get('step2.tenant.id')?.value){
+            this.clientStateService.loadClient(this.form.get('step2.tenant.id')?.value);
         }
     }
     
@@ -53,10 +66,36 @@ export class ConfirmComponent implements OnInit{
                 this.property = data;
             }
         });
+        
+        this.getClient();
+        this.client$.subscribe((data: Client | null) => {
+            if(data){
+                this.client = data;
+            }
+        });
     }
     
     getProperty(){
         this.property$ = this.propertyStateService.listenToProperty();
+    }
+    
+    getClient(){
+        this.client$ = this.clientStateService.listenToClient();
+    }
+    
+    getInvalidFields(formGroup: FormGroup, parentKey = ''): { [key: string]: string } {
+        return Object.keys(formGroup.controls).reduce((invalidFields, key) => {
+            const control = formGroup.get(key);
+            const fullKey = parentKey ? `${parentKey}.${key}` : key;
+            
+            if (control instanceof FormGroup) {
+                Object.assign(invalidFields, this.getInvalidFields(control, fullKey));
+            } else if (control?.invalid) {
+                invalidFields[fullKey] = 'Campo inválido';
+            }
+            
+            return invalidFields;
+        }, {} as { [key: string]: string });
     }
     
     protected submit(){
@@ -64,14 +103,28 @@ export class ConfirmComponent implements OnInit{
         this.errors = {}
         
         if(this.form.invalid){
+            this.errors = this.getInvalidFields(this.form);
+            this.updateErrorList(); 
             return;
         }
         
         this.loading = true;
         
-        const formValue = this.form.value;
-        console.log(formValue);
-        //this.postContract(formValue);
+        const contractData: ContractCreate = {
+            residence: {
+                id: this.form.get('step1.residence.id')?.value
+            },
+            tenant: {
+                id: this.form.get('step2.tenant.id')?.value
+            },
+            contractStartDate: this.form.get('step3.contractStartDate')?.value,
+            contractEndDate: this.form.get('step3.contractEndDate')?.value,
+            defaultRentalValue: this.form.get('step3.defaultRentalValue')?.value,
+            contractStatus: this.form.get('step3.contractStatus')?.value,
+            invoiceDueDate: this.form.get('step3.invoiceDueDate')?.value,
+        };
+        console.log(JSON.stringify(contractData, null, 2));
+        this.postContract(contractData);
     }
     
     postContract(contract: ContractCreate){

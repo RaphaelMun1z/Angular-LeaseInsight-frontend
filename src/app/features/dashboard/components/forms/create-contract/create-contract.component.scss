@@ -8,7 +8,7 @@
     flex-wrap: wrap;
     width: 100%;
     height: fit-content;
-
+    
     .form-container{
         position: relative;
         display: flex;
@@ -47,8 +47,13 @@
         background-color: transparent;
         padding: 2vh 12vw;
     }
-
+    
     p-table{
         width: 100% !important;
+    }
+    
+    .p-steps-item.p-disabled *{
+        color: #C6C6C6;
+        cursor: not-allowed;
     }
 }

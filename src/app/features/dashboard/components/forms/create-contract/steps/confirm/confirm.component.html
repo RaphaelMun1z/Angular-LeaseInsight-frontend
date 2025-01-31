@@ -12,6 +12,17 @@
                     </div>
                 </ng-template>
                 <div class="flex gap-2 flex-col" *ngIf="property">
+                    <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" [preview]="true" alt="Image">
+                        <ng-template #indicator>
+                            <i class="pi pi-search"></i>
+                        </ng-template>
+                        <ng-template #image>
+                            <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" />
+                        </ng-template>
+                        <ng-template #preview let-style="style" let-previewCallback="previewCallback">
+                            <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" [style]="style" (click)="previewCallback()" />
+                        </ng-template>
+                    </p-image>
                     <p-divider />
                     <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">Descrição: </h2>
@@ -126,38 +137,79 @@
                         <span class="font-bold">Inquilino</span>
                     </div>
                 </ng-template>
-                <div class="flex gap-2 flex-col">
+                <div class="flex gap-2 flex-col" *ngIf="client">
                     <p-divider />
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">Nome: </h2>
-                        <p class="m-0">{{ form.get('step2.tenant.id')?.value }}</p>
+                        <p class="m-0">{{ client.name }}</p>
                     </div>
                     <p-divider />
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">Telefone: </h2>
-                        <p class="m-0">(99) 99999-9999</p>
+                        <p class="m-0">{{ client.phone }}</p>
                     </div>
                     <p-divider />
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">E-mail: </h2>
-                        <p class="m-0">emailgmail.com</p>
+                        <p class="m-0">{{ client.email }}</p>
                     </div>
                     <p-divider />
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">CPF: </h2>
-                        <p class="m-0">999.999.999-99</p>
+                        <p class="m-0">{{ client.cpf }}</p>
                     </div>
                     <p-divider />
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">RG: </h2>
-                        <p class="m-0">99.999.999-9</p>
+                        <p class="m-0">{{ client.rg }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Data de Nascimento: </h2>
+                        <p class="m-0">{{ client.dateOfBirth }}</p>
                     </div>
                     <p-divider />
                 </div>
-                <p-fieldset legend="Endereço" [toggleable]="true">
-                    <p>
-                        Lorem ipsum dolor sit amet...
-                    </p>
+                <p-fieldset legend="Endereço" [toggleable]="true" [collapsed]="true" *ngIf="client?.tenantBillingAddress">
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Rua/Avenida: </h2>
+                        <p class="m-0">{{ client.tenantBillingAddress.street }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Número: </h2>
+                        <p class="m-0">{{ client.tenantBillingAddress.number }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Bairro: </h2>
+                        <p class="m-0">{{ client.tenantBillingAddress.district }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Cidade: </h2>
+                        <p class="m-0">{{ client.tenantBillingAddress.city }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Estado: </h2>
+                        <p class="m-0">{{ client.tenantBillingAddress.state }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">País: </h2>
+                        <p class="m-0">{{ client.tenantBillingAddress.country }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Cep: </h2>
+                        <p class="m-0">{{ client.tenantBillingAddress.cep }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Complemento: </h2>
+                        <p class="m-0">{{ client.tenantBillingAddress.complement }}</p>
+                    </div>
                 </p-fieldset>
             </p-fieldset>
             <p-fieldset>

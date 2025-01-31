@@ -31,7 +31,7 @@ export class LoginComponent {
         if(this.form.valid){
             this.authService.login(this.form.value).subscribe({
                 next: (response) => {
-                    this.router.navigate(['']);;
+                    this.router.navigate(['']);
                 }
             })
         }

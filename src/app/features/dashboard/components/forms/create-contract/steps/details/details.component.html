@@ -21,7 +21,7 @@
         </div>
         <div>
             <p-floatlabel class="w-full md:w-56">
-                <p-select inputId="contractStatus" [showClear]="true" [options]="contractStatus" optionLabel="status" styleClass="w-full" formControlName="contractStatus" />
+                <p-select inputId="contractStatus" [showClear]="true" [options]="contractStatus" optionLabel="status" optionValue="value" styleClass="w-full" formControlName="contractStatus" />
                 <label for="contractStatus">Status do contrato</label>
             </p-floatlabel>
             <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['contractStatus'].invalid">Status do contrato é obrigatório</p-message>

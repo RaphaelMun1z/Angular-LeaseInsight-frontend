@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { PropertyStateService } from '../../../../../../../core/states/property-state.service';
 import { Property } from '../../../../../../../shared/interfaces/property';
 import { CreateContractComponent } from '../../create-contract.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-select-property',
@@ -31,6 +32,7 @@ export class SelectPropertyComponent implements OnInit {
     protected properties$ = new Observable<Property[]>();
     properties : Property[] = [];
     
+    router = inject(Router);
     private formContainer = inject(CreateContractComponent);
     constructor(private propertyStateService: PropertyStateService){
         this.propertyStateService.loadProperties();
@@ -139,5 +141,6 @@ export class SelectPropertyComponent implements OnInit {
                 id: idSelected
             }
         });
+        this.router.navigate(['/dashboard/contratos/criar/selecionar-cliente']);
     }
 }

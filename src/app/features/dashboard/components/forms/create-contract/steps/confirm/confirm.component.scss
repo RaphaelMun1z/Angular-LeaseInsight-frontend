@@ -16,7 +16,7 @@
         font-weight: 500;
         margin-bottom: 2vh;
     }
-
+    
     .confirm-container{
         position: relative;
         display: flex;
@@ -28,5 +28,22 @@
         background-color: #fff;
         border-radius: 10px;
         padding: 2vh 2vw 4vh 2vw;
+    }
+}
+
+::ng-deep{
+    .p-image{
+        img{
+            width: 100%;
+        }
+        
+        button{
+            width: 100%;
+        }
+    }
+    
+    .p-image-toolbar{
+        gap: 1vw;
+        padding: 0 1vw;
     }
 }

@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { Message } from 'primeng/message';
 import { Select } from 'primeng/select';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-details',
@@ -26,6 +27,7 @@ export class DetailsComponent implements OnInit {
     invoiceDueDates: number[] = [];
     contractStatus: {status: string, value: string}[] = [];
     
+    router = inject(Router);
     private formContainer = inject(CreateContractComponent);
     
     ngOnInit(): void {
@@ -33,11 +35,11 @@ export class DetailsComponent implements OnInit {
         
         this.invoiceDueDates = [5, 10, 15, 20];
         this.contractStatus = [
-            {status: "ACTIVE", value: "ACTIVE"},
-            {status: "EXEMPLO", value: "EXEMPLO"},
-            {status: "EXEMPLO", value: "EXEMPLO"},
-            {status: "EXEMPLO", value: "EXEMPLO"},
-            {status: "EXEMPLO", value: "EXEMPLO"}
-        ]
+            { status: "ACTIVE", value: "ACTIVE" },
+            { status: "PENDING", value: "PENDING" },
+            { status: "EXPIRED", value: "EXPIRED" },
+            { status: "TERMINATED", value: "TERMINATED" },
+            { status: "CANCELLED", value: "CANCELLED" }
+        ];
     }
 }

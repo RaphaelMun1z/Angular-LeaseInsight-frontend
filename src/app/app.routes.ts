@@ -18,7 +18,6 @@ import { ClientsComponent } from './features/dashboard/components/clients/client
 import { NotificationsComponent } from './features/dashboard/components/notifications/notifications.component';
 import { SuportComponent } from './features/dashboard/components/suport/suport.component';
 import { ContractsComponent } from './features/dashboard/components/contracts/contracts.component';
-import { TabComponent } from './features/dashboard/components/notifications/components/tab/tab.component';
 import { ReadComponent } from './features/dashboard/components/notifications/components/read/read.component';
 import { UnreadComponent } from './features/dashboard/components/notifications/components/unread/unread.component';
 import { CreateClientComponent } from './features/dashboard/components/forms/create-client/create-client.component';
@@ -28,6 +27,7 @@ import { SelectPropertyComponent } from './features/dashboard/components/forms/c
 import { SelectClientComponent } from './features/dashboard/components/forms/create-contract/steps/select-client/select-client.component';
 import { DetailsComponent } from './features/dashboard/components/forms/create-contract/steps/details/details.component';
 import { ConfirmComponent } from './features/dashboard/components/forms/create-contract/steps/confirm/confirm.component';
+import { contractFormGuard } from './core/guards/contract-form.guard';
 
 export const routes: Routes = [
     {
@@ -123,15 +123,18 @@ export const routes: Routes = [
                     },
                     {
                         path: 'selecionar-cliente',
-                        component: SelectClientComponent
+                        component: SelectClientComponent,
+                        canActivate: [contractFormGuard]
                     },
                     {
                         path: 'detalhes',
-                        component: DetailsComponent
+                        component: DetailsComponent,
+                        canActivate: [contractFormGuard]
                     },
                     {
                         path: 'confirmacao',
-                        component: ConfirmComponent
+                        component: ConfirmComponent,
+                        canActivate: [contractFormGuard]
                     },
                 ]
             },

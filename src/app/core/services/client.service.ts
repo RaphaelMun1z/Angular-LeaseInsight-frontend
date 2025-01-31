@@ -20,4 +20,8 @@ export class ClientService {
     saveClient(client: ClientCreate): any {
         return this.http.post<ClientCreate>(this.url + "/tenants", client);
     }
+    
+    getClientById(id: string): Observable<Client> {
+        return this.http.get<Client>(this.url + "/tenants/" + id);
+    }
 }

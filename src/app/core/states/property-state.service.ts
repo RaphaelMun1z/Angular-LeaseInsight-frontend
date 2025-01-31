@@ -8,43 +8,43 @@ import { Property } from '../../shared/interfaces/property';
 })
 
 export class PropertyStateService {
-    private Properties$ = new BehaviorSubject<Property[]>([]);
-    private Property$ = new BehaviorSubject<Property | null>(null);
+    private properties$ = new BehaviorSubject<Property[]>([]);
+    private property$ = new BehaviorSubject<Property | null>(null);
 
-    private PropertyService = inject(PropertyService);
+    private propertyService = inject(PropertyService);
     
     loadProperties(){
-        this.PropertyService
+        this.propertyService
         .getProperties()
         .pipe(take(1))
-        .subscribe(Propertys => this.shareProperties(Propertys))
+        .subscribe(properties => this.shareProperties(properties))
     }
 
     private shareProperties(properties: Property[]){
-        this.Properties$.next(properties);
+        this.properties$.next(properties);
     }
 
     loadProperty(id: string){
-        this.PropertyService
+        this.propertyService
         .getPropertyById(id)
         .pipe(take(1))
-        .subscribe(Property => this.shareProperty(Property))
+        .subscribe(property => this.shareProperty(property))
     }
    
     private shareProperty(property: Property){
-        this.Property$.next(property);
+        this.property$.next(property);
     }
     
     listenToChanges(): Observable<Property[]>{
-        return this.Properties$.asObservable();
+        return this.properties$.asObservable();
     }
 
     listenToProperty(): Observable<Property | null>{
-        return this.Property$.asObservable();
+        return this.property$.asObservable();
     }
     
     addProperty(Property: Property){
-        const currentPropertys = this.Properties$.value;
-        this.Properties$.next([...currentPropertys, Property]);
+        const currentPropertys = this.properties$.value;
+        this.properties$.next([...currentPropertys, Property]);
     }
 }

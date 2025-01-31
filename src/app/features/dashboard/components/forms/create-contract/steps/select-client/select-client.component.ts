@@ -14,6 +14,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { Table } from 'primeng/table';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-select-client',
@@ -33,9 +34,10 @@ export class SelectClientComponent implements OnInit {
     protected clients$ = new Observable<Client[]>();
     clients : Client[] = [];
     
+    router = inject(Router);
     private formContainer = inject(CreateContractComponent);
     constructor(private clientStateService: ClientStateService){
-        this.clientStateService.loadClientes();
+        this.clientStateService.loadClients();
     }
     
     ngOnInit() {
@@ -71,5 +73,6 @@ export class SelectClientComponent implements OnInit {
                 id: idSelected
             }
         });
+        this.router.navigate(['/dashboard/contratos/criar/detalhes']);
     }
 }
