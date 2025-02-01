@@ -4,6 +4,7 @@ import { inject } from '@angular/core';
 import { catchError, retry, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { ErrorResponse } from '../../shared/interfaces/errorResponse';
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
     const tokenName = environment.tokenName;
@@ -28,7 +29,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
         catchError((e: HttpErrorResponse) => {
             if(e.status === 401){
                 localStorage.removeItem(tokenName);
-                router.navigate(['']);
+                router.navigate(['login']);
             }
             
             const error = e.error;

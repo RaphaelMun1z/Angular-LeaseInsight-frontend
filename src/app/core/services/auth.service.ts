@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { MessageService } from 'primeng/api';
 import { Token } from '../../shared/interfaces/token';
+import { ErrorResponse } from '../../shared/interfaces/errorResponse';
 
 @Injectable({
     providedIn: 'root'

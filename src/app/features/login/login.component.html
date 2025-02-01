@@ -18,6 +18,9 @@
                 <p-button type="submit" label="Acessar" class="submit-button"/>
                 <a href="#" class="forgot-pass"><p>Esqueceu sua senha?</p></a>
             </form>
+            <ul class="mt-6 w-full messages-list">
+                <p-message *ngFor="let message of messages" [icon]="'pi ' + message.icon" [severity]="message.severity" [text]="message.content" [class]="message.className" />
+            </ul>
         </div>
     </div>
     <div class="child c-2">
