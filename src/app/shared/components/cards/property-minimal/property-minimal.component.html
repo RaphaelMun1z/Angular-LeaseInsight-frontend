@@ -1,0 +1,37 @@
+<div class="rounded-border mr-4 overflow-hidden h-full" [ngStyle]="{backgroundColor:'#fff'}" [routerLink]="['/imovel']" [style]="{'cursor': 'pointer'}">
+    <div>
+        <div class="relative">
+            <img [src]="'https://b6d3c5t3.delivery.rocketcdn.me/wp-content/uploads/2024/03/Casa-de-luxo-a-80-m-da-praia-a-venda-Guarajuba-44.jpg'" [alt]="propertyMinimal.propertyType" class="w-full h-80" />
+            <p-tag [value]="'Locação'" [severity]="'success'" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+        </div>
+    </div>
+    <div class="p-4">
+        <div class="mb-2 font-medium text-xl text-gray-500 font-medium">{{ getPropertyType(propertyMinimal.propertyType) }}</div>
+        <div class="flex justify-between items-center">
+            <div class="mt-0 mb-2 font-semibold text-3xl text-emerald-900 flex items-center">
+                {{ 'R$ ' + propertyMinimal.rentalValue }} 
+                <span class="text-base text-gray-500 font-normal ml-1.5">/mês</span> 
+            </div>
+            <span>
+                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                <p-button icon="pi pi-eye" styleClass="ml-2" />
+            </span>
+        </div>
+        <div class="mb-4 font-medium text-gray-600 font-normal">{{ propertyMinimal.residenceAddress.city }}, {{ propertyMinimal.residenceAddress.state }}</div>
+        <p-divider />
+        <div class="flex justify-between items-center flex-nowrap space-x-6">
+            <div class="flex space-x-4 items-center">
+                <i class="pi pi-moon text-gray-500"></i>
+                <p class="!text-gray-500 whitespace-nowrap">{{ propertyMinimal.numberBedrooms }} Quartos</p>
+            </div>
+            <div class="flex space-x-4 items-center">
+                <i class="pi pi-window-minimize text-gray-500"></i>
+                <p class="!text-gray-500 whitespace-nowrap">{{ propertyMinimal.totalArea }} m<sup>2</sup></p>
+            </div>
+            <div class="flex space-x-4 items-center">
+                <i class="pi pi-car text-gray-500"></i>
+                <p class="!text-gray-500 whitespace-nowrap">{{ propertyMinimal.garageSpaces }} Vagas</p>
+            </div>
+        </div>
+    </div>
+</div>

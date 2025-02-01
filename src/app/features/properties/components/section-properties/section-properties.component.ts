@@ -12,13 +12,6 @@ import { MenuItem } from 'primeng/api';
 import { SplitButton } from 'primeng/splitbutton';
 import { PaginatorModule } from 'primeng/paginator';
 
-interface PageEvent {
-    first: number;
-    rows: number;
-    page: number;
-    pageCount: number;
-}
-
 @Component({
     selector: 'app-section-properties',
     imports: [CommonModule, RouterModule, PaginatorModule, ButtonModule, TagModule, DividerModule, SplitButtonModule, SplitButton],

@@ -48,7 +48,7 @@ export const routes: Routes = [
                 component: PropertiesComponent
             },
             {
-                path: 'imovel',
+                path: 'imovel/:id',
                 component: PropertyComponent
             },
             {
