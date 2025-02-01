@@ -16,7 +16,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { Table } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
-import { Employee } from '../../../../shared/interfaces/employee';
+import { Employee } from '../../../../../shared/interfaces/employee';
 
 interface Column {
     field: string;

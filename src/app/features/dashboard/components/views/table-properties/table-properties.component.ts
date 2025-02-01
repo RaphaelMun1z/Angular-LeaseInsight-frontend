@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BadgeModule } from 'primeng/badge';
 import { TagModule } from 'primeng/tag';
-import { Property } from '../../../../shared/interfaces/property';
+import { Property } from '../../../../../shared/interfaces/property';
 
 @Component({
     selector: 'app-table-properties',

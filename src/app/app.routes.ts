@@ -28,6 +28,11 @@ import { SelectClientComponent } from './features/dashboard/components/forms/cre
 import { DetailsComponent } from './features/dashboard/components/forms/create-contract/steps/details/details.component';
 import { ConfirmComponent } from './features/dashboard/components/forms/create-contract/steps/confirm/confirm.component';
 import { contractFormGuard } from './core/guards/contract-form.guard';
+import { CreatePropertyComponent } from './features/dashboard/components/forms/create-property/create-property.component';
+import { CharacteristicsComponent } from './features/dashboard/components/forms/create-property/steps/characteristics/characteristics.component';
+import { SelectOwnerComponent } from './features/dashboard/components/forms/create-property/steps/select-owner/select-owner.component';
+import { SelectAddressComponent } from './features/dashboard/components/forms/create-property/steps/select-address/select-address.component';
+import { ConfirmationComponent } from './features/dashboard/components/forms/create-property/steps/confirmation/confirmation.component';
 
 export const routes: Routes = [
     {
@@ -83,6 +88,33 @@ export const routes: Routes = [
             {
                 path: 'imoveis',
                 component: PropertiesDashboardComponent
+            },
+            {
+                path: 'imoveis/criar',
+                component: CreatePropertyComponent,
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'caracteristicas',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'caracteristicas',
+                        component: CharacteristicsComponent
+                    },
+                    {
+                        path: 'selecionar-endereco',
+                        component: SelectAddressComponent
+                    },
+                    {
+                        path: 'selecionar-proprietario',
+                        component: SelectOwnerComponent
+                    },
+                    {
+                        path: 'confirmacao',
+                        component: ConfirmationComponent
+                    },
+                ]
             },
             {
                 path: 'financa',

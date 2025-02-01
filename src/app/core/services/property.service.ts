@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Property, PropertyMinimal } from '../../shared/interfaces/property';
+import { Property, PropertyCreate, PropertyMinimal } from '../../shared/interfaces/property';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -27,5 +27,9 @@ export class PropertyService {
     
     getPropertyImageByImageName(fileName: string): Observable<Blob> {
         return this.http.get<Blob>(`${this.url}/file/downloadFile/${fileName}`, { responseType: 'blob' as 'json' });
+    }
+    
+    saveProperty(property: PropertyCreate): any {
+        return this.http.post<PropertyCreate>(this.url + "/residences", property);
     }
 }

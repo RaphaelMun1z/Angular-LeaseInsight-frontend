@@ -17,7 +17,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { Table } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
-import { Client, ClientCreate } from '../../../../shared/interfaces/client';
+import { Client, ClientCreate } from '../../../../../shared/interfaces/client';
 
 interface Column {
     field: string;

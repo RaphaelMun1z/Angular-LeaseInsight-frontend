@@ -20,7 +20,7 @@ import { Table } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FluidModule } from 'primeng/fluid';
-import { Contract } from '../../../../shared/interfaces/contract';
+import { Contract } from '../../../../../shared/interfaces/contract';
 
 interface Column {
     field: string;

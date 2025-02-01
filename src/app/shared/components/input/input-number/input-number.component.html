@@ -1,0 +1,15 @@
+<div class="flex flex-col gap-1">
+    <p-inputgroup>
+        <p-inputgroup-addon>
+            <i [class]="'pi ' + icon"></i>
+        </p-inputgroup-addon>
+        <p-floatlabel>
+            <p-inputnumber id="element"/>
+            <label for="element">{{ label }}</label>
+        </p-floatlabel>
+    </p-inputgroup>
+    <p-message severity="error" variant="simple" size="small" 
+    *ngIf="invalid">
+        {{ label }} é obrigatório
+    </p-message>
+</div>

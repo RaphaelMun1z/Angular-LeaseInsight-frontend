@@ -1,0 +1,91 @@
+<div class="container">
+    <h1 class="title">Informe as Características do Imóvel</h1>
+    <form class="form-container grid grid-cols-3 gap-4" [formGroup]="form">
+        <app-input-number
+        [invalid]="form.controls['numberBedrooms'].invalid"
+        [formField]="'numberBedrooms'" 
+        [label]="'Número de Quartos'" 
+        [icon]="'pi-moon'"></app-input-number>
+        
+        <app-input-number
+        [invalid]="form.controls['numberSuites'].invalid"
+        [formField]="'numberSuites'" 
+        [label]="'Número de Suites'" 
+        [icon]="'pi-moon'"></app-input-number>
+        
+        <app-input-number
+        [invalid]="form.controls['numberBathrooms'].invalid"
+        [formField]="'numberBathrooms'" 
+        [label]="'Número de Banheiros'" 
+        [icon]="'pi-question'"></app-input-number>
+        
+        <app-input-number
+        [invalid]="form.controls['totalArea'].invalid"
+        [formField]="'totalArea'" 
+        [label]="'Área Total'" 
+        [icon]="'pi-window-maximize'"></app-input-number>
+        
+        <app-input-number
+        [invalid]="form.controls['builtArea'].invalid"
+        [formField]="'builtArea'" 
+        [label]="'Área Construída'" 
+        [icon]="'pi-window-minimize'"></app-input-number>
+        
+        <app-input-number
+        [invalid]="form.controls['garageSpaces'].invalid"
+        [formField]="'garageSpaces'" 
+        [label]="'Vagas na Garagem'" 
+        [icon]="'pi-car'"></app-input-number>
+        
+        <app-input-number
+        [invalid]="form.controls['yearConstruction'].invalid"
+        [formField]="'yearConstruction'" 
+        [label]="'Ano de Construção'" 
+        [icon]="'pi-hammer'"></app-input-number>
+        
+        <div class="flex flex-col gap-1">
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-map-marker"></i>
+                </p-inputgroup-addon>
+                <p-floatlabel>
+                    <p-select formControlName="propertyType" [options]="propertyTypeOptions" [filter]="true" filterBy="cep" [showClear]="true" placeholder="Tipo de Imóvel" class="w-full md:w-56">
+                        <ng-template #selectedItem let-selectedOption>
+                            <div class="flex items-center gap-2">
+                                <div>{{ selectedOption.street }}, {{ selectedOption.number }} - {{ selectedOption.complement }}, {{ selectedOption.district }}, {{ selectedOption.city }} - {{ selectedOption.state }}, {{ selectedOption.cep }}, {{ selectedOption.country }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-address #item>
+                            <div class="flex items-center gap-2">
+                                <div>{{ address.street }}, {{ address.number }} - {{ address.complement }}, {{ address.district }}, {{ address.city }} - {{ address.state }}, {{ address.cep }}, {{ address.country }}</div>
+                            </div>
+                        </ng-template>
+                    </p-select>
+                </p-floatlabel>
+            </p-inputgroup>
+            <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['propertyType'].invalid">Tipo de Imóvel é obrigatório</p-message>
+        </div>
+        <div class="flex flex-col gap-1">
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-map-marker"></i>
+                </p-inputgroup-addon>
+                <p-floatlabel>
+                    <p-select formControlName="occupancyStatus" [options]="occupancyStatusOptions" [filter]="true" filterBy="cep" [showClear]="true" placeholder="Status de Ocupação" class="w-full md:w-56">
+                        <ng-template #selectedItem let-selectedOption>
+                            <div class="flex items-center gap-2">
+                                <div>{{ selectedOption.street }}, {{ selectedOption.number }} - {{ selectedOption.complement }}, {{ selectedOption.district }}, {{ selectedOption.city }} - {{ selectedOption.state }}, {{ selectedOption.cep }}, {{ selectedOption.country }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-address #item>
+                            <div class="flex items-center gap-2">
+                                <div>{{ address.street }}, {{ address.number }} - {{ address.complement }}, {{ address.district }}, {{ address.city }} - {{ address.state }}, {{ address.cep }}, {{ address.country }}</div>
+                            </div>
+                        </ng-template>
+                    </p-select>
+                </p-floatlabel>
+            </p-inputgroup>
+            <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['occupancyStatus'].invalid">Status de Ocupação é obrigatório</p-message>
+        </div>
+    </form>
+</div>

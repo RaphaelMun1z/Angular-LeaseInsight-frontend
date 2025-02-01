@@ -1,0 +1,79 @@
+:host{
+    width: 100%;
+}
+
+.container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    margin-top: 5vh;
+    
+    .title{
+        font-size: 2vw;
+        font-weight: 500;
+        margin-bottom: 2vh;
+    }
+    
+    .form-container{
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        gap: 5vh;
+        
+        .date-container{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: fit-content;
+            gap: 2vw;
+            
+            .child-date{
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                height: fit-content;
+                gap: 1vh;
+                
+                h2{
+                    font-size: 1vw;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}
+
+::ng-deep{
+    .p-dataview-content,
+    .p-dataview-header{
+        background-color: transparent;
+    }
+    
+    .p-inputgroup .p-inputtext,
+    .p-datepicker,
+    .p-password{
+        width: 100%;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    
+    .p-floatlabel{
+        width: 100%;
+    }
+    
+    .p-select-clear-icon{
+        transform: translateY(-50%);
+        
+        svg{
+            color: #fff;
+            background: #ff0000ad;
+            border-radius: 50%;
+            padding: 3px;
+        }
+    }
+}

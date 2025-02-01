@@ -1,0 +1,27 @@
+<p-breadcrumb class="max-w-full" [model]="breadCrumbItems">
+    <ng-template #item let-item>
+        <ng-container *ngIf="item.route; else elseBlock">
+            <a [routerLink]="item.route" class="p-breadcrumb-item-link">
+                <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
+                <span class="text-primary font-semibold">{{ item.label }}</span>
+            </a>
+        </ng-container>
+        <ng-template #elseBlock>
+            <a [href]="item.url">
+                <span class="text-color">{{ item.label }}</span>
+            </a>
+        </ng-template>
+    </ng-template>
+</p-breadcrumb>
+<app-dashboard-base [title]="'Imóveis'">
+    <app-content-block [title]="'Cadastrar Imóvel'" [type]="'Formulário'">
+        <div class="child">
+            <div class="card w-full">
+                <p-steps [model]="steps" [readonly]="false" />
+            </div>
+            <form [formGroup]="form" storage="property-form" class="form-container">
+                <router-outlet></router-outlet>
+            </form>
+        </div>
+    </app-content-block>
+</app-dashboard-base>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContentBlockComponent } from '../content-block/content-block.component';
 import { DashboardBaseComponent } from '../dashboard-base/dashboard-base.component';
-import { TableEmployeesComponent } from "../table-employees/table-employees.component";
+import { TableEmployeesComponent } from "../views/table-employees/table-employees.component";
 import { Employee } from '../../../../shared/interfaces/employee';
 import { Observable } from 'rxjs';
 import { EmployeeStateService } from '../../../../core/states/employee-state.service';

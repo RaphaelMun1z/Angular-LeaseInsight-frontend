@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContentBlockComponent } from '../content-block/content-block.component';
 import { DashboardBaseComponent } from '../dashboard-base/dashboard-base.component';
-import { TableContractsComponent } from "../table-contracts/table-contracts.component";
+import { TableContractsComponent } from "../views/table-contracts/table-contracts.component";
 import { Contract } from '../../../../shared/interfaces/contract';
 import { Observable } from 'rxjs';
 import { ContractStateService } from '../../../../core/states/contract-state.service';

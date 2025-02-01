@@ -6,7 +6,7 @@ import { DashboardBaseComponent } from '../../dashboard-base/dashboard-base.comp
 import { ContentBlockComponent } from '../../content-block/content-block.component';
 import { FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { FormStorageDirective } from './steps/form-storage.directive';
-import { ContractFormService } from '../../../../../core/services/contract-form.service';
+import { ContractFormService } from '../../../../../core/services/forms/contract-form.service';
 
 @Component({
     selector: 'app-create-contract',
