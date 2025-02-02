@@ -33,6 +33,7 @@ import { CharacteristicsComponent } from './features/dashboard/components/forms/
 import { SelectOwnerComponent } from './features/dashboard/components/forms/create-property/steps/select-owner/select-owner.component';
 import { SelectAddressComponent } from './features/dashboard/components/forms/create-property/steps/select-address/select-address.component';
 import { ConfirmationComponent } from './features/dashboard/components/forms/create-property/steps/confirmation/confirmation.component';
+import { propertyFormGuard } from './core/guards/property-form.guard';
 
 export const routes: Routes = [
     {
@@ -104,15 +105,18 @@ export const routes: Routes = [
                     },
                     {
                         path: 'selecionar-endereco',
-                        component: SelectAddressComponent
+                        component: SelectAddressComponent,
+                        canActivate: [propertyFormGuard]
                     },
                     {
                         path: 'selecionar-proprietario',
-                        component: SelectOwnerComponent
+                        component: SelectOwnerComponent,
+                        canActivate: [propertyFormGuard]
                     },
                     {
                         path: 'confirmacao',
-                        component: ConfirmationComponent
+                        component: ConfirmationComponent,
+                        canActivate: [propertyFormGuard]
                     },
                 ]
             },

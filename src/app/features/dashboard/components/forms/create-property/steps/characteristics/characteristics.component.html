@@ -1,45 +1,69 @@
 <div class="container">
     <h1 class="title">Informe as Características do Imóvel</h1>
     <form class="form-container grid grid-cols-3 gap-4" [formGroup]="form">
+        <app-input-file
+        formControlName="images"
+        [label]="'Imagens da Residência'"
+        [invalid]="form.controls['images'].invalid"></app-input-file>
+
         <app-input-number
+        formControlName="marketValue"
+        [invalid]="form.controls['marketValue'].invalid"
+        [label]="'Valor de Mercado'" 
+        [icon]="'pi-moon'"></app-input-number>
+
+        <app-input-number
+        formControlName="rentalValue"
+        [invalid]="form.controls['rentalValue'].invalid"
+        [label]="'Valor de Aluguel'" 
+        [icon]="'pi-moon'"></app-input-number>
+
+        <app-input-textarea
+        formControlName="description"
+        [invalid]="form.controls['description'].invalid"
+        [label]="'Descrição'" 
+        [icon]="'pi-moon'"
+        ></app-input-textarea>
+
+        <app-input-number
+        formControlName="numberBedrooms"
         [invalid]="form.controls['numberBedrooms'].invalid"
-        [formField]="'numberBedrooms'" 
         [label]="'Número de Quartos'" 
         [icon]="'pi-moon'"></app-input-number>
         
         <app-input-number
+        formControlName="numberSuites"
         [invalid]="form.controls['numberSuites'].invalid"
-        [formField]="'numberSuites'" 
         [label]="'Número de Suites'" 
         [icon]="'pi-moon'"></app-input-number>
         
         <app-input-number
+        formControlName="numberBathrooms"
         [invalid]="form.controls['numberBathrooms'].invalid"
-        [formField]="'numberBathrooms'" 
         [label]="'Número de Banheiros'" 
         [icon]="'pi-question'"></app-input-number>
         
         <app-input-number
+        formControlName="totalArea"
         [invalid]="form.controls['totalArea'].invalid"
-        [formField]="'totalArea'" 
         [label]="'Área Total'" 
         [icon]="'pi-window-maximize'"></app-input-number>
         
         <app-input-number
+        formControlName="builtArea"
         [invalid]="form.controls['builtArea'].invalid"
-        [formField]="'builtArea'" 
         [label]="'Área Construída'" 
         [icon]="'pi-window-minimize'"></app-input-number>
         
         <app-input-number
+        formControlName="garageSpaces"
         [invalid]="form.controls['garageSpaces'].invalid"
-        [formField]="'garageSpaces'" 
         [label]="'Vagas na Garagem'" 
         [icon]="'pi-car'"></app-input-number>
         
         <app-input-number
+        formControlName="yearConstruction"
         [invalid]="form.controls['yearConstruction'].invalid"
-        [formField]="'yearConstruction'" 
         [label]="'Ano de Construção'" 
         [icon]="'pi-hammer'"></app-input-number>
         
@@ -52,12 +76,12 @@
                     <p-select formControlName="propertyType" [options]="propertyTypeOptions" [filter]="true" filterBy="cep" [showClear]="true" placeholder="Tipo de Imóvel" class="w-full md:w-56">
                         <ng-template #selectedItem let-selectedOption>
                             <div class="flex items-center gap-2">
-                                <div>{{ selectedOption.street }}, {{ selectedOption.number }} - {{ selectedOption.complement }}, {{ selectedOption.district }}, {{ selectedOption.city }} - {{ selectedOption.state }}, {{ selectedOption.cep }}, {{ selectedOption.country }}</div>
+                                <div>{{ selectedOption.name }}</div>
                             </div>
                         </ng-template>
-                        <ng-template let-address #item>
+                        <ng-template let-type #item>
                             <div class="flex items-center gap-2">
-                                <div>{{ address.street }}, {{ address.number }} - {{ address.complement }}, {{ address.district }}, {{ address.city }} - {{ address.state }}, {{ address.cep }}, {{ address.country }}</div>
+                                <div>{{ type.name }}</div>
                             </div>
                         </ng-template>
                     </p-select>
@@ -71,15 +95,15 @@
                     <i class="pi pi-map-marker"></i>
                 </p-inputgroup-addon>
                 <p-floatlabel>
-                    <p-select formControlName="occupancyStatus" [options]="occupancyStatusOptions" [filter]="true" filterBy="cep" [showClear]="true" placeholder="Status de Ocupação" class="w-full md:w-56">
+                    <p-select formControlName="occupancyStatus" [options]="occupancyStatusOptions" [filter]="true" filterBy="name" [showClear]="true" placeholder="Status de Ocupação" class="w-full md:w-56">
                         <ng-template #selectedItem let-selectedOption>
                             <div class="flex items-center gap-2">
-                                <div>{{ selectedOption.street }}, {{ selectedOption.number }} - {{ selectedOption.complement }}, {{ selectedOption.district }}, {{ selectedOption.city }} - {{ selectedOption.state }}, {{ selectedOption.cep }}, {{ selectedOption.country }}</div>
+                                <div>{{ selectedOption.name }}</div>
                             </div>
                         </ng-template>
-                        <ng-template let-address #item>
+                        <ng-template let-status #item>
                             <div class="flex items-center gap-2">
-                                <div>{{ address.street }}, {{ address.number }} - {{ address.complement }}, {{ address.district }}, {{ address.city }} - {{ address.state }}, {{ address.cep }}, {{ address.country }}</div>
+                                <div>{{ status.name }}</div>
                             </div>
                         </ng-template>
                     </p-select>

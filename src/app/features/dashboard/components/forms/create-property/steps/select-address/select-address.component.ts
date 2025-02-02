@@ -2,11 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { CreatePropertyComponent } from '../../create-property.component';
 import { Router } from '@angular/router';
-import { InputTextComponent } from '../../../../../../../shared/components/input/input-text/input-text.component';
 
 @Component({
     selector: 'app-select-address',
-    imports: [InputTextComponent],
+    imports: [],
     templateUrl: './select-address.component.html',
     styleUrl: './select-address.component.scss'
 })

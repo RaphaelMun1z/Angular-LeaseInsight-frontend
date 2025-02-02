@@ -4,7 +4,7 @@
             <i [class]="'pi ' + icon"></i>
         </p-inputgroup-addon>
         <p-floatlabel>
-            <p-inputnumber id="element"/>
+            <p-inputnumber id="element" [readonly]="!!isReadOnly" [(ngModel)]="value"/>
             <label for="element">{{ label }}</label>
         </p-floatlabel>
     </p-inputgroup>

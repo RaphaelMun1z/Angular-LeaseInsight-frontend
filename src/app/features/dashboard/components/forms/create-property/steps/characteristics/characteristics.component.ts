@@ -22,19 +22,21 @@ import { DatePicker } from 'primeng/datepicker';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
+import { InputFileComponent } from '../../../../../../../shared/components/input/input-file/input-file.component';
+import { InputTextareaComponent } from "../../../../../../../shared/components/input/input-textarea/input-textarea.component";
 
 @Component({
     selector: 'app-characteristics',
-    imports: [CommonModule, FormsModule, SelectModule, InputTextModule, InputGroupModule, InputGroupAddonModule, FloatLabelModule, InputMask, ButtonModule, PasswordModule, DatePicker, ReactiveFormsModule, InputTextComponent, InputNumberComponent, InputGroup, InputGroupAddon, FloatLabel, Select, Message, Button],
+    imports: [CommonModule, FormsModule, SelectModule, InputTextModule, InputGroupModule, InputFileComponent, InputGroupAddonModule, FloatLabelModule, ButtonModule, PasswordModule, ReactiveFormsModule, InputNumberComponent, InputGroup, InputGroupAddon, FloatLabel, Select, Message, InputTextareaComponent],
     templateUrl: './characteristics.component.html',
     styleUrl: './characteristics.component.scss'
 })
 
 export class CharacteristicsComponent implements OnInit {
     form!: FormGroup;
-
-    propertyTypeOptions: any[]|undefined;
-    occupancyStatusOptions: any[]|undefined;
+    
+    propertyTypeOptions: {name: string, code: string}[] = [];
+    occupancyStatusOptions: {name: string, code: string}[] = [];
     residenceAddressOptions: any[]|undefined;
     ownerOptions: any[]|undefined;
     
@@ -43,5 +45,27 @@ export class CharacteristicsComponent implements OnInit {
     
     ngOnInit(): void {
         this.form = this.formContainer.getStep1Form();
+        
+        this.propertyTypeOptions = [
+            { name: "CASA", code: "HOUSE"},
+            { name: "APARTAMENTO", code: "CONDO"},
+            { name: "FAZENDA", code: "FARM"},
+            { name: "ARMAZÉM", code: "WAREHOUSE"},
+            { name: "APARTAMENTO_COMERCIAL", code: "COMMERCIAL_APARTMENT"},
+            { name: "LOJA_VAREJO", code: "RETAIL_STORE"},
+            { name: "APARTAMENTO", code: "APARTMENT"},
+            { name: "TERRENO", code: "LAND_PLOT"}
+        ]
+        
+        this.occupancyStatusOptions = [
+            { name: "OCUPADO", code: "OCCUPIED" },
+            { name: "VAGO", code: "VACANT" },
+            { name: "PENDENTE_ENTRADA", code: "PENDING_MOVE_IN" },
+            { name: "PENDENTE_SAÍDA", code: "PENDING_MOVE_OUT" },
+            { name: "EM_MANUTENÇÃO", code: "UNDER_MAINTENANCE" },
+            { name: "ALUGADO", code: "LEASED" },
+            { name: "DISPONÍVEL", code: "AVAILABLE" },
+            { name: "RESERVADO", code: "RESERVED" }
+        ]
     }
 }

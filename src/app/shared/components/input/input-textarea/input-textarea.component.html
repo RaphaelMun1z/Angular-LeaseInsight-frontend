@@ -4,12 +4,12 @@
             <i [class]="'pi ' + icon"></i>
         </p-inputgroup-addon>
         <p-floatlabel>
-            <input type="text" id="element" pInputText [readonly]="!!isReadOnly" [(ngModel)]="value"/>
+            <textarea pTextarea id="element" rows="5" cols="30" style="resize: none" class="h-full" [readonly]="!!isReadOnly" [(ngModel)]="value"></textarea>
             <label for="element">{{ label }}</label>
         </p-floatlabel>
     </p-inputgroup>
     <p-message severity="error" variant="simple" size="small" 
     *ngIf="invalid">
-        {{ label }} é obrigatório
-    </p-message>
+    {{ label }} é obrigatório
+</p-message>
 </div>

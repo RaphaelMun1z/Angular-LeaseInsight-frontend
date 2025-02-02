@@ -14,10 +14,12 @@ import { CommonModule } from '@angular/common';
 import { SelectModule } from 'primeng/select';
 import { RouterModule } from '@angular/router';
 import { Steps } from 'primeng/steps';
+import { PropertyFormService } from '../../../../../core/services/forms/property-form.service';
+import { FormStorageDirective } from '../create-contract/steps/form-storage.directive';
 
 @Component({
     selector: 'app-create-property',
-    imports: [RouterModule, Breadcrumb, Steps, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, ButtonModule, CommonModule, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
+    imports: [RouterModule, FormStorageDirective, Breadcrumb, Steps, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, ButtonModule, CommonModule, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
     templateUrl: './create-property.component.html',
     styleUrl: './create-property.component.scss'
 })
@@ -27,19 +29,19 @@ export class CreatePropertyComponent implements OnInit {
     breadCrumbItems!: MenuItem[];
     
     private formBuilderService = inject(UntypedFormBuilder);
-    //private propertyFormService = inject(PropertyFormService);
+    private propertyFormService = inject(PropertyFormService);
     
     ngOnInit() {
-        //this.propertyFormService.setForm(this.form);
+        this.propertyFormService.setForm(this.form);
         this.updateSteps();
         
         this.form.valueChanges.subscribe(() => {
-            //this.propertyFormService.updateStepValidation();
+            this.propertyFormService.updateStepValidation();
         });
         
-        //this.propertyFormService.stepValidations$.subscribe(() => {
-        //    this.updateSteps();
-        //});
+        this.propertyFormService.stepValidations$.subscribe(() => {
+            this.updateSteps();
+        });
         
         this.breadCrumbItems = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Imóveis', route: '/dashboard/imoveis' }, { label: 'Cadastrar', route: '/dashboard/imoveis/criar' }, { label: 'Formulário' }];
         
@@ -52,18 +54,18 @@ export class CreatePropertyComponent implements OnInit {
             { 
                 label: 'Selecionar Endereço', 
                 routerLink: 'selecionar-endereco', 
-                disabled: false
+                disabled: !this.propertyFormService.isStepAllowed('selecionar-endereco') 
             },
             { 
                 label: 'Selecionar Proprietário', 
                 routerLink: 'selecionar-proprietario', 
-                disabled: false
+                disabled: !this.propertyFormService.isStepAllowed('selecionar-proprietario') 
             },
             { 
                 label: 'Confirmação', 
                 routerLink: 'confirmacao',
-                disabled: false
-            },
+                disabled: !this.propertyFormService.isStepAllowed('confirmacao') 
+            }
         ];    
     }
     
@@ -77,24 +79,23 @@ export class CreatePropertyComponent implements OnInit {
             { 
                 label: 'Selecionar Endereço', 
                 routerLink: 'selecionar-endereco', 
-                disabled: false
+                disabled: !this.propertyFormService.isStepAllowed('selecionar-endereco') 
             },
             { 
                 label: 'Selecionar Proprietário', 
                 routerLink: 'selecionar-proprietario', 
-                disabled: false
+                disabled: !this.propertyFormService.isStepAllowed('selecionar-proprietario') 
             },
             { 
                 label: 'Confirmação', 
                 routerLink: 'confirmacao',
-                disabled: false
+                disabled: !this.propertyFormService.isStepAllowed('confirmacao') 
             },
         ];
     }
     
     protected form = this.formBuilderService.group({
         step1: this.formBuilderService.group({
-            propertyType: ['', Validators.required],
             description: ['', Validators.required],
             numberBedrooms: ['', Validators.required],
             numberBathrooms: ['', Validators.required],
@@ -103,11 +104,12 @@ export class CreatePropertyComponent implements OnInit {
             builtArea: ['', Validators.required],
             garageSpaces: ['', Validators.required],
             yearConstruction: ['', Validators.required],
-            occupancyStatus: ['', Validators.required],
+            propertyType: [null, Validators.required],
+            occupancyStatus: [null, Validators.required],
             marketValue: ['', Validators.required],
             rentalValue: ['', Validators.required],
-            dateLastRenovation: ['', Validators.required],
-            images: ['', Validators.required]
+            dateLastRenovation: [null],
+            images: [[], Validators.required]
         }),
         step2: this.formBuilderService.group({
             number: ['', Validators.required],
