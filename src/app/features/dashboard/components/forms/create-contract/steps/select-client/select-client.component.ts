@@ -29,8 +29,6 @@ export class SelectClientComponent implements OnInit {
     @ViewChild('dt') dt!: Table;
     statuses!: any[];
     loading: boolean = true;
-    activityValues: number[] = [0, 100];
-    
     protected clients$ = new Observable<Client[]>();
     clients : Client[] = [];
     

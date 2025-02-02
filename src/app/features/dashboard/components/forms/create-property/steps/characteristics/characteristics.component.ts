@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
-import { InputTextComponent } from '../../../../../../../shared/components/input/input-text/input-text.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreatePropertyComponent } from '../../create-property.component';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,15 +9,12 @@ import { InputGroupAddon } from 'primeng/inputgroupaddon';
 import { FloatLabel } from 'primeng/floatlabel';
 import { Select } from 'primeng/select';
 import { Message } from 'primeng/message';
-import { Button } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputMask } from 'primeng/inputmask';
-import { DatePicker } from 'primeng/datepicker';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';

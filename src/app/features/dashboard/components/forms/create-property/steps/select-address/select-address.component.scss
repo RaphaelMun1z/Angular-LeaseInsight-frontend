@@ -22,33 +22,29 @@
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
-        width: 50%;
+        width: 100%;
         height: fit-content;
         gap: 5vh;
-        
-        .date-container{
+
+        .first-child{
             position: relative;
             display: flex;
             flex-wrap: wrap;
+            flex-direction: column;
+            width: 50%;
+            gap: 5vh;
+            margin-top: 2vh;
+        }
+        
+        .card{
             width: 100%;
-            height: fit-content;
-            gap: 2vw;
-            
-            .child-date{
-                position: relative;
-                display: flex;
-                flex-wrap: wrap;
-                flex-direction: column;
-                height: fit-content;
-                gap: 1vh;
-                
-                h2{
-                    font-size: 1vw;
-                    font-weight: 400;
-                }
-            }
         }
     }
+}
+
+.activated{
+    background-color: #2bbf2b3d !important;
+    border-color: #2bbf2b !important;
 }
 
 ::ng-deep{
