@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
@@ -26,7 +26,7 @@ interface UploadEvent {
     styleUrl: './input-file.component.scss'
 })
 
-export class InputFileComponent implements ControlValueAccessor, OnInit {
+export class InputFileComponent implements ControlValueAccessor {
     @Input() label!: string;
     @Input() invalid!: boolean;
     @Input() isReadOnly = false;
@@ -34,12 +34,8 @@ export class InputFileComponent implements ControlValueAccessor, OnInit {
     
     constructor(private messageService: MessageService) {}
     
-    ngOnInit() {
-        this.onChangeCb(["testando"]);
-    }
-    
     onFileSelect(event:UploadEvent) {
-        this.uploadedFiles.push(...event.files);
+        this.uploadedFiles = [...this.uploadedFiles, ...event.files];
         this.onChangeCb(this.uploadedFiles);
     }
     

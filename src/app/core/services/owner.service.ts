@@ -16,4 +16,8 @@ export class OwnerService {
     getOwners(): Observable<Owner[]> {
         return this.http.get<Owner[]>(this.url + "/owners");
     }
+    
+    getOwnerById(id: string): Observable<Owner> {
+        return this.http.get<Owner>(this.url + "/owners/" + id);
+    }
 }

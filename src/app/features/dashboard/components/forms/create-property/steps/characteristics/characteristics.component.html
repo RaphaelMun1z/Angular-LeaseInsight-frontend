@@ -1,10 +1,11 @@
 <div class="container">
     <h1 class="title">Informe as Características do Imóvel</h1>
     <form class="form-container grid grid-cols-3 gap-4" [formGroup]="form">
-        <app-input-file
+        <!-- <app-input-file
         formControlName="images"
         [label]="'Imagens da Residência'"
-        [invalid]="form.controls['images'].invalid"></app-input-file>
+        [invalid]="form.controls['images'].invalid"></app-input-file> -->
+        <input type="file" (change)="onUploadFiles($any($event))">
 
         <app-input-number
         formControlName="marketValue"
@@ -66,6 +67,12 @@
         [invalid]="form.controls['yearConstruction'].invalid"
         [label]="'Ano de Construção'" 
         [icon]="'pi-hammer'"></app-input-number>
+
+        <app-input-number
+        formControlName="dateLastRenovation"
+        [invalid]="form.controls['dateLastRenovation'].invalid"
+        [label]="'Data da última reforma'" 
+        [icon]="'pi-hammer'"></app-input-number>
         
         <div class="flex flex-col gap-1">
             <p-inputgroup>
@@ -73,7 +80,7 @@
                     <i class="pi pi-map-marker"></i>
                 </p-inputgroup-addon>
                 <p-floatlabel>
-                    <p-select formControlName="propertyType" [options]="propertyTypeOptions" [filter]="true" filterBy="cep" [showClear]="true" placeholder="Tipo de Imóvel" class="w-full md:w-56">
+                    <p-select formControlName="propertyType" [options]="propertyTypeOptions" optionLabel="name" optionValue="code" [filter]="true" filterBy="cep" [showClear]="true" placeholder="Tipo de Imóvel" class="w-full md:w-56">
                         <ng-template #selectedItem let-selectedOption>
                             <div class="flex items-center gap-2">
                                 <div>{{ selectedOption.name }}</div>
@@ -95,7 +102,7 @@
                     <i class="pi pi-map-marker"></i>
                 </p-inputgroup-addon>
                 <p-floatlabel>
-                    <p-select formControlName="occupancyStatus" [options]="occupancyStatusOptions" [filter]="true" filterBy="name" [showClear]="true" placeholder="Status de Ocupação" class="w-full md:w-56">
+                    <p-select formControlName="occupancyStatus" [options]="occupancyStatusOptions" optionLabel="name" optionValue="code" [filter]="true" filterBy="name" [showClear]="true" placeholder="Status de Ocupação" class="w-full md:w-56">
                         <ng-template #selectedItem let-selectedOption>
                             <div class="flex items-center gap-2">
                                 <div>{{ selectedOption.name }}</div>

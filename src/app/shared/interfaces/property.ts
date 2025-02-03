@@ -57,6 +57,7 @@ export interface PropertyCreate {
     marketValue: number;
     rentalValue: number;
     dateLastRenovation: string;
-    residenceAddress: PropertyAddress;
+    residenceAddress: string;
+    owner: string;
     files: File[];
 }

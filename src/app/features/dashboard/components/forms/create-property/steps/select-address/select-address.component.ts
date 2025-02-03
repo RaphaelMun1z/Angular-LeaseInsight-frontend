@@ -10,7 +10,7 @@ import { TableModule } from 'primeng/table';
 import { Table } from 'primeng/table';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { PropertyAddressStateService } from '../../../../../../../core/states/propertyAddress-state.service';
+import { PropertyAddressStateService } from '../../../../../../../core/states/property-address-state.service';
 import { PropertyAddress } from '../../../../../../../shared/interfaces/propertyAddress';
 import { Observable } from 'rxjs';
 import { Button, ButtonModule } from 'primeng/button';

@@ -29,7 +29,7 @@ export class PropertyService {
         return this.http.get<Blob>(`${this.url}/file/downloadFile/${fileName}`, { responseType: 'blob' as 'json' });
     }
     
-    saveProperty(property: PropertyCreate): any {
+    saveProperty(property: FormData): any {
         return this.http.post<PropertyCreate>(this.url + "/residences", property);
     }
 }

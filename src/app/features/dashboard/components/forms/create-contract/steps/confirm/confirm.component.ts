@@ -1,6 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+
 import { CreateContractComponent } from '../../create-contract.component';
+import { ContractService } from '../../../../../../../core/services/contract.service';
+import { PropertyStateService } from '../../../../../../../core/states/property-state.service';
+import { ClientStateService } from '../../../../../../../core/states/client-state.service';
+import { ContractCreate } from '../../../../../../../shared/interfaces/contract';
+import { Property } from '../../../../../../../shared/interfaces/property';
+import { Client } from '../../../../../../../shared/interfaces/client';
+
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -10,14 +20,6 @@ import { ImageModule } from 'primeng/image';
 import { DividerModule } from 'primeng/divider';
 import { Message } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
-import { FormGroup } from '@angular/forms';
-import { PropertyStateService } from '../../../../../../../core/states/property-state.service';
-import { Property } from '../../../../../../../shared/interfaces/property';
-import { Observable } from 'rxjs';
-import { ContractCreate } from '../../../../../../../shared/interfaces/contract';
-import { ContractService } from '../../../../../../../core/services/contract.service';
-import { Client } from '../../../../../../../shared/interfaces/client';
-import { ClientStateService } from '../../../../../../../core/states/client-state.service';
 
 @Component({
     selector: 'app-confirm',

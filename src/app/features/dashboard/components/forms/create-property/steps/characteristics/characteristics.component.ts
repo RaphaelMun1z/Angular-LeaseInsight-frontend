@@ -64,4 +64,10 @@ export class CharacteristicsComponent implements OnInit {
             { name: "RESERVADO", code: "RESERVED" }
         ]
     }
+    
+    onUploadFiles(event: any): void {
+        if(event.target.files && event.target.files[0]){
+            this.form.get('images')?.patchValue(event.target.files[0]);
+        }
+    }
 }

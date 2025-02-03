@@ -9,6 +9,7 @@ import { Owner } from '../../shared/interfaces/owner';
 
 export class OwnerStateService {
     private owners$ = new BehaviorSubject<Owner[]>([]);
+    private owner$ = new BehaviorSubject<Owner | null>(null);
     
     private ownerService = inject(OwnerService);
     constructor() { }
@@ -22,6 +23,21 @@ export class OwnerStateService {
     
     private shareOwners(owners: Owner[]){
         this.owners$.next(owners);
+    }
+    
+    loadOwner(id: string){
+        this.ownerService
+        .getOwnerById(id)
+        .pipe(take(1))
+        .subscribe(owner => this.shareOwner(owner))
+    }
+    
+    private shareOwner(owner: Owner){
+        this.owner$.next(owner);
+    }
+    
+    listenToClient(): Observable<Owner | null>{
+        return this.owner$.asObservable();
     }
     
     listenToChanges(): Observable<Owner[]>{

@@ -108,11 +108,12 @@ export class CreatePropertyComponent implements OnInit {
             occupancyStatus: [null, Validators.required],
             marketValue: ['', Validators.required],
             rentalValue: ['', Validators.required],
-            dateLastRenovation: [null],
-            images: [[], Validators.required]
+            dateLastRenovation: ['', Validators.required],
+            images: ['', Validators.required]
         }),
         step2: this.formBuilderService.group({
             number: ['', Validators.required],
+            aptNumber: [null],
             complement: ['', Validators.required],
             residenceAddress: ['', Validators.required],
         }),

@@ -20,4 +20,8 @@ export class PropertyAddressService {
     savePropertyAddress(address: PropertyAddress): any {
         return this.http.post<PropertyAddress>(this.url + "/residence-addresses", address);
     }
+    
+    getPropertyAddressById(id: string): Observable<PropertyAddress> {
+        return this.http.get<PropertyAddress>(this.url + "/residence-addresses/" + id);
+    }
 }
