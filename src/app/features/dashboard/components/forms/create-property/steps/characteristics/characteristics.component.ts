@@ -65,9 +65,9 @@ export class CharacteristicsComponent implements OnInit {
         ]
     }
     
-    onUploadFiles(event: any): void {
+    /* onUploadFiles(event: any): void {
         if(event.target.files && event.target.files[0]){
             this.form.get('images')?.patchValue(event.target.files[0]);
         }
-    }
+    } */
 }

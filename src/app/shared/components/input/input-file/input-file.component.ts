@@ -32,8 +32,6 @@ export class InputFileComponent implements ControlValueAccessor {
     @Input() isReadOnly = false;
     uploadedFiles: File[] = [];
     
-    constructor(private messageService: MessageService) {}
-    
     onFileSelect(event:UploadEvent) {
         this.uploadedFiles = [...this.uploadedFiles, ...event.files];
         this.onChangeCb(this.uploadedFiles);

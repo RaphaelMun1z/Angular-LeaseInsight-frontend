@@ -134,14 +134,13 @@ export class ConfirmationComponent  implements OnInit{
         formData.append('complement', this.form.get('step2.complement')?.value);
         formData.append('residenceAddress', this.form.get('step2.residenceAddress')?.value);
         formData.append('owner', this.form.get('step3.owner')?.value);
-        formData.append('images', this.form.get('step1.images')?.value);
-        /* const files = this.form.get('step1.images')?.value;
+     
+        const files = this.form.get('step1.images')?.value;
         if (files && files.length) {
             files.forEach((file: File) => {
-                formData.append('images', file);
+                formData.append('images', file, file.name);
             });
-        } */
-
+        }
         console.log(formData);
         this.postProperty(formData);
     }
