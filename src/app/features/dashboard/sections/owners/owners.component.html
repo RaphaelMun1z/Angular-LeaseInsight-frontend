@@ -1,1 +1,5 @@
-<p>owners works!</p>
+<app-dashboard-base [title]="'Proprietários'">
+    <app-content-block [title]="'Todos os Proprietários'" [type]="'Lista'">
+        <app-table-owners [owners]="owners"></app-table-owners>
+    </app-content-block>
+</app-dashboard-base>

@@ -13,7 +13,7 @@ export class EmployeeStateService {
     
     constructor() { }
     
-    loadEmployeees(){
+    loadEmployees(){
         this.employeeService
         .getEmployees()
         .pipe(take(1))

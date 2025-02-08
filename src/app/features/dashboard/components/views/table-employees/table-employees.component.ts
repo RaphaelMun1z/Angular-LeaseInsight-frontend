@@ -82,17 +82,6 @@ export class TableEmployeesComponent implements OnInit{
         this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
     }
     
-    openNew() {
-        this.employee =  {
-            id: '',
-            name: '',
-            phone: '',
-            email: ''
-        }
-        this.submitted = false;
-        this.employeeDialog = true;
-    }
-    
     editEmployee(employee: Employee) {
         this.employee = { ...employee };
         this.employeeDialog = true;

@@ -43,6 +43,7 @@ import { OwnersComponent } from './features/dashboard/sections/owners/owners.com
 import { CreateOwnerComponent } from './features/dashboard/components/forms/create-owner/create-owner.component';
 import { AddressesComponent } from './features/dashboard/sections/properties/addresses/addresses.component';
 import { FeaturesComponent } from './features/dashboard/sections/properties/features/features.component';
+import { InvoicesComponent } from './features/dashboard/sections/invoices/invoices.component';
 
 export const routes: Routes = [
     {
@@ -206,6 +207,10 @@ export const routes: Routes = [
                         canActivate: [contractFormGuard]
                     },
                 ]
+            },
+            {
+                path: 'faturas',
+                component: InvoicesComponent,
             },
             {
                 path: 'notificacoes',
