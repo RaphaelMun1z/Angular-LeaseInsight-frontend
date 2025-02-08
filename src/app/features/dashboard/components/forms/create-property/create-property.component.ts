@@ -14,8 +14,8 @@ import { CommonModule } from '@angular/common';
 import { SelectModule } from 'primeng/select';
 import { RouterModule } from '@angular/router';
 import { Steps } from 'primeng/steps';
-import { PropertyFormService } from '../../../../../core/services/forms/property-form.service';
-import { FormStorageDirective } from '../create-contract/steps/form-storage.directive';
+import { PropertyFormService } from '../../../../../core/services/stepped-forms/property-form.service';
+import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 
 @Component({
     selector: 'app-create-property',

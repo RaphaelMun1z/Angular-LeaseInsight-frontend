@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { ContentBlockComponent } from "../content-block/content-block.component";
-import { DashboardBaseComponent } from "../dashboard-base/dashboard-base.component";
+import { ContentBlockComponent } from '../../components/content-block/content-block.component';
+import { DashboardBaseComponent } from '../../components/dashboard-base/dashboard-base.component';
 
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';

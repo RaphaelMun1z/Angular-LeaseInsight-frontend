@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TableClientsComponent } from "../views/table-clients/table-clients.component";
-import { ContentBlockComponent } from '../content-block/content-block.component';
-import { DashboardBaseComponent } from '../dashboard-base/dashboard-base.component';
+import { TableClientsComponent } from '../../components/views/table-clients/table-clients.component';
+import { ContentBlockComponent } from '../../components/content-block/content-block.component';
+import { DashboardBaseComponent } from '../../components/dashboard-base/dashboard-base.component';
 import { ClientStateService } from '../../../../core/states/client-state.service';
 import { Client, ClientCreate } from '../../../../shared/interfaces/client';
 import { Observable } from 'rxjs';

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { DashboardBaseComponent } from "../dashboard-base/dashboard-base.component";
-import { ContentBlockComponent } from "../content-block/content-block.component";
-import { ChartComponent } from "../chart/chart.component";
+import { DashboardBaseComponent } from '../../components/dashboard-base/dashboard-base.component';
+import { ContentBlockComponent } from '../../components/content-block/content-block.component';
+import { ChartComponent } from '../../components/chart/chart.component';
 
 @Component({
   selector: 'app-general',

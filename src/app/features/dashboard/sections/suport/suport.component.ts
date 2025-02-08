@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { TabsModule } from 'primeng/tabs';
 import { CommonModule } from '@angular/common';
-import { DashboardBaseComponent } from "../dashboard-base/dashboard-base.component";
-import { ContentBlockComponent } from "../content-block/content-block.component";
+import { DashboardBaseComponent } from '../../components/dashboard-base/dashboard-base.component';
+import { ContentBlockComponent } from '../../components/content-block/content-block.component';
 
 @Component({
     selector: 'app-suport',

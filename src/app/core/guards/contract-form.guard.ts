@@ -1,6 +1,6 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { ContractFormService } from '../services/forms/contract-form.service';
+import { ContractFormService } from '../services/stepped-forms/contract-form.service';
 
 export const contractFormGuard: CanActivateFn = (route, state) => {
     const contractFormService = inject(ContractFormService);

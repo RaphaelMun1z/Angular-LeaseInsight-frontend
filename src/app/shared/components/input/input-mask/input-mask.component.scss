@@ -1,0 +1,19 @@
+:host{
+    width: 100%;
+}
+
+#element{
+    width: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+::ng-deep {    
+    .p-inputgroup .p-inputtext,
+    .p-datepicker,
+    .p-password{
+        width: 100%;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}

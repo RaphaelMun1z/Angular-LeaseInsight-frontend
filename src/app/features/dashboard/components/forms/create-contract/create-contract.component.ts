@@ -1,12 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { StepsModule } from 'primeng/steps';
+import { FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
+
 import { DashboardBaseComponent } from '../../dashboard-base/dashboard-base.component';
 import { ContentBlockComponent } from '../../content-block/content-block.component';
-import { FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
-import { FormStorageDirective } from './steps/form-storage.directive';
-import { ContractFormService } from '../../../../../core/services/forms/contract-form.service';
+import { ContractFormService } from '../../../../../core/services/stepped-forms/contract-form.service';
+
+import { MenuItem } from 'primeng/api';
+import { StepsModule } from 'primeng/steps';
 
 @Component({
     selector: 'app-create-contract',

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ContentBlockComponent } from "../content-block/content-block.component";
-import { DashboardBaseComponent } from "../dashboard-base/dashboard-base.component";
-import { TablePropertiesComponent } from "../views/table-properties/table-properties.component";
 import { Observable } from 'rxjs';
+
 import { Property } from '../../../../shared/interfaces/property';
 import { PropertyStateService } from '../../../../core/states/property-state.service';
+
+import { DashboardBaseComponent } from "../../components/dashboard-base/dashboard-base.component";
+import { ContentBlockComponent } from "../../components/content-block/content-block.component";
+import { TablePropertiesComponent } from "../../components/views/table-properties/table-properties.component";
 
 @Component({
     selector: 'app-properties',

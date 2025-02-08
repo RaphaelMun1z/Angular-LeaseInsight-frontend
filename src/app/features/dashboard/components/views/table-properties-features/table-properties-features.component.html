@@ -1,0 +1,71 @@
+<div class="container">
+    <p-toolbar styleClass="mb-6" class="!w-full">
+        <ng-template #start>
+            <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+            <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedAdditionalFeatures()" [disabled]="!selectedAdditionalFeatures || !selectedAdditionalFeatures.length" />
+        </ng-template>
+        
+        <ng-template #end>
+            <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+        </ng-template>
+    </p-toolbar>
+    
+    <p-table
+    #dt
+    [value]="additionalFeatures"
+    [rows]="10"
+    [columns]="cols"
+    [paginator]="true"
+    [globalFilterFields]="['feature']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedAdditionalFeatures"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Mostrando {first} para {last} de {totalRecords} entradas"
+    [showCurrentPageReport]="true"
+    class="!w-full"
+    >
+    <ng-template #caption>
+        <div class="flex items-center justify-between">
+            <p-iconfield>
+                <p-inputicon styleClass="pi pi-search" />
+                <input 
+                pInputText 
+                type="text" 
+                (input)="dt.filterGlobal($any($event.target).value, 'contains')" 
+                placeholder="Busca por palavra chave" />                 
+            </p-iconfield>
+        </div>
+    </ng-template>
+    <ng-template #header>
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox />
+            </th>
+            <th pSortableColumn="feature" style="min-width:12rem">
+                Característica
+                <p-sortIcon field="feature" />
+            </th>
+            <th style="min-width: 12rem"></th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-additionalFeature>
+        <tr>
+            <td style="width: 3rem">
+                <p-tableCheckbox [value]="additionalFeature" />
+            </td>
+            <td>{{ additionalFeature.feature }}</td>
+            <td>
+                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editAdditionalFeature(additionalFeature)" />
+                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteAdditionalFeature(additionalFeature)" />
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template #summary>
+        <div class="flex items-center justify-between">Total de {{ additionalFeatures ? additionalFeatures.length : 0 }} additionalFeaturees.</div>
+    </ng-template>
+</p-table>
+<p-toast></p-toast>
+
+<p-confirmDialog [style]="{ width: '450px' }" />     
+</div>  

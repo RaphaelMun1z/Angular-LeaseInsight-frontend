@@ -1,0 +1,72 @@
+<p-breadcrumb class="max-w-full" [model]="breadCrumbItems">
+    <ng-template #item let-item>
+        <ng-container *ngIf="item.route; else elseBlock">
+            <a [routerLink]="item.route" class="p-breadcrumb-item-link">
+                <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
+                <span class="text-primary font-semibold">{{ item.label }}</span>
+            </a>
+        </ng-container>
+        <ng-template #elseBlock>
+            <a [href]="item.url">
+                <span class="text-color">{{ item.label }}</span>
+            </a>
+        </ng-template>
+    </ng-template>
+</p-breadcrumb>
+
+<app-dashboard-base [title]="'Imóveis'">
+    <app-content-block [title]="'Cadastrar Endereço'" [type]="'Formulário'">
+        <div class="child">
+            <form [formGroup]="form" storage="property-address-form" class="form-container">
+                <app-input-mask 
+                formControlName="cep"
+                [invalid]="form.controls['cep'].invalid"
+                [label]="'CEP'"
+                [icon]="'pi-map-marker'"
+                [inputMask]="'99.999-999'"></app-input-mask>
+                <app-input-text
+                formControlName="street"
+                [invalid]="form.controls['street'].invalid"
+                [label]="'Logradouro'" 
+                [icon]="'pi-map-marker'"></app-input-text>
+                <app-input-text
+                formControlName="district"
+                [invalid]="form.controls['district'].invalid"
+                [label]="'Bairro'" 
+                [icon]="'pi-map-marker'"></app-input-text>
+                <app-input-text
+                formControlName="city"
+                [invalid]="form.controls['city'].invalid"
+                [label]="'Cidade'" 
+                [icon]="'pi-map-marker'"></app-input-text>
+                <app-input-text
+                formControlName="state"
+                [invalid]="form.controls['state'].invalid"
+                [label]="'Estado'" 
+                [icon]="'pi-map-marker'"></app-input-text>
+                <app-input-select
+                formControlName="country"
+                [invalid]="form.controls['country'].invalid"
+                [label]="'País'" 
+                [icon]="'pi-map-marker'"
+                [items]="listIems"></app-input-select>
+                <app-input-text
+                formControlName="complement"
+                [invalid]="form.controls['complement'].invalid"
+                [label]="'Complemento'" 
+                [icon]="'pi-map-marker'"></app-input-text>
+                <div class="flex">
+                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="submit()"/>
+                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="cleanForm()"/>
+                </div>
+            </form>
+            <ul class="ml-2 w-full alerts-container">
+                <p-message *ngIf="loading" severity="info" icon="pi pi-send" text="Carregando..." />
+                <p-message *ngIf="sendSuccess" severity="success" icon="pi pi-check-circle" styleClass="mb-2">Endereço de imóvel cadastrado com sucesso!</p-message>
+                <p-message *ngFor="let err of errorList" severity="error" icon="pi pi-times-circle" styleClass="mb-2">
+                    {{ err.field }}: {{ err.message }}
+                </p-message>
+            </ul>
+        </div>
+    </app-content-block>
+</app-dashboard-base>
