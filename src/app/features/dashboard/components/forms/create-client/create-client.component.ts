@@ -19,10 +19,11 @@ import { BillingAddress } from '../../../../../shared/interfaces/billingAddress'
 import { Observable } from 'rxjs';
 import { BillingAddressStateService } from '../../../../../core/states/billing-address-state.service';
 import { CreateBillingAddressComponent } from '../create-billing-address/create-billing-address.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-create-client',
-    imports: [DashboardBaseComponent, ContentBlockComponent, FormsModule, CreateBillingAddressComponent, SelectModule, Message, ButtonModule, CommonModule, InputMask, DatePicker, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
+    imports: [DashboardBaseComponent, ContentBlockComponent, RouterModule, FormsModule, CreateBillingAddressComponent, SelectModule, Message, ButtonModule, CommonModule, InputMask, DatePicker, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
     templateUrl: './create-client.component.html',
     styleUrl: './create-client.component.scss'
 })
@@ -30,7 +31,6 @@ import { CreateBillingAddressComponent } from '../create-billing-address/create-
 export class CreateClientComponent implements OnInit {
     addresses: BillingAddress[] = [];
     protected addresses$ = new Observable<BillingAddress[]>();
-    addressFormIsOpen: boolean = false;
     selectedOption!: BillingAddress;
     
     errors: { [key: string]: string } = {};
@@ -41,7 +41,6 @@ export class CreateClientComponent implements OnInit {
     
     private formBuilderService = inject(UntypedFormBuilder);
     private clientService = inject(ClientService);
-    
     constructor(private billingAddressStateService: BillingAddressStateService){
         this.billingAddressStateService.loadBillingAddresses();
     }
@@ -143,9 +142,5 @@ export class CreateClientComponent implements OnInit {
     
     cleanForm(){
         this.form.reset();
-    }
-    
-    addressFormStatus(status: boolean){
-        this.addressFormIsOpen = status;
     }
 }

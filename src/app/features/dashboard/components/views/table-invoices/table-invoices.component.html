@@ -116,7 +116,7 @@
                 {{ invoice.rentalValue }}
             </td>
             <td>
-                <p-tag [value]="invoice.paymentStatus" [severity]="'warn'" />
+                <p-tag [value]="getStatus(invoice.paymentStatus)" [severity]="getStatusSeverity(invoice.paymentStatus)" />
             </td>
             <td>
                 {{ invoice.contractId }}

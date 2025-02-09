@@ -105,7 +105,7 @@
                                 </ng-template>
                                 <ng-template #footer>
                                     <div class="p-3 w-full">
-                                        <p-button label="Adicionar novo endereço" (onClick)="addressFormStatus(true)" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+                                        <p-button label="Adicionar novo endereço" [routerLink]="'/dashboard/clientes/enderecos/criar'" fluid severity="secondary" text size="small" icon="pi pi-plus" />
                                     </div>
                                 </ng-template>
                             </p-select>
@@ -125,11 +125,6 @@
                     {{ err.field }}: {{ err.message }}
                 </p-message>
             </ul>
-        </div>
-        <div class="child extra-space" *ngIf="addressFormIsOpen">
-            <ng-content>
-                <app-create-billing-address (openAddressForm)="addressFormStatus($event)"></app-create-billing-address>
-            </ng-content>
         </div>
     </app-content-block>
 </app-dashboard-base>

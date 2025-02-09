@@ -18,7 +18,7 @@ export class ContractsComponent implements OnInit {
     contracts : Contract[] = [];
     
     constructor(private contractStateService: ContractStateService){
-        this.contractStateService.loadContractes();
+        this.contractStateService.loadContracts();
     }
     
     ngOnInit(): void {

@@ -13,7 +13,7 @@ export class ContractStateService {
     
     constructor() { }
     
-    loadContractes(){
+    loadContracts(){
         this.contractService
         .getContracts()
         .pipe(take(1))

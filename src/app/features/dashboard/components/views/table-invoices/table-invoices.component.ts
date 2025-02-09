@@ -48,11 +48,11 @@ export class TableInvoicesComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private cd: ChangeDetectorRef
     ) {}
-
+    
     ngOnInit(): void {
         this.loadDemoData();
     }
-
+    
     loadDemoData() {
         this.cd.markForCheck();
         
@@ -138,5 +138,55 @@ export class TableInvoicesComponent implements OnInit {
         }
         
         return index;
+    }
+
+    getStatus(status: number){
+        switch (status) {
+            case 1:
+            return 'Pendente';
+            case 2:
+            return 'Pago';
+            case 3:
+            return 'Vencido';
+            case 4:
+            return 'Cancelado';
+            case 5:
+            return 'Em processo';
+            case 6:
+            return 'Pago parcialmente';
+            case 7:
+            return 'Em disputa';
+            case 8:
+            return 'Reembolsado';
+            case 9:
+            return 'Em cobrança';
+            default:
+                return 'Outro'
+        }
+    }
+    
+    getStatusSeverity(status: number) {
+        switch (status) {
+            case 1:
+            return 'info';
+            case 2:
+            return 'success';
+            case 3:
+            return 'warn';
+            case 4:
+            return 'secondary';
+            case 5:
+            return 'secondary';
+            case 6:
+            return 'contrast';
+            case 7:
+            return 'danger';
+            case 8:
+            return 'success';
+            case 9:
+            return 'warn';
+            default:
+            return 'secondary';
+        }
     }
 }

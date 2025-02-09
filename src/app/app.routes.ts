@@ -44,6 +44,7 @@ import { CreateOwnerComponent } from './features/dashboard/components/forms/crea
 import { AddressesComponent } from './features/dashboard/sections/properties/addresses/addresses.component';
 import { FeaturesComponent } from './features/dashboard/sections/properties/features/features.component';
 import { InvoicesComponent } from './features/dashboard/sections/invoices/invoices.component';
+import { CreateInvoiceComponent } from './features/dashboard/components/forms/create-invoice/create-invoice.component';
 
 export const routes: Routes = [
     {
@@ -211,6 +212,10 @@ export const routes: Routes = [
             {
                 path: 'faturas',
                 component: InvoicesComponent,
+            },
+            {
+                path: 'faturas/criar',
+                component: CreateInvoiceComponent,
             },
             {
                 path: 'notificacoes',
