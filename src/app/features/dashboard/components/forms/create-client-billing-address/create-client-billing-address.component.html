@@ -1,7 +1,7 @@
-<app-dashboard-base [title]="'Endereço de Cobrança'" class="container">
-    <app-content-block [title]="'Cadastrar novo endereço'" [type]="'Formulário'">
+<app-dashboard-base [title]="'Clientes'" class="container">
+    <app-content-block [title]="'Cadastrar Endereço de Cobrança'" [type]="'Formulário'">
         <div class="child">
-            <form class="form-container" [formGroup]="form">
+            <form class="form-container" [formGroup]="form" storage="client-billing-address-form">
                 <div class="flex flex-col gap-1">
                     <p-inputgroup>
                         <p-inputgroup-addon>

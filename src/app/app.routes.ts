@@ -45,6 +45,8 @@ import { AddressesComponent } from './features/dashboard/sections/properties/add
 import { FeaturesComponent } from './features/dashboard/sections/properties/features/features.component';
 import { InvoicesComponent } from './features/dashboard/sections/invoices/invoices.component';
 import { CreateInvoiceComponent } from './features/dashboard/components/forms/create-invoice/create-invoice.component';
+import { CreateClientBillingAddressComponent } from './features/dashboard/components/forms/create-client-billing-address/create-client-billing-address.component';
+import { BillingAddressesComponent } from './features/dashboard/sections/clients/billing-addresses/billing-addresses.component';
 
 export const routes: Routes = [
     {
@@ -166,6 +168,14 @@ export const routes: Routes = [
             {
                 path: 'clientes/criar',
                 component: CreateClientComponent
+            },
+            {
+                path: 'clientes/enderecos-de-cobranca',
+                component: BillingAddressesComponent
+            },
+            {
+                path: 'clientes/endereco-de-cobranca/criar',
+                component: CreateClientBillingAddressComponent
             },
             {
                 path: 'proprietarios',

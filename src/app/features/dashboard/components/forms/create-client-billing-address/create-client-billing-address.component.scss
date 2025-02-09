@@ -6,13 +6,15 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: 50%;
     height: fit-content;
-
+    
     &.extra-space{
-        padding-left: 2vw;
+        padding: 2vw;
+        background-color: #fff;
+        border-radius: 10px;
     }
-
+    
     .form-container{
         position: relative;
         display: flex;
@@ -23,7 +25,7 @@
         gap: 3vh;
         padding-right: 2vw;
     }
-
+    
     .alerts-container{
         position: relative;
         display: flex;
@@ -42,15 +44,16 @@
 }
 
 ::ng-deep {
-    .container>.scrollable-view{
-        padding: 0 !important;
-    }
-
     .p-inputgroup .p-inputtext,
     .p-datepicker,
     .p-password{
         width: 100%;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+    }
+    
+    .p-breadcrumb{ 
+        background-color: transparent;
+        padding: 2vh 12vw;
     }
 }

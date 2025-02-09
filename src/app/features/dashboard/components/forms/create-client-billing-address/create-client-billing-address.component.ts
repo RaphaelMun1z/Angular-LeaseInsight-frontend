@@ -17,15 +17,16 @@ import { ContentBlockComponent } from '../../content-block/content-block.compone
 import { BillingAddressService } from '../../../../../core/services/billingAddress.service';
 import { CepService } from '../../../../../core/services/cep.service';
 import { BillingAddressStateService } from '../../../../../core/states/billing-address-state.service';
+import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 
 @Component({
-    selector: 'app-create-billing-address',
-    imports: [DashboardBaseComponent, ContentBlockComponent, InputNumber, InputMask, Message, CommonModule, ReactiveFormsModule, InputTextModule, InputGroupModule, InputGroupAddonModule, FloatLabelModule, PasswordModule, ButtonModule, SelectModule],
-    templateUrl: './create-billing-address.component.html',
-    styleUrl: './create-billing-address.component.scss'
+    selector: 'app-create-client-billing-address',
+    imports: [DashboardBaseComponent, FormStorageDirective, ContentBlockComponent, InputNumber, InputMask, Message, CommonModule, ReactiveFormsModule, InputTextModule, InputGroupModule, InputGroupAddonModule, FloatLabelModule, PasswordModule, ButtonModule, SelectModule],
+    templateUrl: './create-client-billing-address.component.html',
+    styleUrl: './create-client-billing-address.component.scss'
 })
 
-export class CreateBillingAddressComponent implements OnInit {
+export class CreateClientBillingAddressComponent implements OnInit {
     billingAddresses: BillingAddress[] = [];
     @Output() openAddressForm = new EventEmitter<boolean>();
     
@@ -109,6 +110,10 @@ export class CreateBillingAddressComponent implements OnInit {
                 this.billingAddressStateService.addBillingAddress(res);
                 this.loading = false;
                 this.sendSuccess = true;
+                this.cleanForm();
+                setTimeout(() => {
+                    localStorage.removeItem("client-billing-address-form");
+                }, 500)
                 setTimeout(() => {
                     this.sendSuccess = false;
                 }, 5000)

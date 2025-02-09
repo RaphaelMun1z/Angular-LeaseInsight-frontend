@@ -18,12 +18,12 @@ import { ClientCreate } from '../../../../../shared/interfaces/client';
 import { BillingAddress } from '../../../../../shared/interfaces/billingAddress';
 import { Observable } from 'rxjs';
 import { BillingAddressStateService } from '../../../../../core/states/billing-address-state.service';
-import { CreateBillingAddressComponent } from '../create-billing-address/create-billing-address.component';
 import { RouterModule } from '@angular/router';
+import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 
 @Component({
     selector: 'app-create-client',
-    imports: [DashboardBaseComponent, ContentBlockComponent, RouterModule, FormsModule, CreateBillingAddressComponent, SelectModule, Message, ButtonModule, CommonModule, InputMask, DatePicker, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
+    imports: [DashboardBaseComponent, FormStorageDirective, ContentBlockComponent, RouterModule, FormsModule, SelectModule, Message, ButtonModule, CommonModule, InputMask, DatePicker, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
     templateUrl: './create-client.component.html',
     styleUrl: './create-client.component.scss'
 })
@@ -110,6 +110,10 @@ export class CreateClientComponent implements OnInit {
             next: (res: any) => {    
                 this.loading = false;
                 this.sendSuccess = true;
+                this.cleanForm();
+                setTimeout(() => {
+                    localStorage.removeItem("client-form");
+                }, 500)
                 setTimeout(() => {
                     this.sendSuccess = false;
                 }, 5000)

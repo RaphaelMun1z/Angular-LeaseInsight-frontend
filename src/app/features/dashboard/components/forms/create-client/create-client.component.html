@@ -1,7 +1,7 @@
 <app-dashboard-base [title]="'Clientes'">
     <app-content-block [title]="'Criar Novo Cliente'" [type]="'Formulário'">
         <div class="child">
-            <form class="form-container" [formGroup]="form">
+            <form class="form-container" [formGroup]="form" storage="client-form">
                 <div class="flex flex-col gap-1">
                     <p-inputgroup>
                         <p-inputgroup-addon>

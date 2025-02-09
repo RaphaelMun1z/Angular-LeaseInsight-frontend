@@ -9,10 +9,10 @@ import { DashboardBaseComponent } from '../../../components/dashboard-base/dashb
 import { TablePropertiesAddressesComponent } from '../../../components/views/table-properties-addresses/table-properties-addresses.component';
 
 @Component({
-  selector: 'app-addresses',
-  imports: [ContentBlockComponent, DashboardBaseComponent, TablePropertiesAddressesComponent],
-  templateUrl: './addresses.component.html',
-  styleUrl: './addresses.component.scss'
+    selector: 'app-addresses',
+    imports: [ContentBlockComponent, DashboardBaseComponent, TablePropertiesAddressesComponent],
+    templateUrl: './addresses.component.html',
+    styleUrl: './addresses.component.scss'
 })
 
 export class AddressesComponent implements OnInit {
