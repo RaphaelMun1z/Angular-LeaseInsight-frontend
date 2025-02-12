@@ -47,6 +47,7 @@ import { InvoicesComponent } from './features/dashboard/sections/invoices/invoic
 import { CreateInvoiceComponent } from './features/dashboard/components/forms/create-invoice/create-invoice.component';
 import { CreateClientBillingAddressComponent } from './features/dashboard/components/forms/create-client-billing-address/create-client-billing-address.component';
 import { BillingAddressesComponent } from './features/dashboard/sections/clients/billing-addresses/billing-addresses.component';
+import { CreatePropertyFeatureAddComponent } from './features/dashboard/components/forms/create-property-feature-add/create-property-feature-add.component';
 
 export const routes: Routes = [
     {
@@ -148,6 +149,10 @@ export const routes: Routes = [
             {
                 path: 'imoveis/caracteristicas/criar',
                 component: CreatePropertyFeatureComponent
+            },
+            {
+                path: 'imoveis/caracteristicas/adicionar',
+                component: CreatePropertyFeatureAddComponent
             },
             {
                 path: 'financa',

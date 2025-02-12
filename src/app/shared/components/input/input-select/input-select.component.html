@@ -1,5 +1,5 @@
 <div class="card flex flex-wrap flex-col w-full">
-    <p-select [options]="items" [(ngModel)]="value" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="{{ label }}" class="w-full">
+    <p-select [options]="items" [(ngModel)]="value" optionLabel="name" optionValue="code" [filter]="true" filterBy="name" [showClear]="true" placeholder="{{ label }}" class="w-full">
         <ng-template #selectedItem let-selectedOption>
             <div class="flex items-center gap-2">
                 <div>{{ selectedOption.name }}</div>

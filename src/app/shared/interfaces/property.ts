@@ -61,3 +61,12 @@ export interface PropertyCreate {
     owner: string;
     files: File[];
 }
+
+export interface AddFeature {
+    property: {
+        id: string 
+    },
+    feature: {
+        id: string
+    }
+}

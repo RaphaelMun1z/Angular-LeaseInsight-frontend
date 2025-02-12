@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Property, PropertyCreate, PropertyMinimal } from '../../shared/interfaces/property';
+import { AddFeature, Property, PropertyCreate, PropertyMinimal } from '../../shared/interfaces/property';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -31,5 +31,9 @@ export class PropertyService {
     
     saveProperty(property: FormData): any {
         return this.http.post<PropertyCreate>(this.url + "/residences", property);
+    }
+
+    saveFeatureProperty(propertyFeature: any): any {
+        return this.http.post<AddFeature>(this.url + "/residences/add-feature", propertyFeature);
     }
 }

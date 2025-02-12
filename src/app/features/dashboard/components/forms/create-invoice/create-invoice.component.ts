@@ -39,13 +39,14 @@ export class CreateInvoiceComponent implements OnInit {
     errorList: { field: string; message: string }[] = [];
     sendSuccess: boolean = false;
     loading: boolean = false;
-    paymentStatus!: { name: string, code: string | number }[];
-    contractsSelect!: { name: string, code: string | number }[];
-    
-    contracts: Contract[] = [];
-    protected contracts$ = new Observable<Contract[]>();
+
     items: MenuItem[] | undefined;
     home: MenuItem | undefined;
+
+    paymentStatus!: { name: string, code: string | number }[];
+    contractsSelect!: { name: string, code: string | number }[];
+    protected contracts$ = new Observable<Contract[]>();
+    contracts: Contract[] = [];
     
     private formBuilderService = inject(UntypedFormBuilder);
     private invoiceService = inject(InvoiceService);
