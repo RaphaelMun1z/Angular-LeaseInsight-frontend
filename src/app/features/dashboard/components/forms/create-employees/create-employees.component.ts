@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { DashboardBaseComponent } from '../../dashboard-base/dashboard-base.component';
 import { ContentBlockComponent } from '../../content-block/content-block.component';
 
-import { EmployeeCreate } from '../../../../../shared/interfaces/employee';
+import { Employee, EmployeeCreate } from '../../../../../shared/interfaces/employee';
 import { EmployeeService } from '../../../../../core/services/employee.service';
 
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -19,11 +19,12 @@ import { InputMask } from 'primeng/inputmask';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { Message } from 'primeng/message';
+import { Dialog } from 'primeng/dialog';
 import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-create-employees',
-    imports: [RouterModule, Breadcrumb, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, Message, ButtonModule, CommonModule, InputMask, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
+    imports: [RouterModule, Dialog, Breadcrumb, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, Message, ButtonModule, CommonModule, InputMask, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
     templateUrl: './create-employees.component.html',
     styleUrl: './create-employees.component.scss'
 })
@@ -34,6 +35,8 @@ export class CreateEmployeesComponent implements OnInit {
     sendSuccess: boolean = false;
     loading: boolean = false;
     status!: string[];
+    responseVisible: boolean = false;
+    responseItem!: Employee;
     
     items: MenuItem[] | undefined;
     home: MenuItem | undefined;
@@ -72,7 +75,10 @@ export class CreateEmployeesComponent implements OnInit {
     
     postEmployee(employee: EmployeeCreate){
         this.employeeService.saveEmployee(employee).subscribe({
-            next: (res: any) => {    
+            next: (res: any) => {  
+                console.log(res);
+                this.responseItem = res; 
+                this.showResponseDialog()
                 this.loading = false;
                 this.sendSuccess = true;
                 setTimeout(() => {
@@ -96,6 +102,10 @@ export class CreateEmployeesComponent implements OnInit {
             field,
             message
         }));
+    }
+
+    showResponseDialog() {
+        this.responseVisible = true;
     }
     
     cleanForm(){

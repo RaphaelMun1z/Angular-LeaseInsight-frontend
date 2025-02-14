@@ -41,7 +41,7 @@
             </form>
             <ul class="ml-2 w-full alerts-container">
                 <p-message *ngIf="loading" severity="info" icon="pi pi-send" text="Carregando..." />
-                <p-message *ngIf="sendSuccess" severity="success" icon="pi pi-check-circle" styleClass="mb-2">Característica de imóvel salvo com sucesso!</p-message>
+                <p-message *ngIf="sendSuccess" severity="success" icon="pi pi-check-circle" styleClass="mb-2">Característica de imóvel salva com sucesso!</p-message>
                 <p-message *ngFor="let err of errorList" severity="error" icon="pi pi-times-circle" styleClass="mb-2">
                     {{ err.field }}: {{ err.message }}
                 </p-message>

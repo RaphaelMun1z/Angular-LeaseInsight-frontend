@@ -67,5 +67,16 @@
                 </p-message>
             </ul>
         </div>
+        <p-dialog header="Funcionário cadastrado com sucesso." [(visible)]="responseVisible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+            <div *ngIf="responseItem">
+                <h1><b>Código:</b> {{ responseItem.id }}</h1>
+                <h1><b>Nome:</b> {{ responseItem.name }}</h1>
+                <h1><b>Telefone:</b> {{ responseItem.phone }}</h1>
+            </div>
+            <div class="flex justify-end gap-2">
+                <p-button label="Ok" severity="secondary" (click)="responseVisible = false" />
+                <p-button label="Abrir" (click)="responseVisible = false" />
+            </div>
+        </p-dialog>
     </app-content-block>
 </app-dashboard-base>
