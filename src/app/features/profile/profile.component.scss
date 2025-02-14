@@ -1,0 +1,44 @@
+:host{
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.content-container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: fit-content;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    gap: 20vh;
+    
+    .base{
+        position: relative;
+        display: flex;
+        width: 65%;
+        height: fit-content;
+        min-height: 80vh;
+        background-color: #fff;
+        border-radius: 20px;
+        padding: 2vh;
+        gap: 1vw;
+        
+        .aside{
+            position: relative;
+            display: flex;
+            width: fit-content;
+            height: fit-content;
+        }
+        
+        .content{
+            position: relative;
+            display: flex;
+            width: 100%;
+            height: auto;
+        }
+    }
+}

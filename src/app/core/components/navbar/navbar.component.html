@@ -30,7 +30,7 @@
                     <ng-template #footer>
                         <button [routerLink]="'dashboard'" pButton label="Dashboard" icon="pi pi-objects-column" class="w-full mb-2" severity="info" outlined></button>
                         <div class="flex items-center gap-2">
-                            <button pButton label="Perfil" icon="pi pi-user" class="w-full" outlined></button>
+                            <button [routerLink]="'/perfil'" pButton label="Perfil" icon="pi pi-user" class="w-full" outlined></button>
                             <button pButton label="Sair" icon="pi pi-sign-out" (click)="logout()" class="w-full" severity="danger" outlined></button>
                         </div>
                     </ng-template>

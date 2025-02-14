@@ -130,7 +130,7 @@
                 font-size: max(1.3vw, 15px);
             }
         }
-
+        
         .messages-list{
             ::ng-deep{
                 .animated-icon{
@@ -149,5 +149,16 @@
     }
     to{
         transform: rotate(360deg);
+    }
+}
+
+::ng-deep {
+    .p-password{
+        width: 100% !important;
+    }
+    
+    .p-password-input{
+        width: 100% !important;
+        padding: 2vh 1vw;
     }
 }

@@ -1,19 +1,21 @@
 import { Component, inject } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+
+import { AuthService } from '../../core/services/auth.service';
+import { ErrorResponse } from '../../shared/interfaces/errorResponse';
+
 import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { Message } from 'primeng/message';
 import { InputMaskModule } from 'primeng/inputmask';
 import { IftaLabelModule } from 'primeng/iftalabel';
-import { AuthService } from '../../core/services/auth.service';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ErrorResponse } from '../../shared/interfaces/errorResponse';
+import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
+import { Message } from 'primeng/message';
 
 @Component({
     selector: 'app-login',
-    imports: [ReactiveFormsModule, CommonModule, Message, FormsModule, InputTextModule, ButtonModule, InputMaskModule, IftaLabelModule],
+    imports: [ReactiveFormsModule, PasswordModule, CommonModule, Message, FormsModule, InputTextModule, ButtonModule, InputMaskModule, IftaLabelModule],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss'
 })

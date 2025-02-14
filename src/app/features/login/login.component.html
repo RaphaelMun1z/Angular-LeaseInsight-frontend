@@ -13,7 +13,7 @@
                 </div>
                 <div class="w-full">
                     <span class="font-medium block mb-2">Senha</span>
-                    <input class="w-full" formControlName="password" pInputText name="password" placeholder="Senha*" />
+                    <p-password class="w-full" [feedback]="false" [toggleMask]="true" promptLabel="Informe sua senha" name="password" formControlName="password" placeholder="Senha*" />
                 </div>
                 <p-button type="submit" label="Acessar" class="submit-button"/>
                 <a href="#" class="forgot-pass"><p>Esqueceu sua senha?</p></a>
