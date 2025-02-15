@@ -39,15 +39,17 @@ export class ProfileComponent implements OnInit{
                     {
                         label: 'Meus Contratos',
                         icon: 'pi pi-paperclip',
-                        routerLink: 'faturas',
+                        routerLink: 'contratos',
                     },
                     {
                         label: 'Minhas Propriedades',
-                        icon: 'pi pi-home'
+                        icon: 'pi pi-home',
+                        routerLink: 'propriedades',
                     },
                     {
                         label: 'Meus Relatos',
-                        icon: 'pi pi-exclamation-triangle'
+                        icon: 'pi pi-exclamation-triangle',
+                        routerLink: 'relatos',
                     }
                 ]
             },
@@ -56,7 +58,8 @@ export class ProfileComponent implements OnInit{
                 items: [
                     {
                         label: 'Minhas Faturas',
-                        icon: 'pi pi-receipt'
+                        icon: 'pi pi-receipt',
+                        routerLink: 'faturas',
                     }
                 ]
             },
@@ -66,7 +69,7 @@ export class ProfileComponent implements OnInit{
                     {
                         label: 'Configuração',
                         icon: 'pi pi-cog',
-                        routerLink: ['/perfil/detalhes'],
+                        routerLink: 'detalhes',
                     },
                     {
                         label: 'Notificações',

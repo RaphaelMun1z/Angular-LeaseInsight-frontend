@@ -5,9 +5,30 @@
 .container{
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     height: fit-content;
-    background-color: rgb(196, 196, 196);
-    border-radius: 20px;
-    padding: 2vh;
+    border: 1px solid var(--p-menu-border-color);
+    border-radius: 6px;
+    padding: 2vh 1vw;
+}
+
+::ng-deep {
+    .product-image {
+        width: 150px;
+        margin: 0 auto 2rem auto;
+        display: block;
+    }
+    
+    .scrollable-view{
+        padding: 0 !important;
+    }
+    
+    .p-toolbar{
+        flex-direction: row-reverse;
+    }
+
+    .p-datatable-header{
+        padding: 0;
+    }
 }

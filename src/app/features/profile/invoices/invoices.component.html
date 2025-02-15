@@ -1,3 +1,128 @@
 <section class="container">
-    Invoices
+    <app-dashboard-base [title]="'Financeiro'">
+        <app-content-block [title]="'Minhas Faturas'" [type]="'Lista'">
+            <p-table
+            #dt2
+            [value]="invoices"
+            dataKey="id"
+            [rows]="10"
+            [rowsPerPageOptions]="[10, 25, 50]"
+            [paginator]="true"
+            [globalFilterFields]="['rentalStartDate', 'rentalEndDate', 'rentalValue', 'paymentStatus', 'contractId', 'residenceId']"
+            [tableStyle]="{ 'min-width': '75rem' }"
+            class="!w-full">
+            <ng-template #caption>
+                <div class="flex w-full">
+                    <p-toolbar styleClass="mb-6" class="!w-full">
+                        <ng-template #end>
+                            <p-button label="Baixar Dados" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+                        </ng-template>
+                        <p-iconfield iconPosition="left" class="ml-auto">
+                            <p-inputicon>
+                                <i class="pi pi-search"></i>
+                            </p-inputicon>
+                            <input
+                            pInputText
+                            type="text"
+                            (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+                            placeholder="Buscar por palavra chave"
+                            />
+                        </p-iconfield>
+                    </p-toolbar>
+                </div>
+            </ng-template>
+            <ng-template #header>
+                <tr>
+                    <th>Criado em</th>
+                    <th>Vence em</th>
+                    <th>Valor</th>
+                    <th>Status de pagamento</th>
+                    <th>Contrato</th>
+                    <th>Imóvel</th>
+                </tr>
+                <tr>
+                    <th>
+                        <div class="flex items-center">
+                            Filtrar
+                            <p-columnFilter type="date" field="rentalStartDate" display="menu" />
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex items-center">
+                            Filtrar
+                            <p-columnFilter type="date" field="rentalEndDate" display="menu" />
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex items-center">
+                            Filtrar
+                            <p-columnFilter type="numeric" field="rentalValue" display="menu" currency="BRL" />
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex items-center">
+                            Status
+                            <p-columnFilter field="paymentStatus" matchMode="equals" display="menu">
+                                <ng-template #filter let-value let-filter="filterCallback">
+                                    <p-dropdown [ngModel]="value()" 
+                                    (ngModelChange)="value.set($event)"
+                                    [options]="statuses" 
+                                    (onChange)="filter($event.value)" 
+                                    placeholder="Any">
+                                    <ng-template let-option #item>
+                                        <p-tag [value]="option.value" [severity]="getStatusSeverity(option.label)" />
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </div>
+                </th>
+                <th>
+                    <p-columnFilter
+                    type="text"
+                    field="contractId"
+                    placeholder="Filtrar por código do contrato"
+                    ariaLabel="Filter Name"
+                    ></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter
+                    type="text"
+                    field="residenceId"
+                    placeholder="Filtrar por código da residencia"
+                    ariaLabel="Filter Name"
+                    ></p-columnFilter>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-invoice>
+            <tr>
+                <td>
+                    {{ invoice.rentalStartDate | date: 'MM/dd/yyyy' }}
+                </td>
+                <td>
+                    {{ invoice.rentalEndDate | date: 'MM/dd/yyyy' }}
+                </td>
+                <td>
+                    {{ invoice.rentalValue | currency: 'BRL' : 'symbol' }}
+                </td>
+                <td>
+                    <p-tag [value]="getStatus(invoice.paymentStatus)" [severity]="getStatusSeverity(invoice.paymentStatus)" />
+                </td>
+                <td>
+                    {{ invoice.contractId }}
+                </td>
+                <td>
+                    {{ invoice.residenceId }}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template #emptymessage>
+            <tr>
+                <td colspan="5">No invoices found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</app-content-block>
+</app-dashboard-base>
 </section>

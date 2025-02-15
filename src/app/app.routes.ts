@@ -102,6 +102,10 @@ export const routes: Routes = [
                     }
                 ]
             },
+            {
+                path: '**',
+                component: NotFoundComponent
+            }
         ]
     },
     {
@@ -279,9 +283,5 @@ export const routes: Routes = [
                 component: SuportComponent
             }
         ]
-    },
-    {
-        path: '**',
-        component: NotFoundComponent
     }
 ];
