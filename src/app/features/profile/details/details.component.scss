@@ -1,0 +1,53 @@
+:host{
+    width: 100% !important;
+}
+
+.container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    border: 1px solid var(--p-menu-border-color);
+    border-radius: 6px;
+    padding: 2vh 1vw;
+    gap: 3vh;
+    
+    .picture-container{
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+    }
+
+    .buttons-container{
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: .5vw;
+    }
+
+    .inputs-container{
+        position: relative;
+        display: flex;
+        width: 60%;
+        height: fit-content;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 1.5vh;
+    }
+}
+
+::ng-deep {
+    .p-avatar-icon{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .p-avatar-xl{
+        width: 7rem;
+        height: 7rem;
+    }
+}

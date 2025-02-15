@@ -44,12 +44,13 @@ import { CreateOwnerComponent } from './features/dashboard/components/forms/crea
 import { AddressesComponent } from './features/dashboard/sections/properties/addresses/addresses.component';
 import { FeaturesComponent } from './features/dashboard/sections/properties/features/features.component';
 import { InvoicesComponent } from './features/dashboard/sections/invoices/invoices.component';
-import { InvoicesComponent as InvoicesProfileComponente } from './features/profile/invoices/invoices.component';
 import { CreateInvoiceComponent } from './features/dashboard/components/forms/create-invoice/create-invoice.component';
 import { CreateClientBillingAddressComponent } from './features/dashboard/components/forms/create-client-billing-address/create-client-billing-address.component';
 import { BillingAddressesComponent } from './features/dashboard/sections/clients/billing-addresses/billing-addresses.component';
 import { CreatePropertyFeatureAddComponent } from './features/dashboard/components/forms/create-property-feature-add/create-property-feature-add.component';
 import { ProfileComponent } from './features/profile/profile.component';
+import { InvoicesComponent as InvoicesProfileComponente } from './features/profile/invoices/invoices.component';
+import { DetailsComponent as DetailsProfileComponente } from './features/profile/details/details.component';
 
 export const routes: Routes = [
     {
@@ -81,28 +82,32 @@ export const routes: Routes = [
                 path: 'contato',
                 component: ContactComponent
             },
+            {
+                path: 'perfil',
+                component: ProfileComponent,
+                canActivate: [authGuard],
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'detalhes',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'detalhes',
+                        component: DetailsProfileComponente
+                    },
+                    {
+                        path: 'faturas',
+                        component: InvoicesProfileComponente
+                    }
+                ]
+            },
         ]
     },
     {
         path: 'login',
         component: LoginComponent,
         canActivate: [guestGuard]
-    },
-    {
-        path: 'perfil',
-        component: ProfileComponent,
-        canActivate: [authGuard],
-        children: [
-            {
-                path: '',
-                redirectTo: 'faturas',
-                pathMatch: 'full'
-            },
-            {
-                path: 'faturas',
-                component: InvoicesProfileComponente
-            }
-        ]
     },
     {
         path: 'dashboard',

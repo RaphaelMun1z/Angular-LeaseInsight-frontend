@@ -4,3 +4,12 @@ export interface User {
     email: string;
     password: string;
 }
+
+export interface CurrentUser {
+    id: string;
+    name: string;
+    phone: string;
+    email: string;
+    role: string;
+    authorities: string[];
+}

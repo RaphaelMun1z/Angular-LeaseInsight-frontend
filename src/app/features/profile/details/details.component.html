@@ -1,0 +1,31 @@
+<section class="container">
+    <div class="picture-container">
+        <p-avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
+        <div class="buttons-container">
+            <p-button label="Alterar foto" icon="pi pi-user" severity="info" />
+            <p-button label="Excluir foto" icon="pi pi-user" variant="outlined" severity="danger" />
+        </div>
+    </div>
+    <div class="inputs-container">
+        <div class="flex flex-col gap-2">
+            <label for="username">Nome</label>
+            <input pInputText id="username" aria-describedby="username-help" />
+        </div>
+        <div class="flex flex-col gap-2">
+            <label for="username">E-mail</label>
+            <input pInputText id="username" aria-describedby="username-help" />
+        </div>
+        <div class="flex flex-col gap-2">
+            <label for="username">Phone</label>
+            <input pInputText id="username" aria-describedby="username-help" />
+        </div>
+        <div class="flex flex-col gap-2">
+            <label for="username">Tipo de Conta</label>
+            <input pInputText id="username" [disabled]="true" aria-describedby="username-help" />
+        </div>
+        <div class="buttons-container">
+            <p-button label="Habilitar Edição" icon="pi pi-user-edit" severity="info" />
+            <p-button label="Salvar" icon="pi pi-check" severity="success" [disabled]="true" />
+        </div>
+    </div>
+</section>

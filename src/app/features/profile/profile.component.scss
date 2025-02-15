@@ -11,7 +11,6 @@
     flex-wrap: wrap;
     width: 100%;
     height: fit-content;
-    min-height: 100vh;
     justify-content: center;
     align-items: center;
     gap: 20vh;
@@ -19,7 +18,7 @@
     .base{
         position: relative;
         display: flex;
-        width: 65%;
+        width: 75%;
         height: fit-content;
         min-height: 80vh;
         background-color: #fff;

@@ -15,7 +15,6 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { Breadcrumb } from 'primeng/breadcrumb';
-import { InputMask } from 'primeng/inputmask';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { Message } from 'primeng/message';
@@ -29,7 +28,7 @@ import { ContractStateService } from '../../../../../core/states/contract-state.
 
 @Component({
     selector: 'app-create-invoice',
-    imports: [RouterModule, FormStorageDirective, DatePicker, Breadcrumb, InputSelectComponent, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, Message, ButtonModule, CommonModule, InputMask, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
+    imports: [RouterModule, FormStorageDirective, DatePicker, Breadcrumb, InputSelectComponent, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, Message, ButtonModule, CommonModule, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
     templateUrl: './create-invoice.component.html',
     styleUrl: './create-invoice.component.scss'
 })

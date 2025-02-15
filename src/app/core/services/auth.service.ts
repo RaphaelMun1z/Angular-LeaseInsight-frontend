@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 import { MessageService } from 'primeng/api';
 import { Token } from '../../shared/interfaces/token';
 import { ErrorResponse } from '../../shared/interfaces/errorResponse';
+import { CurrentUser } from '../../shared/interfaces/user';
 
 @Injectable({
     providedIn: 'root'
@@ -37,8 +38,8 @@ export class AuthService {
         }));
     } 
     
-    me(){
-        return this._http.get<ApiResponse<User>>(`${this.url}/auth/me`);
+    getCurrentUser(): Observable<CurrentUser>{
+        return this._http.get<CurrentUser>(this.url + "/users/me");
     }
     
     getUserToken(){
