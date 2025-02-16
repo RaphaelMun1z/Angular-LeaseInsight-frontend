@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { OwnerService } from '../services/owner.service';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 import { Owner } from '../../shared/interfaces/owner';
+import { Property } from '../../shared/interfaces/property';
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +11,7 @@ import { Owner } from '../../shared/interfaces/owner';
 export class OwnerStateService {
     private owners$ = new BehaviorSubject<Owner[]>([]);
     private owner$ = new BehaviorSubject<Owner | null>(null);
+    private currentOwnerProperties$ = new BehaviorSubject<Property[]>([]);
     
     private ownerService = inject(OwnerService);
     constructor() { }
@@ -34,6 +36,21 @@ export class OwnerStateService {
     
     private shareOwner(owner: Owner){
         this.owner$.next(owner);
+    }
+    
+    loadCurrentOwnerProperties(){
+        this.ownerService
+        .getCurrentOwnerProperties()
+        .pipe(take(1))
+        .subscribe(currentOwnerProperties => this.shareOwnerProperties(currentOwnerProperties))
+    }
+    
+    private shareOwnerProperties(currentOwnerProperties: Property[]){
+        this.currentOwnerProperties$.next(currentOwnerProperties);
+    }
+    
+    listenToCurrentOwnerProperties(): Observable<Property[]>{
+        return this.currentOwnerProperties$.asObservable();
     }
     
     listenToClient(): Observable<Owner | null>{

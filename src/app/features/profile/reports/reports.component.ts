@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, inject, Input, OnInit, signal, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { ClientStateService } from '../../../core/states/client-state.service';
-import { Invoice, InvoiceFull } from '../../../shared/interfaces/invoice';
+import { Report } from '../../../shared/interfaces/report';
 
 import { DashboardBaseComponent } from '../../dashboard/components/dashboard-base/dashboard-base.component';
 import { ContentBlockComponent } from '../../dashboard/components/content-block/content-block.component';
@@ -34,16 +34,16 @@ interface ExportColumn {
 }
 
 @Component({
-    selector: 'app-invoices',
+    selector: 'app-reports',
     imports: [TableModule, FormsModule, DropdownModule, DashboardBaseComponent, ContentBlockComponent, Toolbar, TagModule, IconFieldModule, Button, InputTextModule, InputIconModule, MultiSelectModule, SelectModule, CommonModule],
     providers: [MessageService, ConfirmationService],
-    templateUrl: './invoices.component.html',
-    styleUrl: './invoices.component.scss'
+    templateUrl: './reports.component.html',
+    styleUrl: './reports.component.scss'
 })
 
-export class InvoicesComponent implements OnInit {
-    protected invoices$ = new Observable<InvoiceFull[]>();
-    invoices! : InvoiceFull[];
+export class ReportsComponent implements OnInit {
+    protected reports$ = new Observable<Report[]>();
+    reports! : Report[];
     
     value = signal<string | null>(null);
     statuses!: any[];
@@ -53,32 +53,35 @@ export class InvoicesComponent implements OnInit {
     exportColumns!: ExportColumn[];
     
     constructor(private clientStateService: ClientStateService, private cd: ChangeDetectorRef){
-        this.clientStateService.loadCurrentClientInvoices();
+        this.clientStateService.loadCurrentClientReports();
     }
     
     ngOnInit(): void {
         this.loadDemoData();
         
-        this.getCurrentClientInvoices();
-        this.invoices$.subscribe((data: InvoiceFull[]) => {
-            this.invoices = data;
+        this.getCurrentClientReports();
+        this.reports$.subscribe((data: Report[]) => {
+            this.reports = data;
         });
         
         this.statuses = [
-            { label: 'PENDING', value: 'PENDING' },
-            { label: 'PAID', value: 'PAID' },
-            { label: 'OVERDUE', value: 'OVERDUE' },
+            { label: 'ACTIVE', value: 'ACTIVE' },
+            { label: 'TERMINATED', value: 'TERMINATED' },
+            { label: 'EXPIRED', value: 'EXPIRED' },
+            { label: 'PENDING_APPROVAL', value: 'PENDING_APPROVAL' },
+            { label: 'APPROVED', value: 'APPROVED' },
+            { label: 'REJECTED', value: 'REJECTED' },
+            { label: 'UNDER_REVIEW', value: 'UNDER_REVIEW' },
+            { label: 'RENEWED', value: 'RENEWED' },
             { label: 'CANCELED', value: 'CANCELED' },
-            { label: 'IN_PROCESS', value: 'IN_PROCESS' },
-            { label: 'PARTIALLY_PAID', value: 'PARTIALLY_PAID' },
-            { label: 'DISPUTED', value: 'DISPUTED' },
-            { label: 'REFUNDED', value: 'REFUNDED' },
-            { label: 'IN_COLLECTION', value: 'IN_COLLECTION' },
+            { label: 'SUSPENDED', value: 'SUSPENDED' },
+            { label: 'IN_NEGOTIATION', value: 'IN_NEGOTIATION' },
+            { label: 'HOLD', value: 'HOLD' },
         ];
     }
     
-    getCurrentClientInvoices(){
-        this.invoices$ = this.clientStateService.listenToCurrentClientInvoices();
+    getCurrentClientReports(){
+        this.reports$ = this.clientStateService.listenToCurrentClientReports();
     }
     
     loadDemoData() {
@@ -104,8 +107,8 @@ export class InvoicesComponent implements OnInit {
     
     findIndexById(id: string): number {
         let index = -1;
-        for (let i = 0; i < this.invoices.length; i++) {
-            if (this.invoices[i].id === id) {
+        for (let i = 0; i < this.reports.length; i++) {
+            if (this.reports[i].id === id) {
                 index = i;
                 break;
             }
@@ -114,53 +117,37 @@ export class InvoicesComponent implements OnInit {
         return index;
     }
     
-    getStatus(status: number){
+    getStatus(status: string){
         switch (status) {
-            case 1:
-            return 'Pendente';
-            case 2:
-            return 'Pago';
-            case 3:
-            return 'Vencido';
-            case 4:
-            return 'Cancelado';
-            case 5:
-            return 'Em processo';
-            case 6:
-            return 'Pago parcialmente';
-            case 7:
-            return 'Em disputa';
-            case 8:
-            return 'Reembolsado';
-            case 9:
-            return 'Em cobrança';
+            case "MAINTENANCE_ISSUE":
+            return "Problema de Manutenção";
+            case "UTILITY_FAILURE":
+            return "Falha em Serviços Públicos";
+            case "SECURITY_CONCERN":
+            return "Preocupação com Segurança";
+            case "PROPERTY_DAMAGE":
+            return "Dano à Propriedade";
+            case "GENERAL_COMPLAINT":
+            return "Reclamação Geral";
             default:
-            return 'Outro'
+            return "Outro";
         }
     }
     
-    getStatusSeverity(status: number) {
+    getStatusSeverity(status: string) {
         switch (status) {
-            case 1:
-            return 'info';
-            case 2:
-            return 'success';
-            case 3:
-            return 'warn';
-            case 4:
-            return 'secondary';
-            case 5:
-            return 'secondary';
-            case 6:
-            return 'contrast';
-            case 7:
-            return 'danger';
-            case 8:
-            return 'success';
-            case 9:
-            return 'warn';
+            case "MAINTENANCE_ISSUE":
+            return "warn";
+            case "UTILITY_FAILURE":
+            return "danger";
+            case "SECURITY_CONCERN":
+            return "danger";
+            case "PROPERTY_DAMAGE":
+            return "warn";
+            case "GENERAL_COMPLAINT":
+            return "info";
             default:
-            return 'secondary';
+            return "secondary";
         }
     }
 }

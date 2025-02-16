@@ -1,3 +1,6 @@
+import { Contract } from "./contract"
+import { Property } from "./property"
+
 export interface Invoice {
     id: string,
     rentalStartDate: string,
@@ -6,6 +9,15 @@ export interface Invoice {
     paymentStatus: number,
     contractId: string,
     residenceId: string
+}
+
+export interface InvoiceFull {
+    id: string,
+    rentalStartDate: string,
+    rentalEndDate: string,
+    rentalValue: number,
+    paymentStatus: number,
+    contract: Contract
 }
 
 export interface InvoiceCreate {

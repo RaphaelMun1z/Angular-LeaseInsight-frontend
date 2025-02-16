@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { ApiResponse, LoginPayload, User } from '../models/commom.model';
+import { LoginPayload } from '../models/commom.model';
 import { map, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { MessageService } from 'primeng/api';
-import { Token } from '../../shared/interfaces/token';
-import { ErrorResponse } from '../../shared/interfaces/errorResponse';
+import { DecodedToken, Token } from '../../shared/interfaces/token';
 import { CurrentUser } from '../../shared/interfaces/user';
+import { jwtDecode } from 'jwt-decode'; 
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +18,8 @@ export class AuthService {
     private tokenName = environment.tokenName;
     
     isLoggedIn = signal<boolean>(false);
+    currentUser = signal<CurrentUser | null>(null);
+    
     router = inject(Router);
     messageService = inject(MessageService);
     
@@ -42,7 +44,19 @@ export class AuthService {
         return this._http.get<CurrentUser>(this.url + "/users/me");
     }
     
-    getUserToken(){
+    getCurrentUserData(): Observable<CurrentUser> {
+        return this.getCurrentUser().pipe(
+            map((data: CurrentUser) => {
+                return data;
+            })
+        );
+    }
+    
+    removeCurrentUser() {
+        this.currentUser.update(() => null);
+    }
+    
+    getUserToken(): string | null{
         return localStorage.getItem(this.tokenName);
     }
     
@@ -54,8 +68,17 @@ export class AuthService {
         return true;
     }
     
+    getDecodedAccessToken(): DecodedToken | null {
+        try {
+            return jwtDecode(this.getUserToken() || '');
+        } catch(Error) {
+            return null;
+        }
+    }
+    
     logout(){
         localStorage.removeItem(this.tokenName);
+        this.removeCurrentUser();
         this.isLoggedIn.update(() => false);
         this.router.navigate(['login']);
         this.showAlert()

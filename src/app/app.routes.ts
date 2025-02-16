@@ -49,8 +49,11 @@ import { CreateClientBillingAddressComponent } from './features/dashboard/compon
 import { BillingAddressesComponent } from './features/dashboard/sections/clients/billing-addresses/billing-addresses.component';
 import { CreatePropertyFeatureAddComponent } from './features/dashboard/components/forms/create-property-feature-add/create-property-feature-add.component';
 import { ProfileComponent } from './features/profile/profile.component';
-import { InvoicesComponent as InvoicesProfileComponente } from './features/profile/invoices/invoices.component';
 import { DetailsComponent as DetailsProfileComponente } from './features/profile/details/details.component';
+import { InvoicesComponent as InvoicesProfileComponente } from './features/profile/invoices/invoices.component';
+import { ContractsComponent as ContractsProfileComponente } from './features/profile/contracts/contracts.component';
+import { ReportsComponent as ReportsProfileComponente } from './features/profile/reports/reports.component';
+import { PropertiesComponent as PropertiesProfileComponente } from './features/profile/properties/properties.component';
 
 export const routes: Routes = [
     {
@@ -65,6 +68,11 @@ export const routes: Routes = [
             {
                 path: 'home',
                 component: HomeComponent
+            },
+            {
+                path: 'login',
+                component: LoginComponent,
+                canActivate: [guestGuard]
             },
             {
                 path: 'imoveis',
@@ -99,188 +107,195 @@ export const routes: Routes = [
                     {
                         path: 'faturas',
                         component: InvoicesProfileComponente
+                    },
+                    {
+                        path: 'contratos',
+                        component: ContractsProfileComponente
+                    },
+                    {
+                        path: 'relatos',
+                        component: ReportsProfileComponente
+                    },
+                    {
+                        path: 'propriedades',
+                        component: PropertiesProfileComponente
+                    }
+                ]
+            },
+            {
+                path: 'dashboard',
+                component: LayoutDashboardComponent,
+                canActivate: [authGuard],
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'geral',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'geral',
+                        component: GeneralComponent
+                    },
+                    {
+                        path: 'imoveis',
+                        component: PropertiesDashboardComponent,
+                    },
+                    {
+                        path: 'imoveis/criar',
+                        component: CreatePropertyComponent,
+                        children: [
+                            {
+                                path: '',
+                                redirectTo: 'caracteristicas',
+                                pathMatch: 'full'
+                            },
+                            {
+                                path: 'caracteristicas',
+                                component: CharacteristicsComponent
+                            },
+                            {
+                                path: 'selecionar-endereco',
+                                component: SelectAddressComponent,
+                                canActivate: [propertyFormGuard]
+                            },
+                            {
+                                path: 'selecionar-proprietario',
+                                component: SelectOwnerComponent,
+                                canActivate: [propertyFormGuard]
+                            },
+                            {
+                                path: 'confirmacao',
+                                component: ConfirmationComponent,
+                                canActivate: [propertyFormGuard]
+                            },
+                        ]
+                    },
+                    {
+                        path: 'imoveis/enderecos',
+                        component: AddressesComponent
+                    },
+                    {
+                        path: 'imoveis/endereco/criar',
+                        component: CreatePropertyAddressComponent
+                    },
+                    {
+                        path: 'imoveis/caracteristicas',
+                        component: FeaturesComponent
+                    },
+                    {
+                        path: 'imoveis/caracteristicas/criar',
+                        component: CreatePropertyFeatureComponent
+                    },
+                    {
+                        path: 'imoveis/caracteristicas/adicionar',
+                        component: CreatePropertyFeatureAddComponent
+                    },
+                    {
+                        path: 'financa',
+                        component: FinanceComponent
+                    },
+                    {
+                        path: 'funcionarios',
+                        component: EmployeesComponent
+                    },
+                    {
+                        path: 'funcionarios/criar',
+                        component: CreateEmployeesComponent
+                    },
+                    {
+                        path: 'clientes',
+                        component: ClientsComponent
+                    },
+                    {
+                        path: 'clientes/criar',
+                        component: CreateClientComponent
+                    },
+                    {
+                        path: 'clientes/enderecos-de-cobranca',
+                        component: BillingAddressesComponent
+                    },
+                    {
+                        path: 'clientes/endereco-de-cobranca/criar',
+                        component: CreateClientBillingAddressComponent
+                    },
+                    {
+                        path: 'proprietarios',
+                        component: OwnersComponent
+                    },
+                    {
+                        path: 'proprietarios/criar',
+                        component: CreateOwnerComponent
+                    },
+                    {
+                        path: 'contratos',
+                        component: ContractsComponent
+                    },
+                    {
+                        path: 'contratos/criar',
+                        component: CreateContractComponent,
+                        children: [
+                            {
+                                path: '',
+                                redirectTo: 'selecionar-imovel',
+                                pathMatch: 'full'
+                            },
+                            {
+                                path: 'selecionar-imovel',
+                                component: SelectPropertyComponent
+                            },
+                            {
+                                path: 'selecionar-cliente',
+                                component: SelectClientComponent,
+                                canActivate: [contractFormGuard]
+                            },
+                            {
+                                path: 'detalhes',
+                                component: DetailsComponent,
+                                canActivate: [contractFormGuard]
+                            },
+                            {
+                                path: 'confirmacao',
+                                component: ConfirmComponent,
+                                canActivate: [contractFormGuard]
+                            },
+                        ]
+                    },
+                    {
+                        path: 'faturas',
+                        component: InvoicesComponent,
+                    },
+                    {
+                        path: 'faturas/criar',
+                        component: CreateInvoiceComponent,
+                    },
+                    {
+                        path: 'notificacoes',
+                        component: NotificationsComponent,
+                        children: [
+                            {
+                                path: '',
+                                redirectTo: 'lidos',
+                                pathMatch: 'full'
+                            },
+                            {
+                                path: 'lidos',
+                                component: ReadComponent
+                            },
+                            {
+                                path: 'nao-lidos',
+                                component: UnreadComponent
+                            },
+                        ]
+                    },
+                    {
+                        path: 'suporte',
+                        component: SuportComponent
                     }
                 ]
             },
             {
                 path: '**',
                 component: NotFoundComponent
-            }
-        ]
-    },
-    {
-        path: 'login',
-        component: LoginComponent,
-        canActivate: [guestGuard]
-    },
-    {
-        path: 'dashboard',
-        component: LayoutDashboardComponent,
-        canActivate: [authGuard],
-        children: [
-            {
-                path: '',
-                redirectTo: 'geral',
-                pathMatch: 'full'
-            },
-            {
-                path: 'geral',
-                component: GeneralComponent
-            },
-            {
-                path: 'imoveis',
-                component: PropertiesDashboardComponent,
-            },
-            {
-                path: 'imoveis/criar',
-                component: CreatePropertyComponent,
-                children: [
-                    {
-                        path: '',
-                        redirectTo: 'caracteristicas',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'caracteristicas',
-                        component: CharacteristicsComponent
-                    },
-                    {
-                        path: 'selecionar-endereco',
-                        component: SelectAddressComponent,
-                        canActivate: [propertyFormGuard]
-                    },
-                    {
-                        path: 'selecionar-proprietario',
-                        component: SelectOwnerComponent,
-                        canActivate: [propertyFormGuard]
-                    },
-                    {
-                        path: 'confirmacao',
-                        component: ConfirmationComponent,
-                        canActivate: [propertyFormGuard]
-                    },
-                ]
-            },
-            {
-                path: 'imoveis/enderecos',
-                component: AddressesComponent
-            },
-            {
-                path: 'imoveis/endereco/criar',
-                component: CreatePropertyAddressComponent
-            },
-            {
-                path: 'imoveis/caracteristicas',
-                component: FeaturesComponent
-            },
-            {
-                path: 'imoveis/caracteristicas/criar',
-                component: CreatePropertyFeatureComponent
-            },
-            {
-                path: 'imoveis/caracteristicas/adicionar',
-                component: CreatePropertyFeatureAddComponent
-            },
-            {
-                path: 'financa',
-                component: FinanceComponent
-            },
-            {
-                path: 'funcionarios',
-                component: EmployeesComponent
-            },
-            {
-                path: 'funcionarios/criar',
-                component: CreateEmployeesComponent
-            },
-            {
-                path: 'clientes',
-                component: ClientsComponent
-            },
-            {
-                path: 'clientes/criar',
-                component: CreateClientComponent
-            },
-            {
-                path: 'clientes/enderecos-de-cobranca',
-                component: BillingAddressesComponent
-            },
-            {
-                path: 'clientes/endereco-de-cobranca/criar',
-                component: CreateClientBillingAddressComponent
-            },
-            {
-                path: 'proprietarios',
-                component: OwnersComponent
-            },
-            {
-                path: 'proprietarios/criar',
-                component: CreateOwnerComponent
-            },
-            {
-                path: 'contratos',
-                component: ContractsComponent
-            },
-            {
-                path: 'contratos/criar',
-                component: CreateContractComponent,
-                children: [
-                    {
-                        path: '',
-                        redirectTo: 'selecionar-imovel',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'selecionar-imovel',
-                        component: SelectPropertyComponent
-                    },
-                    {
-                        path: 'selecionar-cliente',
-                        component: SelectClientComponent,
-                        canActivate: [contractFormGuard]
-                    },
-                    {
-                        path: 'detalhes',
-                        component: DetailsComponent,
-                        canActivate: [contractFormGuard]
-                    },
-                    {
-                        path: 'confirmacao',
-                        component: ConfirmComponent,
-                        canActivate: [contractFormGuard]
-                    },
-                ]
-            },
-            {
-                path: 'faturas',
-                component: InvoicesComponent,
-            },
-            {
-                path: 'faturas/criar',
-                component: CreateInvoiceComponent,
-            },
-            {
-                path: 'notificacoes',
-                component: NotificationsComponent,
-                children: [
-                    {
-                        path: '',
-                        redirectTo: 'lidos',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'lidos',
-                        component: ReadComponent
-                    },
-                    {
-                        path: 'nao-lidos',
-                        component: UnreadComponent
-                    },
-                ]
-            },
-            {
-                path: 'suporte',
-                component: SuportComponent
             }
         ]
     }

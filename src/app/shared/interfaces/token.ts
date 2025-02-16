@@ -6,3 +6,11 @@ export interface Token{
         accessToken: string
     };
 }
+
+export interface DecodedToken{
+    role: string,
+    iat: string,
+    exp: string,
+    iss: string,
+    sub: string
+}

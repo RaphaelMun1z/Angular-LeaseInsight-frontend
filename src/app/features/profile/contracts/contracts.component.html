@@ -1,14 +1,14 @@
 <section class="container">
-    <app-dashboard-base [title]="'Financeiro'">
-        <app-content-block [title]="'Minhas Faturas'" [type]="'Lista'">
+    <app-dashboard-base [title]="'Gerencia'">
+        <app-content-block [title]="'Meus Contratos'" [type]="'Lista'">
             <p-table
             #dt2
-            [value]="invoices"
+            [value]="contracts"
             dataKey="id"
             [rows]="10"
             [rowsPerPageOptions]="[10, 25, 50]"
             [paginator]="true"
-            [globalFilterFields]="['rentalStartDate', 'rentalEndDate', 'rentalValue', 'paymentStatus', 'contract.id', 'contract.residence.id']"
+            [globalFilterFields]="['contractStartDate', 'contractEndDate', 'defaultRentalValue', 'contractStatus', 'invoiceDueDate']"
             [tableStyle]="{ 'min-width': '75rem' }"
             class="!w-full">
             <ng-template #caption>
@@ -35,10 +35,9 @@
                 <tr>
                     <th>Criado em</th>
                     <th>Vence em</th>
-                    <th>Valor</th>
-                    <th>Status de pagamento</th>
-                    <th>Contrato</th>
-                    <th>Imóvel</th>
+                    <th>Valor padrão</th>
+                    <th>Status</th>
+                    <th>Dia de Vencimento</th>
                 </tr>
                 <tr>
                     <th>
@@ -85,35 +84,24 @@
                     ariaLabel="Filter Name"
                     ></p-columnFilter>
                 </th>
-                <th>
-                    <p-columnFilter
-                    type="text"
-                    field="residenceId"
-                    placeholder="Filtrar por código da residencia"
-                    ariaLabel="Filter Name"
-                    ></p-columnFilter>
-                </th>
             </tr>
         </ng-template>
-        <ng-template #body let-invoice>
+        <ng-template #body let-contract>
             <tr>
                 <td>
-                    {{ invoice.rentalStartDate | date: 'dd/MM/yyyy' }}
+                    {{ contract.contractStartDate | date: 'dd/MM/yyyy' }}
                 </td>
                 <td>
-                    {{ invoice.rentalEndDate | date: 'dd/MM/yyyy' }}
+                    {{ contract.contractEndDate | date: 'dd/MM/yyyy' }}
                 </td>
                 <td>
-                    {{ invoice.rentalValue | currency: 'BRL' : 'symbol' }}
+                    {{ contract.defaultRentalValue | currency: 'BRL' : 'symbol' }}
                 </td>
                 <td>
-                    <p-tag [value]="getStatus(invoice.paymentStatus)" [severity]="getStatusSeverity(invoice.paymentStatus)" />
+                    <p-tag [value]="getStatus(contract.contractStatus)" [severity]="getStatusSeverity(contract.contractStatus)" />
                 </td>
                 <td>
-                    {{ invoice.contract.id }}
-                </td>
-                <td>
-                    {{ invoice.contract.residence.id }}
+                    {{ contract.invoiceDueDate }}
                 </td>
             </tr>
         </ng-template>

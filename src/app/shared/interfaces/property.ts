@@ -28,6 +28,7 @@ export interface Property {
     dateLastRenovation: string;
     residenceAddress: PropertyAddress;
     files: File[];
+    fullAddress?: string;
 }
 
 export interface PropertyMinimal {

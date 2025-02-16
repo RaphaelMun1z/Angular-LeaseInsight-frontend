@@ -1,14 +1,14 @@
 <section class="container">
-    <app-dashboard-base [title]="'Financeiro'">
-        <app-content-block [title]="'Minhas Faturas'" [type]="'Lista'">
+    <app-dashboard-base [title]="'Relatos'">
+        <app-content-block [title]="'Meus Relatos'" [type]="'Lista'">
             <p-table
             #dt2
-            [value]="invoices"
+            [value]="reports"
             dataKey="id"
             [rows]="10"
             [rowsPerPageOptions]="[10, 25, 50]"
             [paginator]="true"
-            [globalFilterFields]="['rentalStartDate', 'rentalEndDate', 'rentalValue', 'paymentStatus', 'contract.id', 'contract.residence.id']"
+            [globalFilterFields]="['contractStartDate', 'contractEndDate', 'defaultRentalValue', 'contractStatus', 'invoiceDueDate']"
             [tableStyle]="{ 'min-width': '75rem' }"
             class="!w-full">
             <ng-template #caption>
@@ -33,30 +33,24 @@
             </ng-template>
             <ng-template #header>
                 <tr>
-                    <th>Criado em</th>
-                    <th>Vence em</th>
-                    <th>Valor</th>
-                    <th>Status de pagamento</th>
-                    <th>Contrato</th>
-                    <th>Imóvel</th>
+                    <th>Descrição</th>
+                    <th>Data do Ocorrido</th>
+                    <th>Tipo</th>
+                    <th>Residência</th>
                 </tr>
                 <tr>
                     <th>
-                        <div class="flex items-center">
-                            Filtrar
-                            <p-columnFilter type="date" field="rentalStartDate" display="menu" dateFormat="dd/mm/yy" />
-                        </div>
+                        <p-columnFilter
+                        type="text"
+                        field="contractId"
+                        placeholder="Filtrar por código do contrato"
+                        ariaLabel="Filter Name"
+                        ></p-columnFilter>
                     </th>
                     <th>
                         <div class="flex items-center">
                             Filtrar
                             <p-columnFilter type="date" field="rentalEndDate" display="menu" dateFormat="dd/mm/yy" />
-                        </div>
-                    </th>
-                    <th>
-                        <div class="flex items-center">
-                            Filtrar
-                            <p-columnFilter type="numeric" field="rentalValue" display="menu" currency="BRL" />
                         </div>
                     </th>
                     <th>
@@ -85,35 +79,21 @@
                     ariaLabel="Filter Name"
                     ></p-columnFilter>
                 </th>
-                <th>
-                    <p-columnFilter
-                    type="text"
-                    field="residenceId"
-                    placeholder="Filtrar por código da residencia"
-                    ariaLabel="Filter Name"
-                    ></p-columnFilter>
-                </th>
             </tr>
         </ng-template>
-        <ng-template #body let-invoice>
+        <ng-template #body let-report>
             <tr>
                 <td>
-                    {{ invoice.rentalStartDate | date: 'dd/MM/yyyy' }}
+                    {{ report.description }}
                 </td>
                 <td>
-                    {{ invoice.rentalEndDate | date: 'dd/MM/yyyy' }}
+                    {{ report.date | date: 'dd/MM/yyyy' }}
                 </td>
                 <td>
-                    {{ invoice.rentalValue | currency: 'BRL' : 'symbol' }}
+                    <p-tag [value]="getStatus(report.reportType)" [severity]="getStatusSeverity(report.reportType)" />
                 </td>
                 <td>
-                    <p-tag [value]="getStatus(invoice.paymentStatus)" [severity]="getStatusSeverity(invoice.paymentStatus)" />
-                </td>
-                <td>
-                    {{ invoice.contract.id }}
-                </td>
-                <td>
-                    {{ invoice.contract.residence.id }}
+                    {{ report.residence.id }}
                 </td>
             </tr>
         </ng-template>
