@@ -41,3 +41,30 @@
         }
     }
 }
+
+::ng-deep {
+    .logout-btn > .p-button { 
+        width: 100%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    
+    .alternativeStyle{
+        #pn_id_7{
+            width: 100%;
+            border: none !important;
+        }
+        
+        .p-menu-separator{
+            display: none !important;
+        }
+        
+        .p-menu-submenu-label {
+            margin-top: 1vh;
+            
+            span{
+                font-size: 1.5rem;
+            }
+        }
+    }
+}

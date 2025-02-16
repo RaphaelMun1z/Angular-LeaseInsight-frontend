@@ -18,17 +18,17 @@
             @if(isLoggedIn){
                 <p-drawer [(visible)]="visible" [closable]="false">
                     <ng-template #header>
-                        <div class="flex items-center gap-2">
-                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-                            <span class="font-bold">Amy Elsner</span>
+                        <div class="relative items-center overflow-hidden w-full border-0 bg-transparent flex p-2 pl-4 rounded-none transition-colors duration-200">
+                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
+                            <span class="inline-flex flex-col" *ngIf="currentUser">
+                                <span class="font-bold text-left">{{ currentUser.name }}</span>
+                                <span class="text-sm">{{ getRole(currentUser.role) }}</span>
+                            </span>
                         </div>
                     </ng-template>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
-                    </p>
+                    <app-panel [alternative]="true"></app-panel>
                     <ng-template #footer>
-                        <button [routerLink]="'dashboard'" pButton label="Dashboard" icon="pi pi-objects-column" class="w-full mb-2" severity="info" outlined></button>
+                        <button *ngIf="currentUserRole() === 'ADM' || currentUserRole() === 'STAFF'" [routerLink]="'dashboard'" pButton label="Dashboard" icon="pi pi-objects-column" class="w-full mb-2" severity="info" outlined></button>
                         <div class="flex items-center gap-2">
                             <button [routerLink]="'/perfil'" pButton label="Perfil" icon="pi pi-user" class="w-full" outlined></button>
                             <button pButton label="Sair" icon="pi pi-sign-out" (click)="logout()" class="w-full" severity="danger" outlined></button>

@@ -1,0 +1,40 @@
+.content-container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+    gap: 7vh;
+    
+    .content-block{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        width: fit-content;
+        height: fit-content;
+        justify-content: center;
+        align-items: center;
+        
+        h3{
+            font-size: 2vw;
+            color: #353128;
+            font-weight: 600;
+        }
+        
+        h1{
+            font-size: 4vw;
+            font-weight: 600;
+            color: #353128;
+        }
+        
+        p{
+            font-size: 1vw;
+            font-weight: 400;
+            color: grey;
+        }
+    }
+}

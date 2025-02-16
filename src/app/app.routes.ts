@@ -1,6 +1,10 @@
 import { Routes } from '@angular/router';
 
 import { authGuard } from './core/guards/auth.guard';
+import { admGuard } from './core/guards/adm.guard';
+import { staffGuard } from './core/guards/staff.guard';
+import { ownerGuard } from './core/guards/owner.guard';
+import { tenantGuard } from './core/guards/tenant.guard';
 import { guestGuard } from './core/guards/guest.guard';
 import { propertyFormGuard } from './core/guards/property-form.guard';
 import { contractFormGuard } from './core/guards/contract-form.guard';
@@ -54,6 +58,7 @@ import { InvoicesComponent as InvoicesProfileComponente } from './features/profi
 import { ContractsComponent as ContractsProfileComponente } from './features/profile/contracts/contracts.component';
 import { ReportsComponent as ReportsProfileComponente } from './features/profile/reports/reports.component';
 import { PropertiesComponent as PropertiesProfileComponente } from './features/profile/properties/properties.component';
+import { UnauthorizedComponent } from './core/components/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
     {
@@ -106,11 +111,13 @@ export const routes: Routes = [
                     },
                     {
                         path: 'faturas',
-                        component: InvoicesProfileComponente
+                        component: InvoicesProfileComponente,
+                        canActivate: [tenantGuard],
                     },
                     {
                         path: 'contratos',
-                        component: ContractsProfileComponente
+                        component: ContractsProfileComponente,
+                        canActivate: [tenantGuard],
                     },
                     {
                         path: 'relatos',
@@ -118,14 +125,15 @@ export const routes: Routes = [
                     },
                     {
                         path: 'propriedades',
-                        component: PropertiesProfileComponente
+                        component: PropertiesProfileComponente,
+                        canActivate: [ownerGuard],
                     }
                 ]
             },
             {
                 path: 'dashboard',
                 component: LayoutDashboardComponent,
-                canActivate: [authGuard],
+                canActivate: [authGuard, staffGuard],
                 children: [
                     {
                         path: '',
@@ -196,11 +204,13 @@ export const routes: Routes = [
                     },
                     {
                         path: 'funcionarios',
-                        component: EmployeesComponent
+                        component: EmployeesComponent,
+                        canActivate: [admGuard],
                     },
                     {
                         path: 'funcionarios/criar',
-                        component: CreateEmployeesComponent
+                        component: CreateEmployeesComponent,
+                        canActivate: [admGuard],
                     },
                     {
                         path: 'clientes',
@@ -292,6 +302,10 @@ export const routes: Routes = [
                         component: SuportComponent
                     }
                 ]
+            },
+            {
+                path: 'acesso-negado',
+                component: UnauthorizedComponent
             },
             {
                 path: '**',

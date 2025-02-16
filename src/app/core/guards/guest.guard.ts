@@ -1,6 +1,7 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
+import { of } from 'rxjs';
 
 export const guestGuard: CanActivateFn = (route, state) => {
     const authService = inject(AuthService);
@@ -8,6 +9,7 @@ export const guestGuard: CanActivateFn = (route, state) => {
 
     if(authService.isLoggedIn()){
         router.navigate([''])
+        return of(false);
     }
     
     return true;

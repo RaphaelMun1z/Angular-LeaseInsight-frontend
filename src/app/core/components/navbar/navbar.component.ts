@@ -1,7 +1,6 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { Router } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 import { AvatarModule } from 'primeng/avatar';
 import { MegaMenuItem } from 'primeng/api';
@@ -12,10 +11,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SplitButton } from 'primeng/splitbutton';
 import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
+import { PanelComponent } from '../../../features/profile/panel/panel.component';
+import { AuthStateService } from '../../states/auth-state.service';
+import { Observable } from 'rxjs';
+import { CurrentUser } from '../../../shared/interfaces/user';
 
 @Component({
     selector: 'app-navbar',
-    imports: [DrawerModule, ButtonModule, MegaMenu, RouterModule, AvatarModule, BadgeModule, SplitButton, InputTextModule, CommonModule],
+    imports: [DrawerModule, PanelComponent, ButtonModule, MegaMenu, RouterModule, AvatarModule, BadgeModule, SplitButton, InputTextModule, CommonModule],
     templateUrl: './navbar.component.html',
     styleUrls: ["./navbar.component.scss", "./navbar-responsive.component.scss"]
 })
@@ -28,9 +31,29 @@ export class NavbarComponent implements OnInit {
     items: MegaMenuItem[] | undefined;
     btnOptions: MenuItem[] | undefined;
     
-    constructor(private router: Router) {}
+    protected currentUser$ = new Observable<CurrentUser | null>();
+    currentUser!: CurrentUser;
+    currentUserRole = signal<string|null>(null);
+    
+    constructor(private authStateService: AuthStateService, private router: Router) {
+        this.authStateService.loadAuthUser();
+    }
     
     ngOnInit() {
+        this.authStateService.loadAuthUser();
+        this.getCurrentUser();
+        this.currentUser$.subscribe({
+            next: (data: CurrentUser | null) => {
+                if (data) {
+                    this.currentUser = data;
+                    this.currentUserRole.update(() => data.role.toUpperCase());
+                }
+            },
+            error: (err: any) => {
+                console.log("Erro: " + err);
+            }
+        });
+        
         this.btnOptions = [
             {
                 label: 'Anunciar',
@@ -48,134 +71,61 @@ export class NavbarComponent implements OnInit {
             {
                 label: 'Home',
                 icon: 'pi pi-home',
-                items: [
-                    [
-                        {
-                            label: 'Living Room',
-                            items: [
-                                { label: 'Accessories' },
-                                { label: 'Armchair' },
-                                { label: 'Coffee Table' },
-                                { label: 'Couch' },
-                                { label: 'TV Stand' },
-                            ],
-                        },
-                    ],
-                    [
-                        {
-                            label: 'Kitchen',
-                            items: [{ label: 'Bar stool' }, { label: 'Chair' }, { label: 'Table' }],
-                        },
-                        {
-                            label: 'Bathroom',
-                            items: [{ label: 'Accessories' }],
-                        },
-                    ],
-                    [
-                        {
-                            label: 'Bedroom',
-                            items: [
-                                { label: 'Bed' },
-                                { label: 'Chaise lounge' },
-                                { label: 'Cupboard' },
-                                { label: 'Dresser' },
-                                { label: 'Wardrobe' },
-                            ],
-                        },
-                    ],
-                    [
-                        {
-                            label: 'Office',
-                            items: [
-                                { label: 'Bookcase' },
-                                { label: 'Cabinet' },
-                                { label: 'Chair' },
-                                { label: 'Desk' },
-                                { label: 'Executive Chair' },
-                            ],
-                        },
-                    ],
-                ],
+                route: '/'
             },
             {
                 label: 'Imóveis',
-                icon: 'pi pi-search',
+                icon: 'pi pi-building',
                 items: [
                     [
                         {
-                            label: 'Computer',
+                            label: 'Busque pelo imóvel ideal para você',
                             items: [
-                                { label: 'Monitor' },
-                                { label: 'Mouse' },
-                                { label: 'Notebook' },
-                                { label: 'Keyboard' },
-                                { label: 'Printer' },
-                                { label: 'Storage' },
+                                { label: 'Casa' },
+                                { label: 'Apartamento' },
+                                { label: 'Condomínio' },
+                                { label: 'Apartamento Comercial' },
+                                { label: 'Fazenda' },
+                                { label: 'Terreno' },
+                                { label: 'Loja' },
+                                { label: 'Armazém' },
+                                { label: 'Galpão' },
+                                { label: 'Outro' },
                             ],
                         },
-                    ],
-                    [
-                        {
-                            label: 'Home Theater',
-                            items: [{ label: 'Projector' }, { label: 'Speakers' }, { label: 'TVs' }],
-                        },
-                    ],
-                    [
-                        {
-                            label: 'Gaming',
-                            items: [{ label: 'Accessories' }, { label: 'Console' }, { label: 'PC' }, { label: 'Video Games' }],
-                        },
-                    ],
-                    [
-                        {
-                            label: 'Appliances',
-                            items: [
-                                { label: 'Coffee Machine' },
-                                { label: 'Fridge' },
-                                { label: 'Oven' },
-                                { label: 'Vaccum Cleaner' },
-                                { label: 'Washing Machine' },
-                            ],
-                        },
-                    ],
+                    ]
                 ],
             },
             {
                 label: 'Nosso time',
                 icon: 'pi pi-users',
-                items: [
-                    [
-                        {
-                            label: 'Football',
-                            items: [{ label: 'Kits' }, { label: 'Shoes' }, { label: 'Shorts' }, { label: 'Training' }],
-                        },
-                    ],
-                    [
-                        {
-                            label: 'Running',
-                            items: [{ label: 'Accessories' }, { label: 'Shoes' }, { label: 'T-Shirts' }, { label: 'Shorts' }],
-                        },
-                    ],
-                    [
-                        {
-                            label: 'Swimming',
-                            items: [{ label: 'Kickboard' }, { label: 'Nose Clip' }, { label: 'Swimsuits' }, { label: 'Paddles' }],
-                        },
-                    ],
-                    [
-                        {
-                            label: 'Tennis',
-                            items: [{ label: 'Balls' }, { label: 'Rackets' }, { label: 'Shoes' }, { label: 'Training' }],
-                        },
-                    ],
-                ],
+                route: 'nosso-time'
             },
             {
                 label: 'Contato',
                 icon: 'pi pi-phone',
-                items: []
+                route: 'contato'
             }
         ];
+    }
+    
+    getCurrentUser(){
+        this.currentUser$ = this.authStateService.listenToAuth();
+    }
+    
+    getRole(role: string){
+        switch (role) {
+            case "adm":
+            return "Administrador";
+            case "staff":
+            return "Colaborador";
+            case "owner":
+            return "Proprietário";
+            case "tenant":
+            return "Inquilino";
+            default:
+            return "Não foi possível carregar!"
+        }
     }
     
     logout(){
