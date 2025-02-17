@@ -19,7 +19,7 @@
                 <p-drawer [(visible)]="visible" [closable]="false">
                     <ng-template #header>
                         <div class="relative items-center overflow-hidden w-full border-0 bg-transparent flex p-2 pl-4 rounded-none transition-colors duration-200">
-                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
+                            <p-avatar icon="pi pi-user" class="mr-2" size="large" shape="circle" />
                             <span class="inline-flex flex-col" *ngIf="currentUser">
                                 <span class="font-bold text-left">{{ currentUser.name }}</span>
                                 <span class="text-sm">{{ getRole(currentUser.role) }}</span>
@@ -36,13 +36,11 @@
                     </ng-template>
                 </p-drawer>
                 <button pButton (click)="visible = true" class="bg-transparent text-black border-transparent p-0 w-fit text-lg config-btn">
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" [style]="{ width: '47px', height: '47px' }" />
+                    <p-avatar icon="pi pi-user" size="large" shape="circle" [style]="{ width: '47px', height: '47px' }" />
                 </button>
             }@else {
-                <p-splitbutton severity="contrast" label="Anuncie seu imóvel" [model]="btnOptions" />
-                <button type="button" [routerLink]="'login'" class="flex items-center ml-2">
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" [style]="{ width: '47px', height: '47px' }" />
-                </button>
+                <p-button label="Anuncie seu imóvel" severity="contrast" variant="text" icon="pi pi-megaphone" iconPos="right" [routerLink]="'login'" [rounded]="true" size="large" class="ml-2"/>
+                <p-button label="Acessar" icon="pi pi-user" iconPos="right" [routerLink]="'login'" [rounded]="true" size="large" class="ml-2"/>
             }
         </ng-template> 
     </p-megamenu>

@@ -27,7 +27,7 @@ export interface Property {
     rentalValue: number;
     dateLastRenovation: string;
     residenceAddress: PropertyAddress;
-    files: File[];
+    images: File[];
     fullAddress?: string;
 }
 
@@ -39,6 +39,8 @@ export interface PropertyMinimal {
     garageSpaces: number;
     rentalValue: number;
     residenceAddress: PropertyAddress;
+    images: File[];
+    fullAddress?: string;
 }
 
 export interface PropertyCreate {
@@ -60,7 +62,7 @@ export interface PropertyCreate {
     dateLastRenovation: string;
     residenceAddress: string;
     owner: string;
-    files: File[];
+    images: File[];
 }
 
 export interface AddFeature {

@@ -1,8 +1,22 @@
-<div class="rounded-border mr-4 overflow-hidden h-full" [ngStyle]="{backgroundColor:'#fff'}" [routerLink]="['/imovel/'+propertyMinimal.id]" [style]="{'cursor': 'pointer'}">
+<div class="rounded-border overflow-hidden h-full" [ngStyle]="{backgroundColor:'#fff'}"  [style]="{'cursor': 'pointer'}">
     <div>
         <div class="relative">
-            <img [src]="'https://b6d3c5t3.delivery.rocketcdn.me/wp-content/uploads/2024/03/Casa-de-luxo-a-80-m-da-praia-a-venda-Guarajuba-44.jpg'" [alt]="propertyMinimal.propertyType" class="w-full h-80" />
-            <p-tag [value]="'Locação'" [severity]="'success'" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+            <p *ngIf="loadingImages">Carregando...</p>
+            <p-galleria [value]="images" (valueChange)="images = $any($event)" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+                <ng-template #item let-item>
+                    <p-image [src]="item" [preview]="true" [alt]="propertyMinimal.propertyType" class="w-full h-full">
+                        <ng-template #indicator>
+                            <i class="pi pi-search"></i>
+                        </ng-template>
+                        <ng-template #image>
+                            <img [src]="item" alt="image" class="w-full h-full" />
+                        </ng-template>
+                        <ng-template #preview let-style="style" let-previewCallback="previewCallback">
+                            <img [src]="item" alt="image" [style]="style" (click)="previewCallback()" class="h-full"/>
+                        </ng-template>
+                    </p-image>
+                </ng-template>
+            </p-galleria>
         </div>
     </div>
     <div class="p-4">
@@ -14,10 +28,12 @@
             </div>
             <span>
                 <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                <p-button icon="pi pi-eye" styleClass="ml-2" />
+                <p-button icon="pi pi-eye" styleClass="ml-2" [routerLink]="['/imovel/'+propertyMinimal.id]" />
             </span>
         </div>
-        <div class="mb-4 font-medium text-gray-600 font-normal">{{ propertyMinimal.residenceAddress.city }}, {{ propertyMinimal.residenceAddress.state }}</div>
+        <div class="mb-4 font-medium text-gray-600 font-normal">
+            {{ propertyMinimal.fullAddress }}
+        </div>
         <p-divider />
         <div class="flex justify-between items-center flex-nowrap space-x-6">
             <div class="flex space-x-4 items-center">

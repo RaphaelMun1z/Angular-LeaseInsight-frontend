@@ -5,7 +5,6 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { MegaMenuItem } from 'primeng/api';
 import { MegaMenu } from 'primeng/megamenu';
-import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { InputTextModule } from 'primeng/inputtext';
 import { SplitButton } from 'primeng/splitbutton';
@@ -18,7 +17,7 @@ import { CurrentUser } from '../../../shared/interfaces/user';
 
 @Component({
     selector: 'app-navbar',
-    imports: [DrawerModule, PanelComponent, ButtonModule, MegaMenu, RouterModule, AvatarModule, BadgeModule, SplitButton, InputTextModule, CommonModule],
+    imports: [DrawerModule, PanelComponent, ButtonModule, MegaMenu, RouterModule, AvatarModule, BadgeModule, InputTextModule, CommonModule],
     templateUrl: './navbar.component.html',
     styleUrls: ["./navbar.component.scss", "./navbar-responsive.component.scss"]
 })
@@ -29,7 +28,6 @@ export class NavbarComponent implements OnInit {
     
     visible: boolean = false;
     items: MegaMenuItem[] | undefined;
-    btnOptions: MenuItem[] | undefined;
     
     protected currentUser$ = new Observable<CurrentUser | null>();
     currentUser!: CurrentUser;
@@ -54,19 +52,6 @@ export class NavbarComponent implements OnInit {
             }
         });
         
-        this.btnOptions = [
-            {
-                label: 'Anunciar',
-                icon: 'pi pi-megaphone',
-                routerLink: ['/anunciar']
-            },
-            {
-                label: 'Acompanhar',
-                icon: 'pi pi-inbox',
-                routerLink: ['/acompanhar']
-            }
-        ];
-        
         this.items = [
             {
                 label: 'Home',
@@ -81,7 +66,10 @@ export class NavbarComponent implements OnInit {
                         {
                             label: 'Busque pelo imóvel ideal para você',
                             items: [
-                                { label: 'Casa' },
+                                { 
+                                    label: 'Casa',
+                                    route: '/imoveis' 
+                                },
                                 { label: 'Apartamento' },
                                 { label: 'Condomínio' },
                                 { label: 'Apartamento Comercial' },

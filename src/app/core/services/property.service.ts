@@ -21,7 +21,7 @@ export class PropertyService {
         return this.http.get<PropertyMinimal[]>(this.url + "/residences/occupancy-status/" + status);
     }
     
-    getPropertyById(id: string): Observable<Property> {
+    getPropertyById(id: string): Observable<Property> { 
         return this.http.get<Property>(this.url + "/residences/" + id);
     }
     

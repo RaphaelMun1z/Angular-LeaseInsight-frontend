@@ -2,27 +2,27 @@
     <div class="main">
         <div class="topic !pt-0">
             <h1 class="title">Descrição</h1>
-            <p class="text">{{ property.description }}</p>
+            <p class="text">{{ property?.description }}</p>
             <div class="items-number-container">
                 <div class="flex space-x-2 items-center">
                     <i class="pi pi-moon text-gray-500"></i>
-                    <p class="!text-gray-500 whitespace-nowrap">{{ property.numberBedrooms }} Quartos</p>
+                    <p class="!text-gray-500 whitespace-nowrap">{{ property?.numberBedrooms }} Quartos</p>
                 </div>
                 <div class="flex space-x-2 items-center">
                     <i class="pi pi-moon text-gray-500"></i>
-                    <p class="!text-gray-500 whitespace-nowrap">{{ property.numberSuites }} Suítes</p>
+                    <p class="!text-gray-500 whitespace-nowrap">{{ property?.numberSuites }} Suítes</p>
                 </div>
                 <div class="flex space-x-4 items-center">
                     <i class="pi pi-window-maximize text-gray-500"></i>
-                    <p class="!text-gray-500 whitespace-nowrap">{{ property.totalArea }} m<sup>2</sup></p>
+                    <p class="!text-gray-500 whitespace-nowrap">{{ property?.totalArea }} m<sup>2</sup></p>
                 </div>
                 <div class="flex space-x-4 items-center">
                     <i class="pi pi-window-minimize text-gray-500"></i>
-                    <p class="!text-gray-500 whitespace-nowrap">{{ property.builtArea }} m<sup>2</sup></p>
+                    <p class="!text-gray-500 whitespace-nowrap">{{ property?.builtArea }} m<sup>2</sup></p>
                 </div>
                 <div class="flex space-x-4 items-center">
                     <i class="pi pi-car text-gray-500"></i>
-                    <p class="!text-gray-500 whitespace-nowrap">{{ property.garageSpaces }} Vagas</p>
+                    <p class="!text-gray-500 whitespace-nowrap">{{ property?.garageSpaces }} Vagas</p>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@
     </div>
     <div class="aside">
         <div class="price-block block-content">
-            <h1 class="price">{{ property.rentalValue | currency: 'BRL' }}</h1>
+            <h1 class="price">{{ property?.rentalValue | currency: 'BRL' }}</h1>
             <p class="text">Propriedade à venda</p>
         </div>
         <div class="contact-block block-content">

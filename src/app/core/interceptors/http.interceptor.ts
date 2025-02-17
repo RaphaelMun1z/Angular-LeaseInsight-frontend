@@ -15,7 +15,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
     if(authService.isLoggedIn()){
         if(authService.tokenExpired(authService.getUserToken())){
             authService.logout();
-        }else{    
+        }else{
             req = req.clone({
                 setHeaders: {
                     Authorization: `Bearer ${authService.getUserToken()}`,

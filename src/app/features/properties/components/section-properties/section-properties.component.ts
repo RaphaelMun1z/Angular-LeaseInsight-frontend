@@ -1,70 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Observable } from 'rxjs';
 
+import { PropertyStateService } from '../../../../core/states/property-state.service';
 import { Property } from '../../../../shared/interfaces/property';
-import { PropertyService } from '../../../../core/services/property.service';
+
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { PaginatorModule } from 'primeng/paginator';
+import { SplitButton } from 'primeng/splitbutton';
+import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
-import { DividerModule } from 'primeng/divider';
-import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuItem } from 'primeng/api';
-import { SplitButton } from 'primeng/splitbutton';
-import { PaginatorModule } from 'primeng/paginator';
+import { PropertyMinimalComponent } from "../../../../shared/components/cards/property-minimal/property-minimal.component";
 
 @Component({
     selector: 'app-section-properties',
-    imports: [CommonModule, RouterModule, PaginatorModule, ButtonModule, TagModule, DividerModule, SplitButtonModule, SplitButton],
+    imports: [CommonModule, RouterModule, PaginatorModule, ButtonModule, TagModule, DividerModule, SplitButtonModule, SplitButton, PropertyMinimalComponent],
     templateUrl: './section-properties.component.html',
-    styleUrl: './section-properties.component.scss',
-    providers: [PropertyService]
+    styleUrl: './section-properties.component.scss'
 })
 
 export class SectionPropertiesComponent implements OnInit {
+    protected properties$ = new Observable<Property[]>();
+    properties! : Property[];
     first: number = 0;
     rows: number = 10;
-
-    items!: MenuItem[];
-    properties: Property[] = [];
-
-    constructor(private service: PropertyService) {}
-
+    
+    constructor(private propertyStateService: PropertyStateService){
+        this.propertyStateService.loadProperties();
+    }
+    
     onPageChange(event: any) {
         this.first = event.first;
         this.rows = event.rows;
     }
     
     ngOnInit() {
-        this.service.getProperties().subscribe((response) => {
-            if (response) {
-                this.properties = response;
-            }
+        this.getProperties();
+        this.properties$.subscribe((data: Property[]) => {
+            data.forEach(item => {
+                item.fullAddress = `${item.residenceAddress.district}, ${item.residenceAddress.city} - ${item.residenceAddress.state}`;
+            });
+            this.properties = data;
         });
-        
-        this.items = [
-            {
-                label: 'Update',
-                command: () => {
-                    console.log("A")
-                }
-            },
-            {
-                label: 'Delete',
-                command: () => {
-                    console.log("B")
-                }
-            },
-            { 
-                label: 'Angular Website', 
-                url: 'http://angular.io' 
-            },
-            { 
-                separator: true 
-            },
-            { 
-                label: 'Upload', 
-                routerLink: ['/fileupload'] 
-            }
-        ];
+    }
+
+    getProperties(){
+        this.properties$ = this.propertyStateService.listenToChanges();
     }
 }
