@@ -52,9 +52,6 @@ export class PanelComponent implements OnInit{
     updateMenuItems() {
         this.items = [
             {
-                separator: true
-            },
-            {
                 label: 'Atividade',
                 items: [
                     {
@@ -86,7 +83,7 @@ export class PanelComponent implements OnInit{
                         routerLink: '/perfil/faturas',
                         visible: this.currentUserRole() == "TENANT"
                     }
-                ]
+                ].filter(item => item.visible !== false),
             },
             {
                 label: 'Conta',
@@ -95,18 +92,14 @@ export class PanelComponent implements OnInit{
                         label: 'Configuração',
                         icon: 'pi pi-cog',
                         routerLink: '/perfil/detalhes',
-                    },
-                    {
-                        label: 'Notificações',
-                        icon: 'pi pi-inbox',
-                        badge: '2'
                     }
                 ]
-            },
-            {
-                separator: true
             }
         ];
+
+        this.items = this.items.filter(item => 
+            !item.items || item.items.length > 0
+        );
     }
     
     getCurrentUser(){

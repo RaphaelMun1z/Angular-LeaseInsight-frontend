@@ -1,3 +1,5 @@
+import { Feature } from "./feature";
+import { Owner } from "./owner";
 import { PropertyAddress } from "./propertyAddress";
 
 interface File {
@@ -27,8 +29,10 @@ export interface Property {
     rentalValue: number;
     dateLastRenovation: string;
     residenceAddress: PropertyAddress;
-    images: File[];
+    files: File[];
     fullAddress?: string;
+    features?: Feature[];
+    owner?: Owner;
 }
 
 export interface PropertyMinimal {

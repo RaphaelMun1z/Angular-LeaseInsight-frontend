@@ -30,8 +30,8 @@ export class PropertyMinimalComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['propertyMinimal'] && changes['propertyMinimal'].currentValue) {
             this.images = [];
-            if('images' in this.propertyMinimal && this.propertyMinimal.images.length > 0){
-                this.propertyMinimal.images.forEach(file => {
+            if('files' in this.propertyMinimal && this.propertyMinimal.files.length > 0){
+                this.propertyMinimal.files.forEach(file => {
                     this.uploadedImage(file.name).subscribe({
                         next: (imageUrl: string) => {
                             this.loadingImages = true;
@@ -41,7 +41,6 @@ export class PropertyMinimalComponent implements OnChanges {
                         error: (err: any) => {
                             this.images = [...this.images, this.errImg];
                             this.loadingImages = false;
-                            //console.error('Erro ao carregar imagem', err);
                         }
                     });
                 });

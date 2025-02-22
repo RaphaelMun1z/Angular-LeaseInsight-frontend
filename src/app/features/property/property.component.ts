@@ -5,7 +5,7 @@ import { DetailsSectionComponent } from "./components/details-section/details-se
 import { RecommendedComponent } from "./components/recommended/recommended.component";
 import { PropertyService } from '../../core/services/property.service';
 import { Property } from '../../shared/interfaces/property';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { PropertyStateService } from '../../core/states/property-state.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -31,6 +31,8 @@ export class PropertyComponent implements OnInit {
                 this.property$.subscribe((data: Property | null) => {
                     if(data){
                         this.property = data;
+                        const propertyFeatures = data.features?.map(item => item['feature']);
+                        this.property.features = propertyFeatures;
                     }
                 });
             }

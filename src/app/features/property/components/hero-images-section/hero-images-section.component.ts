@@ -22,8 +22,8 @@ export class HeroImagesSectionComponent implements OnChanges {
         if (changes['property'] && changes['property'].currentValue) {
             this.images = [];
             
-            if('images' in this.property && this.property.images.length > 0){
-                this.property.images.forEach(file => {
+            if('files' in this.property && this.property.files.length > 0){
+                this.property.files.forEach(file => {
                     this.uploadedImage(file.name).subscribe({
                         next: (imageUrl: string) => {
                             this.images = [...this.images, imageUrl];

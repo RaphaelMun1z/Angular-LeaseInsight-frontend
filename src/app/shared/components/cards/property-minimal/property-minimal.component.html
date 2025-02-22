@@ -19,17 +19,13 @@
             </p-galleria>
         </div>
     </div>
-    <div class="p-4">
+    <div class="p-4" [routerLink]="['/imovel/'+propertyMinimal.id]">
         <div class="mb-2 font-medium text-xl text-gray-500 font-medium">{{ getPropertyType(propertyMinimal.propertyType) }}</div>
         <div class="flex justify-between items-center">
             <div class="mt-0 mb-2 font-semibold text-3xl text-emerald-900 flex items-center">
                 {{ 'R$ ' + propertyMinimal.rentalValue }} 
                 <span class="text-base text-gray-500 font-normal ml-1.5">/mês</span> 
             </div>
-            <span>
-                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                <p-button icon="pi pi-eye" styleClass="ml-2" [routerLink]="['/imovel/'+propertyMinimal.id]" />
-            </span>
         </div>
         <div class="mb-4 font-medium text-gray-600 font-normal">
             {{ propertyMinimal.fullAddress }}

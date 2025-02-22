@@ -202,8 +202,9 @@
                 display: flex;
                 flex-wrap: wrap;
                 flex-direction: column;
-                width: fit-content;
+                width: 100%;
                 height: fit-content;
+                padding: 0 1vw;
             }
         }
     }

@@ -26,49 +26,21 @@
                 </div>
             </div>
         </div>
-        <div class="topic">
-            <h1 class="title">Revisão da Propriedade</h1>
-            <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus autem nemo unde vel ab voluptate labore magnam dolorem amet praesentium? Animi fugit doloremque architecto ex sed, est ut consequuntur maiores?</p>
-            <ul class="list">
-                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</li>
-                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</li>
-                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</li>
-                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</li>
-            </ul>
+        <div class="topic" *ngIf="property?.residenceAddress">
+            <h1 class="title">Localização da Propriedade</h1>
+            <p class="text">Localização estratégica para garantir praticidade e valorização do seu investimento!</p>
+            <p>{{ property.residenceAddress.street }}, {{ property.number }}, {{ property.residenceAddress.district }}, {{ property.residenceAddress.city }}, {{ property.residenceAddress.state }}, {{ property.residenceAddress.country }} - {{ property.residenceAddress.cep }} ({{ property.residenceAddress.complement }})</p>
+            <img src="https://img.freepik.com/vetores-premium/vista-superior-3d-de-um-mapa-com-ponto-de-localizacao-de-destino_34645-1081.jpg" alt="Localização">
         </div>
-        <div class="topic">
+        <div class="topic" *ngIf="property?.features && property.features?.length ?? 0">
             <h1 class="title">Comodidades</h1>
-            <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus autem nemo unde vel ab voluptate labore magnam dolorem amet praesentium?</p>
+            <p class="text">Descubra todas as características do imóvel ideal para você com facilidade e precisão!</p>
             <div class="amenities-container">
-                <div class="item">
+                <div class="item" *ngFor="let item of property.features">
                     <div class="icon">
-                        <i class="pi pi-camera"></i>
+                        <i class="pi pi-star"></i>
                     </div>
-                    <div class="name">Câmeras 24/7</div>
-                </div>
-                <div class="item">
-                    <div class="icon">
-                        <i class="pi pi-camera"></i>
-                    </div>
-                    <div class="name">Câmeras 24/7</div>
-                </div>
-                <div class="item">
-                    <div class="icon">
-                        <i class="pi pi-camera"></i>
-                    </div>
-                    <div class="name">Câmeras 24/7</div>
-                </div>
-                <div class="item">
-                    <div class="icon">
-                        <i class="pi pi-camera"></i>
-                    </div>
-                    <div class="name">Câmeras 24/7</div>
-                </div>
-                <div class="item">
-                    <div class="icon">
-                        <i class="pi pi-camera"></i>
-                    </div>
-                    <div class="name">Câmeras 24/7</div>
+                    <div class="name">{{ item['feature'] }}</div>
                 </div>
             </div>
         </div>
@@ -76,7 +48,7 @@
     <div class="aside">
         <div class="price-block block-content">
             <h1 class="price">{{ property?.rentalValue | currency: 'BRL' }}</h1>
-            <p class="text">Propriedade à venda</p>
+            <p class="text">Imóvel disponível para locação</p>
         </div>
         <div class="contact-block block-content">
             <h2 class="title">Entre em contato</h2>
@@ -110,9 +82,9 @@
                 <p-avatar label="P" styleClass="mr-2" size="xlarge" shape="circle" />
             </div>
             <div class="details-container">
-                <h3 class="font-semibold text-2xl mb-1.5">Cristina Silva</h3>
-                <p class="font-light">(11) 99200-6155</p>
-                <p class="font-light">info&#64;realestateexample.com</p>
+                <h3 class="font-semibold text-2xl mb-1.5">{{ property?.owner?.name }}</h3>
+                <p class="font-light">{{ property?.owner?.phone }}</p>
+                <p class="font-light">{{ property?.owner?.email }}</p>
             </div>
         </div>
     </div>

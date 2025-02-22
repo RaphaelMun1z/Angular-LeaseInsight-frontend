@@ -61,28 +61,7 @@ export class NavbarComponent implements OnInit {
             {
                 label: 'Imóveis',
                 icon: 'pi pi-building',
-                items: [
-                    [
-                        {
-                            label: 'Busque pelo imóvel ideal para você',
-                            items: [
-                                { 
-                                    label: 'Casa',
-                                    route: '/imoveis' 
-                                },
-                                { label: 'Apartamento' },
-                                { label: 'Condomínio' },
-                                { label: 'Apartamento Comercial' },
-                                { label: 'Fazenda' },
-                                { label: 'Terreno' },
-                                { label: 'Loja' },
-                                { label: 'Armazém' },
-                                { label: 'Galpão' },
-                                { label: 'Outro' },
-                            ],
-                        },
-                    ]
-                ],
+                route: '/imoveis',
             },
             {
                 label: 'Nosso time',
