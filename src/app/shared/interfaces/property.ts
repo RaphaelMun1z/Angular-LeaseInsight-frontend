@@ -24,7 +24,7 @@ export interface Property {
     builtArea: number;
     garageSpaces: number;
     yearConstruction: string;
-    occupancyStatus: "VACANT" | "OCCUPIED" | "UNDER_RENOVATION";
+    occupancyStatus: number;
     marketValue: number;
     rentalValue: number;
     dateLastRenovation: string;

@@ -36,4 +36,8 @@ export class PropertyService {
     saveFeatureProperty(propertyFeature: any): any {
         return this.http.post<AddFeature>(this.url + "/residences/add-feature", propertyFeature);
     }
+
+    deleteProperty(id: String): any {
+        return this.http.delete<void>(this.url + "/residences/" + id);
+    }
 }
