@@ -1,82 +1,35 @@
-<p-breadcrumb class="max-w-full" [model]="items">
-    <ng-template #item let-item>
-        <ng-container *ngIf="item.route; else elseBlock">
-            <a [routerLink]="item.route" class="p-breadcrumb-item-link">
-                <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
-                <span class="text-primary font-semibold">{{ item.label }}</span>
-            </a>
-        </ng-container>
-        <ng-template #elseBlock>
-            <a [href]="item.url">
-                <span class="text-color">{{ item.label }}</span>
-            </a>
-        </ng-template>
-    </ng-template>
-</p-breadcrumb>
+<app-breadcrumb [breadCrumbItems]="breadCrumbItems"></app-breadcrumb>
 
 <app-dashboard-base [title]="'Funcionários'">
     <app-content-block [title]="'Criar Novo Funcionário'" [type]="'Formulário'">
         <div class="child">
-            <form class="form-container" [formGroup]="form">
-                <div class="flex flex-col gap-1">
-                    <p-inputgroup>
-                        <p-inputgroup-addon>
-                            <i class="pi pi-user"></i>
-                        </p-inputgroup-addon>
-                        <p-floatlabel>
-                            <input type="text" id="name" pInputText formControlName="name" class="name-input"/>
-                            <label for="name">Nome Completo</label>
-                        </p-floatlabel>
-                    </p-inputgroup>
-                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['name'].invalid">Nome é obrigatório</p-message>
-                </div>
-                <div class="flex flex-col gap-1">
-                    <p-inputgroup>
-                        <p-inputgroup-addon>
-                            <i class="pi pi-phone"></i>
-                        </p-inputgroup-addon>
-                        <p-floatlabel>
-                            <p-inputmask id="phone" mask="(99) 99999-9999" formControlName="phone" class="w-full"/>
-                            <label for="phone">Telefone</label>
-                        </p-floatlabel>
-                    </p-inputgroup>
-                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['phone'].invalid">Telefone é obrigatório</p-message>
-                </div>
-                <div class="flex flex-col gap-1">
-                    <p-inputgroup>
-                        <p-inputgroup-addon>
-                            <i class="pi pi-at"></i>
-                        </p-inputgroup-addon>
-                        <p-floatlabel>
-                            <input type="text" id="email" pInputText formControlName="email" />
-                            <label for="email">E-mail</label>
-                        </p-floatlabel>
-                    </p-inputgroup>
-                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['email'].invalid">E-mail é obrigatório</p-message>
-                </div>
+            <form class="form-container" [formGroup]="form" storage="employee-form">
+                <app-input-text
+                formControlName="name"
+                [invalid]="form.controls['name'].invalid"
+                [label]="'Nome Completo'" 
+                [icon]="'pi-user'"></app-input-text>
+                <app-input-mask 
+                formControlName="phone"
+                [invalid]="form.controls['phone'].invalid"
+                [label]="'Telefone'"
+                [icon]="'pi-phone'"
+                [inputMask]="'(99) 99999-9999'"></app-input-mask>
+                <app-input-text
+                formControlName="email"
+                [invalid]="form.controls['email'].invalid"
+                [label]="'E-mail'" 
+                [icon]="'pi-at'"></app-input-text>
                 <div class="flex">
-                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="submit()"/>
-                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="cleanForm()"/>
+                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
+                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="employeeCreateForm.clearForm()"/>
                 </div>
             </form>
-            <ul class="ml-2 w-full alerts-container">
-                <p-message *ngIf="loading" severity="info" icon="pi pi-send" text="Carregando..." />
-                <p-message *ngIf="sendSuccess" severity="success" icon="pi pi-check-circle" styleClass="mb-2">Funcionário criado com sucesso!</p-message>
-                <p-message *ngFor="let err of errorList" severity="error" icon="pi pi-times-circle" styleClass="mb-2">
-                    {{ err.field }}: {{ err.message }}
-                </p-message>
-            </ul>
+            <app-form-errors 
+            [item]="'Funcionário'"
+            [loading]="employeeCreateForm.getLoading()"
+            [success]="employeeCreateForm.getSendSuccess()"
+            [errors]="employeeCreateForm.getErrorList()"></app-form-errors>
         </div>
-        <p-dialog header="Funcionário cadastrado com sucesso." [(visible)]="responseVisible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-            <div *ngIf="responseItem">
-                <h1><b>Código:</b> {{ responseItem.id }}</h1>
-                <h1><b>Nome:</b> {{ responseItem.name }}</h1>
-                <h1><b>Telefone:</b> {{ responseItem.phone }}</h1>
-            </div>
-            <div class="flex justify-end gap-2">
-                <p-button label="Ok" severity="secondary" (click)="responseVisible = false" />
-                <p-button label="Abrir" (click)="responseVisible = false" />
-            </div>
-        </p-dialog>
     </app-content-block>
 </app-dashboard-base>
