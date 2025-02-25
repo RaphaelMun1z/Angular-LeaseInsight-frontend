@@ -1,43 +1,51 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+import { FormCreate } from '../../../../../shared/utils/FormCreateClass';
+import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
+import { ClientCreate } from '../../../../../shared/interfaces/client';
+import { ClientService } from '../../../../../core/services/client.service';
+import { BillingAddressStateService } from '../../../../../core/states/billing-address-state.service';
+import { BillingAddress } from '../../../../../shared/interfaces/billingAddress';
+import { clientStatus } from '../../../../../shared/utils/ConstLists';
+
 import { DashboardBaseComponent } from '../../dashboard-base/dashboard-base.component';
 import { ContentBlockComponent } from '../../content-block/content-block.component';
-import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputGroupModule } from 'primeng/inputgroup';
+import { InputSelectComponent } from '../../../../../shared/components/input/input-select/input-select.component';
+import { BreadcrumbComponent } from '../../../../../shared/components/breadcrumb/breadcrumb.component';
+import { FormErrorsComponent } from '../../../../../shared/components/form-errors/form-errors.component';
+
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputMask } from 'primeng/inputmask';
-import { DatePicker } from 'primeng/datepicker';
+import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { Message } from 'primeng/message';
-import { ButtonModule } from 'primeng/button';
-import { CommonModule } from '@angular/common';
-import { SelectModule } from 'primeng/select';
-import { ClientService } from '../../../../../core/services/client.service';
-import { ClientCreate } from '../../../../../shared/interfaces/client';
-import { BillingAddress } from '../../../../../shared/interfaces/billingAddress';
-import { Observable } from 'rxjs';
-import { BillingAddressStateService } from '../../../../../core/states/billing-address-state.service';
+import { DatePicker } from 'primeng/datepicker';
 import { RouterModule } from '@angular/router';
-import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
+import { InputMask } from 'primeng/inputmask';
+import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
+import { Message } from 'primeng/message';
+import { MenuItem } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-create-client',
-    imports: [DashboardBaseComponent, FormStorageDirective, ContentBlockComponent, RouterModule, FormsModule, SelectModule, Message, ButtonModule, CommonModule, InputMask, DatePicker, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
+    imports: [DashboardBaseComponent, BreadcrumbComponent, InputSelectComponent, FormErrorsComponent, FormStorageDirective, ContentBlockComponent, RouterModule, FormsModule, SelectModule, Message, ButtonModule, CommonModule, InputMask, DatePicker, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
     templateUrl: './create-client.component.html',
     styleUrl: './create-client.component.scss'
 })
 
 export class CreateClientComponent implements OnInit {
-    addresses: BillingAddress[] = [];
+    clientCreateForm = new FormCreate("client-form");
+    breadCrumbItems: MenuItem[] = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Clientes', route: '/dashboard/clientes' }, { label: 'Cadastrar', route: '/dashboard/clientes/criar' }];
+    protected form!: UntypedFormGroup;
+    
+    clientStatus = clientStatus;
+    addressesList: {name: string, code: string | number }[] = [];
     protected addresses$ = new Observable<BillingAddress[]>();
     selectedOption!: BillingAddress;
-    
-    errors: { [key: string]: string } = {};
-    errorList: { field: string; message: string }[] = [];
-    sendSuccess: boolean = false;
-    loading: boolean = false;
-    status!: string[];
     
     private formBuilderService = inject(UntypedFormBuilder);
     private clientService = inject(ClientService);
@@ -46,105 +54,43 @@ export class CreateClientComponent implements OnInit {
     }
     
     ngOnInit() {
-        this.sendSuccess = false;
-        this.loading = false;
-        
-        this.status = [
-            "ACTIVE",
-            "INACTIVE",
-            "PENDING",
-            "FORMER",
-            "PROSPECTIVE"
-        ];
-        
-        this.getBillingAdresses();
-        this.addresses$.subscribe((data: BillingAddress[]) => {
-            this.addresses = data;
-        });
-        
-        const currentDate = new Date();
-        const formattedDate = currentDate.toISOString().split('T')[0];
-        this.form.patchValue({
-            registrationDate: formattedDate
-        });
-    }
-    
-    protected form = this.formBuilderService.group({
-        id: null,
-        name: ['', Validators.required],
-        phone: ['', Validators.required],
-        email: ['', Validators.required],
-        password: [''],
-        dateOfBirth: ['', Validators.required],
-        cpf: ['', Validators.required],
-        rg: ['', Validators.required],
-        registrationDate: [''],
-        tenantStatus: ['', Validators.required],
-        tenantBillingAddress: this.formBuilderService.group({
-            id: ['', Validators.required],
+        this.form = this.formBuilderService.group({
+            name: ['', Validators.required],
+            phone: ['', Validators.required],
+            email: ['', Validators.required],
+            dateOfBirth: ['', Validators.required],
+            cpf: ['', Validators.required],
+            rg: ['', Validators.required],
+            tenantStatus: ['', Validators.required],
+            tenantBillingAddress: this.formBuilderService.group({
+                id: ['', Validators.required],
+            })
         })
-    })
-    
-    protected submit(){
-        this.errorList = []
-        this.errors = {}
+        this.clientCreateForm.setForm(this.form);
         
-        if(this.form.invalid){
-            return;
-        }
-        
-        this.loading = true;
-        
-        const formValue = this.form.value;
-        formValue.dateOfBirth = this.formatDate(formValue.dateOfBirth);
-        formValue.tenantBillingAddress = { "id": this.selectedOption.id};
-        this.postClient(formValue);
-    }
-    
-    getBillingAdresses(){
         this.addresses$ = this.billingAddressStateService.listenToChanges();
-    }
-    
-    postClient(client: ClientCreate){
-        this.clientService.saveClient(client).subscribe({
-            next: (res: any) => {    
-                this.loading = false;
-                this.sendSuccess = true;
-                this.cleanForm();
-                setTimeout(() => {
-                    localStorage.removeItem("client-form");
-                }, 500)
-                setTimeout(() => {
-                    this.sendSuccess = false;
-                }, 5000)
-            },
-            error: (err: { [key: string]: string }) => { 
-                this.loading = false;
-                if((err['status'] == '422')){
-                    this.errors = {"erros": err['message']};
-                }else{
-                    this.errors = err;
-                }
-                this.updateErrorList(); 
-            }
+        this.addresses$.subscribe((data: BillingAddress[]) => {
+            this.addressesList = this.addressesToList(data);
         });
     }
     
-    private formatDate(date: Date): string {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0'); 
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`; 
-    }
-    
-    updateErrorList() {
-        this.errorList = Object.entries(this.errors).map(([field, message]) => ({
-            field,
-            message
+    addressesToList(data: BillingAddress[]): {name: string, code: string | number }[] {
+        return data.map(address => ({
+            name: `${address.street}, ${address.number} - ${address.district}, ${address.city} - ${address.state}, ${address.country}, CEP: ${address.cep}`,
+            code: address.id
         }));
     }
     
-    cleanForm(){
-        this.form.reset();
+    postForm(){
+        this.clientCreateForm.validForm();
+        const data: ClientCreate = this.form.value;
+        this.clientService.saveClient(data).subscribe({
+            next: (res: any) => {    
+                this.clientCreateForm.successCaseState();
+            },
+            error: (errors: { [key: string]: string }) => { 
+                this.clientCreateForm.failCaseState(errors);
+            }
+        });
     }
 }

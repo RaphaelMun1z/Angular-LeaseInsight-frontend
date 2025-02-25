@@ -1,0 +1,124 @@
+import { UntypedFormGroup } from "@angular/forms";
+
+export class FormCreate {
+    private errors: { [key: string]: string } = {};
+    private errorList: { field: string; message: string }[] = [];
+    private sendSuccess: boolean = false;
+    private loading: boolean = false;
+    private status!: string[];
+    private formStorageName!: string;
+    private form! : UntypedFormGroup;
+    
+    constructor(formStorageName: string) {
+        this.formStorageName = formStorageName;
+    }
+    
+    public getForm(): UntypedFormGroup {
+        return this.form;
+    }
+    
+    public setForm(form: UntypedFormGroup): void {
+        this.form = form;
+    }
+    
+    public getErrors(): { [key: string]: string } {
+        return this.errors;
+    }
+    
+    public setErrors(errors: { [key: string]: string }): void {
+        this.errors = errors;
+    }
+    
+    public getErrorList(): { field: string; message: string }[] {
+        return this.errorList;
+    }
+    
+    public setErrorList(errorList: { field: string; message: string }[]): void {
+        this.errorList = errorList;
+    }
+    
+    public getSendSuccess(): boolean {
+        return this.sendSuccess;
+    }
+    
+    public setSendSuccess(sendSuccess: boolean): void {
+        this.sendSuccess = sendSuccess;
+    }
+    
+    public getLoading(): boolean {
+        return this.loading;
+    }
+    
+    public setLoading(loading: boolean): void {
+        this.loading = loading;
+    }
+    
+    public getStatus(): string[] {
+        return this.status;
+    }
+    
+    public setStatus(status: string[]): void {
+        this.status = status;
+    }
+    
+    public clearErrors(){
+        this.setErrorList([]);
+        this.setErrors({});
+    }
+
+    public clearForm(){
+        this.form.reset();
+        this.clearErrors();
+    }
+    
+    public updateErrorList() {
+        this.setErrorList(
+            Object.entries(this.getErrors())
+            .map(([field, message]) => ({
+                field,
+                message
+            }))
+        );
+    }
+    
+    public validForm() {
+        if(!this.form) return;
+        this.clearErrors();
+        if(this.form.invalid) return;
+        this.setLoading(true);
+    }
+    
+    public successCaseState(){
+        this.setLoading(false);
+        this.setSendSuccess(true);
+        this.clearForm();
+
+        setTimeout(() => {
+            this.removeCurrentStorage();
+        }, 500)
+
+        setTimeout(() => {
+            this.setSendSuccess(false);
+        }, 5000)
+    }
+
+    public failCaseState(errors: { [key: string]: string }) {
+        this.setLoading(false);
+
+        try {
+            if(errors['status'] == '422'){
+                this.setErrors({"erros": errors['message']});
+            }else{
+                this.setErrors(errors);
+            }
+        } catch (err) {
+            this.setErrors({ "Erro": "Ocorreu um erro inesperado! Tente novamente mais tarde." });
+        }
+        
+        this.updateErrorList();
+    }
+
+    public removeCurrentStorage(){
+        localStorage.removeItem(this.formStorageName);
+    }
+}

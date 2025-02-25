@@ -122,18 +122,28 @@ export class SelectPropertyComponent implements OnInit {
         }
     }
     
-    getStatus(status: string) {
+    getStatus(status: number) {
         switch (status) {
-            case "VACANT":
-            return 'Livre';
-            case "OCCUPIED":
+            case 1:
             return 'Ocupado';
-            case "UNDER_RENOVATION":
+            case 2:
+            return 'Livre';
+            case 3:
+            return 'Pendente para entrada';
+            case 4:
+            return 'Pendente para saída';
+            case 5:
+            return 'Em manutenção';
+            case 6:
+            return 'Alugado';
+            case 7:
+            return 'Disponível';
+            case 8:
             return 'Reservado';
             default:
             return 'Outros';
         }
-    } 
+    }
     
     selected(idSelected: string){
         this.form.patchValue({

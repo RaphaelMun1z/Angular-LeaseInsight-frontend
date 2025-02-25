@@ -1,16 +1,13 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
-import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { Tag } from 'primeng/tag';
 import { ToolbarModule } from 'primeng/toolbar';
-import { ConfirmDialog } from 'primeng/confirmdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { CommonModule } from '@angular/common';
-import { RadioButton } from 'primeng/radiobutton';
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -32,7 +29,7 @@ interface ExportColumn {
 
 @Component({
     selector: 'app-table-clients',
-    imports: [FormsModule, RadioButton, ButtonModule, Tag, TableModule, Dialog, SelectModule, ToastModule, ToolbarModule, ConfirmDialog, InputTextModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
+    imports: [FormsModule, ButtonModule, Tag, TableModule, SelectModule, ToastModule, ToolbarModule, InputTextModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
     providers: [MessageService, ConfirmationService],
     templateUrl: './table-clients.component.html',
     styleUrl: './table-clients.component.scss'
@@ -84,86 +81,6 @@ export class TableClientsComponent implements OnInit{
         
         this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
     }
-    
-    // =============| Create |=============
-    
-    openNew() {
-        this.clientCreate =  {
-            id: null,
-            name: '',
-            phone: '',
-            email: '',
-            password: '',
-            dateOfBirth: '',
-            cpf: '',
-            rg: '',
-            registrationDate: '',
-            tenantStatus: '',
-            tenantBillingAddress: {
-                id: ''
-            }
-        }
-        this.submitted = false;
-        this.clientDialog = true;
-    }
-    
-    saveClient() {
-        this.submitted = true;
-        
-        if (this.clientCreate.name?.trim()) {
-            if (this.clientCreate.id) {
-                // Update
-                console.log("Update")
-                this.clients[this.findIndexById(this.clientCreate.id)] = this.client;
-                
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Operação Realizada',
-                    detail: 'Cliente Atualizado',
-                    life: 3000
-                });
-            } else {
-                // Create
-                //this.client.id = this.createId();
-                //this.clients.push(this.client);
-                console.log("Create")
-                
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Operação Realizada',
-                    detail: 'Cliente Criado',
-                    life: 3000
-                });
-            }
-            
-            this.clients = [...this.clients];
-            this.clientDialog = false;
-            this.clientCreate =  {
-                id: null,
-                name: '',
-                phone: '',
-                email: '',
-                password: '',
-                dateOfBirth: '',
-                cpf: '',
-                rg: '',
-                registrationDate: '',
-                tenantStatus: '',
-                tenantBillingAddress: {
-                    id: ''
-                }
-            }
-        }
-    }
-    
-    // =============| Edit |=============
-    
-    editClient(client: ClientCreate) {
-        this.clientCreate = { ...client };
-        this.clientDialog = true;
-    }
-    
-    // =============| Delete |=============
     
     deleteSelectedClients() {
         this.confirmationService.confirm({
@@ -224,11 +141,6 @@ export class TableClientsComponent implements OnInit{
     
     // =============| Other |=============
     
-    hideDialog() {
-        this.clientDialog = false;
-        this.submitted = false;
-    }
-    
     findIndexById(id: string): number {
         let index = -1;
         for (let i = 0; i < this.clients.length; i++) {
@@ -239,15 +151,6 @@ export class TableClientsComponent implements OnInit{
         }
         
         return index;
-    }
-    
-    createId(): string {
-        let id = '';
-        var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (var i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return id;
     }
     
     getSeverity(status: string) {

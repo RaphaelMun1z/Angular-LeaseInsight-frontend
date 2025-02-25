@@ -1,7 +1,6 @@
 <div class="container">
     <p-toolbar styleClass="mb-6" class="!w-full">
         <ng-template #start>
-            <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
             <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedClients()" [disabled]="!selectedClients || !selectedClients.length" />
         </ng-template>
         
@@ -72,7 +71,7 @@
                 <p-tag [value]="client.tenantStatus" [severity]="getSeverity(client.tenantStatus)" />
             </td>
             <td>
-                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editClient(client)" />
+                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" />
                 <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteClient(client)" />
             </td>
         </tr>
@@ -81,75 +80,4 @@
         <div class="flex items-center justify-between">Total de {{ clients ? clients.length : 0 }} clientes.</div>
     </ng-template>
 </p-table>
-<p-toast></p-toast>
-
-<p-dialog [(visible)]="clientDialog" [style]="{ width: '450px' }" header="Criando Cliente" [modal]="true">
-    <ng-template #content>
-        <div class="flex flex-col gap-6">
-            <div>
-                <label for="name" class="block font-bold mb-3">Name</label>
-                <input type="text" pInputText id="name" [(ngModel)]="clientCreate.name" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !clientCreate.name">Nome é obrigatório.</small>
-            </div>
-            <div>
-                <label for="phone" class="block font-bold mb-3">Telefone</label>
-                <input type="text" pInputText id="phone" [(ngModel)]="clientCreate.phone" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !clientCreate.phone">Telefone é obrigatório.</small>
-            </div>
-            <div>
-                <label for="password" class="block font-bold mb-3">Senha</label>
-                <input type="text" pInputText id="password" [(ngModel)]="clientCreate.password" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !clientCreate.password">Senha é obrigatório.</small>
-            </div>
-            <div>
-                <label for="dateOfBirth" class="block font-bold mb-3">Data de Nascimento</label>
-                <input type="text" pInputText id="dateOfBirth" [(ngModel)]="clientCreate.dateOfBirth" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !clientCreate.dateOfBirth">Data de Nascimento é obrigatório.</small>
-            </div>
-            <div>
-                <label for="cpf" class="block font-bold mb-3">CPF</label>
-                <input type="text" pInputText id="cpf" [(ngModel)]="clientCreate.cpf" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !clientCreate.cpf">CPF é obrigatório.</small>
-            </div>
-            <div>
-                <label for="rg" class="block font-bold mb-3">RG</label>
-                <input type="text" pInputText id="rg" [(ngModel)]="clientCreate.rg" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !clientCreate.rg">RG é obrigatório.</small>
-            </div>
-            <div>
-                <span class="block font-bold mb-4">Status</span>
-                <div class="grid grid-cols-12 gap-4">
-                    <div class="flex items-center gap-2 col-span-6">
-                        <p-radiobutton id="category1" name="status" value="Accessories" [(ngModel)]="clientCreate.tenantStatus" />
-                        <label for="category1">Accessories</label>
-                    </div>
-                    <div class="flex items-center gap-2 col-span-6">
-                        <p-radiobutton id="category2" name="status" value="Clothing" [(ngModel)]="clientCreate.tenantStatus" />
-                        <label for="category2">Clothing</label>
-                    </div>
-                    <div class="flex items-center gap-2 col-span-6">
-                        <p-radiobutton id="category3" name="status" value="Electronics" [(ngModel)]="clientCreate.tenantStatus" />
-                        <label for="category3">Electronics</label>
-                    </div>
-                    <div class="flex items-center gap-2 col-span-6">
-                        <p-radiobutton id="category4" name="status" value="Fitness" [(ngModel)]="clientCreate.tenantStatus" />
-                        <label for="category4">Fitness</label>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <label for="tenantBillingAddress" class="block font-bold mb-3">Endereço de Cobrança</label>
-                <input type="text" pInputText id="tenantBillingAddress" [(ngModel)]="clientCreate.tenantBillingAddress" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !clientCreate.tenantBillingAddress">Endereço é obrigatório.</small>
-            </div>
-        </div>
-    </ng-template>
-    
-    <ng-template #footer>
-        <p-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()" />
-        <p-button label="Save" icon="pi pi-check" (click)="saveClient()" />
-    </ng-template>
-</p-dialog>
-
-<p-confirmDialog [style]="{ width: '450px' }" />     
 </div>  

@@ -24,15 +24,12 @@ interface ClientBillingAddress {
 }
 
 export interface ClientCreate {
-    id: string | null,
     name: string,
     phone: string,
     email: string,
-    password: string,
     dateOfBirth: string,
     cpf: string,
     rg: string,
-    registrationDate: string,
     tenantStatus: string,
     tenantBillingAddress: {
         id: string

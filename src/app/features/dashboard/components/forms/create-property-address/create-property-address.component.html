@@ -1,18 +1,4 @@
-<p-breadcrumb class="max-w-full" [model]="breadCrumbItems">
-    <ng-template #item let-item>
-        <ng-container *ngIf="item.route; else elseBlock">
-            <a [routerLink]="item.route" class="p-breadcrumb-item-link">
-                <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
-                <span class="text-primary font-semibold">{{ item.label }}</span>
-            </a>
-        </ng-container>
-        <ng-template #elseBlock>
-            <a [href]="item.url">
-                <span class="text-color">{{ item.label }}</span>
-            </a>
-        </ng-template>
-    </ng-template>
-</p-breadcrumb>
+<app-breadcrumb [breadCrumbItems]="breadCrumbItems"></app-breadcrumb>
 
 <app-dashboard-base [title]="'Imóveis'">
     <app-content-block [title]="'Cadastrar Endereço'" [type]="'Formulário'">
@@ -49,24 +35,22 @@
                 [invalid]="form.controls['country'].invalid"
                 [label]="'País'" 
                 [icon]="'pi-map-marker'"
-                [items]="listIems"></app-input-select>
+                [items]="countriesList"></app-input-select>
                 <app-input-text
                 formControlName="complement"
                 [invalid]="form.controls['complement'].invalid"
                 [label]="'Complemento'" 
                 [icon]="'pi-map-marker'"></app-input-text>
                 <div class="flex">
-                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="submit()"/>
-                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="cleanForm()"/>
+                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
+                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="propertyAddressCreateForm.clearForm()"/>
                 </div>
             </form>
-            <ul class="ml-2 w-full alerts-container">
-                <p-message *ngIf="loading" severity="info" icon="pi pi-send" text="Carregando..." />
-                <p-message *ngIf="sendSuccess" severity="success" icon="pi pi-check-circle" styleClass="mb-2">Endereço de imóvel cadastrado com sucesso!</p-message>
-                <p-message *ngFor="let err of errorList" severity="error" icon="pi pi-times-circle" styleClass="mb-2">
-                    {{ err.field }}: {{ err.message }}
-                </p-message>
-            </ul>
+            <app-form-errors 
+            [item]="'Endereço de imóvel'"
+            [loading]="propertyAddressCreateForm.getLoading()"
+            [success]="propertyAddressCreateForm.getSendSuccess()"
+            [errors]="propertyAddressCreateForm.getErrorList()"></app-form-errors>
         </div>
     </app-content-block>
 </app-dashboard-base>

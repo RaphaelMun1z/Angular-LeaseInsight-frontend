@@ -25,22 +25,6 @@
         gap: 3vh;
         padding-right: 2vw;
     }
-    
-    .alerts-container{
-        position: relative;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        width: 100%;
-        height: fit-content;
-        margin-top: 5vh;
-        
-        ::ng-deep{
-            .p-message{
-                width: fit-content !important;
-            }
-        }
-    }
 }
 
 ::ng-deep {
@@ -50,10 +34,5 @@
         width: 100%;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
-    }
-    
-    .p-breadcrumb{ 
-        background-color: transparent;
-        padding: 2vh 12vw;
     }
 }

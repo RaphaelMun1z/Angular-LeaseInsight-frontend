@@ -1,3 +1,5 @@
+<app-breadcrumb [breadCrumbItems]="breadCrumbItems"></app-breadcrumb>
+
 <app-dashboard-base [title]="'Clientes'">
     <app-content-block [title]="'Criar Novo Cliente'" [type]="'Formulário'">
         <div class="child">
@@ -80,13 +82,21 @@
                             <i class="pi pi-circle-off"></i>
                         </p-inputgroup-addon>
                         <p-floatlabel>
-                            <p-select id="tenantStatus" formControlName="tenantStatus" [options]="status" class="w-full md:w-56" />
+                            <p-select id="tenantStatus" formControlName="tenantStatus" [options]="clientStatus" class="w-full md:w-56" />
                             <label for="tenantStatus">Status</label>
                         </p-floatlabel>
                     </p-inputgroup>
                     <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['tenantStatus'].invalid">Status é obrigatório</p-message>
                 </div>
-                <div class="flex flex-col gap-1">
+                <div formGroupName="tenantBillingAddress">
+                    <app-input-select
+                    formControlName="id"
+                    [invalid]="!!form.get('tenantBillingAddress.id')?.invalid" 
+                    [label]="'Endereço de Cobrança'"
+                    [icon]="'pi-map-marker'"
+                    [items]="addressesList"></app-input-select>
+                </div>
+                <!-- <div class="flex flex-col gap-1">
                     <p-inputgroup formGroupName="tenantBillingAddress">
                         <p-inputgroup-addon>
                             <i class="pi pi-map-marker"></i>
@@ -112,19 +122,17 @@
                         </p-floatlabel>
                     </p-inputgroup>
                     <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['tenantBillingAddress'].invalid">Endereço de Cobrança é obrigatório</p-message>
-                </div>
+                </div> -->
                 <div class="flex">
-                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="submit()"/>
-                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="cleanForm()"/>
+                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
+                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="clientCreateForm.clearForm()"/>
                 </div>
             </form>
-            <ul class="ml-2 w-full alerts-container">
-                <p-message *ngIf="loading" severity="info" icon="pi pi-send" text="Carregando..." />
-                <p-message *ngIf="sendSuccess" severity="success" icon="pi pi-check-circle" styleClass="mb-2">Cliente criado com sucesso!</p-message>
-                <p-message *ngFor="let err of errorList" severity="error" icon="pi pi-times-circle" styleClass="mb-2">
-                    {{ err.field }}: {{ err.message }}
-                </p-message>
-            </ul>
+            <app-form-errors 
+            [item]="'Cliente'"
+            [loading]="clientCreateForm.getLoading()"
+            [success]="clientCreateForm.getSendSuccess()"
+            [errors]="clientCreateForm.getErrorList()"></app-form-errors>
         </div>
     </app-content-block>
 </app-dashboard-base>
