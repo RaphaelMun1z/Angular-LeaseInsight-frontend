@@ -10,6 +10,7 @@ import { EmployeeService } from '../../../../../core/services/employee.service';
 import { DashboardBaseComponent } from '../../dashboard-base/dashboard-base.component';
 import { ContentBlockComponent } from '../../content-block/content-block.component';
 import { InputTextComponent } from '../../../../../shared/components/input/input-text/input-text.component';
+import { InputMaskComponent } from '../../../../../shared/components/input/input-mask/input-mask.component';
 import { BreadcrumbComponent } from '../../../../../shared/components/breadcrumb/breadcrumb.component';
 import { FormErrorsComponent } from '../../../../../shared/components/form-errors/form-errors.component';
 
@@ -18,16 +19,13 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { InputMask } from 'primeng/inputmask';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
-import { Message } from 'primeng/message';
 import { MenuItem } from 'primeng/api';
-import { InputMaskComponent } from '../../../../../shared/components/input/input-mask/input-mask.component';
 
 @Component({
     selector: 'app-create-employees',
-    imports: [FormStorageDirective, FormErrorsComponent, InputTextComponent, InputMaskComponent, BreadcrumbComponent, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, Message, ButtonModule, CommonModule, InputMask, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
+    imports: [FormStorageDirective, FormErrorsComponent, InputTextComponent, InputMaskComponent, BreadcrumbComponent, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, ButtonModule, CommonModule, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
     templateUrl: './create-employees.component.html',
     styleUrl: './create-employees.component.scss'
 })
