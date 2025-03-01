@@ -1,29 +1,26 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CreatePropertyComponent } from '../../create-property.component';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { InputNumberComponent } from '../../../../../../../shared/components/input/input-number/input-number.component';
-import { InputGroup } from 'primeng/inputgroup';
-import { InputGroupAddon } from 'primeng/inputgroupaddon';
-import { FloatLabel } from 'primeng/floatlabel';
-import { Select } from 'primeng/select';
-import { Message } from 'primeng/message';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
-import { InputTextModule } from 'primeng/inputtext';
-import { InputGroupModule } from 'primeng/inputgroup';
+import { FormGroup } from '@angular/forms';
+import { CreatePropertyComponent } from '../../create-property.component';
+import { InputNumberComponent } from '../../../../../../../shared/components/input/input-number/input-number.component';
+import { InputFileComponent } from '../../../../../../../shared/components/input/input-file/input-file.component';
+import { InputTextareaComponent } from "../../../../../../../shared/components/input/input-textarea/input-textarea.component";
+import { InputSelectComponent } from '../../../../../../../shared/components/input/input-select/input-select.component';
+
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
-import { InputFileComponent } from '../../../../../../../shared/components/input/input-file/input-file.component';
-import { InputTextareaComponent } from "../../../../../../../shared/components/input/input-textarea/input-textarea.component";
 
 @Component({
     selector: 'app-characteristics',
-    imports: [CommonModule, FormsModule, SelectModule, InputTextModule, InputGroupModule, InputFileComponent, InputGroupAddonModule, FloatLabelModule, ButtonModule, PasswordModule, ReactiveFormsModule, InputNumberComponent, InputGroup, InputGroupAddon, FloatLabel, Select, Message, InputTextareaComponent],
+    imports: [CommonModule, FormsModule, SelectModule, InputSelectComponent, InputTextModule, InputGroupModule, InputFileComponent, InputGroupAddonModule, FloatLabelModule, ButtonModule, PasswordModule, ReactiveFormsModule, InputNumberComponent, InputTextareaComponent],
     templateUrl: './characteristics.component.html',
     styleUrl: './characteristics.component.scss'
 })

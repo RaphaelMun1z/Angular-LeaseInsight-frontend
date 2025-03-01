@@ -1,6 +1,6 @@
 import { UntypedFormGroup } from "@angular/forms";
 
-export class FormCreate {
+export class FormHandler {
     protected errors: { [key: string]: string } = {};
     protected errorList: { field: string; message: string }[] = [];
     protected sendSuccess: boolean = false;

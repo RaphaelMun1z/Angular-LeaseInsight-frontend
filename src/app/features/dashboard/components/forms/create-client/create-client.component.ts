@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { FormCreate } from '../../../../../shared/utils/FormCreate';
+import { FormHandler } from '../../../../../shared/utils/FormHandler';
 import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 import { ClientCreate } from '../../../../../shared/interfaces/client';
 import { ClientService } from '../../../../../core/services/client.service';
@@ -38,7 +38,7 @@ import { Observable } from 'rxjs';
 })
 
 export class CreateClientComponent implements OnInit {
-    clientCreateForm = new FormCreate("client-form");
+    clientCreateForm = new FormHandler("client-form");
     breadCrumbItems: MenuItem[] = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Clientes', route: '/dashboard/clientes' }, { label: 'Cadastrar', route: '/dashboard/clientes/criar' }];
     protected form!: UntypedFormGroup;
     

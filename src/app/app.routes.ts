@@ -6,8 +6,8 @@ import { staffGuard } from './core/guards/staff.guard';
 import { ownerGuard } from './core/guards/owner.guard';
 import { tenantGuard } from './core/guards/tenant.guard';
 import { guestGuard } from './core/guards/guest.guard';
-import { propertyFormGuard } from './core/guards/property-form.guard';
-import { contractFormGuard } from './core/guards/contract-form.guard';
+import { propertyFormGuard } from './core/guards/forms/property-form.guard';
+import { contractFormGuard } from './core/guards/forms/contract-form.guard';
 
 import { LayoutComponent } from './core/layouts/layout/layout.component';
 import { LayoutDashboardComponent } from './core/layouts/layout-dashboard/layout-dashboard.component';

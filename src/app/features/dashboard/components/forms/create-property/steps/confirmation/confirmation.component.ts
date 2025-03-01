@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { CreatePropertyComponent } from '../../create-property.component';
+import { PropertyFormService } from '../../../../../../../core/services/stepped-forms/property-form.service';
 import { PropertyService } from '../../../../../../../core/services/property.service';
 import { PropertyAddressStateService } from '../../../../../../../core/states/property-address-state.service';
 import { OwnerStateService } from '../../../../../../../core/states/owner-state.service';
-import { Property, PropertyCreate } from '../../../../../../../shared/interfaces/property';
+import { FormErrorsComponent } from '../../../../../../../shared/components/form-errors/form-errors.component';
+import { FormHandler } from '../../../../../../../shared/utils/FormHandler';
 import { PropertyAddress } from '../../../../../../../shared/interfaces/propertyAddress';
+import { Property } from '../../../../../../../shared/interfaces/property';
 import { Owner } from '../../../../../../../shared/interfaces/owner';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -19,11 +21,10 @@ import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { ImageModule } from 'primeng/image';
 import { ToastModule } from 'primeng/toast';
-import { Message } from 'primeng/message';
 
 @Component({
     selector: 'app-confirmation',
-    imports: [DividerModule, ImageModule, Message, FieldsetModule, AvatarModule, CommonModule, ConfirmDialog, ToastModule, ButtonModule],
+    imports: [DividerModule, ImageModule, FieldsetModule, FormErrorsComponent, AvatarModule, CommonModule, ConfirmDialog, ToastModule, ButtonModule],
     providers: [ConfirmationService, MessageService],
     templateUrl: './confirmation.component.html',
     styleUrl: './confirmation.component.scss'
@@ -31,20 +32,18 @@ import { Message } from 'primeng/message';
 
 export class ConfirmationComponent  implements OnInit{
     form!: FormGroup;
+    propertyCreateForm!: FormHandler;
+    
     protected property$ = new Observable<Property | null>();
-    protected address$ = new Observable<PropertyAddress | null>();
-    protected owner$ = new Observable<Owner | null>();
     property! : Property;
+    
+    protected address$ = new Observable<PropertyAddress | null>();
     address!: PropertyAddress;
+    
+    protected owner$ = new Observable<Owner | null>();
     owner!: Owner;
     
-    errors: { [key: string]: string } = {};
-    errorList: { field: string; message: string }[] = [];
-    sendSuccess: boolean = false;
-    loading: boolean = false;
-    status!: string[];
-    
-    private formContainer = inject(CreatePropertyComponent);
+    private propertyFormService = inject(PropertyFormService);
     private propertyService = inject(PropertyService);
     private propertyAddressStateService = inject(PropertyAddressStateService);
     private ownerStateService = inject(OwnerStateService);
@@ -52,7 +51,8 @@ export class ConfirmationComponent  implements OnInit{
     private messageService = inject(MessageService);
     
     constructor() {
-        this.form = this.formContainer.getAllSteps();
+        this.propertyCreateForm = this.propertyFormService.getFormHandler();
+        this.form = this.propertyCreateForm.getForm();
         
         if(this.form.get('step2.residenceAddress')?.value){
             this.propertyAddressStateService.loadPropertyAddress(this.form.get('step2.residenceAddress')?.value);
@@ -64,56 +64,36 @@ export class ConfirmationComponent  implements OnInit{
     }
     
     ngOnInit(): void {
-        this.getAddress();
+        this.address$ = this.propertyAddressStateService.listenToPropertyAddress();
         this.address$.subscribe((data: PropertyAddress | null) => {
             if(data){
                 this.address = data;
             }
         });
         
-        this.getOwner();
+        this.owner$ = this.ownerStateService.listenToClient();
         this.owner$.subscribe((data: Owner | null) => {
             if(data){
                 this.owner = data;
             }
         });
     }
-    
-    getAddress(){
-        this.address$ = this.propertyAddressStateService.listenToPropertyAddress();
-    }
-    
-    getOwner(){
-        this.owner$ = this.ownerStateService.listenToClient();
-    }
-    
-    getInvalidFields(formGroup: FormGroup, parentKey = ''): { [key: string]: string } {
-        return Object.keys(formGroup.controls).reduce((invalidFields, key) => {
-            const control = formGroup.get(key);
-            const fullKey = parentKey ? `${parentKey}.${key}` : key;
-            
-            if (control instanceof FormGroup) {
-                Object.assign(invalidFields, this.getInvalidFields(control, fullKey));
-            } else if (control?.invalid) {
-                invalidFields[fullKey] = 'Campo inválido';
+
+    postForm(){
+        const data: FormData = this.ToFormData();
+        this.propertyService.saveProperty(data).subscribe({
+            next: (res: any) => {    
+                this.propertyCreateForm.successCaseState();
+            },
+            error: (errors: { [key: string]: string }) => { 
+                this.propertyCreateForm.failCaseState(errors);
             }
-            
-            return invalidFields;
-        }, {} as { [key: string]: string });
+        });
     }
-    
-    protected submit(){
-        this.errorList = []
-        this.errors = {}
-        
-        if(this.form.invalid){
-            this.errors = this.getInvalidFields(this.form);
-            this.updateErrorList(); 
-            return;
-        }
-        
-        this.loading = true;
-        
+
+    ToFormData(): FormData {
+        this.propertyCreateForm.validForm();
+
         const formData = new FormData();
         formData.append('propertyType', this.form.get('step1.propertyType')?.value);
         formData.append('description', this.form.get('step1.description')?.value);
@@ -134,46 +114,18 @@ export class ConfirmationComponent  implements OnInit{
         formData.append('complement', this.form.get('step2.complement')?.value);
         formData.append('residenceAddress', this.form.get('step2.residenceAddress')?.value);
         formData.append('owner', this.form.get('step3.owner')?.value);
-     
+        
         const files = this.form.get('step1.images')?.value;
         if (files && files.length) {
             files.forEach((file: File) => {
                 formData.append('images', file, file.name);
             });
         }
-        console.log(formData);
-        this.postProperty(formData);
+
+        return formData;
     }
     
-    postProperty(property: FormData){
-        this.propertyService.saveProperty(property).subscribe({
-            next: (res: any) => {    
-                this.loading = false;
-                this.sendSuccess = true;
-                setTimeout(() => {
-                    this.sendSuccess = false;
-                }, 5000)
-            },
-            error: (err: { [key: string]: string }) => { 
-                this.loading = false;
-                if((err['status'] == '422') || (err['status'] == '400')){
-                    this.errors = {"erros": err['message']};
-                }else{
-                    this.errors = err;
-                }
-                this.updateErrorList(); 
-            }
-        });
-    }
-    
-    updateErrorList() {
-        this.errorList = Object.entries(this.errors).map(([field, message]) => ({
-            field,
-            message
-        }));
-    }
-    
-    confirm1(event: Event) {
+    registrationConfirmation(event: Event) {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
             message: 'Você tem certeza que deseja cadastrar o imóvel?',
@@ -190,7 +142,7 @@ export class ConfirmationComponent  implements OnInit{
                 label: 'Salvar',
             },
             accept: () => {
-                this.submit();
+                this.postForm();
                 this.messageService.add({ severity: 'info', summary: 'Salvando', detail: 'Salvando Imóvel...' });
             },
             reject: () => {
@@ -204,7 +156,7 @@ export class ConfirmationComponent  implements OnInit{
         });
     }
     
-    confirm2(event: Event) {
+    deletionConfirmation(event: Event) {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
             message: 'Do you want to delete this record?',

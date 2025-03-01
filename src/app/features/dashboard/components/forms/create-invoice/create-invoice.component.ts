@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup,
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 
-import { FormCreate } from '../../../../../shared/utils/FormCreate';
+import { FormHandler } from '../../../../../shared/utils/FormHandler';
 import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 import { InvoiceCreate } from '../../../../../shared/interfaces/invoice';
 import { InvoiceService } from '../../../../../core/services/invoice.service';
@@ -36,7 +36,7 @@ import { MenuItem } from 'primeng/api';
 })
 
 export class CreateInvoiceComponent implements OnInit {    
-    invoiceCreateForm = new FormCreate("invoice-form");
+    invoiceCreateForm = new FormHandler("invoice-form");
     breadCrumbItems: MenuItem[] = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Faturas', route: '/dashboard/faturas' }, { label: 'Cadastrar', route: '/dashboard/faturas/criar' }];
     protected form!: UntypedFormGroup;
     

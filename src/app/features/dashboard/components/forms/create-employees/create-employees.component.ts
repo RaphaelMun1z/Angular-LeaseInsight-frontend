@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { FormCreate } from '../../../../../shared/utils/FormCreate';
+import { FormHandler } from '../../../../../shared/utils/FormHandler';
 import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 import { EmployeeCreate } from '../../../../../shared/interfaces/employee';
 import { EmployeeService } from '../../../../../core/services/employee.service';
@@ -31,7 +31,7 @@ import { MenuItem } from 'primeng/api';
 })
 
 export class CreateEmployeesComponent implements OnInit {    
-    employeeCreateForm = new FormCreate("employee-form");
+    employeeCreateForm = new FormHandler("employee-form");
     breadCrumbItems: MenuItem[] = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Funcionários', route: '/dashboard/funcionarios' }, { label: 'Cadastrar', route: '/dashboard/funcionarios/criar' }];
     protected form!: UntypedFormGroup;
     

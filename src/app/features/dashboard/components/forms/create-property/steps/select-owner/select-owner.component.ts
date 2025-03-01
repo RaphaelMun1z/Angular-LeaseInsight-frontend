@@ -1,19 +1,21 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
+
+import { CreatePropertyComponent } from '../../create-property.component';
+import { OwnerStateService } from '../../../../../../../core/states/owner-state.service';
+import { Owner } from '../../../../../../../shared/interfaces/owner';
+
+import { MultiSelectModule } from 'primeng/multiselect';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { SelectModule } from 'primeng/select';
 import { Table, TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
 import { TagModule } from 'primeng/tag';
-import { Observable } from 'rxjs';
-import { OwnerStateService } from '../../../../../../../core/states/owner-state.service';
-import { Owner } from '../../../../../../../shared/interfaces/owner';
-import { CreatePropertyComponent } from '../../create-property.component';
 
 @Component({
     selector: 'app-select-owner',
@@ -39,19 +41,11 @@ export class SelectOwnerComponent implements OnInit {
     ngOnInit() {
         this.form = this.formContainer.getStep3Form();
         
-        this.getOwneres();
+        this.owners$ = this.ownerStateService.listenToChanges();
         this.owners$.subscribe((data: Owner[]) => {
             this.owners = data;
             this.loading = false;
         });
-    }
-    
-    getOwneres(){
-        this.owners$ = this.ownerStateService.listenToChanges();
-    }
-    
-    clear(table: Table) {
-        table.clear();
     }
     
     selected(idSelected: string){

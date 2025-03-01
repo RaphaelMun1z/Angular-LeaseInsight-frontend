@@ -3,36 +3,36 @@ import { FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, Untype
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { FormHandler } from '../../../../../shared/utils/FormHandler';
 import { PropertyFormService } from '../../../../../core/services/stepped-forms/property-form.service';
 import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 
 import { DashboardBaseComponent } from '../../dashboard-base/dashboard-base.component';
 import { ContentBlockComponent } from '../../content-block/content-block.component';
+import { BreadcrumbComponent } from '../../../../../shared/components/breadcrumb/breadcrumb.component';
 
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { Breadcrumb } from 'primeng/breadcrumb';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { MenuItem } from 'primeng/api';
 import { Steps } from 'primeng/steps';
-import { FormCreate } from '../../../../../shared/utils/FormCreate';
 
 @Component({
     selector: 'app-create-property',
-    imports: [RouterModule, FormStorageDirective, Breadcrumb, Steps, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, ButtonModule, CommonModule, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
+    imports: [RouterModule, FormStorageDirective, BreadcrumbComponent, Steps, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, ButtonModule, CommonModule, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
     templateUrl: './create-property.component.html',
     styleUrl: './create-property.component.scss'
 })
 
 export class CreatePropertyComponent implements OnInit {
-    propertyCreateForm = new FormCreate("property-form");
-    protected form!: UntypedFormGroup;
+    propertyCreateForm = new FormHandler("property-form");
+    form!: UntypedFormGroup;
     steps!: MenuItem[];
-    breadCrumbItems!: MenuItem[];
+    breadCrumbItems = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Imóveis', route: '/dashboard/imoveis' }, { label: 'Cadastrar', route: '/dashboard/imoveis/criar' }];
     
     private formBuilderService = inject(UntypedFormBuilder);
     private propertyFormService = inject(PropertyFormService);
@@ -58,16 +58,17 @@ export class CreatePropertyComponent implements OnInit {
             step2: this.formBuilderService.group({
                 number: ['', Validators.required],
                 aptNumber: [null],
-                complement: ['', Validators.required],
+                complement: [''],
                 residenceAddress: ['', Validators.required],
             }),
             step3: this.formBuilderService.group({
                 owner: ['', Validators.required],
             })
         })
+        this.propertyCreateForm.setForm(this.form);
         this.propertyFormService.setForm(this.form);
-        this.updateSteps();
-        
+        this.propertyFormService.setFormHandler(this.propertyCreateForm);
+
         this.form.valueChanges.subscribe(() => {
             this.propertyFormService.updateStepValidation();
         });
@@ -75,31 +76,6 @@ export class CreatePropertyComponent implements OnInit {
         this.propertyFormService.stepValidations$.subscribe(() => {
             this.updateSteps();
         });
-        
-        this.breadCrumbItems = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Imóveis', route: '/dashboard/imoveis' }, { label: 'Cadastrar', route: '/dashboard/imoveis/criar' }, { label: 'Formulário' }];
-        
-        this.steps = [
-            { 
-                label: 'Características', 
-                routerLink: 'caracteristicas', 
-                disabled: false 
-            },
-            { 
-                label: 'Selecionar Endereço', 
-                routerLink: 'selecionar-endereco', 
-                disabled: !this.propertyFormService.isStepAllowed('selecionar-endereco') 
-            },
-            { 
-                label: 'Selecionar Proprietário', 
-                routerLink: 'selecionar-proprietario', 
-                disabled: !this.propertyFormService.isStepAllowed('selecionar-proprietario') 
-            },
-            { 
-                label: 'Confirmação', 
-                routerLink: 'confirmacao',
-                disabled: !this.propertyFormService.isStepAllowed('confirmacao') 
-            }
-        ];    
     }
     
     private updateSteps() {
@@ -126,7 +102,7 @@ export class CreatePropertyComponent implements OnInit {
             },
         ];
     }
-
+    
     getStep1Form(): FormGroup {
         return this.form.get('step1') as FormGroup;
     }

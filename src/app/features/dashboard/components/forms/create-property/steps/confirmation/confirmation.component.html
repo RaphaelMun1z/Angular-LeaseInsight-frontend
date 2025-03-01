@@ -138,13 +138,13 @@
                     
                     <div class="flex gap-2">
                         <h2 class="font-semibold">Tipo de imóvel: </h2>
-                        <p class="m-0">{{ form.get('step1.propertyType')?.value.name }}</p>
+                        <p class="m-0">{{ form.get('step1.propertyType')?.value?.name }}</p>
                     </div>
                     <p-divider />
                     
                     <div class="flex gap-2">
                         <h2 class="font-semibold">Status de ocupação: </h2>
-                        <p class="m-0">{{ form.get('step1.occupancyStatus')?.value.name }}</p>
+                        <p class="m-0">{{ form.get('step1.occupancyStatus')?.value?.name }}</p>
                     </div>
                     <p-divider />
                     
@@ -179,17 +179,15 @@
             </p-fieldset>
         </div>
         <div class="card flex gap-2">
-            <p-button (click)="confirm1($event)" label="Salvar" [outlined]="true" />
-            <p-button (click)="confirm2($event)" label="Cancelar" severity="danger" [outlined]="true" />
+            <p-button (click)="registrationConfirmation($event)" label="Salvar" [outlined]="true" />
+            <p-button (click)="deletionConfirmation($event)" label="Cancelar" severity="danger" [outlined]="true" />
             <p-toast />
             <p-confirmdialog />
         </div>
-        <ul class="ml-2 w-full alerts-container">
-            <p-message *ngIf="loading" severity="info" icon="pi pi-send" text="Carregando..." />
-            <p-message *ngIf="sendSuccess" severity="success" icon="pi pi-check-circle" styleClass="mb-2">Imóvel criado com sucesso!</p-message>
-            <p-message *ngFor="let err of errorList" severity="error" icon="pi pi-times-circle" styleClass="mb-2">
-                {{ err.field }}: {{ err.message }}
-            </p-message>
-        </ul>
+        <app-form-errors 
+            [item]="'Propriedade'"
+            [loading]="propertyCreateForm.getLoading()"
+            [success]="propertyCreateForm.getSendSuccess()"
+            [errors]="propertyCreateForm.getErrorList()"></app-form-errors>
     </div>
 </div>

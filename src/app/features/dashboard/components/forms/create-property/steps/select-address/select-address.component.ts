@@ -1,23 +1,24 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+
 import { CreatePropertyComponent } from '../../create-property.component';
-import { InputTextComponent } from '../../../../../../../shared/components/input/input-text/input-text.component';
-import { InputNumberComponent } from '../../../../../../../shared/components/input/input-number/input-number.component';
-import { TableModule } from 'primeng/table';
-import { Table } from 'primeng/table';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
 import { PropertyAddressStateService } from '../../../../../../../core/states/property-address-state.service';
 import { PropertyAddress } from '../../../../../../../shared/interfaces/propertyAddress';
-import { Observable } from 'rxjs';
-import { Button, ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextComponent } from '../../../../../../../shared/components/input/input-text/input-text.component';
+import { InputNumberComponent } from '../../../../../../../shared/components/input/input-number/input-number.component';
+
 import { MultiSelectModule } from 'primeng/multiselect';
+import { Button, ButtonModule } from 'primeng/button';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'app-select-address',

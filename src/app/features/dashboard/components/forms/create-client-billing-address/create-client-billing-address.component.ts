@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { FormCreate } from '../../../../../shared/utils/FormCreate';
+import { FormHandler } from '../../../../../shared/utils/FormHandler';
 import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 import { BillingAddressCreate } from '../../../../../shared/interfaces/billingAddress';
 import { BillingAddressService } from '../../../../../core/services/billingAddress.service';
@@ -34,7 +34,7 @@ import { MenuItem } from 'primeng/api';
 })
 
 export class CreateClientBillingAddressComponent implements OnInit {
-    clientBillingAddressCreateForm = new FormCreate("client-billing-address-form");
+    clientBillingAddressCreateForm = new FormHandler("client-billing-address-form");
     breadCrumbItems: MenuItem[] = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Clientes', route: '/dashboard/clientes' }, { label: 'Endereço de Cobrança', route: '/dashboard/clientes/endereco-de-cobranca/criar' }, { label: 'Cadastrar', route: '/dashboard/clientes/endereco-de-cobranca/criar' }];
     protected form!: UntypedFormGroup;
     

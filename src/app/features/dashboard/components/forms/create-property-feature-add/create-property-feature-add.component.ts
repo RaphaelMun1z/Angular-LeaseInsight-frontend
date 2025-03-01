@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { FormCreate } from '../../../../../shared/utils/FormCreate';
+import { FormHandler } from '../../../../../shared/utils/FormHandler';
 import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 
 import { RouterModule } from '@angular/router';
@@ -36,7 +36,7 @@ import { MenuItem } from 'primeng/api';
 })
 
 export class CreatePropertyFeatureAddComponent implements OnInit {
-    propertyFeatureAddForm = new FormCreate("property-feature-add-form");
+    propertyFeatureAddForm = new FormHandler("property-feature-add-form");
     breadCrumbItems: MenuItem[] = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Imóveis', route: '/dashboard/imoveis' }, { label: 'Característica', route: '/dashboard/imoveis/caracteristicas' }, { label: 'Adicionar', route: '/dashboard/imoveis/caracteristicas/adicionar' }, { label: 'Adicionar', route: '/dashboard/imoveis/caracteristicas/adicionar' }];
     protected form!: UntypedFormGroup;
     

@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { FormCreate } from '../../../../../shared/utils/FormCreate';
+import { FormHandler } from '../../../../../shared/utils/FormHandler';
 import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 import { PropertyAddressCreate } from '../../../../../shared/interfaces/propertyAddress';
 import { PropertyAddressService } from '../../../../../core/services/propertyAddress.service';
@@ -34,7 +34,7 @@ import { MenuItem } from 'primeng/api';
 })
 
 export class CreatePropertyAddressComponent implements OnInit {
-    propertyAddressCreateForm = new FormCreate("property-address-form");
+    propertyAddressCreateForm = new FormHandler("property-address-form");
     breadCrumbItems: MenuItem[] = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Imóveis', route: '/dashboard/imoveis' }, { label: 'Endereço', route: '/dashboard/imoveis/endereco/criar' }, { label: 'Cadastrar', route: '/dashboard/imoveis/endereco/criar' }];
     protected form!: UntypedFormGroup;
 

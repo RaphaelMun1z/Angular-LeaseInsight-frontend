@@ -1,6 +1,6 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { PropertyFormService } from '../services/stepped-forms/property-form.service';
+import { PropertyFormService } from '../../services/stepped-forms/property-form.service';
 
 export const propertyFormGuard: CanActivateFn = (route, state) => {
     const propertyFormService = inject(PropertyFormService);

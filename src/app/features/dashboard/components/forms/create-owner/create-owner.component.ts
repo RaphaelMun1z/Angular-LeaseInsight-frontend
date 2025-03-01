@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { FormCreate } from '../../../../../shared/utils/FormCreate';
+import { FormHandler } from '../../../../../shared/utils/FormHandler';
 import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 import { OwnerCreate } from '../../../../../shared/interfaces/owner';
 import { OwnerService } from '../../../../../core/services/owner.service';
@@ -31,7 +31,7 @@ import { MenuItem } from 'primeng/api';
 })
 
 export class CreateOwnerComponent implements OnInit {
-    ownerCreateForm = new FormCreate("owner-form");
+    ownerCreateForm = new FormHandler("owner-form");
     breadCrumbItems: MenuItem[] = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Proprietários', route: '/dashboard/proprietarios' }, { label: 'Cadastrar', route: '/dashboard/proprietarios/criar' }];
     protected form!: UntypedFormGroup;
     
