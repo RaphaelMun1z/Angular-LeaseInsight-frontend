@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup,
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 
-import { FormCreate } from '../../../../../shared/utils/FormCreateClass';
+import { FormCreate } from '../../../../../shared/utils/FormCreate';
 import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 import { InvoiceCreate } from '../../../../../shared/interfaces/invoice';
 import { InvoiceService } from '../../../../../core/services/invoice.service';

@@ -1,13 +1,13 @@
 import { UntypedFormGroup } from "@angular/forms";
 
 export class FormCreate {
-    private errors: { [key: string]: string } = {};
-    private errorList: { field: string; message: string }[] = [];
-    private sendSuccess: boolean = false;
-    private loading: boolean = false;
-    private status!: string[];
-    private formStorageName!: string;
-    private form! : UntypedFormGroup;
+    protected errors: { [key: string]: string } = {};
+    protected errorList: { field: string; message: string }[] = [];
+    protected sendSuccess: boolean = false;
+    protected loading: boolean = false;
+    protected status!: string[];
+    protected formStorageName!: string;
+    protected form! : UntypedFormGroup;
     
     constructor(formStorageName: string) {
         this.formStorageName = formStorageName;

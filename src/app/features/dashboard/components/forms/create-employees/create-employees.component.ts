@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { FormCreate } from '../../../../../shared/utils/FormCreateClass';
+import { FormCreate } from '../../../../../shared/utils/FormCreate';
 import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
 import { EmployeeCreate } from '../../../../../shared/interfaces/employee';
 import { EmployeeService } from '../../../../../core/services/employee.service';

@@ -19,6 +19,7 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { MenuItem } from 'primeng/api';
 import { Steps } from 'primeng/steps';
+import { FormCreate } from '../../../../../shared/utils/FormCreate';
 
 @Component({
     selector: 'app-create-property',
@@ -28,9 +29,10 @@ import { Steps } from 'primeng/steps';
 })
 
 export class CreatePropertyComponent implements OnInit {
+    propertyCreateForm = new FormCreate("property-form");
+    protected form!: UntypedFormGroup;
     steps!: MenuItem[];
     breadCrumbItems!: MenuItem[];
-    protected form!: UntypedFormGroup;
     
     private formBuilderService = inject(UntypedFormBuilder);
     private propertyFormService = inject(PropertyFormService);
@@ -63,7 +65,6 @@ export class CreatePropertyComponent implements OnInit {
                 owner: ['', Validators.required],
             })
         })
-        
         this.propertyFormService.setForm(this.form);
         this.updateSteps();
         
