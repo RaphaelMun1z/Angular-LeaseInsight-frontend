@@ -1,51 +1,31 @@
-<p-breadcrumb class="max-w-full" [model]="breadCrumbItems">
-    <ng-template #item let-item>
-        <ng-container *ngIf="item.route; else elseBlock">
-            <a [routerLink]="item.route" class="p-breadcrumb-item-link">
-                <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
-                <span class="text-primary font-semibold">{{ item.label }}</span>
-            </a>
-        </ng-container>
-        <ng-template #elseBlock>
-            <a [href]="item.url">
-                <span class="text-color">{{ item.label }}</span>
-            </a>
-        </ng-template>
-    </ng-template>
-</p-breadcrumb>
+<app-breadcrumb [breadCrumbItems]="breadCrumbItems"></app-breadcrumb>
 
 <app-dashboard-base [title]="'Imóveis'">
     <app-content-block [title]="'Adicionar Característica a Imóvel'" [type]="'Formulário'">
         <div class="child">
             <form [formGroup]="form" storage="property-feature-add-form" class="form-container">
-                <div formGroupName="property">
-                    <app-input-select
-                    formControlName="id"
-                    [invalid]="form.get('property.id')?.invalid ?? false"
-                    [label]="'Imóvel'" 
-                    [icon]="'pi-map-marker'"
-                    [items]="propertiesSelect"></app-input-select>
-                </div>
-                <div formGroupName="feature">
-                    <app-input-select
-                    formControlName="id"
-                    [invalid]="form.get('feature.id')?.invalid ?? false"
-                    [label]="'Recurso'" 
-                    [icon]="'pi-map-marker'"
-                    [items]="featuresSelect"></app-input-select>
-                </div>
+                <app-input-select
+                formControlName="propertyId"
+                [invalid]="form.get('propertyId')?.invalid ?? false"
+                [label]="'Imóvel'" 
+                [icon]="'pi-map-marker'"
+                [items]="propertiesSelect"></app-input-select>
+                <app-input-select
+                formControlName="featureId"
+                [invalid]="form.get('featureId')?.invalid ?? false"
+                [label]="'Recurso'" 
+                [icon]="'pi-map-marker'"
+                [items]="featuresSelect"></app-input-select>
                 <div class="flex">
-                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="submit()"/>
-                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="cleanForm()"/>
+                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
+                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="propertyFeatureAddForm.clearForm()"/>
                 </div>
             </form>
-            <ul class="ml-2 w-full alerts-container">
-                <p-message *ngIf="loading" severity="info" icon="pi pi-send" text="Carregando..." />
-                <p-message *ngIf="sendSuccess" severity="success" icon="pi pi-check-circle" styleClass="mb-2">Característica de imóvel salva com sucesso!</p-message>
-                <p-message *ngFor="let err of errorList" severity="error" icon="pi pi-times-circle" styleClass="mb-2">
-                    {{ err.field }}: {{ err.message }}
-                </p-message>
-            </ul>
+            <app-form-errors 
+            [item]="'Característica de imóvel'"
+            [loading]="propertyFeatureAddForm.getLoading()"
+            [success]="propertyFeatureAddForm.getSendSuccess()"
+            [errors]="propertyFeatureAddForm.getErrorList()"></app-form-errors>
         </div>
     </app-content-block>
 </app-dashboard-base>

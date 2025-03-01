@@ -96,33 +96,6 @@
                     [icon]="'pi-map-marker'"
                     [items]="addressesList"></app-input-select>
                 </div>
-                <!-- <div class="flex flex-col gap-1">
-                    <p-inputgroup formGroupName="tenantBillingAddress">
-                        <p-inputgroup-addon>
-                            <i class="pi pi-map-marker"></i>
-                        </p-inputgroup-addon>
-                        <p-floatlabel>
-                            <p-select [(ngModel)]="selectedOption" formControlName="id" [options]="addresses" [filter]="true" filterBy="cep" [showClear]="true" placeholder="Endereço de Cobrança" class="w-full md:w-56">
-                                <ng-template #selectedItem let-selectedOption>
-                                    <div class="flex items-center gap-2">
-                                        <div>{{ selectedOption.street }}, {{ selectedOption.number }} - {{ selectedOption.complement }}, {{ selectedOption.district }}, {{ selectedOption.city }} - {{ selectedOption.state }}, {{ selectedOption.cep }}, {{ selectedOption.country }}</div>
-                                    </div>
-                                </ng-template>
-                                <ng-template let-address #item>
-                                    <div class="flex items-center gap-2">
-                                        <div>{{ address.street }}, {{ address.number }} - {{ address.complement }}, {{ address.district }}, {{ address.city }} - {{ address.state }}, {{ address.cep }}, {{ address.country }}</div>
-                                    </div>
-                                </ng-template>
-                                <ng-template #footer>
-                                    <div class="p-3 w-full">
-                                        <p-button label="Adicionar novo endereço" [routerLink]="'/dashboard/clientes/enderecos/criar'" fluid severity="secondary" text size="small" icon="pi pi-plus" />
-                                    </div>
-                                </ng-template>
-                            </p-select>
-                        </p-floatlabel>
-                    </p-inputgroup>
-                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['tenantBillingAddress'].invalid">Endereço de Cobrança é obrigatório</p-message>
-                </div> -->
                 <div class="flex">
                     <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
                     <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="clientCreateForm.clearForm()"/>

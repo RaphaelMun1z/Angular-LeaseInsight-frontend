@@ -1,21 +1,24 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { DashboardBaseComponent } from '../../dashboard-base/dashboard-base.component';
-import { ContentBlockComponent } from '../../content-block/content-block.component';
-import { FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { MenuItem } from 'primeng/api';
-import { Breadcrumb } from 'primeng/breadcrumb';
-import { PasswordModule } from 'primeng/password';
-import { ButtonModule } from 'primeng/button';
+import { FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SelectModule } from 'primeng/select';
 import { RouterModule } from '@angular/router';
-import { Steps } from 'primeng/steps';
+
 import { PropertyFormService } from '../../../../../core/services/stepped-forms/property-form.service';
 import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
+
+import { DashboardBaseComponent } from '../../dashboard-base/dashboard-base.component';
+import { ContentBlockComponent } from '../../content-block/content-block.component';
+
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { Breadcrumb } from 'primeng/breadcrumb';
+import { SelectModule } from 'primeng/select';
+import { ButtonModule } from 'primeng/button';
+import { MenuItem } from 'primeng/api';
+import { Steps } from 'primeng/steps';
 
 @Component({
     selector: 'app-create-property',
@@ -27,11 +30,40 @@ import { FormStorageDirective } from '../../../../../shared/directives/form-stor
 export class CreatePropertyComponent implements OnInit {
     steps!: MenuItem[];
     breadCrumbItems!: MenuItem[];
+    protected form!: UntypedFormGroup;
     
     private formBuilderService = inject(UntypedFormBuilder);
     private propertyFormService = inject(PropertyFormService);
     
     ngOnInit() {
+        this.form = this.formBuilderService.group({
+            step1: this.formBuilderService.group({
+                description: ['', Validators.required],
+                numberBedrooms: ['', Validators.required],
+                numberBathrooms: ['', Validators.required],
+                numberSuites: ['', Validators.required],
+                totalArea: ['', Validators.required],
+                builtArea: ['', Validators.required],
+                garageSpaces: ['', Validators.required],
+                yearConstruction: ['', Validators.required],
+                propertyType: [null, Validators.required],
+                occupancyStatus: [null, Validators.required],
+                marketValue: ['', Validators.required],
+                rentalValue: ['', Validators.required],
+                dateLastRenovation: ['', Validators.required],
+                images: ['', Validators.required]
+            }),
+            step2: this.formBuilderService.group({
+                number: ['', Validators.required],
+                aptNumber: [null],
+                complement: ['', Validators.required],
+                residenceAddress: ['', Validators.required],
+            }),
+            step3: this.formBuilderService.group({
+                owner: ['', Validators.required],
+            })
+        })
+        
         this.propertyFormService.setForm(this.form);
         this.updateSteps();
         
@@ -93,35 +125,7 @@ export class CreatePropertyComponent implements OnInit {
             },
         ];
     }
-    
-    protected form = this.formBuilderService.group({
-        step1: this.formBuilderService.group({
-            description: ['', Validators.required],
-            numberBedrooms: ['', Validators.required],
-            numberBathrooms: ['', Validators.required],
-            numberSuites: ['', Validators.required],
-            totalArea: ['', Validators.required],
-            builtArea: ['', Validators.required],
-            garageSpaces: ['', Validators.required],
-            yearConstruction: ['', Validators.required],
-            propertyType: [null, Validators.required],
-            occupancyStatus: [null, Validators.required],
-            marketValue: ['', Validators.required],
-            rentalValue: ['', Validators.required],
-            dateLastRenovation: ['', Validators.required],
-            images: ['', Validators.required]
-        }),
-        step2: this.formBuilderService.group({
-            number: ['', Validators.required],
-            aptNumber: [null],
-            complement: ['', Validators.required],
-            residenceAddress: ['', Validators.required],
-        }),
-        step3: this.formBuilderService.group({
-            owner: ['', Validators.required],
-        })
-    })
-    
+
     getStep1Form(): FormGroup {
         return this.form.get('step1') as FormGroup;
     }

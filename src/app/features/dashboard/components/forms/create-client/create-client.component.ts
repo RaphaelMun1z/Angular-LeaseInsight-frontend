@@ -49,7 +49,8 @@ export class CreateClientComponent implements OnInit {
     
     private formBuilderService = inject(UntypedFormBuilder);
     private clientService = inject(ClientService);
-    constructor(private billingAddressStateService: BillingAddressStateService){
+    private billingAddressStateService = inject(BillingAddressStateService);
+    constructor(){
         this.billingAddressStateService.loadBillingAddresses();
     }
     
