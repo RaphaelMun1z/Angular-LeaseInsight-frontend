@@ -12,249 +12,262 @@
                     </div>
                 </ng-template>
                 <div class="flex gap-2 flex-col" *ngIf="property">
-                    <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" [preview]="true" alt="Image">
-                        <ng-template #indicator>
-                            <i class="pi pi-search"></i>
-                        </ng-template>
-                        <ng-template #image>
-                            <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" />
-                        </ng-template>
-                        <ng-template #preview let-style="style" let-previewCallback="previewCallback">
-                            <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" [style]="style" (click)="previewCallback()" />
-                        </ng-template>
-                    </p-image>
-                    <p-divider />
-                    <div class="flex gap-2 flex-col">
-                        <h2 class="font-semibold">Descrição: </h2>
-                        <p class="m-0">{{ property.description }}</p>
+                    <div class="flex flex-col gap-2">
+                        <h2 class="font-semibold">Imagens: </h2>
+                        <div class="card flex justify-center">
+                            <div *ngIf="imageUrls$ | async as imageUrls" class="grid grid-cols-12 gap-4" style="max-width: 800px;">
+                                <div *ngFor="let image of imageUrls; let index = index" class="col-span-4" key="index">
+                                    <img [src]="image.itemImageSrc" [alt]="'Foto'" style="cursor: pointer" (click)="imageClick(index)" />
+                                </div>
+                            </div>
+                            <p-galleria
+                            [value]="(imageUrls$ | async) ?? []"
+                            [(visible)]="displayCustom!!"
+                            [(activeIndex)]="activeIndex"
+                            [containerStyle]="{ 'max-width': '850px' }"
+                            [numVisible]="7"
+                            [circular]="true"
+                            [fullScreen]="true"
+                            [showItemNavigators]="true"
+                            [showThumbnails]="true">
+                            <ng-template #item let-item>
+                                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                            </ng-template>
+                        </p-galleria>
                     </div>
-                    <p-divider />
-                    <div class="flex gap-2 flex-col">
-                        <h2 class="font-semibold">Status de Ocupação: </h2>
-                        <p class="m-0">{{ property.occupancyStatus }}</p>
-                    </div>
-                    <p-divider />
-                    <div class="flex gap-2 flex-col">
-                        <h2 class="font-semibold">Valor de Mercado: </h2>
-                        <p class="m-0">{{ property.marketValue | currency: 'BRL' }}</p>
-                    </div>
-                    <p-divider />
-                    <div class="flex gap-2 flex-col">
-                        <h2 class="font-semibold">Valor de Aluguel: </h2>
-                        <p class="m-0">{{ property.rentalValue | currency: 'BRL' }}</p>
-                    </div>
-                    <p-divider />
-                    <div class="flex gap-2 flex-col">
-                        <h2 class="font-semibold">Última Renovação: </h2>
-                        <p class="m-0">{{ property.dateLastRenovation }}</p>
-                    </div>
-                    <p-divider />
-                    <p-fieldset legend="Características" [toggleable]="true" [collapsed]="true">
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Quartos: </h2>
-                            <p class="m-0">{{ property.numberBedrooms }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Banheiros: </h2>
-                            <p class="m-0">{{ property.numberBathrooms }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Suítes: </h2>
-                            <p class="m-0">{{ property.numberSuites }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Área Total: </h2>
-                            <p class="m-0">{{ property.totalArea }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Área Construída: </h2>
-                            <p class="m-0">{{ property.builtArea }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Vagas de Garagem: </h2>
-                            <p class="m-0">{{ property.garageSpaces }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Ano de Construção: </h2>
-                            <p class="m-0">{{ property.yearConstruction }}</p>
-                        </div>
-                    </p-fieldset>
-                    <p-fieldset legend="Endereço" [toggleable]="true" [collapsed]="true">
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Rua/Avenida: </h2>
-                            <p class="m-0">{{ property.residenceAddress.street }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Número: </h2>
-                            <p class="m-0">{{ property.number }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Bairro: </h2>
-                            <p class="m-0">{{ property.residenceAddress.district }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Cidade: </h2>
-                            <p class="m-0">{{ property.residenceAddress.city }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Estado: </h2>
-                            <p class="m-0">{{ property.residenceAddress.state }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">País: </h2>
-                            <p class="m-0">{{ property.residenceAddress.country }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">CEP: </h2>
-                            <p class="m-0">{{ property.residenceAddress.cep }}</p>
-                        </div>
-                        <p-divider />
-                        <div class="flex gap-2 flex-col">
-                            <h2 class="font-semibold">Complemento: </h2>
-                            <p class="m-0">{{ property.residenceAddress.complement }}</p>
-                        </div>
-                    </p-fieldset>
                 </div>
-            </p-fieldset>
-            <p-fieldset>
-                <ng-template #header>
-                    <div class="flex items-center gap-2 px-2">
-                        <div>
-                            <i class="pi pi-user"></i>
-                        </div>
-                        <span class="font-bold">Inquilino</span>
-                    </div>
-                </ng-template>
-                <div class="flex gap-2 flex-col" *ngIf="client">
-                    <p-divider />
-                    <div class="flex gap-2 flex-col">
-                        <h2 class="font-semibold">Nome: </h2>
-                        <p class="m-0">{{ client.name }}</p>
-                    </div>
-                    <p-divider />
-                    <div class="flex gap-2 flex-col">
-                        <h2 class="font-semibold">Telefone: </h2>
-                        <p class="m-0">{{ client.phone }}</p>
-                    </div>
-                    <p-divider />
-                    <div class="flex gap-2 flex-col">
-                        <h2 class="font-semibold">E-mail: </h2>
-                        <p class="m-0">{{ client.email }}</p>
-                    </div>
-                    <p-divider />
-                    <div class="flex gap-2 flex-col">
-                        <h2 class="font-semibold">CPF: </h2>
-                        <p class="m-0">{{ client.cpf }}</p>
-                    </div>
-                    <p-divider />
-                    <div class="flex gap-2 flex-col">
-                        <h2 class="font-semibold">RG: </h2>
-                        <p class="m-0">{{ client.rg }}</p>
-                    </div>
-                    <p-divider />
-                    <div class="flex gap-2 flex-col">
-                        <h2 class="font-semibold">Data de Nascimento: </h2>
-                        <p class="m-0">{{ client.dateOfBirth }}</p>
-                    </div>
-                    <p-divider />
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Descrição: </h2>
+                    <p class="m-0">{{ property.description }}</p>
                 </div>
-                <p-fieldset legend="Endereço" [toggleable]="true" [collapsed]="true" *ngIf="client?.tenantBillingAddress">
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Status de Ocupação: </h2>
+                    <p class="m-0">{{ property.occupancyStatus }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Valor de Mercado: </h2>
+                    <p class="m-0">{{ property.marketValue | currency: 'BRL' }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Valor de Aluguel: </h2>
+                    <p class="m-0">{{ property.rentalValue | currency: 'BRL' }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Última Renovação: </h2>
+                    <p class="m-0">{{ property.dateLastRenovation }}</p>
+                </div>
+                <p-divider />
+                <p-fieldset legend="Características" [toggleable]="true" [collapsed]="true">
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Quartos: </h2>
+                        <p class="m-0">{{ property.numberBedrooms }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Banheiros: </h2>
+                        <p class="m-0">{{ property.numberBathrooms }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Suítes: </h2>
+                        <p class="m-0">{{ property.numberSuites }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Área Total: </h2>
+                        <p class="m-0">{{ property.totalArea }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Área Construída: </h2>
+                        <p class="m-0">{{ property.builtArea }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Vagas de Garagem: </h2>
+                        <p class="m-0">{{ property.garageSpaces }}</p>
+                    </div>
+                    <p-divider />
+                    <div class="flex gap-2 flex-col">
+                        <h2 class="font-semibold">Ano de Construção: </h2>
+                        <p class="m-0">{{ property.yearConstruction }}</p>
+                    </div>
+                </p-fieldset>
+                <p-fieldset legend="Endereço" [toggleable]="true" [collapsed]="true">
                     <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">Rua/Avenida: </h2>
-                        <p class="m-0">{{ client.tenantBillingAddress.street }}</p>
+                        <p class="m-0">{{ property.residenceAddress.street }}</p>
                     </div>
                     <p-divider />
                     <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">Número: </h2>
-                        <p class="m-0">{{ client.tenantBillingAddress.number }}</p>
+                        <p class="m-0">{{ property.number }}</p>
                     </div>
                     <p-divider />
                     <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">Bairro: </h2>
-                        <p class="m-0">{{ client.tenantBillingAddress.district }}</p>
+                        <p class="m-0">{{ property.residenceAddress.district }}</p>
                     </div>
                     <p-divider />
                     <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">Cidade: </h2>
-                        <p class="m-0">{{ client.tenantBillingAddress.city }}</p>
+                        <p class="m-0">{{ property.residenceAddress.city }}</p>
                     </div>
                     <p-divider />
                     <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">Estado: </h2>
-                        <p class="m-0">{{ client.tenantBillingAddress.state }}</p>
+                        <p class="m-0">{{ property.residenceAddress.state }}</p>
                     </div>
                     <p-divider />
                     <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">País: </h2>
-                        <p class="m-0">{{ client.tenantBillingAddress.country }}</p>
+                        <p class="m-0">{{ property.residenceAddress.country }}</p>
                     </div>
                     <p-divider />
                     <div class="flex gap-2 flex-col">
-                        <h2 class="font-semibold">Cep: </h2>
-                        <p class="m-0">{{ client.tenantBillingAddress.cep }}</p>
+                        <h2 class="font-semibold">CEP: </h2>
+                        <p class="m-0">{{ property.residenceAddress.cep }}</p>
                     </div>
                     <p-divider />
                     <div class="flex gap-2 flex-col">
                         <h2 class="font-semibold">Complemento: </h2>
-                        <p class="m-0">{{ client.tenantBillingAddress.complement }}</p>
+                        <p class="m-0">{{ property.residenceAddress.complement }}</p>
                     </div>
                 </p-fieldset>
-            </p-fieldset>
-            <p-fieldset>
-                <ng-template #header>
-                    <div class="flex items-center gap-2 px-2">
-                        <div>
-                            <i class="pi pi-paperclip"></i>
-                        </div>
-                        <span class="font-bold">Contrato</span>
+            </div>
+        </p-fieldset>
+        <p-fieldset>
+            <ng-template #header>
+                <div class="flex items-center gap-2 px-2">
+                    <div>
+                        <i class="pi pi-user"></i>
                     </div>
-                </ng-template>
+                    <span class="font-bold">Inquilino</span>
+                </div>
+            </ng-template>
+            <div class="flex gap-2 flex-col" *ngIf="client">
+                <p-divider />
                 <div class="flex gap-2 flex-col">
-                    <p-divider />
-                    <div class="flex gap-2">
-                        <h2 class="font-semibold">Valor aluguel: </h2>
-                        <p class="m-0">{{ form.get('step3.defaultRentalValue')?.value | currency: 'BRL' }}</p>
-                    </div>
-                    <p-divider />
-                    <div class="flex gap-2">
-                        <h2 class="font-semibold">Dia do vencimento da fatura: </h2>
-                        <p class="m-0">Dia {{ form.get('step3.invoiceDueDate')?.value }}</p>
-                    </div>
-                    <p-divider />
-                    <div class="flex gap-2">
-                        <h2 class="font-semibold">Data início do contrato: </h2>
-                        <p class="m-0">{{ form.get('step3.contractStartDate')?.value | date: 'dd/MM/yyyy' }}</p>
-                    </div>
-                    <p-divider />
-                    <div class="flex gap-2">
-                        <h2 class="font-semibold">Data fim do contrato: </h2>
-                        <p class="m-0">{{ form.get('step3.contractEndDate')?.value | date: 'dd/MM/yyyy' }}</p>
-                    </div>
+                    <h2 class="font-semibold">Nome: </h2>
+                    <p class="m-0">{{ client.name }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Telefone: </h2>
+                    <p class="m-0">{{ client.phone }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">E-mail: </h2>
+                    <p class="m-0">{{ client.email }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">CPF: </h2>
+                    <p class="m-0">{{ client.cpf }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">RG: </h2>
+                    <p class="m-0">{{ client.rg }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Data de Nascimento: </h2>
+                    <p class="m-0">{{ client.dateOfBirth }}</p>
+                </div>
+                <p-divider />
+            </div>
+            <p-fieldset legend="Endereço" [toggleable]="true" [collapsed]="true" *ngIf="client?.tenantBillingAddress">
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Rua/Avenida: </h2>
+                    <p class="m-0">{{ client.tenantBillingAddress.street }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Número: </h2>
+                    <p class="m-0">{{ client.tenantBillingAddress.number }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Bairro: </h2>
+                    <p class="m-0">{{ client.tenantBillingAddress.district }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Cidade: </h2>
+                    <p class="m-0">{{ client.tenantBillingAddress.city }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Estado: </h2>
+                    <p class="m-0">{{ client.tenantBillingAddress.state }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">País: </h2>
+                    <p class="m-0">{{ client.tenantBillingAddress.country }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Cep: </h2>
+                    <p class="m-0">{{ client.tenantBillingAddress.cep }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2 flex-col">
+                    <h2 class="font-semibold">Complemento: </h2>
+                    <p class="m-0">{{ client.tenantBillingAddress.complement }}</p>
                 </div>
             </p-fieldset>
-        </div>
-        <div class="card flex gap-2">
-            <p-button (click)="registrationConfirmation($event)" label="Salvar" [outlined]="true" />
-            <p-button (click)="deletionConfirmation($event)" label="Cancelar" severity="danger" [outlined]="true" />
-            <p-toast />
-            <p-confirmdialog />
-        </div>
-        <app-form-errors 
-        [item]="'Contrato'"
-        [loading]="contractCreateForm.getLoading()"
-        [success]="contractCreateForm.getSendSuccess()"
-        [errors]="contractCreateForm.getErrorList()"></app-form-errors>
+        </p-fieldset>
+        <p-fieldset>
+            <ng-template #header>
+                <div class="flex items-center gap-2 px-2">
+                    <div>
+                        <i class="pi pi-paperclip"></i>
+                    </div>
+                    <span class="font-bold">Contrato</span>
+                </div>
+            </ng-template>
+            <div class="flex gap-2 flex-col">
+                <p-divider />
+                <div class="flex gap-2">
+                    <h2 class="font-semibold">Valor aluguel: </h2>
+                    <p class="m-0">{{ form.get('step3.defaultRentalValue')?.value | currency: 'BRL' }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2">
+                    <h2 class="font-semibold">Dia do vencimento da fatura: </h2>
+                    <p class="m-0">Dia {{ form.get('step3.invoiceDueDate')?.value }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2">
+                    <h2 class="font-semibold">Data início do contrato: </h2>
+                    <p class="m-0">{{ form.get('step3.contractStartDate')?.value | date: 'dd/MM/yyyy' }}</p>
+                </div>
+                <p-divider />
+                <div class="flex gap-2">
+                    <h2 class="font-semibold">Data fim do contrato: </h2>
+                    <p class="m-0">{{ form.get('step3.contractEndDate')?.value | date: 'dd/MM/yyyy' }}</p>
+                </div>
+            </div>
+        </p-fieldset>
     </div>
+    <div class="card flex gap-2">
+        <p-button (click)="registrationConfirmation($event)" label="Salvar" [outlined]="true" />
+        <p-button (click)="deletionConfirmation($event)" label="Cancelar" severity="danger" [outlined]="true" />
+        <p-toast />
+        <p-confirmdialog />
+    </div>
+    <app-form-errors 
+    [item]="'Contrato'"
+    [loading]="contractCreateForm.getLoading()"
+    [success]="contractCreateForm.getSendSuccess()"
+    [errors]="contractCreateForm.getErrorList()"></app-form-errors>
+</div>
 </div>

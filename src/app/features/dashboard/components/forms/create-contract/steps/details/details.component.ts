@@ -16,10 +16,12 @@ import { Router } from '@angular/router';
 import { FormHandler } from '../../../../../../../shared/utils/FormHandler';
 import { ContractFormService } from '../../../../../../../core/services/stepped-forms/contract-form.service';
 import { invoiceDueDates, contractStatus } from '../../../../../../../shared/utils/ConstLists';
+import { InputNumberComponent } from '../../../../../../../shared/components/input/input-number/input-number.component';
+import { InputSelectComponent } from '../../../../../../../shared/components/input/input-select/input-select.component';
 
 @Component({
     selector: 'app-details',
-    imports: [FormsModule, ReactiveFormsModule, DatePicker, CommonModule, Message, Select, FloatLabelModule, InputGroupModule, InputGroupAddonModule, InputTextModule, SelectModule, InputNumberModule, ButtonModule],
+    imports: [FormsModule, ReactiveFormsModule, InputNumberComponent, InputSelectComponent, DatePicker, CommonModule, Message, FloatLabelModule, InputGroupModule, InputGroupAddonModule, InputTextModule, SelectModule, InputNumberModule, ButtonModule],
     templateUrl: './details.component.html',
     styleUrl: './details.component.scss'
 })
@@ -36,6 +38,6 @@ export class DetailsComponent implements OnInit {
     
     ngOnInit(): void {
         this.contractCreateForm = this.contractFormService.getFormHandler();
-        this.form = this.contractFormService.getStep1Form();
+        this.form = this.contractFormService.getStep3Form();
     }
 }

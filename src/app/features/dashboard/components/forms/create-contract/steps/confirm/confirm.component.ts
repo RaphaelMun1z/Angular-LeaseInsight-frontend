@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
-import { CreateContractComponent } from '../../create-contract.component';
 import { ContractService } from '../../../../../../../core/services/contract.service';
 import { PropertyStateService } from '../../../../../../../core/states/property-state.service';
 import { ClientStateService } from '../../../../../../../core/states/client-state.service';
@@ -11,23 +11,23 @@ import { ContractCreate } from '../../../../../../../shared/interfaces/contract'
 import { Property } from '../../../../../../../shared/interfaces/property';
 import { Client } from '../../../../../../../shared/interfaces/client';
 
+import { FormHandler } from '../../../../../../../shared/utils/FormHandler';
+import { ContractFormService } from '../../../../../../../core/services/stepped-forms/contract-form.service';
+import { FormErrorsComponent } from '../../../../../../../shared/components/form-errors/form-errors.component';
+
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { FieldsetModule } from 'primeng/fieldset';
+import { GalleriaModule } from 'primeng/galleria';
+import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
+import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ImageModule } from 'primeng/image';
-import { DividerModule } from 'primeng/divider';
-import { Message } from 'primeng/message';
-import { ButtonModule } from 'primeng/button';
-import { FormHandler } from '../../../../../../../shared/utils/FormHandler';
-import { ContractFormService } from '../../../../../../../core/services/stepped-forms/contract-form.service';
-import { Router } from '@angular/router';
-import { FormErrorsComponent } from '../../../../../../../shared/components/form-errors/form-errors.component';
 
 @Component({
     selector: 'app-confirm',
-    imports: [DividerModule, ImageModule, FormErrorsComponent, FieldsetModule, AvatarModule, CommonModule, ConfirmDialog, ToastModule, ButtonModule],
+    imports: [DividerModule, ImageModule, FormErrorsComponent, FieldsetModule, GalleriaModule, FieldsetModule, AvatarModule, CommonModule, ConfirmDialog, ToastModule, ButtonModule],
     providers: [ConfirmationService, MessageService],
     templateUrl: './confirm.component.html',
     styleUrl: './confirm.component.scss'
@@ -42,6 +42,11 @@ export class ConfirmComponent implements OnInit{
     
     protected client$ = new Observable<Client | null>();
     client!: Client;
+    
+    imageUrls$ = new BehaviorSubject<{ itemImageSrc: string; thumbnailImageSrc: string; alt: string; }[]>([]);
+    
+    displayCustom: boolean | undefined;
+    activeIndex: number = 0;
     
     router = inject(Router);
     private contractFormService = inject(ContractFormService);
@@ -69,6 +74,7 @@ export class ConfirmComponent implements OnInit{
         this.property$.subscribe((data: Property | null) => {
             if(data){
                 this.property = data;
+                this.updateImageUrls();
             }
         });
         
@@ -83,6 +89,7 @@ export class ConfirmComponent implements OnInit{
     postForm(){
         this.contractCreateForm.validForm();
         const data: ContractCreate = this.form.value;
+        console.log(JSON.stringify(data, null, 2));
         this.contractService.saveContract(data).subscribe({
             next: (res: any) => {    
                 this.contractCreateForm.successCaseState();
@@ -149,5 +156,31 @@ export class ConfirmComponent implements OnInit{
                 this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
             },
         });
+    }
+    
+    updateImageUrls(): void {
+        const images = this.property.files;
+        if (!images || typeof images !== 'object') {
+            this.imageUrls$.next([]);
+            return;
+        }
+        
+        if(!Array.isArray(images)) return;
+        
+        const imagesArray = images as unknown as (File | string)[];
+        
+        const urls = images.map((file: File | { path: string }) => ({
+            itemImageSrc: file instanceof File ? URL.createObjectURL(file) : file.path,
+            thumbnailImageSrc: file instanceof File ? URL.createObjectURL(file) : file.path,
+            alt: "Imagem do imóvel",
+            title: "Imagem do imóvel"
+        }));
+        
+        this.imageUrls$.next(urls);
+    }
+    
+    imageClick(index: number) {
+        this.activeIndex = index;
+        this.displayCustom = true;
     }
 }

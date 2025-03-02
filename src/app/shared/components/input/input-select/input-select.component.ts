@@ -29,8 +29,8 @@ export class InputSelectComponent implements ControlValueAccessor {
     @Input() invalid!: boolean;
     @Input() control!: FormControl | null;
     @Input() isReadOnly = false;
-    @Input() items: {name: string, code: string | number }[] | undefined;
-    selectedItem!: {name: string, code: string | number };
+    @Input() items: {name: string | number, code: string | number }[] | undefined;
+    selectedItem!: {name: string | number, code: string | number };
 
     onSelectChange(value: any): void {
         this.value = value;

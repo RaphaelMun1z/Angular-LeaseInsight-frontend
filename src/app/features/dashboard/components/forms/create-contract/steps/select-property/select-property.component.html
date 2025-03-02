@@ -70,11 +70,10 @@
                         <div class="relative w-full">
                             <img
                             class="rounded w-full"
-                            [src]="property.files?.[0]?.path || 'https://static.vecteezy.com/ti/vetor-gratis/p1/17173007-nao-pode-carregar-ilustracao-de-conceito-de-imagem-corrompida-de-design-plano-eps10-elemento-grafico-moderno-para-pagina-inicial-interface-do-usuario-de-estado-vazio-infografico-icone-vetor.jpg'"
+                            [src]="property.files.length ? property.files[0].path : 'https://static.vecteezy.com/ti/vetor-gratis/p1/17173007-nao-pode-carregar-ilustracao-de-conceito-de-imagem-corrompida-de-design-plano-eps10-elemento-grafico-moderno-para-pagina-inicial-interface-do-usuario-de-estado-vazio-infografico-icone-vetor.jpg'"
                             [alt]="'Foto'"
                             style="width: 100%; height: 250px"
-                            (error)="handleImageError($event)"
-                            />
+                            (error)="handleImageError($event)"/>
                         </div>
                     </div>
                     <div class="pt-6">

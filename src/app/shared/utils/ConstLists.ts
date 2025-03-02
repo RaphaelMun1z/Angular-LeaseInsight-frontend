@@ -133,12 +133,17 @@ export const propertiesSortOptions = [
     { label: 'Bairro: Z-A', value: 'districtDesc' }
 ];
 
-export const invoiceDueDates = [5, 10, 15, 20];
+export const invoiceDueDates = [
+    { name: 5, code: 5 },
+    { name: 10, code: 10 },
+    { name: 15, code: 15 },
+    { name: 20, code: 20 }
+]
 
 export const contractStatus = [
-    { status: "ACTIVE", value: "ACTIVE" },
-    { status: "PENDING", value: "PENDING" },
-    { status: "EXPIRED", value: "EXPIRED" },
-    { status: "TERMINATED", value: "TERMINATED" },
-    { status: "CANCELLED", value: "CANCELLED" }
+    { name: "ATIVO", code: "ACTIVE" },
+    { name: "PENDENTE", code: "PENDING" },
+    { name: "EXPIRADO", code: "EXPIRED" },
+    { name: "ENCERRADO", code: "TERMINATED" },
+    { name: "CANCELADO", code: "CANCELLED" }
 ];
