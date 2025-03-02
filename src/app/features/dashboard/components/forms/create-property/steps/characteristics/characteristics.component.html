@@ -74,14 +74,6 @@
         [label]="'Status de Ocupação'" 
         [icon]="'pi-map-marker'"
         [items]="occupancyStatusOptions"></app-input-select>
-
-        <div>
-            <p class="mb-2"><i>*É obrigatório adicionar ao menos 05 fotos da propriedade.</i></p>
-            <app-input-file
-            formControlName="images"
-            [label]="'[Mínimo 05 fotos] Imagens da Residência'"
-            [invalid]="form.controls['images'].invalid || !propertyFormService.areImagesValid()"></app-input-file>
-        </div>
         
         <app-input-textarea
         formControlName="description"
@@ -89,5 +81,100 @@
         [label]="'Descrição'" 
         [icon]="'pi-moon'"
         ></app-input-textarea>
+
+        <div formGroupName="images" class="col-span-3">
+            <div class="grid grid-cols-3 gap-2">
+                <div class="p-2">
+                    <div>
+                        <p class="mb-2"><i>Fachada.</i></p>
+                        <app-input-file
+                        formControlName="mainFacade"
+                        [label]="'[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Fachada'"
+                        [invalid]="form.get('images.mainFacade')?.invalid ?? false"></app-input-file>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div>
+                        <p class="mb-2"><i>Sala de Estar.</i></p>
+                        <app-input-file
+                        formControlName="livingRoom"
+                        [label]="'[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Sala de Estar'"
+                        [invalid]="form.get('images.livingRoom')?.invalid ?? false"></app-input-file>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div>
+                        <p class="mb-2"><i>Sala de Jantar.</i></p>
+                        <app-input-file
+                        formControlName="diningRoom"
+                        [label]="'[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Sala de Jantar'"
+                        [invalid]="form.get('images.diningRoom')?.invalid ?? false"></app-input-file>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div>
+                        <p class="mb-2"><i>Cozinha.</i></p>
+                        <app-input-file
+                        formControlName="kitchen"
+                        [label]="'[Mínimo de 01 foto e Máximo de 04 fotos] Imagens da Cozinha'"
+                        [invalid]="form.get('images.kitchen')?.invalid ?? false"></app-input-file>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div>
+                        <p class="mb-2"><i>Quartos.</i></p>
+                        <app-input-file
+                        formControlName="bedrooms"
+                        [label]="'[Mínimo de 01 foto e Máximo de 04 fotos] Imagens dos Quartos'"
+                        [invalid]="form.get('images.bedrooms')?.invalid ?? false"></app-input-file>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div>
+                        <p class="mb-2"><i>Banheiros.</i></p>
+                        <app-input-file
+                        formControlName="bathrooms"
+                        [label]="'[Mínimo de 01 foto e Máximo de 04 fotos] Imagens dos Banheiros'"
+                        [invalid]="form.get('images.bathrooms')?.invalid ?? false"></app-input-file>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div>
+                        <p class="mb-2"><i>Área de Serviço.</i></p>
+                        <app-input-file
+                        formControlName="serviceArea"
+                        [label]="'[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Área de Serviço'"
+                        [invalid]="form.get('images.serviceArea')?.invalid ?? false"></app-input-file>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div>
+                        <p class="mb-2"><i>Garagem.</i></p>
+                        <app-input-file
+                        formControlName="garage"
+                        [label]="'[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Garagem'"
+                        [invalid]="form.get('images.garage')?.invalid ?? false"></app-input-file>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div>
+                        <p class="mb-2"><i>Quintal.</i></p>
+                        <app-input-file
+                        formControlName="backyard"
+                        [label]="'[Mínimo de 01 foto e Máximo de 02 fotos] Imagens do Quintal'"
+                        [invalid]="form.get('images.backyard')?.invalid ?? false"></app-input-file>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div>
+                        <p class="mb-2"><i>Detalhes do Interior.</i></p>
+                        <app-input-file
+                        formControlName="interiorDetails"
+                        [label]="'[Mínimo de 01 foto e Máximo de 04 fotos] Imagens dos Detalhes do Interior'"
+                        [invalid]="form.get('images.interiorDetails')?.invalid ?? false"></app-input-file>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 </div>

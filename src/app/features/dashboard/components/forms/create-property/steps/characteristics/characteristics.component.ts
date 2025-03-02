@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 
 import { FormGroup } from '@angular/forms';
+import { FormHandler } from '../../../../../../../shared/utils/FormHandler';
 import { PropertyFormService } from '../../../../../../../core/services/stepped-forms/property-form.service';
 import { InputNumberComponent } from '../../../../../../../shared/components/input/input-number/input-number.component';
 import { InputFileComponent } from '../../../../../../../shared/components/input/input-file/input-file.component';
@@ -18,7 +18,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
-import { FormHandler } from '../../../../../../../shared/utils/FormHandler';
 
 @Component({
     selector: 'app-characteristics',

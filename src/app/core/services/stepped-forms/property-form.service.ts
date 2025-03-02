@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { FormHandler } from '../../../shared/utils/FormHandler';
 
 @Injectable({
@@ -30,7 +30,7 @@ export class PropertyFormService {
     setFormHandler(form: FormHandler): void{
         this.formHandler = form;
     }
-
+    
     getStep1Form(): FormGroup {
         return this.form.get('step1') as FormGroup;
     }
@@ -50,9 +50,9 @@ export class PropertyFormService {
     updateStepValidation() {
         const newValidationState = {
             'caracteristicas': true,
-            'selecionar-endereco': (this.form.get('step1')?.valid && this.areImagesValid()) ?? false,
-            'selecionar-proprietario': (this.form.get('step1')?.valid && this.form.get('step2')?.valid && this.areImagesValid()) ?? false,
-            'confirmacao': (this.form.get('step1')?.valid && this.form.get('step2')?.valid && this.form.get('step3')?.valid && this.areImagesValid()) ?? false,
+            'selecionar-endereco': (this.form.get('step1')?.valid) ?? false,
+            'selecionar-proprietario': (this.form.get('step1')?.valid && this.form.get('step2')?.valid) ?? false,
+            'confirmacao': (this.form.get('step1')?.valid && this.form.get('step2')?.valid && this.form.get('step3')?.valid) ?? false,
         };
         
         this.stepValidations.next(newValidationState);
@@ -61,16 +61,24 @@ export class PropertyFormService {
     isStepAllowed(step: string): boolean {
         return this.stepValidations.getValue()[step];
     }
-
-    areImagesValid(): boolean {
-        const files = this.form.get('step1.images')?.value
-        if (!files || files.length < 5) {
-            this.getFormHandler().addError({
-                field: "Arquivos",
-                message: "São necessários ao menos 5 fotos da propriedade!"
-            });
-            return false;
-        }
-        return true;
+    
+    lengthArray(min: number, max: number) {
+        return (control: AbstractControl): { [key: string]: any } | null => {
+            if (!control.value || !Array.isArray(control.value)) {
+                return { invalidType: true };
+            }
+            
+            const length = control.value.length;
+            
+            if (length < min) {
+                return { minLengthArray: { requiredMin: min, actual: length } };
+            }
+            
+            if (length > max) {
+                return { maxLengthArray: { requiredMax: max, actual: length } };
+            }
+            
+            return null;
+        };
     }
 }

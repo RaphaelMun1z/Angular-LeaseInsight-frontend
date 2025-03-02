@@ -12,7 +12,32 @@
     chooseLabel="Selecionar Arquivos"
     cancelLabel="Cancelar Seleção">
     <ng-template #empty>
-        <div>Arraste as fotos aqui.</div>
+        <div class="flex items-center justify-center flex-col">
+            <i class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color"></i>
+            <p class="mt-6 mb-0">Arraste e solte os arquivos aqui.</p>
+        </div>
+    </ng-template>
+    <ng-template #file></ng-template>
+    <ng-template #content let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback">
+        <div *ngIf="files?.length > 0">
+            <div *ngFor="let file of files; let i = index" class="p-1 rounded-border flex flex-col border border-surface items-center gap-4">
+                <p-image [src]="file.objectURL" [preview]="true" alt="Image" class="w-full">
+                    <ng-template #indicator>
+                        <i class="pi pi-search"></i>
+                    </ng-template>
+                    <ng-template #image>
+                        <img [src]="file.objectURL" alt="image" class="w-full"/>
+                    </ng-template>
+                    <ng-template #preview let-style="style" let-previewCallback="previewCallback">
+                        <img [src]="file.objectURL" alt="image" [style]="style" (click)="previewCallback()" class="w-full" />
+                    </ng-template>
+                </p-image>
+                <div class="flex justify-between items-center w-full px-4 py-1">
+                    <p-tag severity="secondary" [value]="file.name" />
+                    <p-button icon="pi pi-times" [rounded]="true" severity="danger" (click)="onRemoveTemplatingFile($event, removeFileCallback, i)" />
+                </div>
+            </div>
+        </div>
     </ng-template>
 </p-fileupload>
 <p-message severity="error" variant="simple" size="small" *ngIf="invalid">{{ label }} é obrigatório</p-message>

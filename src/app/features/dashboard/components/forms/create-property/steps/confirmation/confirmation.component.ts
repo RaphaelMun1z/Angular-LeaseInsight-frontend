@@ -80,7 +80,7 @@ export class ConfirmationComponent  implements OnInit{
     }
     
     postForm(){
-        if(!this.propertyFormService.areImagesValid()) return;
+        this.propertyCreateForm.validForm();
         const data: FormData = this.ToFormData();
         this.propertyService.saveProperty(data).subscribe({
             next: (res: any) => {    
@@ -93,8 +93,6 @@ export class ConfirmationComponent  implements OnInit{
     }
     
     ToFormData(): FormData {
-        this.propertyCreateForm.validForm();
-        
         const formData = new FormData();
         formData.append('propertyType', this.form.get('step1.propertyType')?.value);
         formData.append('description', this.form.get('step1.description')?.value);

@@ -53,7 +53,18 @@ export class CreatePropertyComponent implements OnInit {
                 marketValue: ['', Validators.required],
                 rentalValue: ['', Validators.required],
                 dateLastRenovation: ['', Validators.required],
-                images: ['', Validators.required]
+                images: this.formBuilderService.group({
+                    mainFacade: [[], [this.propertyFormService.lengthArray(1, 2)]],  
+                    livingRoom: [[], [this.propertyFormService.lengthArray(1, 2)]], 
+                    diningRoom: [[], [this.propertyFormService.lengthArray(1, 2)]], 
+                    kitchen: [[], [this.propertyFormService.lengthArray(1, 4)]],
+                    bedrooms: [[], [this.propertyFormService.lengthArray(1, 4)]],  
+                    bathrooms: [[], [this.propertyFormService.lengthArray(1, 4)]],  
+                    serviceArea: [[], [this.propertyFormService.lengthArray(1, 2)]],  
+                    garage: [[], [this.propertyFormService.lengthArray(1, 2)]],  
+                    backyard: [[], [this.propertyFormService.lengthArray(1, 2)]],  
+                    interiorDetails: [[], [this.propertyFormService.lengthArray(1, 4)]],
+                })
             }),
             step2: this.formBuilderService.group({
                 number: ['', Validators.required],
@@ -68,7 +79,7 @@ export class CreatePropertyComponent implements OnInit {
         this.propertyCreateForm.setForm(this.form);
         this.propertyFormService.setForm(this.form);
         this.propertyFormService.setFormHandler(this.propertyCreateForm);
-
+        
         this.form.valueChanges.subscribe(() => {
             this.propertyFormService.updateStepValidation();
         });

@@ -3,9 +3,12 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { CommonModule } from '@angular/common';
 
 import { FileRemoveEvent, FileUpload } from 'primeng/fileupload';
+import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { ImageModule } from 'primeng/image';
 import { Message } from 'primeng/message';
+import { TagModule } from 'primeng/tag';
 
 const INPUT_FIELD_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -21,7 +24,7 @@ interface UploadEvent {
 @Component({
     selector: 'app-input-file',
     standalone: true,
-    imports: [FileUpload, ToastModule, CommonModule, Message, FormsModule],
+    imports: [FileUpload, TagModule, ToastModule, ButtonModule, ImageModule, CommonModule, Message, FormsModule],
     providers: [INPUT_FIELD_VALUE_ACCESSOR, MessageService],
     templateUrl: './input-file.component.html',
     styleUrl: './input-file.component.scss'
@@ -62,6 +65,10 @@ export class InputFileComponent implements ControlValueAccessor, AfterViewInit {
     onRemove(event: FileRemoveEvent) {
         this.uploadedFiles = this.uploadedFiles.filter(file => file !== event.file);
         this.onChangeCb(this.uploadedFiles);
+    }
+
+    onRemoveTemplatingFile(event: any, removeFileCallback: (arg0: any, arg1: any) => void, index: any) {
+        removeFileCallback(event, index);
     }
     
     private innerValue: any;
