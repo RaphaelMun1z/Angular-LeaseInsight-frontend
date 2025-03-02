@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, model } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { PropertyFormService } from '../../../../../../../core/services/stepped-forms/property-form.service';
 import { PropertyService } from '../../../../../../../core/services/property.service';
@@ -12,19 +12,22 @@ import { FormHandler } from '../../../../../../../shared/utils/FormHandler';
 import { PropertyAddress } from '../../../../../../../shared/interfaces/propertyAddress';
 import { Property } from '../../../../../../../shared/interfaces/property';
 import { Owner } from '../../../../../../../shared/interfaces/owner';
+import { propertyType, occupancyStatus } from '../../../../../../../shared/utils/ConstLists';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { FieldsetModule } from 'primeng/fieldset';
+import { GalleriaModule } from 'primeng/galleria';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { ImageModule } from 'primeng/image';
 import { ToastModule } from 'primeng/toast';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-confirmation',
-    imports: [DividerModule, ImageModule, FieldsetModule, FormErrorsComponent, AvatarModule, CommonModule, ConfirmDialog, ToastModule, ButtonModule],
+    imports: [DividerModule, ImageModule, FieldsetModule, GalleriaModule, FormErrorsComponent, AvatarModule, CommonModule, ConfirmDialog, ToastModule, ButtonModule],
     providers: [ConfirmationService, MessageService],
     templateUrl: './confirmation.component.html',
     styleUrl: './confirmation.component.scss'
@@ -33,6 +36,10 @@ import { ToastModule } from 'primeng/toast';
 export class ConfirmationComponent  implements OnInit{
     form!: FormGroup;
     propertyCreateForm!: FormHandler;
+    
+    currentPropertyType!: string | undefined;
+    currentOccupancyStatus!: string | undefined;
+    imageUrls$ = new BehaviorSubject<{ itemImageSrc: string; thumbnailImageSrc: string; alt: string; }[]>([]);
     
     protected property$ = new Observable<Property | null>();
     property! : Property;
@@ -43,6 +50,24 @@ export class ConfirmationComponent  implements OnInit{
     protected owner$ = new Observable<Owner | null>();
     owner!: Owner;
     
+    displayCustom: boolean | undefined;
+    activeIndex: number = 0;
+    responsiveOptions: any[] = [
+        {
+            breakpoint: '1024px',
+            numVisible: 5
+        },
+        {
+            breakpoint: '768px',
+            numVisible: 3
+        },
+        {
+            breakpoint: '560px',
+            numVisible: 1
+        }
+    ];
+    
+    router = inject(Router);
     private propertyFormService = inject(PropertyFormService);
     private propertyService = inject(PropertyService);
     private propertyAddressStateService = inject(PropertyAddressStateService);
@@ -53,6 +78,9 @@ export class ConfirmationComponent  implements OnInit{
     constructor() {
         this.propertyCreateForm = this.propertyFormService.getFormHandler();
         this.form = this.propertyCreateForm.getForm();
+        
+        this.currentPropertyType = this.getPropertyNameByCode(propertyType, this.form.get('step1.propertyType')?.value);
+        this.currentOccupancyStatus = this.getPropertyNameByCode(occupancyStatus, this.form.get('step1.occupancyStatus')?.value);
         
         if(this.form.get('step2.residenceAddress')?.value){
             this.propertyAddressStateService.loadPropertyAddress(this.form.get('step2.residenceAddress')?.value);
@@ -77,6 +105,8 @@ export class ConfirmationComponent  implements OnInit{
                 this.owner = data;
             }
         });
+        
+        this.updateImageUrls();
     }
     
     postForm(){
@@ -85,6 +115,7 @@ export class ConfirmationComponent  implements OnInit{
         this.propertyService.saveProperty(data).subscribe({
             next: (res: any) => {    
                 this.propertyCreateForm.successCaseState();
+                this.router.navigate(['/imoveis']);
             },
             error: (errors: { [key: string]: string }) => { 
                 this.propertyCreateForm.failCaseState(errors);
@@ -115,9 +146,15 @@ export class ConfirmationComponent  implements OnInit{
         formData.append('owner', this.form.get('step3.owner')?.value);
         
         const files = this.form.get('step1.images')?.value;
-        if (files && files.length) {
-            files.forEach((file: File) => {
-                formData.append('images', file, file.name);
+        if (files && typeof files === 'object') {
+            Object.values(files).forEach((fileList: any) => {
+                if (Array.isArray(fileList)) {
+                    fileList.forEach((file: File) => {
+                        if (file instanceof File) {
+                            formData.append('images', file, file.name);
+                        }
+                    });
+                }
             });
         }
         
@@ -179,5 +216,35 @@ export class ConfirmationComponent  implements OnInit{
                 this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
             },
         });
+    }
+    
+    getPropertyNameByCode(array: {name: string;code: string;}[], code: string): string | undefined {
+        const obj = array.find(item => item.code === code);
+        return obj ? obj.name : undefined;
+    }
+    
+    updateImageUrls(): void {
+        const images = this.form.get('step1.images')?.value;
+        if (!images || typeof images !== 'object') {
+            this.imageUrls$.next([]);
+            return;
+        }
+        
+        const urls = Object.values(images).flatMap((fileList: any) => {
+            if (!Array.isArray(fileList)) return [];
+            return fileList.map((file: File | string) => ({
+                itemImageSrc: file instanceof File ? URL.createObjectURL(file) : file,
+                thumbnailImageSrc: file instanceof File ? URL.createObjectURL(file) : file,
+                alt: "Imagem do imóvel",
+                title: "Imagem do imóvel"
+            }));
+        });
+        
+        this.imageUrls$.next(urls);
+    }
+    
+    imageClick(index: number) {
+        this.activeIndex = index;
+        this.displayCustom = true;
     }
 }

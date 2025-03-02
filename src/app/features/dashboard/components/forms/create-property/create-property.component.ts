@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { FormHandler } from '../../../../../shared/utils/FormHandler';
 import { PropertyFormService } from '../../../../../core/services/stepped-forms/property-form.service';
 import { FormStorageDirective } from '../../../../../shared/directives/form-storage.directive';
+import { requiredImagesByPropertyType, imagesAmountRequired } from '../../../../../shared/utils/ConstLists';
 
 import { DashboardBaseComponent } from '../../dashboard-base/dashboard-base.component';
 import { ContentBlockComponent } from '../../content-block/content-block.component';
@@ -34,6 +35,8 @@ export class CreatePropertyComponent implements OnInit {
     steps!: MenuItem[];
     breadCrumbItems = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Imóveis', route: '/dashboard/imoveis' }, { label: 'Cadastrar', route: '/dashboard/imoveis/criar' }];
     
+    requiredImagesByPropertyType = requiredImagesByPropertyType;
+    
     private formBuilderService = inject(UntypedFormBuilder);
     private propertyFormService = inject(PropertyFormService);
     
@@ -53,18 +56,7 @@ export class CreatePropertyComponent implements OnInit {
                 marketValue: ['', Validators.required],
                 rentalValue: ['', Validators.required],
                 dateLastRenovation: ['', Validators.required],
-                images: this.formBuilderService.group({
-                    mainFacade: [[], [this.propertyFormService.lengthArray(1, 2)]],  
-                    livingRoom: [[], [this.propertyFormService.lengthArray(1, 2)]], 
-                    diningRoom: [[], [this.propertyFormService.lengthArray(1, 2)]], 
-                    kitchen: [[], [this.propertyFormService.lengthArray(1, 4)]],
-                    bedrooms: [[], [this.propertyFormService.lengthArray(1, 4)]],  
-                    bathrooms: [[], [this.propertyFormService.lengthArray(1, 4)]],  
-                    serviceArea: [[], [this.propertyFormService.lengthArray(1, 2)]],  
-                    garage: [[], [this.propertyFormService.lengthArray(1, 2)]],  
-                    backyard: [[], [this.propertyFormService.lengthArray(1, 2)]],  
-                    interiorDetails: [[], [this.propertyFormService.lengthArray(1, 4)]],
-                })
+                images: this.formBuilderService.group({})
             }),
             step2: this.formBuilderService.group({
                 number: ['', Validators.required],
@@ -84,9 +76,41 @@ export class CreatePropertyComponent implements OnInit {
             this.propertyFormService.updateStepValidation();
         });
         
+        this.form.get('step1.propertyType')?.valueChanges.subscribe(propertyType => {
+            this.updateImageControls(propertyType);
+        });
+        
+        const propertyType = this.form.get('step1.propertyType')?.value;
+        if (propertyType) {
+            this.updateImageControls(propertyType);
+        }
+        
         this.propertyFormService.stepValidations$.subscribe(() => {
             this.updateSteps();
         });
+    }     
+    
+    updateImageControls(propertyType: string) {
+        const imagesGroup = this.form.get('step1.images') as FormGroup;
+        
+        const existingControls = imagesGroup.controls;
+        
+        Object.keys(existingControls).forEach(control => {
+            if (!this.propertyFormService.getRequiredImages()?.includes(control)) {
+                imagesGroup.removeControl(control);
+            }
+        });
+        
+        this.propertyFormService.setRequiredImages(requiredImagesByPropertyType[propertyType] || []);
+        this.propertyFormService.getRequiredImages().forEach(imageType => {
+            if (!imagesGroup.controls[imageType]) {
+                const { min, max } = imagesAmountRequired[imageType] || { min: 1, max: 2 };
+                const validator = this.propertyFormService.lengthArray(min, max);
+                imagesGroup.addControl(imageType, new FormControl([], [validator]));
+            }
+        });
+
+        imagesGroup.updateValueAndValidity();
     }
     
     private updateSteps() {

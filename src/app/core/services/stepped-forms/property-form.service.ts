@@ -17,6 +17,7 @@ export class PropertyFormService {
         'confirmacao': false,
     });
     stepValidations$ = this.stepValidations.asObservable();
+    private requiredImages: string[] = [];
     
     setForm(form: FormGroup) {
         this.form = form;
@@ -29,6 +30,14 @@ export class PropertyFormService {
     
     setFormHandler(form: FormHandler): void{
         this.formHandler = form;
+    }
+
+    getRequiredImages(): string[] {
+        return this.requiredImages;
+    }
+
+    setRequiredImages(requiredImages: string[]): void {
+        this.requiredImages = requiredImages;
     }
     
     getStep1Form(): FormGroup {

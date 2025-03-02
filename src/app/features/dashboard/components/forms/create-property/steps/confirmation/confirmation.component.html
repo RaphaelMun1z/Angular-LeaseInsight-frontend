@@ -138,13 +138,13 @@
                     
                     <div class="flex gap-2">
                         <h2 class="font-semibold">Tipo de imóvel: </h2>
-                        <p class="m-0">{{ form.get('step1.propertyType')?.value?.name }}</p>
+                        <p class="m-0">{{ currentPropertyType }}</p>
                     </div>
                     <p-divider />
                     
                     <div class="flex gap-2">
                         <h2 class="font-semibold">Status de ocupação: </h2>
-                        <p class="m-0">{{ form.get('step1.occupancyStatus')?.value?.name }}</p>
+                        <p class="m-0">{{ currentOccupancyStatus }}</p>
                     </div>
                     <p-divider />
                     
@@ -166,28 +166,46 @@
                     </div>
                     <p-divider />
                     
-                    <div class="flex gap-2">
+                    <div class="flex flex-col gap-2">
                         <h2 class="font-semibold">Imagens: </h2>
-                        <div class="flex flex-col gap-2">
-                            <ng-container *ngFor="let image of form.get('step1.images')?.value">
-                                <img [src]="image" alt="Imagem do imóvel" class="w-24 h-24 object-cover rounded-lg">
-                            </ng-container>
-                        </div>
+                        <div class="card flex justify-center">
+                            <div *ngIf="imageUrls$ | async as imageUrls" class="grid grid-cols-12 gap-4" style="max-width: 800px;">
+                                <div *ngFor="let image of imageUrls; let index = index" class="col-span-4" key="index">
+                                    <img [src]="image.itemImageSrc" [alt]="'Foto'" style="cursor: pointer" (click)="imageClick(index)" />
+                                </div>
+                            </div>
+                            <p-galleria
+                            [value]="(imageUrls$ | async) ?? []"
+                            [(visible)]="displayCustom!!"
+                            [(activeIndex)]="activeIndex"
+                            [containerStyle]="{ 'max-width': '850px' }"
+                            [numVisible]="7"
+                            [circular]="true"
+                            [fullScreen]="true"
+                            [showItemNavigators]="true"
+                            [showThumbnails]="true"
+                            >
+                            <ng-template #item let-item>
+                                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                            </ng-template>
+                        </p-galleria>
                     </div>
-                    <p-divider />
-                </div>                
-            </p-fieldset>
-        </div>
-        <div class="card flex gap-2">
-            <p-button (click)="registrationConfirmation($event)" label="Salvar" [outlined]="true" />
-            <p-button (click)="deletionConfirmation($event)" label="Cancelar" severity="danger" [outlined]="true" />
-            <p-toast />
-            <p-confirmdialog />
-        </div>
-        <app-form-errors 
-            [item]="'Propriedade'"
-            [loading]="propertyCreateForm.getLoading()"
-            [success]="propertyCreateForm.getSendSuccess()"
-            [errors]="propertyCreateForm.getErrorList()"></app-form-errors>
+                </div>
+                
+                <p-divider />
+            </div>                
+        </p-fieldset>
     </div>
+    <div class="card flex gap-2">
+        <p-button (click)="registrationConfirmation($event)" label="Salvar" [outlined]="true" />
+        <p-button (click)="deletionConfirmation($event)" label="Cancelar" severity="danger" [outlined]="true" />
+        <p-toast />
+        <p-confirmdialog />
+    </div>
+    <app-form-errors 
+    [item]="'Propriedade'"
+    [loading]="propertyCreateForm.getLoading()"
+    [success]="propertyCreateForm.getSendSuccess()"
+    [errors]="propertyCreateForm.getErrorList()"></app-form-errors>
+</div>
 </div>

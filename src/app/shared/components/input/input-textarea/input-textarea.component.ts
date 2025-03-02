@@ -1,12 +1,12 @@
 import { Component, forwardRef, Input } from '@angular/core';
+import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { Message } from 'primeng/message';
-import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 
 const INPUT_FIELD_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -39,6 +39,10 @@ export class InputTextareaComponent implements ControlValueAccessor {
             this.innerValue = v;
             this.onChangeCb(v);
         }
+    }
+
+    onInputChange(): void {
+        setTimeout(() => {}, 0);
     }
     
     onChangeCb: (_: any) => void = () => {};

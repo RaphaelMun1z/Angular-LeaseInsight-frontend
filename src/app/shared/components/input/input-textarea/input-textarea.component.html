@@ -4,8 +4,8 @@
             <i [class]="'pi ' + icon"></i>
         </p-inputgroup-addon>
         <p-floatlabel>
-            <textarea pTextarea id="element" rows="5" cols="30" style="resize: none" class="h-full" [readonly]="!!isReadOnly" [(ngModel)]="value"></textarea>
-            <label for="element">{{ label }}</label>
+            <textarea pTextarea id="el" style="resize: none" rows="5" [readonly]="!!isReadOnly" [(ngModel)]="value" (ngModelChange)="onInputChange()"></textarea>
+            <label for="el">{{ label }}</label>
         </p-floatlabel>
     </p-inputgroup>
     <p-message severity="error" variant="simple" size="small" 

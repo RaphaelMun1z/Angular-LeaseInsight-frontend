@@ -52,3 +52,74 @@ export const occupancyStatus = [
     { name: "DISPONÍVEL", code: "AVAILABLE" },
     { name: "RESERVADO", code: "RESERVED" }
 ]
+
+export const requiredImagesByPropertyType: Record<string, string[]> = {
+    HOUSE: ['mainFacade', 'livingRoom', 'diningRoom', 'kitchen', 'bedrooms', 'bathrooms', 'garage', 'backyard'],
+    CONDO: ['mainFacade', 'livingRoom', 'diningRoom', 'kitchen', 'bedrooms', 'bathrooms', 'garage', 'serviceArea'],
+    APARTMENT: ['mainFacade', 'livingRoom', 'diningRoom', 'kitchen', 'bedrooms', 'bathrooms', 'garage', 'serviceArea'],
+    FARM: ['mainFacade', 'landscape', 'barn', 'livingRoom', 'kitchen', 'bedrooms', 'bathrooms'],
+    WAREHOUSE: ['mainFacade', 'interior', 'storageArea'],
+    COMMERCIAL_APARTMENT: ['mainFacade', 'officeRoom', 'meetingRoom', 'bathrooms'],
+    RETAIL_STORE: ['mainFacade', 'salesFloor', 'storageArea'],
+    LAND_PLOT: ['mainFacade', 'aerialView']
+}; 
+
+export const imagesValidateLabel: { [key: string]: string } = {
+    mainFacade: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Fachada",
+    livingRoom: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Sala de Estar",
+    diningRoom: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Sala de Jantar",
+    kitchen: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Cozinha",
+    bedrooms: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens dos Quartos",
+    bathrooms: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens dos Banheiros",
+    serviceArea: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Área de Serviço",
+    garage: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Garagem",
+    backyard: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens do Quintal",
+    interiorDetails: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens dos Detalhes do Interior",
+    landscape: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Paisagem",
+    barn: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens do Celeiro",
+    storageArea: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Área de Armazenamento",
+    officeRoom: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Sala de Escritório",
+    meetingRoom: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Sala de Reunião",
+    salesFloor: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Área de Vendas",
+    aerialView: "[Mínimo de 01 foto e Máximo de 02 fotos] Imagens da Vista Aérea"
+};
+
+export const imagesRoomLabel: { [key: string]: string } = {
+    mainFacade: "Fachada",
+    livingRoom: "Sala de Estar",
+    diningRoom: "Sala de Jantar",
+    kitchen: "Cozinha",
+    bedrooms: "Quartos",
+    bathrooms: "Banheiros",
+    serviceArea: "Área de Serviço",
+    garage: "Garagem",
+    backyard: "Quintal",
+    interiorDetails: "Detalhes do Interior",
+    landscape: "Paisagem",
+    barn: "Celeiro",
+    storageArea: "Área de Armazenamento",
+    officeRoom: "Sala de Escritório",
+    meetingRoom: "Sala de Reunião",
+    salesFloor: "Área de Vendas",
+    aerialView: "Vista Aérea"
+};
+
+export const imagesAmountRequired: Record<string, { min: number; max: number }> = {
+    mainFacade: { min: 1, max: 2 },
+    livingRoom: { min: 1, max: 2 },
+    diningRoom: { min: 1, max:2 },
+    kitchen: { min: 1, max: 4 },
+    bedrooms: { min: 1, max: 4 },
+    bathrooms: { min: 1, max: 4 },
+    serviceArea: { min: 1, max: 2 },
+    garage: { min: 1, max: 2 },
+    backyard: { min: 1, max: 2 },
+    interiorDetails: { min: 1, max: 4 },
+    landscape: { min: 1, max: 3 },
+    barn: { min: 1, max: 3 },
+    storageArea: { min: 1, max: 3 },
+    officeRoom: { min: 1, max: 3 },
+    meetingRoom: { min: 1, max: 3 },
+    salesFloor: { min: 1, max: 3 },
+    aerialView: { min: 1, max: 3 }
+};

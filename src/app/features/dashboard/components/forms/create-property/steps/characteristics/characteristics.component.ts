@@ -10,6 +10,7 @@ import { InputFileComponent } from '../../../../../../../shared/components/input
 import { InputTextareaComponent } from "../../../../../../../shared/components/input/input-textarea/input-textarea.component";
 import { InputSelectComponent } from '../../../../../../../shared/components/input/input-select/input-select.component';
 import { propertyType, occupancyStatus } from '../../../../../../../shared/utils/ConstLists';
+import { requiredImagesByPropertyType, imagesValidateLabel, imagesAmountRequired, imagesRoomLabel } from '../../../../../../../shared/utils/ConstLists';
 
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -30,6 +31,7 @@ export class CharacteristicsComponent implements OnInit {
     form!: FormGroup;
     propertyCreateForm!: FormHandler;
     
+    requiredImages: string[] = [];
     propertyTypeOptions: {name: string, code: string}[] = [];
     occupancyStatusOptions: {name: string, code: string}[] = [];
     
@@ -40,5 +42,17 @@ export class CharacteristicsComponent implements OnInit {
         this.form = this.propertyFormService.getStep1Form();
         this.propertyTypeOptions = propertyType;
         this.occupancyStatusOptions = occupancyStatus;
+        
+        const initialType = this.form.get('propertyType')?.value;
+        this.propertyFormService.setRequiredImages(requiredImagesByPropertyType[initialType] ?? []);
+    }
+    
+    getImageLabel(imageType: string): string {
+        const { min, max } = imagesAmountRequired[imageType] || { min: 1, max: 1 };
+        return `[Mínimo de ${min} foto${min > 1 ? 's' : ''} e Máximo de ${max} foto${max > 1 ? 's' : ''}] Imagens de ${imagesRoomLabel[imageType] || "Propriedade"}`;
+    }
+    
+    getLabel(imageType: string): string {
+        return imagesRoomLabel[imageType] || imageType;
     }
 }
