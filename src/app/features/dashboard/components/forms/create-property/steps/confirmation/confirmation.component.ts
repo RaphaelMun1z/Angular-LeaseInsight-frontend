@@ -78,8 +78,9 @@ export class ConfirmationComponent  implements OnInit{
             }
         });
     }
-
+    
     postForm(){
+        if(!this.propertyFormService.areImagesValid()) return;
         const data: FormData = this.ToFormData();
         this.propertyService.saveProperty(data).subscribe({
             next: (res: any) => {    
@@ -90,10 +91,10 @@ export class ConfirmationComponent  implements OnInit{
             }
         });
     }
-
+    
     ToFormData(): FormData {
         this.propertyCreateForm.validForm();
-
+        
         const formData = new FormData();
         formData.append('propertyType', this.form.get('step1.propertyType')?.value);
         formData.append('description', this.form.get('step1.description')?.value);
@@ -121,7 +122,7 @@ export class ConfirmationComponent  implements OnInit{
                 formData.append('images', file, file.name);
             });
         }
-
+        
         return formData;
     }
     
@@ -143,7 +144,7 @@ export class ConfirmationComponent  implements OnInit{
             },
             accept: () => {
                 this.postForm();
-                this.messageService.add({ severity: 'info', summary: 'Salvando', detail: 'Salvando Imóvel...' });
+                this.messageService.add({ severity: 'info', summary: 'Salvando', detail: 'Processando Cadastro de Imóvel...' });
             },
             reject: () => {
                 this.messageService.add({

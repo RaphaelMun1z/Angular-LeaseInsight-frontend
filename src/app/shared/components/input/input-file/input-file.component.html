@@ -1,6 +1,9 @@
-<p-fileupload name="demo[]"
+<p-fileupload 
+    #fileUpload
+    name="demo[]"
     (onSelect)="onFileSelect($any($event))" 
     (onClear)="onClearFiles()"
+    (onRemove)="onRemove($event)"
     [multiple]="true" 
     accept="image/*" 
     maxFileSize="1000000" 
@@ -11,13 +14,5 @@
     <ng-template #empty>
         <div>Arraste as fotos aqui.</div>
     </ng-template>
-    <ng-template #content>
-        <ul *ngIf="uploadedFiles.length">
-            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-        </ul>
-    </ng-template>
 </p-fileupload>
-<p-message severity="error" variant="simple" size="small" 
-*ngIf="invalid">
-{{ label }} é obrigatório
-</p-message>
+<p-message severity="error" variant="simple" size="small" *ngIf="invalid">{{ label }} é obrigatório</p-message>

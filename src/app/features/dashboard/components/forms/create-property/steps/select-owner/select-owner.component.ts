@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { CreatePropertyComponent } from '../../create-property.component';
+import { PropertyFormService } from '../../../../../../../core/services/stepped-forms/property-form.service';
 import { OwnerStateService } from '../../../../../../../core/states/owner-state.service';
 import { Owner } from '../../../../../../../shared/interfaces/owner';
 
@@ -33,13 +33,14 @@ export class SelectOwnerComponent implements OnInit {
     owners : Owner[] = [];
     
     router = inject(Router);
-    private formContainer = inject(CreatePropertyComponent);
-    constructor(private ownerStateService: OwnerStateService){
+    private propertyFormService = inject(PropertyFormService);
+    private ownerStateService = inject(OwnerStateService);
+    constructor(){
         this.ownerStateService.loadOwners();
     }
     
     ngOnInit() {
-        this.form = this.formContainer.getStep3Form();
+        this.form = this.propertyFormService.getStep3Form();
         
         this.owners$ = this.ownerStateService.listenToChanges();
         this.owners$.subscribe((data: Owner[]) => {

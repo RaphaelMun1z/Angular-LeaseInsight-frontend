@@ -67,7 +67,7 @@
         [label]="'Tipo de Imóvel'" 
         [icon]="'pi-map-marker'"
         [items]="propertyTypeOptions"></app-input-select>
-
+        
         <app-input-select
         formControlName="occupancyStatus"
         [invalid]="form.controls['occupancyStatus'].invalid"
@@ -75,11 +75,14 @@
         [icon]="'pi-map-marker'"
         [items]="occupancyStatusOptions"></app-input-select>
 
-        <app-input-file
-        formControlName="images"
-        [label]="'Imagens da Residência'"
-        [invalid]="form.controls['images'].invalid"></app-input-file>
-
+        <div>
+            <p class="mb-2"><i>*É obrigatório adicionar ao menos 05 fotos da propriedade.</i></p>
+            <app-input-file
+            formControlName="images"
+            [label]="'[Mínimo 05 fotos] Imagens da Residência'"
+            [invalid]="form.controls['images'].invalid || !propertyFormService.areImagesValid()"></app-input-file>
+        </div>
+        
         <app-input-textarea
         formControlName="description"
         [invalid]="form.controls['description'].invalid"

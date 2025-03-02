@@ -36,6 +36,10 @@ export class FormHandler {
     public setErrorList(errorList: { field: string; message: string }[]): void {
         this.errorList = errorList;
     }
+
+    public addError(error: { field: string; message: string }){
+        this.errorList.push(error);
+    }
     
     public getSendSuccess(): boolean {
         return this.sendSuccess;

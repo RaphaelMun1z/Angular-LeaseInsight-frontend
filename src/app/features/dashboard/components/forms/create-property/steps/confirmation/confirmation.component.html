@@ -168,7 +168,7 @@
                     
                     <div class="flex gap-2">
                         <h2 class="font-semibold">Imagens: </h2>
-                        <div class="flex gap-2">
+                        <div class="flex flex-col gap-2">
                             <ng-container *ngFor="let image of form.get('step1.images')?.value">
                                 <img [src]="image" alt="Imagem do imóvel" class="w-24 h-24 object-cover rounded-lg">
                             </ng-container>

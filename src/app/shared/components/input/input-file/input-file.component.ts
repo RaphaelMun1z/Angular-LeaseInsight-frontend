@@ -1,9 +1,10 @@
-import { Component, forwardRef, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { FileUpload } from 'primeng/fileupload';
-import { ToastModule } from 'primeng/toast';
+import { AfterViewInit, Component, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { FileRemoveEvent, FileUpload } from 'primeng/fileupload';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { Message } from 'primeng/message';
 
 const INPUT_FIELD_VALUE_ACCESSOR: any = {
@@ -26,11 +27,27 @@ interface UploadEvent {
     styleUrl: './input-file.component.scss'
 })
 
-export class InputFileComponent implements ControlValueAccessor {
+export class InputFileComponent implements ControlValueAccessor, AfterViewInit {
+    @ViewChild('fileUpload', { static: false }) fileUpload!: FileUpload;
     @Input() label!: string;
     @Input() invalid!: boolean;
     @Input() isReadOnly = false;
     uploadedFiles: File[] = [];
+    
+    ngAfterViewInit(): void {
+        this.clearFiles();
+    }
+    
+    clearFiles() {
+        this.uploadedFiles = [];
+        
+        if (this.fileUpload) {
+            this.fileUpload.files = [];
+            this.fileUpload.clear();
+        }
+        
+        this.onChangeCb(this.uploadedFiles);
+    }
     
     onFileSelect(event:UploadEvent) {
         this.uploadedFiles = [...this.uploadedFiles, ...event.files];
@@ -39,6 +56,11 @@ export class InputFileComponent implements ControlValueAccessor {
     
     onClearFiles() {
         this.uploadedFiles = [];
+        this.onChangeCb(this.uploadedFiles);
+    }
+    
+    onRemove(event: FileRemoveEvent) {
+        this.uploadedFiles = this.uploadedFiles.filter(file => file !== event.file);
         this.onChangeCb(this.uploadedFiles);
     }
     

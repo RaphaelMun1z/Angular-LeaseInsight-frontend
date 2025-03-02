@@ -102,20 +102,4 @@ export class CreatePropertyComponent implements OnInit {
             },
         ];
     }
-    
-    getStep1Form(): FormGroup {
-        return this.form.get('step1') as FormGroup;
-    }
-    
-    getStep2Form(): FormGroup {
-        return this.form.get('step2') as FormGroup;
-    }
-    
-    getStep3Form(): FormGroup {
-        return this.form.get('step3') as FormGroup;
-    }
-    
-    getAllSteps(): FormGroup {
-        return this.form as FormGroup;
-    }
 }

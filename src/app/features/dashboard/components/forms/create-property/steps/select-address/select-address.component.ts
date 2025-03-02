@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { CreatePropertyComponent } from '../../create-property.component';
+import { PropertyFormService } from '../../../../../../../core/services/stepped-forms/property-form.service';
 import { PropertyAddressStateService } from '../../../../../../../core/states/property-address-state.service';
 import { PropertyAddress } from '../../../../../../../shared/interfaces/propertyAddress';
 import { InputTextComponent } from '../../../../../../../shared/components/input/input-text/input-text.component';
@@ -36,13 +36,14 @@ export class SelectAddressComponent implements OnInit {
     addresses : PropertyAddress[] = [];
     
     router = inject(Router);
-    private formContainer = inject(CreatePropertyComponent);
-    constructor(private propertyAddressStateService: PropertyAddressStateService){
+    private propertyFormService = inject(PropertyFormService);
+    private propertyAddressStateService = inject(PropertyAddressStateService);
+    constructor(){
         this.propertyAddressStateService.loadPropertyAddresses();
     }
     
     ngOnInit(): void {
-        this.form = this.formContainer.getStep2Form();
+        this.form = this.propertyFormService.getStep2Form();
         
         this.getPropertyAddresses();
         this.addresses$.subscribe((data: PropertyAddress[]) => {

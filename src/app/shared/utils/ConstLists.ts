@@ -30,3 +30,25 @@ export const paymentStatus = [
     { name: "Reembolsado", code: 8 },
     { name: "Em cobrança", code: 9 }
 ]
+
+export const propertyType = [
+    { name: "CASA", code: "HOUSE"},
+    { name: "APARTAMENTO", code: "CONDO"},
+    { name: "FAZENDA", code: "FARM"},
+    { name: "ARMAZÉM", code: "WAREHOUSE"},
+    { name: "APARTAMENTO_COMERCIAL", code: "COMMERCIAL_APARTMENT"},
+    { name: "LOJA_VAREJO", code: "RETAIL_STORE"},
+    { name: "APARTAMENTO", code: "APARTMENT"},
+    { name: "TERRENO", code: "LAND_PLOT"}
+]
+
+export const occupancyStatus = [
+    { name: "OCUPADO", code: "OCCUPIED" },
+    { name: "VAGO", code: "VACANT" },
+    { name: "PENDENTE_ENTRADA", code: "PENDING_MOVE_IN" },
+    { name: "PENDENTE_SAÍDA", code: "PENDING_MOVE_OUT" },
+    { name: "EM_MANUTENÇÃO", code: "UNDER_MAINTENANCE" },
+    { name: "ALUGADO", code: "LEASED" },
+    { name: "DISPONÍVEL", code: "AVAILABLE" },
+    { name: "RESERVADO", code: "RESERVED" }
+]
