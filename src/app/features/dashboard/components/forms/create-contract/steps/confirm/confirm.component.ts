@@ -20,10 +20,14 @@ import { ImageModule } from 'primeng/image';
 import { DividerModule } from 'primeng/divider';
 import { Message } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
+import { FormHandler } from '../../../../../../../shared/utils/FormHandler';
+import { ContractFormService } from '../../../../../../../core/services/stepped-forms/contract-form.service';
+import { Router } from '@angular/router';
+import { FormErrorsComponent } from '../../../../../../../shared/components/form-errors/form-errors.component';
 
 @Component({
     selector: 'app-confirm',
-    imports: [DividerModule, ImageModule, Message, FieldsetModule, AvatarModule, CommonModule, ConfirmDialog, ToastModule, ButtonModule],
+    imports: [DividerModule, ImageModule, FormErrorsComponent, FieldsetModule, AvatarModule, CommonModule, ConfirmDialog, ToastModule, ButtonModule],
     providers: [ConfirmationService, MessageService],
     templateUrl: './confirm.component.html',
     styleUrl: './confirm.component.scss'
@@ -31,18 +35,16 @@ import { ButtonModule } from 'primeng/button';
 
 export class ConfirmComponent implements OnInit{
     form!: FormGroup;
+    contractCreateForm!: FormHandler;
+    
     protected property$ = new Observable<Property | null>();
-    protected client$ = new Observable<Client | null>();
     property! : Property;
+    
+    protected client$ = new Observable<Client | null>();
     client!: Client;
     
-    errors: { [key: string]: string } = {};
-    errorList: { field: string; message: string }[] = [];
-    sendSuccess: boolean = false;
-    loading: boolean = false;
-    status!: string[];
-    
-    private formContainer = inject(CreateContractComponent);
+    router = inject(Router);
+    private contractFormService = inject(ContractFormService);
     private contractService = inject(ContractService);
     private propertyStateService = inject(PropertyStateService);
     private clientStateService = inject(ClientStateService);
@@ -50,7 +52,8 @@ export class ConfirmComponent implements OnInit{
     private messageService = inject(MessageService);
     
     constructor() {
-        this.form = this.formContainer.getAllSteps();
+        this.contractCreateForm = this.contractFormService.getFormHandler();
+        this.form = this.contractCreateForm.getForm();
         
         if(this.form.get('step1.residence.id')?.value){
             this.propertyStateService.loadProperty(this.form.get('step1.residence.id')?.value);
@@ -62,14 +65,14 @@ export class ConfirmComponent implements OnInit{
     }
     
     ngOnInit(): void {
-        this.getProperty();
+        this.property$ = this.propertyStateService.listenToProperty();
         this.property$.subscribe((data: Property | null) => {
             if(data){
                 this.property = data;
             }
         });
         
-        this.getClient();
+        this.client$ = this.clientStateService.listenToClient();
         this.client$.subscribe((data: Client | null) => {
             if(data){
                 this.client = data;
@@ -77,87 +80,21 @@ export class ConfirmComponent implements OnInit{
         });
     }
     
-    getProperty(){
-        this.property$ = this.propertyStateService.listenToProperty();
-    }
-    
-    getClient(){
-        this.client$ = this.clientStateService.listenToClient();
-    }
-    
-    getInvalidFields(formGroup: FormGroup, parentKey = ''): { [key: string]: string } {
-        return Object.keys(formGroup.controls).reduce((invalidFields, key) => {
-            const control = formGroup.get(key);
-            const fullKey = parentKey ? `${parentKey}.${key}` : key;
-            
-            if (control instanceof FormGroup) {
-                Object.assign(invalidFields, this.getInvalidFields(control, fullKey));
-            } else if (control?.invalid) {
-                invalidFields[fullKey] = 'Campo inválido';
-            }
-            
-            return invalidFields;
-        }, {} as { [key: string]: string });
-    }
-    
-    protected submit(){
-        this.errorList = []
-        this.errors = {}
-        
-        if(this.form.invalid){
-            this.errors = this.getInvalidFields(this.form);
-            this.updateErrorList(); 
-            return;
-        }
-        
-        this.loading = true;
-        
-        const contractData: ContractCreate = {
-            residence: {
-                id: this.form.get('step1.residence.id')?.value
-            },
-            tenant: {
-                id: this.form.get('step2.tenant.id')?.value
-            },
-            contractStartDate: this.form.get('step3.contractStartDate')?.value,
-            contractEndDate: this.form.get('step3.contractEndDate')?.value,
-            defaultRentalValue: this.form.get('step3.defaultRentalValue')?.value,
-            contractStatus: this.form.get('step3.contractStatus')?.value,
-            invoiceDueDate: this.form.get('step3.invoiceDueDate')?.value,
-        };
-        console.log(JSON.stringify(contractData, null, 2));
-        this.postContract(contractData);
-    }
-    
-    postContract(contract: ContractCreate){
-        this.contractService.saveContract(contract).subscribe({
+    postForm(){
+        this.contractCreateForm.validForm();
+        const data: ContractCreate = this.form.value;
+        this.contractService.saveContract(data).subscribe({
             next: (res: any) => {    
-                this.loading = false;
-                this.sendSuccess = true;
-                setTimeout(() => {
-                    this.sendSuccess = false;
-                }, 5000)
+                this.contractCreateForm.successCaseState();
+                this.router.navigate(['/dashboard/contratos']);
             },
-            error: (err: { [key: string]: string }) => { 
-                this.loading = false;
-                if((err['status'] == '422')){
-                    this.errors = {"erros": err['message']};
-                }else{
-                    this.errors = err;
-                }
-                this.updateErrorList(); 
+            error: (errors: { [key: string]: string }) => { 
+                this.contractCreateForm.failCaseState(errors);
             }
         });
     }
     
-    updateErrorList() {
-        this.errorList = Object.entries(this.errors).map(([field, message]) => ({
-            field,
-            message
-        }));
-    }
-    
-    confirm1(event: Event) {
+    registrationConfirmation(event: Event) {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
             message: 'Você tem certeza que deseja cadastrar o contrato?',
@@ -174,8 +111,8 @@ export class ConfirmComponent implements OnInit{
                 label: 'Salvar',
             },
             accept: () => {
-                this.submit();
-                this.messageService.add({ severity: 'info', summary: 'Salvando', detail: 'Salvando Contrato...' });
+                this.postForm();
+                this.messageService.add({ severity: 'info', summary: 'Salvando', detail: 'Processando Cadastro de Contrato...' });
             },
             reject: () => {
                 this.messageService.add({
@@ -188,7 +125,7 @@ export class ConfirmComponent implements OnInit{
         });
     }
     
-    confirm2(event: Event) {
+    deletionConfirmation(event: Event) {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
             message: 'Do you want to delete this record?',

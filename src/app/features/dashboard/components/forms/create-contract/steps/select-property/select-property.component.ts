@@ -3,28 +3,32 @@ import { DataView } from 'primeng/dataview';
 import { Tag } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { SelectButton } from 'primeng/selectbutton';
-import { SelectItem, SelectModule } from 'primeng/select';
+import { SelectModule } from 'primeng/select';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { PropertyStateService } from '../../../../../../../core/states/property-state.service';
 import { Property } from '../../../../../../../shared/interfaces/property';
-import { CreateContractComponent } from '../../create-contract.component';
 import { Router } from '@angular/router';
+import { FormHandler } from '../../../../../../../shared/utils/FormHandler';
+import { ContractFormService } from '../../../../../../../core/services/stepped-forms/contract-form.service';
+import { propertiesSortOptions, propertyType, occupancyStatus } from '../../../../../../../shared/utils/ConstLists';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
     selector: 'app-select-property',
-    imports: [ReactiveFormsModule, DataView, Tag, SelectModule, ButtonModule, CommonModule, SelectButton, FormsModule],
+    imports: [ReactiveFormsModule, DataView, DividerModule, Tag, SelectModule, ButtonModule, CommonModule, SelectButton, FormsModule],
     templateUrl: './select-property.component.html',
     styleUrl: './select-property.component.scss'
 })
 
 export class SelectPropertyComponent implements OnInit {
     form!: FormGroup;
+    contractCreateForm!: FormHandler;
     
+    sortOptions = propertiesSortOptions;
     layout: any = 'grid';
     options = ['list', 'grid'];
-    sortOptions!: {label: string, value: string}[];
     sortOrder!: number;
     sortField!: string;
     sortKey: any;
@@ -33,27 +37,21 @@ export class SelectPropertyComponent implements OnInit {
     properties : Property[] = [];
     
     router = inject(Router);
-    private formContainer = inject(CreateContractComponent);
-    constructor(private propertyStateService: PropertyStateService){
+    private propertyStateService = inject(PropertyStateService);
+    constructor(){
         this.propertyStateService.loadProperties();
     }
     
+    public contractFormService = inject(ContractFormService);
+    
     ngOnInit(): void {
-        this.form = this.formContainer.getStep1Form();
+        this.contractCreateForm = this.contractFormService.getFormHandler();
+        this.form = this.contractFormService.getStep1Form();
         
-        this.getPropertys();
+        this.properties$ = this.propertyStateService.listenToChanges();
         this.properties$.subscribe((data: Property[]) => {
             this.properties = data;
-        });
-        
-        this.sortOptions = [
-            { label: 'Preço: Menor para Maior', value: 'priceAsc' },
-            { label: 'Preço: Maior para Menor', value: 'priceDesc' },
-            { label: 'Tipo: A-Z', value: 'typeAsc' },
-            { label: 'Tipo: Z-A', value: 'typeDesc' },
-            { label: 'Bairro: A-Z', value: 'districtAsc' },
-            { label: 'Bairro: Z-A', value: 'districtDesc' }
-        ];
+        });     
     }
     
     onSortChange(event: any): void {
@@ -89,10 +87,6 @@ export class SelectPropertyComponent implements OnInit {
         }
     }
     
-    getPropertys(){
-        this.properties$ = this.propertyStateService.listenToChanges();
-    }
-    
     getSeverity(product: any) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
@@ -109,40 +103,17 @@ export class SelectPropertyComponent implements OnInit {
         }
     }
     
-    getType(status: string) {
-        switch (status) {
-            case "HOUSE":
-            return 'Casa';
-            case "APARTMENT":
-            return 'Apartamento';
-            case "CONDO":
-            return 'Lote';
-            default:
-            return 'Outros';
-        }
+    getType(code: string) : string {
+        return propertyType.find(property => property.code === code)?.name || "Valor inválido!";;
     }
     
-    getStatus(status: number) {
-        switch (status) {
-            case 1:
-            return 'Ocupado';
-            case 2:
-            return 'Livre';
-            case 3:
-            return 'Pendente para entrada';
-            case 4:
-            return 'Pendente para saída';
-            case 5:
-            return 'Em manutenção';
-            case 6:
-            return 'Alugado';
-            case 7:
-            return 'Disponível';
-            case 8:
-            return 'Reservado';
-            default:
-            return 'Outros';
-        }
+    getStatus(code: string) : string {
+        return occupancyStatus.find(status => status.code === code)?.name || "Valor inválido!";;
+    } 
+    
+    handleImageError(event: Event) {
+        const target = event.target as HTMLImageElement;
+        target.src = 'https://static.vecteezy.com/ti/vetor-gratis/p1/17173007-nao-pode-carregar-ilustracao-de-conceito-de-imagem-corrompida-de-design-plano-eps10-elemento-grafico-moderno-para-pagina-inicial-interface-do-usuario-de-estado-vazio-infografico-icone-vetor.jpg';
     }
     
     selected(idSelected: string){

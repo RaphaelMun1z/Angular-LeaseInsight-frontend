@@ -34,9 +34,7 @@ export class CreatePropertyComponent implements OnInit {
     form!: UntypedFormGroup;
     steps!: MenuItem[];
     breadCrumbItems = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Imóveis', route: '/dashboard/imoveis' }, { label: 'Cadastrar', route: '/dashboard/imoveis/criar' }];
-    
-    requiredImagesByPropertyType = requiredImagesByPropertyType;
-    
+        
     private formBuilderService = inject(UntypedFormBuilder);
     private propertyFormService = inject(PropertyFormService);
     
@@ -105,7 +103,7 @@ export class CreatePropertyComponent implements OnInit {
         this.propertyFormService.getRequiredImages().forEach(imageType => {
             if (!imagesGroup.controls[imageType]) {
                 const { min, max } = imagesAmountRequired[imageType] || { min: 1, max: 2 };
-                const validator = this.propertyFormService.lengthArray(min, max);
+                const validator = this.propertyFormService.lengthImagesArray(min, max);
                 imagesGroup.addControl(imageType, new FormControl([], [validator]));
             }
         });

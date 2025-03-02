@@ -123,3 +123,22 @@ export const imagesAmountRequired: Record<string, { min: number; max: number }> 
     salesFloor: { min: 1, max: 3 },
     aerialView: { min: 1, max: 3 }
 };
+
+export const propertiesSortOptions = [
+    { label: 'Preço: Menor para Maior', value: 'priceAsc' },
+    { label: 'Preço: Maior para Menor', value: 'priceDesc' },
+    { label: 'Tipo: A-Z', value: 'typeAsc' },
+    { label: 'Tipo: Z-A', value: 'typeDesc' },
+    { label: 'Bairro: A-Z', value: 'districtAsc' },
+    { label: 'Bairro: Z-A', value: 'districtDesc' }
+];
+
+export const invoiceDueDates = [5, 10, 15, 20];
+
+export const contractStatus = [
+    { status: "ACTIVE", value: "ACTIVE" },
+    { status: "PENDING", value: "PENDING" },
+    { status: "EXPIRED", value: "EXPIRED" },
+    { status: "TERMINATED", value: "TERMINATED" },
+    { status: "CANCELLED", value: "CANCELLED" }
+];

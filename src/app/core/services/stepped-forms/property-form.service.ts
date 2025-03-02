@@ -71,7 +71,7 @@ export class PropertyFormService {
         return this.stepValidations.getValue()[step];
     }
     
-    lengthArray(min: number, max: number) {
+    lengthImagesArray(min: number, max: number) {
         return (control: AbstractControl): { [key: string]: any } | null => {
             if (!control.value || !Array.isArray(control.value)) {
                 return { invalidType: true };

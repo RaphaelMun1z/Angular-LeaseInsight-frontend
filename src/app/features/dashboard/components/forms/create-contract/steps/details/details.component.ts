@@ -13,6 +13,9 @@ import { SelectModule } from 'primeng/select';
 import { Message } from 'primeng/message';
 import { Select } from 'primeng/select';
 import { Router } from '@angular/router';
+import { FormHandler } from '../../../../../../../shared/utils/FormHandler';
+import { ContractFormService } from '../../../../../../../core/services/stepped-forms/contract-form.service';
+import { invoiceDueDates, contractStatus } from '../../../../../../../shared/utils/ConstLists';
 
 @Component({
     selector: 'app-details',
@@ -23,23 +26,16 @@ import { Router } from '@angular/router';
 
 export class DetailsComponent implements OnInit {
     form!: FormGroup;
+    contractCreateForm!: FormHandler;
     
-    invoiceDueDates: number[] = [];
-    contractStatus: {status: string, value: string}[] = [];
+    invoiceDueDates = invoiceDueDates;
+    contractStatus = contractStatus;
     
     router = inject(Router);
-    private formContainer = inject(CreateContractComponent);
+    public contractFormService = inject(ContractFormService);
     
     ngOnInit(): void {
-        this.form = this.formContainer.getStep3Form();
-        
-        this.invoiceDueDates = [5, 10, 15, 20];
-        this.contractStatus = [
-            { status: "ACTIVE", value: "ACTIVE" },
-            { status: "PENDING", value: "PENDING" },
-            { status: "EXPIRED", value: "EXPIRED" },
-            { status: "TERMINATED", value: "TERMINATED" },
-            { status: "CANCELLED", value: "CANCELLED" }
-        ];
+        this.contractCreateForm = this.contractFormService.getFormHandler();
+        this.form = this.contractFormService.getStep1Form();
     }
 }

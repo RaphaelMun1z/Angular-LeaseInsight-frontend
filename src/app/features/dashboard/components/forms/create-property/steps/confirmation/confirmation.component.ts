@@ -185,7 +185,7 @@ export class ConfirmationComponent  implements OnInit{
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Cancelado',
-                    detail: 'Você Cancelou o Cadastro do Contrato',
+                    detail: 'Você Cancelou o Cadastro da Propriedade',
                     life: 3000,
                 });
             },

@@ -27,7 +27,7 @@
                     <div class="md:w-40 relative img-container">
                         <img
                         class="block xl:block mx-auto rounded w-full"
-                        [src]="'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3EkkbEdF4CsU_9ajQ4LzNYn2TSs1je7JEOA&s'"
+                        [src]="property.files[0]"
                         [alt]="'Foto'"
                         />
                     </div>
@@ -66,13 +66,14 @@
                     class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded flex flex-col"
                     [ngClass]="{'activated': property.id === form.get('residence.id')?.value}"
                     >
-                    <div class="bg-surface-50 flex justify-center rounded p-4 img-container">
-                        <div class="relative mx-auto">
+                    <div class="bg-surface-50 flex justify-center rounded img-container">
+                        <div class="relative w-full">
                             <img
                             class="rounded w-full"
-                            [src]="'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3EkkbEdF4CsU_9ajQ4LzNYn2TSs1je7JEOA&s'"
+                            [src]="property.files?.[0]?.path || 'https://static.vecteezy.com/ti/vetor-gratis/p1/17173007-nao-pode-carregar-ilustracao-de-conceito-de-imagem-corrompida-de-design-plano-eps10-elemento-grafico-moderno-para-pagina-inicial-interface-do-usuario-de-estado-vazio-infografico-icone-vetor.jpg'"
                             [alt]="'Foto'"
-                            style="max-width: 300px"
+                            style="width: 100%; height: 250px"
+                            (error)="handleImageError($event)"
                             />
                         </div>
                     </div>
@@ -83,9 +84,17 @@
                                     getType(property.propertyType)
                                 }}</span>
                                 <div class="text-lg font-medium mt-1">{{ property.residenceAddress.street }}, {{ property.number }}, {{ property.residenceAddress.district }}, {{ property.residenceAddress.city }}, {{ property.residenceAddress.state }}, {{ property.residenceAddress.country }}</div>
-                                <div class="flex items-center gap-2 mt-2">
-                                    <p-tag severity="info" value="R$ {{ property.rentalValue }}"/>
-                                    <p-tag severity="success" value="{{ getStatus(property.occupancyStatus)}}" [severity]="getSeverity(property.occupancyStatus)"/>
+                                <div class="flex flex-col items-left gap-2 mt-2">
+                                    <div class="flex flex-col" *ngIf="(property.features ?? []).length > 0">
+                                        <p-divider />
+                                        <span class="font-medium text-surface-500 dark:text-surface-400 text-sm mb-1">Recursos</span>
+                                        <div class="flex" [style]="{'gap': '.5vw'}">
+                                            <p-tag icon="pi pi-list-check" class="w-fit" severity="info" value="{{ item['feature']['feature'] }}" *ngFor="let item of property.features"/>
+                                        </div>
+                                    </div>
+                                    <p-divider />
+                                    <p-tag icon="pi pi-tag" class="w-fit" severity="info" value="Valor de Mercado: {{ property.marketValue | currency:'BRL' }}"/>
+                                    <p-tag icon="pi pi-calendar" class="w-fit" severity="success" value="Última renovação: {{ property.dateLastRenovation | date:'dd/MM/yyyy' }}" [severity]="'secondary'"/>
                                 </div>
                             </div>
                         </div>

@@ -3,7 +3,6 @@ import { FormGroup, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { ClientStateService } from '../../../../../../../core/states/client-state.service';
-import { CreateContractComponent } from '../../create-contract.component';
 import { Client } from '../../../../../../../shared/interfaces/client';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -15,6 +14,8 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
+import { FormHandler } from '../../../../../../../shared/utils/FormHandler';
+import { ContractFormService } from '../../../../../../../core/services/stepped-forms/contract-form.service';
 
 @Component({
     selector: 'app-select-client',
@@ -25,6 +26,7 @@ import { Router } from '@angular/router';
 
 export class SelectClientComponent implements OnInit {
     form!: FormGroup;
+    contractCreateForm!: FormHandler;
     
     @ViewChild('dt') dt!: Table;
     statuses!: any[];
@@ -33,15 +35,17 @@ export class SelectClientComponent implements OnInit {
     clients : Client[] = [];
     
     router = inject(Router);
-    private formContainer = inject(CreateContractComponent);
-    constructor(private clientStateService: ClientStateService){
+    private clientStateService = inject(ClientStateService);
+    constructor(){
         this.clientStateService.loadClients();
     }
     
+    public contractFormService = inject(ContractFormService);
+    
     ngOnInit() {
-        this.form = this.formContainer.getStep2Form();
+        this.form = this.contractFormService.getStep2Form();
         
-        this.getClientes();
+        this.clients$ = this.clientStateService.listenToChanges();
         this.clients$.subscribe((data: Client[]) => {
             this.clients = data;
             this.loading = false;
@@ -55,10 +59,6 @@ export class SelectClientComponent implements OnInit {
             { label: 'Renewal', value: 'renewal' },
             { label: 'Proposal', value: 'proposal' }
         ];
-    }
-    
-    getClientes(){
-        this.clients$ = this.clientStateService.listenToChanges();
     }
     
     clear(table: Table) {
