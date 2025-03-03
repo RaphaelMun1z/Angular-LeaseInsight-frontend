@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { TableComponent } from '../table/table.component';
+import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { Client } from '../../../../../shared/interfaces/client';
 
 interface Column {

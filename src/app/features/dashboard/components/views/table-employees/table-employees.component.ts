@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
-import { TableComponent } from '../table/table.component';
+import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { Employee } from '../../../../../shared/interfaces/employee';
 
 interface Column {

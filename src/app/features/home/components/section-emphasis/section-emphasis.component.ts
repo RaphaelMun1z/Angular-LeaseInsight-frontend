@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { PropertyMinimalComponent } from '../../../shared/components/cards/property-minimal/property-minimal.component';
-import { PropertyMinimal } from '../../../shared/interfaces/property';
+import { PropertyMinimalComponent } from '../../../../shared/components/cards/property-minimal/property-minimal.component';
+import { PropertyMinimal } from '../../../../shared/interfaces/property';
 import { CarouselModule } from 'primeng/carousel';
 
-import { PropertyService } from '../../services/property.service';
+import { PropertyService } from '../../../../core/services/property.service';
 
 @Component({
     selector: 'app-section-emphasis',
