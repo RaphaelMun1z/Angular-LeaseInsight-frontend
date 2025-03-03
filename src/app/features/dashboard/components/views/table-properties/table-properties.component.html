@@ -10,7 +10,7 @@
                 <span class="font-semibold text-2xl">{{ property.residenceAddress.street }}, {{ property.number }}, {{ property.residenceAddress.district }}, {{ property.residenceAddress.city }}, {{ property.residenceAddress.state }}, {{ property.residenceAddress.country }}</span>
                 <div class="flex items-center gap-2 mt-2">
                     <p-tag severity="info" value="R$ {{ property.rentalValue }}"/>
-                    <p-tag severity="success" value="{{ getStatus(property.occupancyStatus)}}"/>
+                    <p-tag severity="success" value="{{ property.occupancyStatus }}"/>
                     <p-tag icon="pi pi-images" severity="warn" *ngIf="property.files.length < 4" value="{{ property.files.length }} Imagens" />
                     <p-tag icon="pi pi-images" severity="info" *ngIf="property.files.length >= 4" value="{{ property.files.length }} Imagens" />
                     <div class="card flex justify-center gap-2">

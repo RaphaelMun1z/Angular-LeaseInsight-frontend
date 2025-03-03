@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { FormHandler } from '../../../shared/utils/FormHandler';
+import { ContractCreate } from '../../../shared/interfaces/contract';
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +23,7 @@ export class ContractFormService {
         this.form = form;
         this.updateStepValidation();
     }
-
+    
     public getFormHandler(): FormHandler{
         return this.formHandler;
     }
@@ -30,7 +31,7 @@ export class ContractFormService {
     setFormHandler(form: FormHandler): void{
         this.formHandler = form;
     }
-
+    
     getStep1Form(): FormGroup {
         return this.form.get('step1') as FormGroup;
     }
@@ -60,5 +61,18 @@ export class ContractFormService {
     
     isStepAllowed(step: string): boolean {
         return this.stepValidations.getValue()[step];
+    }
+    
+    formatData(): ContractCreate {
+        const formattedData = {
+            residence: this.form.value.step1.residence,
+            tenant: this.form.value.step2.tenant,
+            contractStartDate: this.form.value.step3.contractStartDate,
+            contractEndDate: this.form.value.step3.contractEndDate,
+            defaultRentalValue: this.form.value.step3.defaultRentalValue,
+            contractStatus: this.form.value.step3.contractStatus,
+            invoiceDueDate: this.form.value.step3.invoiceDueDate
+        };
+        return formattedData;
     }
 }

@@ -88,8 +88,7 @@ export class ConfirmComponent implements OnInit{
     
     postForm(){
         this.contractCreateForm.validForm();
-        const data: ContractCreate = this.form.value;
-        console.log(JSON.stringify(data, null, 2));
+        const data: ContractCreate = this.contractFormService.formatData();
         this.contractService.saveContract(data).subscribe({
             next: (res: any) => {    
                 this.contractCreateForm.successCaseState();
