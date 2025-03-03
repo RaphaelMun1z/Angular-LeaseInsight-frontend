@@ -5,7 +5,7 @@
         </ng-template>
         
         <ng-template #end>
-            <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+            <p-button label="Exportar CSV" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
         </ng-template>
     </p-toolbar>
     
@@ -65,7 +65,6 @@
             <td>{{ owner.phone }}</td>
             <td>{{ owner.email }}</td>
             <td>
-                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editOwner(owner)" />
                 <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteOwner(owner)" />
             </td>
         </tr>

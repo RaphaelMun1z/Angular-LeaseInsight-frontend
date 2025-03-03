@@ -37,10 +37,7 @@ interface ExportColumn {
 
 export class TableOwnersComponent implements OnInit{
     @Input() owners: Owner[] = [];
-    owner!: Owner;
     selectedOwners!: Owner[] | null;
-    submitted: boolean = false;
-    statuses!: any[];
     
     @ViewChild('dt') dt!: Table;
     cols!: Column[];
@@ -53,21 +50,15 @@ export class TableOwnersComponent implements OnInit{
     ) {}
     
     ngOnInit(): void {
-        this.loadDemoData();
+        this.configureTable();
     }
     
     exportCSV() {
         this.dt.exportCSV();
     }
     
-    loadDemoData() {
+    configureTable() {
         this.cd.markForCheck();
-        
-        this.statuses = [
-            { label: 'INSTOCK', value: 'instock' },
-            { label: 'LOWSTOCK', value: 'lowstock' },
-            { label: 'OUTOFSTOCK', value: 'outofstock' }
-        ];
         
         this.cols = [
             { field: 'id', header: 'Code', customExportHeader: 'Owner Code' },
@@ -77,10 +68,6 @@ export class TableOwnersComponent implements OnInit{
         ];
         
         this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
-    }
-    
-    editOwner(owner: Owner) {
-        this.owner = { ...owner };
     }
     
     deleteSelectedOwners() {
@@ -108,12 +95,6 @@ export class TableOwnersComponent implements OnInit{
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.owners = this.owners.filter((val) => val.id !== owner.id);
-                this.owner =  {
-                    id: '',
-                    name: '',
-                    phone: '',
-                    email: '',
-                }
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Operação Realizada',
@@ -122,17 +103,5 @@ export class TableOwnersComponent implements OnInit{
                 });
             }
         });
-    }
-    
-    findIndexById(id: string): number {
-        let index = -1;
-        for (let i = 0; i < this.owners.length; i++) {
-            if (this.owners[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-        
-        return index;
     }
 }

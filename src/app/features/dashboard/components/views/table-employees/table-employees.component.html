@@ -5,7 +5,7 @@
         </ng-template>
         
         <ng-template #end>
-            <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+            <p-button label="Exportar CSV" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
         </ng-template>
     </p-toolbar>
     
@@ -15,7 +15,7 @@
     [rows]="10"
     [columns]="cols"
     [paginator]="true"
-    [globalFilterFields]="['name', 'phone', 'email']"
+    [globalFilterFields]="globalFilterFields"
     [tableStyle]="{ 'min-width': '75rem' }"
     [(selection)]="selectedEmployees"
     [rowHover]="true"
@@ -25,7 +25,6 @@
     class="!w-full">
     <ng-template #caption>
         <div class="flex items-center justify-between">
-            <h5 class="m-0">Manage Employees</h5>
             <p-iconfield>
                 <p-inputicon styleClass="pi pi-search" />
                 <input 
@@ -67,7 +66,6 @@
             <td style="min-width: 12rem">{{ employee.phone }}</td>
             <td style="min-width: 12rem">{{ employee.email }}</td>
             <td>
-                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editEmployee(employee)" />
                 <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteEmployee(employee)" />
             </td>
         </tr>
