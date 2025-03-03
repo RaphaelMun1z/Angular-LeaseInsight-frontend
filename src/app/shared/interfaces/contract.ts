@@ -1,3 +1,5 @@
+import { Property } from "./property";
+
 export interface Contract {
     id: string;
     contractStartDate: string; 
@@ -7,16 +9,7 @@ export interface Contract {
     tenant: {
         name: string;
     },
-    residence: {
-        number: number;
-        residenceAddress: {
-            street: string;
-            district: string;
-            city: string;
-            state: string;
-            country: string
-        }
-    }
+    residence: Property
 }
 
 export interface ContractCreate {

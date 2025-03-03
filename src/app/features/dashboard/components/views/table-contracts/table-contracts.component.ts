@@ -1,25 +1,6 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { TableModule } from 'primeng/table';
-import { Dialog } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { ToolbarModule } from 'primeng/toolbar';
-import { Tag } from 'primeng/tag';
-import { ConfirmDialog } from 'primeng/confirmdialog';
-import { InputTextModule } from 'primeng/inputtext';
-import { TextareaModule } from 'primeng/textarea';
-import { CommonModule } from '@angular/common';
-import { RadioButton } from 'primeng/radiobutton';
-import { InputNumber } from 'primeng/inputnumber';
-import { SelectModule } from 'primeng/select';
-import { FormsModule } from '@angular/forms';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { Table } from 'primeng/table';
-import { DropdownModule } from 'primeng/dropdown';
-import { DatePickerModule } from 'primeng/datepicker';
-import { FluidModule } from 'primeng/fluid';
+import { Component, Input } from '@angular/core';
+
+import { TableComponent } from '../table/table.component';
 import { Contract } from '../../../../../shared/interfaces/contract';
 
 interface Column {
@@ -28,92 +9,32 @@ interface Column {
     customExportHeader?: string;
 }
 
-interface ExportColumn {
-    title: string;
-    dataKey: string;
-}
-
 @Component({
     selector: 'app-table-contracts',
-    imports: [FormsModule, Tag, DatePickerModule, FluidModule, ButtonModule, TableModule, SelectModule, ToastModule, ToolbarModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
-    providers: [MessageService, ConfirmationService],
+    imports: [TableComponent],
     templateUrl: './table-contracts.component.html',
     styleUrl: './table-contracts.component.scss'
 })
 
-export class TableContractsComponent implements OnInit{
+export class TableContractsComponent {
     @Input() contracts: Contract[] = [];
-    selectedContracts!: Contract[] | null;
-    
-    @ViewChild('dt') dt!: Table;
-    cols!: Column[];
-    exportColumns!: ExportColumn[];
-
     globalFilterFields = ['id', 'contractStartDate', 'contractEndDate', 'defaultRentalValue', 'contractStatus', 'name', 'residenceAddress']
-    
-    constructor(
-        private messageService: MessageService,
-        private confirmationService: ConfirmationService,
-        private cd: ChangeDetectorRef
-    ) {}
-    
-    ngOnInit(): void {
-        this.configureTable();
-    }
-    
-    exportCSV() {
-        this.dt.exportCSV();
-    }
-    
-    configureTable() {
-        this.cd.markForCheck();
-        
-        this.cols = [
-            { field: 'id', header: 'Code', customExportHeader: 'Contract Code' },
-            { field: 'name', header: 'Name' },
-            { field: 'phone', header: 'Phone' },
-            { field: 'email', header: 'E-mail' }
-        ];
-        
-        this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
-    }
-    
-    deleteSelectedContracts() {
-        this.confirmationService.confirm({
-            message: 'Você tem certeza que você quer deletar os contractes selecionados?',
-            header: 'Confirmar',
-            icon: 'pi pi-exclamation-triangle',
-            accept: () => {
-                this.contracts = this.contracts.filter((val) => !this.selectedContracts?.includes(val));
-                this.selectedContracts = null;
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Operação Realizada',
-                    detail: 'Funcionários Deletados',
-                    life: 3000
-                });
-            }
-        });
-    }
-    
-    deleteContract(contract: Contract) {
-        this.confirmationService.confirm({
-            message: 'Você tem certeza que você quer deletar ' + contract.id + '?',
-            header: 'Confirmar',
-            icon: 'pi pi-exclamation-triangle',
-            accept: () => {
-                this.contracts = this.contracts.filter((val) => val.id !== contract.id);
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Operação Realizada',
-                    detail: 'Funcionário Deletado',
-                    life: 3000
-                });
-            }
-        });
-    }
-    
-    applyFilterGlobal($event: any, stringVal: any) {
-        this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
-    } 
+    exportCols: Column[] = [
+        { field: 'id', header: 'Code', customExportHeader: 'Contract Code' },
+        { field: 'contractStartDate', header: 'ContractStartDate' },
+        { field: 'contractEndDate', header: 'ContractEndDate' },
+        { field: 'defaultRentalValue', header: 'DefaultRentalValue' },
+        { field: 'contractStatus', header: 'ContractStatus' },
+        { field: 'tenant.name', header: 'TenantName' },
+        { field: 'residence.residenceAddress.district', header: 'ResidenceAddress' },
+    ];
+    fields = [
+        { name: "Código", code: "id", type: "normal" },
+        { name: "Início do Contrato", code: "contractStartDate", type: "normal" },
+        { name: "Validade do Contrato", code: "contractEndDate", type: "normal" },
+        { name: "Valor de Locação", code: "defaultRentalValue", type: "normal" },
+        { name: "Status", code: "contractStatus", type: "tag" },
+        { name: "Nome do Inquilino", code: "tenant.name", type: "normal" },
+        { name: "Endereço da Residência", code: "residence.residenceAddress.district", type: "normal" },
+    ]
 }

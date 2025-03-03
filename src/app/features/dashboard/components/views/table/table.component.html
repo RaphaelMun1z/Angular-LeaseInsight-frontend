@@ -13,7 +13,7 @@
     #dt
     [value]="items"
     [rows]="10"
-    [columns]="cols"
+    [columns]="exportCols"
     [paginator]="true"
     [globalFilterFields]="globalFilterFields"
     [tableStyle]="{ 'min-width': '75rem' }"
@@ -43,6 +43,18 @@
             </th>
             <th style="min-width: 12rem"></th>
         </tr>
+        <tr>
+            <th></th>
+            <th *ngFor="let field of fields">
+                <p-columnFilter
+                type="text"
+                field="{{field.code}}"
+                placeholder="Filtrar"
+                ariaLabel="Filtrar"
+                ></p-columnFilter>
+            </th>
+            <th></th>
+        </tr>
     </ng-template>
     
     <ng-template #body let-item>
@@ -53,10 +65,10 @@
             
             <td *ngFor="let field of fields">
                 <ng-container *ngIf="field.type === 'tag'; else defaultContent">
-                    <p-tag [value]="item[field.code]" [severity]="'info'" />
+                    <p-tag [value]="getValueByPath(item, field.code)" [severity]="'info'" />
                 </ng-container>
                 <ng-template #defaultContent>
-                    {{ item[field.code] }}
+                    {{ getValueByPath(item, field.code) }}
                 </ng-template>
             </td>            
             

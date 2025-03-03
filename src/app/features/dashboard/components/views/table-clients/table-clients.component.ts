@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import { TableComponent } from '../table/table.component';
 import { Client } from '../../../../../shared/interfaces/client';
@@ -12,7 +11,7 @@ interface Column {
 
 @Component({
     selector: 'app-table-clients',
-    imports: [TableComponent, FormsModule],
+    imports: [TableComponent],
     templateUrl: './table-clients.component.html',
     styleUrl: './table-clients.component.scss'
 })
@@ -20,7 +19,7 @@ interface Column {
 export class TableClientsComponent {
     @Input() clients: Client[] = [];
     globalFilterFields = ['id', 'name', 'phone', 'email', 'tenantStatus'];
-    cols: Column[] = [
+    exportCols: Column[] = [
         { field: 'id', header: 'Code', customExportHeader: 'Contract Code' },
         { field: 'name', header: 'Name' },
         { field: 'phone', header: 'Phone' },

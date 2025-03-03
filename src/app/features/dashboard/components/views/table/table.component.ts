@@ -40,7 +40,7 @@ export class TableComponent implements OnInit {
     selectedItems!: any[] | null;
     
     @ViewChild('dt') dt!: Table;
-    @Input() cols!: Column[];
+    @Input() exportCols!: Column[];
     exportColumns!: ExportColumn[];
     
     @Input() globalFilterFields!: string[];
@@ -61,7 +61,7 @@ export class TableComponent implements OnInit {
     
     configureTable() {
         this.cd.markForCheck();
-        this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
+        this.exportColumns = this.exportCols.map((col) => ({ title: col.header, dataKey: col.field }));
     }
     
     deleteSelectedItems() {
@@ -97,5 +97,9 @@ export class TableComponent implements OnInit {
                 });
             }
         });
+    }
+
+    getValueByPath(item: any, path: string): any {
+        return path.split('.').reduce((acc, key) => acc && acc[key], item);
     }
 }
