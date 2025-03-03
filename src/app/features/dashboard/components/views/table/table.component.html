@@ -1,0 +1,74 @@
+<div class="container">
+    <p-toolbar styleClass="mb-6" class="!w-full">
+        <ng-template #start>
+            <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedItems()" [disabled]="!selectedItems || !selectedItems.length" />
+        </ng-template>
+        
+        <ng-template #end>
+            <p-button label="Exportar CSV" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+        </ng-template>
+    </p-toolbar>
+    
+    <p-table
+    #dt
+    [value]="items"
+    [rows]="10"
+    [columns]="cols"
+    [paginator]="true"
+    [globalFilterFields]="globalFilterFields"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedItems"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Mostrando {first} para {last} de {totalRecords} entradas"
+    [showCurrentPageReport]="true"
+    class="!w-full">
+    
+    <ng-template #caption>
+        <div class="flex items-center justify-between">
+            <p-iconfield>
+                <p-inputicon styleClass="pi pi-search" />
+                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Pesquise..." />                 
+            </p-iconfield>
+        </div>
+    </ng-template>
+    
+    <ng-template #header>
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox />
+            </th>
+            <th *ngFor="let field of fields" pSortableColumn="{{ field.code }}">
+                {{ field.name }}
+            </th>
+            <th style="min-width: 12rem"></th>
+        </tr>
+    </ng-template>
+    
+    <ng-template #body let-item>
+        <tr>
+            <td style="width: 3rem">
+                <p-tableCheckbox [value]="item" />
+            </td>
+            
+            <td *ngFor="let field of fields">
+                <ng-container *ngIf="field.type === 'tag'; else defaultContent">
+                    <p-tag [value]="item[field.code]" [severity]="'info'" />
+                </ng-container>
+                <ng-template #defaultContent>
+                    {{ item[field.code] }}
+                </ng-template>
+            </td>            
+            
+            <td>
+                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" />
+                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteItem(item)" />
+            </td>
+        </tr>
+    </ng-template>
+    
+    <ng-template #summary>
+        <div class="flex items-center justify-between">Total de {{ items ? items.length : 0 }} registros.</div>
+    </ng-template>
+</p-table>
+</div>
