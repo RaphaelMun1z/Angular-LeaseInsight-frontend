@@ -1,7 +1,6 @@
 <div class="container">
     <p-toolbar styleClass="mb-6" class="!w-full">
         <ng-template #start>
-            <p-button label="New" icon="pi pi-plus" class="mr-2" />
             <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedEmployees()" [disabled]="!selectedEmployees || !selectedEmployees.length" />
         </ng-template>
         
@@ -23,8 +22,7 @@
     dataKey="id"
     currentPageReportTemplate="Mostrando {first} para {last} de {totalRecords} entradas"
     [showCurrentPageReport]="true"
-    class="!w-full"
-    >
+    class="!w-full">
     <ng-template #caption>
         <div class="flex items-center justify-between">
             <h5 class="m-0">Manage Employees</h5>
@@ -78,34 +76,4 @@
         <div class="flex items-center justify-between">Total de {{ employees ? employees.length : 0 }} employeees.</div>
     </ng-template>
 </p-table>
-<p-toast></p-toast>
-
-<p-dialog [(visible)]="employeeDialog" [style]="{ width: '450px' }" header="Employee Details" [modal]="true">
-    <ng-template #content>
-        <div class="flex flex-col gap-6">
-            <div>
-                <label for="name" class="block font-bold mb-3">Name</label>
-                <input type="text" pInputText id="name" [(ngModel)]="employee.name" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !employee.name">Nome é obrigatório.</small>
-            </div>
-            <div>
-                <label for="phone" class="block font-bold mb-3">Telefone</label>
-                <input type="text" pInputText id="phone" [(ngModel)]="employee.phone" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !employee.phone">Telefone é obrigatório.</small>
-            </div>
-            <div>
-                <label for="email" class="block font-bold mb-3">E-mail</label>
-                <input type="text" pInputText id="email" [(ngModel)]="employee.email" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !employee.email">E-mail é obrigatório.</small>
-            </div>
-        </div>
-    </ng-template>
-    
-    <ng-template #footer>
-        <p-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()" />
-        <p-button label="Save" icon="pi pi-check" (click)="saveEmployee()" />
-    </ng-template>
-</p-dialog>
-
-<p-confirmDialog [style]="{ width: '450px' }" />     
 </div>  

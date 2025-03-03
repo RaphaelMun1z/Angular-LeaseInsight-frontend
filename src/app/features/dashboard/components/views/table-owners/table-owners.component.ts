@@ -29,7 +29,7 @@ interface ExportColumn {
 
 @Component({
     selector: 'app-table-owners',
-    imports: [FormsModule, ButtonModule, TableModule, SelectModule, ToastModule, ToolbarModule, ConfirmDialog, InputTextModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
+    imports: [FormsModule, ButtonModule, TableModule, SelectModule, ToastModule, ToolbarModule, InputTextModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
     providers: [MessageService, ConfirmationService],
     templateUrl: './table-owners.component.html',
     styleUrl: './table-owners.component.scss'

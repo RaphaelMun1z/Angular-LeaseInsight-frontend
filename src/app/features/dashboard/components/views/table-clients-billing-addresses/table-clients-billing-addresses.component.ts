@@ -29,7 +29,7 @@ interface ExportColumn {
 
 @Component({
     selector: 'app-table-clients-billing-addresses',
-    imports: [FormsModule, ButtonModule, TableModule, SelectModule, ToastModule, ToolbarModule, ConfirmDialog, InputTextModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
+    imports: [FormsModule, ButtonModule, TableModule, SelectModule, ToastModule, ToolbarModule, InputTextModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
     providers: [MessageService, ConfirmationService],
     templateUrl: './table-clients-billing-addresses.component.html',
     styleUrl: './table-clients-billing-addresses.component.scss'

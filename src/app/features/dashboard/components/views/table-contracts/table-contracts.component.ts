@@ -35,7 +35,7 @@ interface ExportColumn {
 
 @Component({
     selector: 'app-table-contracts',
-    imports: [FormsModule, Tag, DatePickerModule, InputNumber, FluidModule, ButtonModule, TableModule, Dialog, SelectModule, ToastModule, ToolbarModule, ConfirmDialog, InputTextModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
+    imports: [FormsModule, Tag, DatePickerModule, FluidModule, ButtonModule, TableModule, SelectModule, ToastModule, ToolbarModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
     providers: [MessageService, ConfirmationService],
     templateUrl: './table-contracts.component.html',
     styleUrl: './table-contracts.component.scss'

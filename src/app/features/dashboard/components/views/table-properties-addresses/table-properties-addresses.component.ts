@@ -29,7 +29,7 @@ interface ExportColumn {
 
 @Component({
     selector: 'app-table-properties-addresses',
-    imports: [FormsModule, ButtonModule, TableModule, SelectModule, ToastModule, ToolbarModule, ConfirmDialog, InputTextModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
+    imports: [FormsModule, ButtonModule, TableModule, SelectModule, ToastModule, ToolbarModule, InputTextModule, TextareaModule, CommonModule, DropdownModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule],
     providers: [MessageService, ConfirmationService],
     templateUrl: './table-properties-addresses.component.html',
     styleUrl: './table-properties-addresses.component.scss'
