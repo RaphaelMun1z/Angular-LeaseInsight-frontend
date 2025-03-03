@@ -37,14 +37,13 @@ interface ExportColumn {
 
 export class TablePropertiesFeaturesComponent implements OnInit{
     @Input() additionalFeatures: AdditionalFeature[] = [];
-    additionalFeature!: AdditionalFeature;
     selectedAdditionalFeatures!: AdditionalFeature[] | null;
-    submitted: boolean = false;
-    statuses!: any[];
     
     @ViewChild('dt') dt!: Table;
     cols!: Column[];
     exportColumns!: ExportColumn[];
+
+    globalFilterFields = ['id', 'feature'];
     
     constructor(
         private messageService: MessageService,
@@ -53,21 +52,15 @@ export class TablePropertiesFeaturesComponent implements OnInit{
     ) {}
     
     ngOnInit(): void {
-        this.loadDemoData();
+        this.configureTable();
     }
     
     exportCSV() {
         this.dt.exportCSV();
     }
     
-    loadDemoData() {
+    configureTable() {
         this.cd.markForCheck();
-        
-        this.statuses = [
-            { label: 'INSTOCK', value: 'instock' },
-            { label: 'LOWSTOCK', value: 'lowstock' },
-            { label: 'OUTOFSTOCK', value: 'outofstock' }
-        ];
         
         this.cols = [
             { field: 'id', header: 'Code', customExportHeader: 'AdditionalFeature Code' },
@@ -77,18 +70,6 @@ export class TablePropertiesFeaturesComponent implements OnInit{
         ];
         
         this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
-    }
-    
-    openNew() {
-        this.additionalFeature =  {
-            id: '',
-            feature: ''
-        }
-        this.submitted = false;
-    }
-    
-    editAdditionalFeature(additionalFeature: AdditionalFeature) {
-        this.additionalFeature = { ...additionalFeature };
     }
     
     deleteSelectedAdditionalFeatures() {
@@ -116,10 +97,6 @@ export class TablePropertiesFeaturesComponent implements OnInit{
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.additionalFeatures = this.additionalFeatures.filter((val) => val.id !== additionalFeature.id);
-                this.additionalFeature =  {
-                    id: '',
-                    feature: ''
-                }
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Operação Realizada',
@@ -128,17 +105,5 @@ export class TablePropertiesFeaturesComponent implements OnInit{
                 });
             }
         });
-    }
-    
-    findIndexById(id: string): number {
-        let index = -1;
-        for (let i = 0; i < this.additionalFeatures.length; i++) {
-            if (this.additionalFeatures[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-        
-        return index;
     }
 }

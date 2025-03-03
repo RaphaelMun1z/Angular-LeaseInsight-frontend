@@ -36,17 +36,14 @@ interface ExportColumn {
 })
 
 export class TableClientsComponent implements OnInit{
-    clientDialog: boolean = false; 
     @Input() clients: Client[] = [];
-    client!: Client;
-    clientCreate!: ClientCreate;
     selectedClients!: Client[] | null;
-    submitted: boolean = false;
-    statuses!: any[];
     
     @ViewChild('dt') dt!: Table;
     cols!: Column[];
     exportColumns!: ExportColumn[];
+
+    globalFilterFields = ['id', 'name', 'phone', 'email', 'registrationDate'];
     
     constructor(
         private messageService: MessageService,
@@ -55,22 +52,16 @@ export class TableClientsComponent implements OnInit{
     ) {}
     
     ngOnInit(): void {
-        this.loadDemoData();
+        this.configureTable();
     }
     
     exportCSV() {
         this.dt.exportCSV();
     }
     
-    loadDemoData() {
+    configureTable() {
         this.cd.markForCheck();
-        
-        this.statuses = [
-            { label: 'INSTOCK', value: 'instock' },
-            { label: 'LOWSTOCK', value: 'lowstock' },
-            { label: 'OUTOFSTOCK', value: 'outofstock' }
-        ];
-        
+
         this.cols = [
             { field: 'id', header: 'Code', customExportHeader: 'Client Code' },
             { field: 'name', header: 'Name' },
@@ -107,28 +98,6 @@ export class TableClientsComponent implements OnInit{
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.clients = this.clients.filter((val) => val.id !== client.id);
-                this.client = {
-                    id: '',
-                    name: '',
-                    phone: '',
-                    email: '',
-                    dateOfBirth: '',
-                    cpf: '',
-                    rg: '',
-                    registrationDate: '',
-                    tenantStatus: '',
-                    tenantBillingAddress: {
-                        id: '',
-                        street: '',
-                        district: '',
-                        city: '',
-                        state: '',
-                        country: '',
-                        cep: '',
-                        complement: '',
-                        number: 0
-                    }
-                }
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Operação Realizada',
@@ -138,35 +107,4 @@ export class TableClientsComponent implements OnInit{
             }
         });
     }
-    
-    // =============| Other |=============
-    
-    findIndexById(id: string): number {
-        let index = -1;
-        for (let i = 0; i < this.clients.length; i++) {
-            if (this.clients[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-        
-        return index;
-    }
-    
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-            return 'success';
-            case 'LOWSTOCK':
-            return 'warn';
-            case 'OUTOFSTOCK':
-            return 'danger';
-            default:
-            return 'info';
-        }
-    }
-    
-    applyFilterGlobal($event: any, stringVal: any) {
-        this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
-    } 
 }

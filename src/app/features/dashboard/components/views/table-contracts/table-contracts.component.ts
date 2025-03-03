@@ -49,7 +49,7 @@ export class TableContractsComponent implements OnInit{
     cols!: Column[];
     exportColumns!: ExportColumn[];
 
-    globalFilterFields = ['contract.id', 'contractStartDate', 'contractEndDate', 'defaultRentalValue', 'contractStatus', 'tenant.name', 'residenceAddress']
+    globalFilterFields = ['id', 'contractStartDate', 'contractEndDate', 'defaultRentalValue', 'contractStatus', 'name', 'residenceAddress']
     
     constructor(
         private messageService: MessageService,

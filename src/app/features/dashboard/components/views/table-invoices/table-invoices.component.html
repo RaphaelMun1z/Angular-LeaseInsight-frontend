@@ -5,7 +5,7 @@
         </ng-template>
         
         <ng-template #end>
-            <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+            <p-button label="Exportar CSV" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
         </ng-template>
     </p-toolbar>
 
@@ -16,15 +16,12 @@
     [rows]="10"
     [rowsPerPageOptions]="[10, 25, 50]"
     [paginator]="true"
-    [globalFilterFields]="['rentalStartDate', 'rentalEndDate', 'rentalValue', 'paymentStatus', 'contractId', 'residenceId']"
+    [globalFilterFields]="globalFilterFields"
     [tableStyle]="{ 'min-width': '75rem' }"
     class="!w-full">
     <ng-template #caption>
         <div class="flex">
-            <p-iconfield iconPosition="left" class="ml-auto">
-                <p-inputicon>
-                    <i class="pi pi-search"></i>
-                </p-inputicon>
+            <p-iconfield>
                 <input
                 pInputText
                 type="text"
@@ -115,7 +112,7 @@
                 {{ invoice.rentalValue }}
             </td>
             <td>
-                <p-tag [value]="getStatus(invoice.paymentStatus)" [severity]="getStatusSeverity(invoice.paymentStatus)" />
+                <p-tag [value]="invoice.paymentStatus" [severity]="invoice.paymentStatus" />
             </td>
             <td>
                 {{ invoice.contractId }}
@@ -124,7 +121,6 @@
                 {{ invoice.residenceId }}
             </td>
             <td>
-                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editInvoice(invoice)" />
                 <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteInvoice(invoice)" />
             </td>
         </tr>

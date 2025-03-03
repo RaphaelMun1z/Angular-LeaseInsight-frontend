@@ -5,7 +5,7 @@
         </ng-template>
         
         <ng-template #end>
-            <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+            <p-button label="Exportar CSV" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
         </ng-template>
     </p-toolbar>
     
@@ -15,7 +15,7 @@
     [rows]="10"
     [columns]="cols"
     [paginator]="true"
-    [globalFilterFields]="['name', 'phone', 'email', 'registrationDate']"
+    [globalFilterFields]="globalFilterFields"
     [tableStyle]="{ 'min-width': '75rem' }"
     [(selection)]="selectedClients"
     [rowHover]="true"
@@ -26,10 +26,9 @@
     >
     <ng-template #caption>
         <div class="flex items-center justify-between">
-            <h5 class="m-0">Manage Clients</h5>
             <p-iconfield>
                 <p-inputicon styleClass="pi pi-search" />
-                <input pInputText type="text" (input)="dt.filterGlobal($event, 'contains')" placeholder="Pesquise..." />                 
+                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Pesquise..." />                 
             </p-iconfield>
         </div>
     </ng-template>
@@ -68,7 +67,7 @@
             <td style="min-width: 12rem">{{ client.phone }}</td>
             <td style="min-width: 12rem">{{ client.email }}</td>
             <td>
-                <p-tag [value]="client.tenantStatus" [severity]="getSeverity(client.tenantStatus)" />
+                <p-tag [value]="client.tenantStatus" [severity]="client.tenantStatus" />
             </td>
             <td>
                 <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" />

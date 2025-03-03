@@ -35,13 +35,12 @@ interface ExportColumn {
 export class TableInvoicesComponent implements OnInit {
     @Input() invoices: Invoice[] = [];
     selectedInvoices!: Invoice[] | null;
-    invoice!: Invoice;
-    invoiceDialog: boolean = false; 
-    submitted: boolean = false;
     
     @ViewChild('dt') dt!: Table;
     cols!: Column[];
     exportColumns!: ExportColumn[];
+
+    globalFilterFields = ['rentalStartDate', 'rentalEndDate', 'rentalValue', 'paymentStatus', 'contractId', 'residenceId'];
     
     constructor(
         private messageService: MessageService,
@@ -50,10 +49,14 @@ export class TableInvoicesComponent implements OnInit {
     ) {}
     
     ngOnInit(): void {
-        this.loadDemoData();
+        this.configureTable();
+    }
+        
+    exportCSV() {
+        this.dt.exportCSV();
     }
     
-    loadDemoData() {
+    configureTable() {
         this.cd.markForCheck();
         
         this.cols = [
@@ -66,17 +69,8 @@ export class TableInvoicesComponent implements OnInit {
         this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
     }
     
-    exportCSV() {
-        this.dt.exportCSV();
-    }
-    
     clear(table: Table) {
         table.clear();
-    }
-    
-    editInvoice(invoice: Invoice) {
-        this.invoice = { ...invoice };
-        this.invoiceDialog = true;
     }
     
     deleteSelectedInvoices() {
@@ -97,11 +91,6 @@ export class TableInvoicesComponent implements OnInit {
         });
     }
     
-    hideDialog() {
-        this.invoiceDialog = false;
-        this.submitted = false;
-    }
-    
     deleteInvoice(invoice: Invoice) {
         this.confirmationService.confirm({
             message: 'Você tem certeza que você quer deletar ' + invoice.id + '?',
@@ -109,15 +98,6 @@ export class TableInvoicesComponent implements OnInit {
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.invoices = this.invoices.filter((val) => val.id !== invoice.id);
-                this.invoice =  {
-                    id: '',
-                    rentalStartDate: '',
-                    rentalEndDate: '',
-                    rentalValue: 0,
-                    paymentStatus: 0,
-                    contractId: '',
-                    residenceId: '',
-                }
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Operação Realizada',
@@ -126,67 +106,5 @@ export class TableInvoicesComponent implements OnInit {
                 });
             }
         });
-    }
-    
-    findIndexById(id: string): number {
-        let index = -1;
-        for (let i = 0; i < this.invoices.length; i++) {
-            if (this.invoices[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-        
-        return index;
-    }
-
-    getStatus(status: number){
-        switch (status) {
-            case 1:
-            return 'Pendente';
-            case 2:
-            return 'Pago';
-            case 3:
-            return 'Vencido';
-            case 4:
-            return 'Cancelado';
-            case 5:
-            return 'Em processo';
-            case 6:
-            return 'Pago parcialmente';
-            case 7:
-            return 'Em disputa';
-            case 8:
-            return 'Reembolsado';
-            case 9:
-            return 'Em cobrança';
-            default:
-                return 'Outro'
-        }
-    }
-    
-    getStatusSeverity(status: number) {
-        switch (status) {
-            case 1:
-            return 'info';
-            case 2:
-            return 'success';
-            case 3:
-            return 'warn';
-            case 4:
-            return 'secondary';
-            case 5:
-            return 'secondary';
-            case 6:
-            return 'contrast';
-            case 7:
-            return 'danger';
-            case 8:
-            return 'success';
-            case 9:
-            return 'warn';
-            default:
-            return 'secondary';
-        }
     }
 }

@@ -37,14 +37,13 @@ interface ExportColumn {
 
 export class TablePropertiesAddressesComponent implements OnInit{
     @Input() propertiesAddresses: PropertyAddress[] = [];
-    propertyAddress!: PropertyAddress;
     selectedPropertiesAddresses!: PropertyAddress[] | null;
-    submitted: boolean = false;
-    statuses!: any[];
     
     @ViewChild('dt') dt!: Table;
     cols!: Column[];
     exportColumns!: ExportColumn[];
+
+    globalFilterFields = ['id', 'street', 'district', 'city', 'state', 'country', 'cep', 'complement'];
     
     constructor(
         private messageService: MessageService,
@@ -53,48 +52,28 @@ export class TablePropertiesAddressesComponent implements OnInit{
     ) {}
     
     ngOnInit(): void {
-        this.loadDemoData();
+        this.configureTable();
     }
     
     exportCSV() {
         this.dt.exportCSV();
     }
     
-    loadDemoData() {
+    configureTable() {
         this.cd.markForCheck();
-        
-        this.statuses = [
-            { label: 'INSTOCK', value: 'instock' },
-            { label: 'LOWSTOCK', value: 'lowstock' },
-            { label: 'OUTOFSTOCK', value: 'outofstock' }
-        ];
-        
+    
         this.cols = [
             { field: 'id', header: 'Code', customExportHeader: 'PropertyAddress Code' },
-            { field: 'name', header: 'Name' },
-            { field: 'phone', header: 'Phone' },
-            { field: 'email', header: 'E-mail' }
+            { field: 'street', header: 'street' },
+            { field: 'district', header: 'district' },
+            { field: 'city', header: 'city' },
+            { field: 'state', header: 'state' },
+            { field: 'country', header: 'country' },
+            { field: 'cep', header: 'cep' },
+            { field: 'complement', header: 'complement' },
         ];
         
         this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
-    }
-    
-    openNew() {
-        this.propertyAddress =  {
-            id: '',
-            street: '',
-            district: '',
-            city: '',
-            state: '',
-            country: '',
-            cep: '',
-            complement: ''
-        }
-        this.submitted = false;
-    }
-    
-    editPropertyAddress(propertyAddress: PropertyAddress) {
-        this.propertyAddress = { ...propertyAddress };
     }
     
     deleteSelectedPropertiesAddresses() {
@@ -122,16 +101,6 @@ export class TablePropertiesAddressesComponent implements OnInit{
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.propertiesAddresses = this.propertiesAddresses.filter((val) => val.id !== propertyAddress.id);
-                this.propertyAddress =  {
-                    id: '',
-                    street: '',
-                    district: '',
-                    city: '',
-                    state: '',
-                    country: '',
-                    cep: '',
-                    complement: ''
-                }
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Operação Realizada',
@@ -140,17 +109,5 @@ export class TablePropertiesAddressesComponent implements OnInit{
                 });
             }
         });
-    }
-    
-    findIndexById(id: string): number {
-        let index = -1;
-        for (let i = 0; i < this.propertiesAddresses.length; i++) {
-            if (this.propertiesAddresses[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-        
-        return index;
     }
 }
