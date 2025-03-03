@@ -29,10 +29,12 @@ import { SelectModule } from 'primeng/select';
 import { Message } from 'primeng/message';
 import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
+import { InputTextComponent } from '../../../../../shared/components/input/input-text/input-text.component';
+import { InputMaskComponent } from '../../../../../shared/components/input/input-mask/input-mask.component';
 
 @Component({
     selector: 'app-create-client',
-    imports: [DashboardBaseComponent, BreadcrumbComponent, InputSelectComponent, FormErrorsComponent, FormStorageDirective, ContentBlockComponent, RouterModule, FormsModule, SelectModule, Message, ButtonModule, CommonModule, InputMask, DatePicker, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
+    imports: [DashboardBaseComponent, BreadcrumbComponent, InputTextComponent, InputMaskComponent, InputSelectComponent, FormErrorsComponent, FormStorageDirective, ContentBlockComponent, RouterModule, FormsModule, SelectModule, Message, ButtonModule, CommonModule, DatePicker, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
     templateUrl: './create-client.component.html',
     styleUrl: './create-client.component.scss'
 })

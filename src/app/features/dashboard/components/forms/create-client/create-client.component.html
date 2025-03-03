@@ -4,42 +4,25 @@
     <app-content-block [title]="'Criar Novo Cliente'" [type]="'Formulário'">
         <div class="child">
             <form class="form-container" [formGroup]="form" storage="client-form">
-                <div class="flex flex-col gap-1">
-                    <p-inputgroup>
-                        <p-inputgroup-addon>
-                            <i class="pi pi-user"></i>
-                        </p-inputgroup-addon>
-                        <p-floatlabel>
-                            <input type="text" id="name" pInputText formControlName="name" class="name-input"/>
-                            <label for="name">Nome Completo</label>
-                        </p-floatlabel>
-                    </p-inputgroup>
-                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['name'].invalid">Nome é obrigatório</p-message>
-                </div>
-                <div class="flex flex-col gap-1">
-                    <p-inputgroup>
-                        <p-inputgroup-addon>
-                            <i class="pi pi-phone"></i>
-                        </p-inputgroup-addon>
-                        <p-floatlabel>
-                            <p-inputmask id="phone" mask="(99) 99999-9999" formControlName="phone" class="w-full"/>
-                            <label for="phone">Telefone</label>
-                        </p-floatlabel>
-                    </p-inputgroup>
-                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['phone'].invalid">Telefone é obrigatório</p-message>
-                </div>
-                <div class="flex flex-col gap-1">
-                    <p-inputgroup>
-                        <p-inputgroup-addon>
-                            <i class="pi pi-at"></i>
-                        </p-inputgroup-addon>
-                        <p-floatlabel>
-                            <input type="text" id="email" pInputText formControlName="email" />
-                            <label for="email">E-mail</label>
-                        </p-floatlabel>
-                    </p-inputgroup>
-                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['email'].invalid">E-mail é obrigatório</p-message>
-                </div>
+                <app-input-text
+                formControlName="name"
+                [invalid]="form.controls['name'].invalid"
+                [label]="'Nome Completo'" 
+                [icon]="'pi-user'"></app-input-text>
+
+                <app-input-mask 
+                formControlName="phone"
+                [invalid]="form.controls['phone'].invalid"
+                [label]="'Telefone'"
+                [icon]="'pi-phone'"
+                [inputMask]="'(99) 99999-9999'"></app-input-mask>
+
+                <app-input-text
+                formControlName="email"
+                [invalid]="form.controls['email'].invalid"
+                [label]="'E-mail'" 
+                [icon]="'pi-at'"></app-input-text>
+
                 <div class="flex flex-col gap-1">
                     <p-inputgroup>
                         <p-inputgroup-addon>
@@ -52,42 +35,28 @@
                     </p-inputgroup>
                     <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['dateOfBirth'].invalid">Data de Nascimento é obrigatório</p-message>
                 </div>
-                <div class="flex flex-col gap-1">
-                    <p-inputgroup>
-                        <p-inputgroup-addon>
-                            <i class="pi pi-id-card"></i>
-                        </p-inputgroup-addon>
-                        <p-floatlabel>
-                            <p-inputmask id="cpf" mask="999.999.999-99" formControlName="cpf" class="w-full"/>
-                            <label for="cpf">CPF</label>
-                        </p-floatlabel>
-                    </p-inputgroup>
-                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['cpf'].invalid">CPF é obrigatório</p-message>
-                </div>
-                <div class="flex flex-col gap-1">
-                    <p-inputgroup>
-                        <p-inputgroup-addon>
-                            <i class="pi pi-id-card"></i>
-                        </p-inputgroup-addon>
-                        <p-floatlabel>
-                            <p-inputmask id="rg" mask="99.999.999-9" formControlName="rg" class="w-full"/>
-                            <label for="rg">RG</label>
-                        </p-floatlabel>
-                    </p-inputgroup>
-                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['rg'].invalid">RG é obrigatório</p-message>
-                </div>
-                <div class="flex flex-col gap-1">
-                    <p-inputgroup>
-                        <p-inputgroup-addon>
-                            <i class="pi pi-circle-off"></i>
-                        </p-inputgroup-addon>
-                        <p-floatlabel>
-                            <p-select id="tenantStatus" formControlName="tenantStatus" [options]="clientStatus" class="w-full md:w-56" />
-                            <label for="tenantStatus">Status</label>
-                        </p-floatlabel>
-                    </p-inputgroup>
-                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['tenantStatus'].invalid">Status é obrigatório</p-message>
-                </div>
+
+                <app-input-mask 
+                formControlName="cpf"
+                [invalid]="form.controls['cpf'].invalid"
+                [label]="'CPF'"
+                [icon]="'pi-id-card'"
+                [inputMask]="'999.999.999-99'"></app-input-mask>
+
+                <app-input-mask 
+                formControlName="rg"
+                [invalid]="form.controls['rg'].invalid"
+                [label]="'RG'"
+                [icon]="'pi-id-card'"
+                [inputMask]="'99.999.999-9'"></app-input-mask>
+
+                <app-input-select
+                formControlName="tenantStatus"
+                [invalid]="form.controls['tenantStatus'].invalid"
+                [label]="'Status'" 
+                [icon]="'pi-circle-off'"
+                [items]="clientStatus"></app-input-select>
+
                 <div formGroupName="tenantBillingAddress">
                     <app-input-select
                     formControlName="id"
@@ -96,6 +65,7 @@
                     [icon]="'pi-map-marker'"
                     [items]="addressesList"></app-input-select>
                 </div>
+
                 <div class="flex">
                     <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
                     <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="clientCreateForm.clearForm()"/>

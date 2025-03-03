@@ -12,12 +12,12 @@ export const countries = [
 ];
 
 export const clientStatus = [
-    "ACTIVE",
-    "INACTIVE",
-    "PENDING",
-    "FORMER",
-    "PROSPECTIVE"
-]
+    { name: 'Ativo', code: 'ACTIVE' },
+    { name: 'Inativo', code: 'INACTIVE' },
+    { name: 'Pendente', code: 'PENDING' },
+    { name: 'Ex-cliente', code: 'FORMER' },
+    { name: 'Potencial', code: 'PROSPECTIVE' },
+];
 
 export const paymentStatus = [
     { name: "Pendente", code: 1 },

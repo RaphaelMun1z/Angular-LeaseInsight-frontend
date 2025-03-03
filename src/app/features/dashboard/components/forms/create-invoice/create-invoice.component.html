@@ -9,18 +9,21 @@
                     <p-datepicker formControlName="rentalStartDate" dateFormat="yy-mm-dd" dataType="string" class="max-w-full" [inline]="true" [showWeek]="true" />
                     <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['rentalStartDate'].invalid">Data de criação é obrigatório</p-message>
                 </div>
+                
                 <app-input-select
                 formControlName="paymentStatus"
                 [invalid]="form.controls['paymentStatus'].invalid"
                 [label]="'Status de pagamento'" 
                 [icon]="'pi-map-marker'"
                 [items]="paymentStatus"></app-input-select>
+
                 <app-input-select
                 formControlName="contractId"
                 [invalid]="form.get('contractId')?.invalid ?? false"
                 [label]="'Contrato'" 
                 [icon]="'pi-map-marker'"
                 [items]="contractsSelect"></app-input-select>
+
                 <div class="flex">
                     <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
                     <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="invoiceCreateForm.clearForm()"/>

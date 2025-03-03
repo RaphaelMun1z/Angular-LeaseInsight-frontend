@@ -10,37 +10,44 @@
                 [label]="'CEP'"
                 [icon]="'pi-map-marker'"
                 [inputMask]="'99.999-999'"></app-input-mask>
+
                 <app-input-text
                 formControlName="street"
                 [invalid]="form.controls['street'].invalid"
                 [label]="'Logradouro'" 
                 [icon]="'pi-map-marker'"></app-input-text>
+
                 <app-input-text
                 formControlName="district"
                 [invalid]="form.controls['district'].invalid"
                 [label]="'Bairro'" 
                 [icon]="'pi-map-marker'"></app-input-text>
+
                 <app-input-text
                 formControlName="city"
                 [invalid]="form.controls['city'].invalid"
                 [label]="'Cidade'" 
                 [icon]="'pi-map-marker'"></app-input-text>
+
                 <app-input-text
                 formControlName="state"
                 [invalid]="form.controls['state'].invalid"
                 [label]="'Estado'" 
                 [icon]="'pi-map-marker'"></app-input-text>
+
                 <app-input-select
                 formControlName="country"
                 [invalid]="form.controls['country'].invalid"
                 [label]="'País'" 
                 [icon]="'pi-map-marker'"
                 [items]="countriesList"></app-input-select>
+
                 <app-input-text
                 formControlName="complement"
                 [invalid]="form.controls['complement'].invalid"
                 [label]="'Complemento'" 
                 [icon]="'pi-map-marker'"></app-input-text>
+                
                 <div class="flex">
                     <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
                     <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="propertyAddressCreateForm.clearForm()"/>

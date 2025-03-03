@@ -10,12 +10,14 @@
                 [label]="'Imóvel'" 
                 [icon]="'pi-map-marker'"
                 [items]="propertiesSelect"></app-input-select>
+
                 <app-input-select
                 formControlName="featureId"
                 [invalid]="form.get('featureId')?.invalid ?? false"
                 [label]="'Recurso'" 
                 [icon]="'pi-map-marker'"
                 [items]="featuresSelect"></app-input-select>
+                
                 <div class="flex">
                     <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
                     <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="propertyFeatureAddForm.clearForm()"/>

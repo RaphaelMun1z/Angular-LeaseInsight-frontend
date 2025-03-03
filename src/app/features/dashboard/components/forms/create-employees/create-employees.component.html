@@ -9,17 +9,20 @@
                 [invalid]="form.controls['name'].invalid"
                 [label]="'Nome Completo'" 
                 [icon]="'pi-user'"></app-input-text>
+
                 <app-input-mask 
                 formControlName="phone"
                 [invalid]="form.controls['phone'].invalid"
                 [label]="'Telefone'"
                 [icon]="'pi-phone'"
                 [inputMask]="'(99) 99999-9999'"></app-input-mask>
+
                 <app-input-text
                 formControlName="email"
                 [invalid]="form.controls['email'].invalid"
                 [label]="'E-mail'" 
                 [icon]="'pi-at'"></app-input-text>
+                
                 <div class="flex">
                     <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
                     <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="employeeCreateForm.clearForm()"/>
