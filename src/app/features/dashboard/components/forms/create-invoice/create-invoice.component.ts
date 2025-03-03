@@ -22,15 +22,14 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { DatePicker } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
-import { Message } from 'primeng/message';
 import { MenuItem } from 'primeng/api';
+import { InputDatepickerComponent } from '../../../../../shared/components/input/input-datepicker/input-datepicker.component';
 
 @Component({
     selector: 'app-create-invoice',
-    imports: [FormStorageDirective, BreadcrumbComponent, FormErrorsComponent, DatePicker, InputSelectComponent, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, Message, ButtonModule, CommonModule, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
+    imports: [FormStorageDirective, BreadcrumbComponent, FormErrorsComponent, InputDatepickerComponent, InputSelectComponent, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, ButtonModule, CommonModule, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
     templateUrl: './create-invoice.component.html',
     styleUrl: './create-invoice.component.scss'
 })

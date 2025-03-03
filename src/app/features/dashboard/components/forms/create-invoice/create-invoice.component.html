@@ -4,11 +4,10 @@
     <app-content-block [title]="'Cadastrar Fatura'" [type]="'Formulário'">
         <div class="child">
             <form class="form-container" [formGroup]="form" storage="invoice-form">
-                <div class="child-date">
-                    <h2>Data de criação</h2>
-                    <p-datepicker formControlName="rentalStartDate" dateFormat="yy-mm-dd" dataType="string" class="max-w-full" [inline]="true" [showWeek]="true" />
-                    <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['rentalStartDate'].invalid">Data de criação é obrigatório</p-message>
-                </div>
+                <app-input-datepicker
+                formControlName="rentalStartDate"
+                [invalid]="form.controls['rentalStartDate'].invalid"
+                [label]="'Data de criação'"></app-input-datepicker>
                 
                 <app-input-select
                 formControlName="paymentStatus"

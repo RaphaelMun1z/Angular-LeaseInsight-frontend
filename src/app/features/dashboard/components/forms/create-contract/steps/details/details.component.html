@@ -6,32 +6,33 @@
         [invalid]="form.controls['defaultRentalValue'].invalid"
         [label]="'Valor mensal da locação'" 
         [icon]="'pi-tag'"></app-input-number>
-
+        
         <app-input-select
         formControlName="invoiceDueDate"
         [invalid]="form.controls['invoiceDueDate'].invalid"
         [label]="'Dia do vencimento da fatura'" 
         [icon]="'pi-map-marker'"
         [items]="invoiceDueDates"></app-input-select>
-
+        
         <app-input-select
         formControlName="contractStatus"
         [invalid]="form.controls['contractStatus'].invalid"
         [label]="'Status do contrato'" 
         [icon]="'pi-map-marker'"
         [items]="contractStatus"></app-input-select>
-
-        <div class="date-container">
-            <div class="child-date">
-                <h2>Data de início do contrato</h2>
-                <p-datepicker formControlName="contractStartDate" dateFormat="yy-mm-dd" dataType="string" class="max-w-full" [inline]="true" [showWeek]="true" />
-                <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['contractStartDate'].invalid">Data de início de contrato é obrigatório</p-message>
-            </div>
-            <div class="child-date">
-                <h2>Data de fim do contrato</h2>
-                <p-datepicker formControlName="contractEndDate" dateFormat="yy-mm-dd" dataType="string" class="max-w-full" [inline]="true" [showWeek]="true" />
-                <p-message severity="error" variant="simple" size="small" *ngIf="form.controls['contractEndDate'].invalid">Data de fim de contrato é obrigatório</p-message>
-            </div>
+        
+        <div class="date-container grid grid-cols-2 gap-4">
+            <app-input-datepicker
+            class="!w-fit"
+            formControlName="contractStartDate"
+            [invalid]="form.controls['contractStartDate'].invalid"
+            [label]="'Data de início de contrato'"></app-input-datepicker>
+            
+            <app-input-datepicker
+            class="!w-fit"
+            formControlName="contractEndDate"
+            [invalid]="form.controls['contractEndDate'].invalid"
+            [label]="'Data de fim de contrato'"></app-input-datepicker>
         </div>
     </form>
 </div>

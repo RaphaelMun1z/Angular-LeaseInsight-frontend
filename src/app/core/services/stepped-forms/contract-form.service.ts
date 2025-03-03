@@ -67,8 +67,8 @@ export class ContractFormService {
         const formattedData = {
             residence: this.form.value.step1.residence,
             tenant: this.form.value.step2.tenant,
-            contractStartDate: this.form.value.step3.contractStartDate,
-            contractEndDate: this.form.value.step3.contractEndDate,
+            contractStartDate: new Date(this.form.value.step3.contractStartDate).toISOString().split('T')[0],
+            contractEndDate: new Date(this.form.value.step3.contractEndDate).toISOString().split('T')[0],
             defaultRentalValue: this.form.value.step3.defaultRentalValue,
             contractStatus: this.form.value.step3.contractStatus,
             invoiceDueDate: this.form.value.step3.invoiceDueDate

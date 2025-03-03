@@ -1,0 +1,7 @@
+<div class="card flex flex-col">
+    <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ label }}</span>
+    <p-datepicker class="max-w-full" [(ngModel)]="value" [inline]="true" [showWeek]="true" />
+    <p-message severity="error" variant="simple" size="small" *ngIf="invalid">
+        {{ label }} é obrigatório
+    </p-message>
+</div>
