@@ -24,13 +24,9 @@ export class FeaturesComponent implements OnInit {
     }
     
     ngOnInit(): void {
-        this.getAdditionalFeatures();
+        this.additionalFeatures$ = this.additionalFeatureStateService.listenToAdditionalFeaturesChanges();
         this.additionalFeatures$.subscribe((data: AdditionalFeature[]) => {
             this.additionalFeatures = data;
         });
-    }
-    
-    getAdditionalFeatures(){
-        this.additionalFeatures$ = this.additionalFeatureStateService.listenToChanges();
     }
 }

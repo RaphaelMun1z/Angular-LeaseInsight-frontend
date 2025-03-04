@@ -92,12 +92,14 @@ export class ConfirmationComponent  implements OnInit{
     }
     
     ngOnInit(): void {
-        this.address$ = this.propertyAddressStateService.listenToPropertyAddress();
-        this.address$.subscribe((data: PropertyAddress | null) => {
-            if(data){
-                this.address = data;
+        this.propertyAddressStateService.loadPropertyAddress(this.form.get('step2.residenceAddress.id')?.value).subscribe({
+            next: (address: PropertyAddress | null) => {
+                this.address = address!!;
+            },
+            error: () => {
+                console.log("Erro!")
             }
-        });
+        })
         
         this.ownerStateService.loadOwner(this.form.get('step2.tenant.id')?.value).subscribe({
             next: (owner: Owner | null) => {

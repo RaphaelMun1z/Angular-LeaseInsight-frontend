@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { PropertyAddress, PropertyAddressCreate } from '../../shared/interfaces/propertyAddress';
+import { PropertyAddress, PropertyAddressCreate, PropertyAddressUpdate } from '../../shared/interfaces/propertyAddress';
 
 @Injectable({
     providedIn: 'root'
@@ -20,8 +20,12 @@ export class PropertyAddressService {
     getPropertyAddressById(id: string): Observable<PropertyAddress> {
         return this.http.get<PropertyAddress>(this.url + "/residence-addresses/" + id);
     }
-
+    
     savePropertyAddress(address: PropertyAddressCreate): any {
         return this.http.post<PropertyAddress>(this.url + "/residence-addresses", address);
+    }
+    
+    patchPropertyAddress(address: PropertyAddressUpdate, id: string): any {
+        return this.http.patch<PropertyAddressUpdate>(this.url + "/residence-addresses/" + id, address);
     }
 }

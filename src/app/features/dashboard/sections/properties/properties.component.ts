@@ -24,13 +24,9 @@ export class PropertiesComponent implements OnInit {
     }
     
     ngOnInit(): void {
-        this.getPropertys();
+        this.properties$ = this.propertyStateService.listenToPropertiesChanges();
         this.properties$.subscribe((data: Property[]) => {
             this.properties = data;
         });
-    }
-    
-    getPropertys(){
-        this.properties$ = this.propertyStateService.listenToChanges();
     }
 }

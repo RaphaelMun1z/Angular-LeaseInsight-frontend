@@ -84,6 +84,8 @@ import { UpdateOwnerComponent } from './features/dashboard/components/forms/upda
 import { UpdateEmployeeComponent } from './features/dashboard/components/forms/update/update-employee/update-employee.component';
 import { UpdateInvoiceComponent } from './features/dashboard/components/forms/update/update-invoice/update-invoice.component';
 import { UpdateClientBillingAddressComponent } from './features/dashboard/components/forms/update/update-client-billing-address/update-client-billing-address.component';
+import { UpdatePropertyAddressComponent } from './features/dashboard/components/forms/update/update-property-address/update-property-address.component';
+import { UpdatePropertyFeatureComponent } from './features/dashboard/components/forms/update/update-property-feature/update-property-feature.component';
 
 export const routes: Routes = [
     {
@@ -212,8 +214,16 @@ export const routes: Routes = [
                         component: CreatePropertyAddressComponent
                     },
                     {
+                        path: 'imoveis/endereco/atualizar/:id',
+                        component: UpdatePropertyAddressComponent
+                    },
+                    {
                         path: 'imoveis/caracteristicas',
                         component: FeaturesComponent
+                    },
+                    {
+                        path: 'imoveis/caracteristicas/atualizar/:id',
+                        component: UpdatePropertyFeatureComponent
                     },
                     {
                         path: 'imoveis/caracteristicas/criar',

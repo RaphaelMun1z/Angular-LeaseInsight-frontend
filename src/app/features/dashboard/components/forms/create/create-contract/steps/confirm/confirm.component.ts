@@ -69,13 +69,15 @@ export class ConfirmComponent implements OnInit{
     }
     
     ngOnInit(): void {
-        this.property$ = this.propertyStateService.listenToProperty();
-        this.property$.subscribe((data: Property | null) => {
-            if(data){
-                this.property = data;
+        this.propertyStateService.loadProperty(this.form.get('step1.residence.id')?.value).subscribe({
+            next: (property: Property | null) => {
+                this.property = property!!;
                 this.updateImageUrls();
+            },
+            error: () => {
+                console.log("Erro!")
             }
-        });
+        })
         
         this.clientStateService.loadClient(this.form.get('step2.tenant.id')?.value).subscribe({
             next: (client: Client | null) => {

@@ -45,15 +45,11 @@ export class SelectAddressComponent implements OnInit {
     ngOnInit(): void {
         this.form = this.propertyFormService.getStep2Form();
         
-        this.getPropertyAddresses();
+        this.addresses$ = this.propertyAddressStateService.listenToPropertyAddressesChanges();
         this.addresses$.subscribe((data: PropertyAddress[]) => {
             this.addresses = data;
             this.loading = false;
         });
-    }
-    
-    getPropertyAddresses(){
-        this.addresses$ = this.propertyAddressStateService.listenToChanges();
     }
     
     selected(idSelected: string){

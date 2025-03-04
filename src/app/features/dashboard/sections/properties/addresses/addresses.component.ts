@@ -24,13 +24,9 @@ export class AddressesComponent implements OnInit {
     }
     
     ngOnInit(): void {
-        this.getPropertiesAddresses();
+        this.propertiesAddresses$ = this.propertyAddressStateService.listenToPropertyAddressesChanges();
         this.propertiesAddresses$.subscribe((data: PropertyAddress[]) => {
             this.propertiesAddresses = data;
         });
-    }
-    
-    getPropertiesAddresses(){
-        this.propertiesAddresses$ = this.propertyAddressStateService.listenToChanges();
     }
 }

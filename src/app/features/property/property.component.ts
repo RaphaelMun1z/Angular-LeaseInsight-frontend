@@ -27,15 +27,16 @@ export class PropertyComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap.subscribe(
             value => {
-                this.propertyStateService.loadProperty(value.get("id"));
-                this.property$ = this.propertyStateService.listenToProperty();
-                this.property$.subscribe((data: Property | null) => {
-                    if(data){
-                        this.property = data;
-                        const propertyFeatures = data.features?.map(item => item['feature']);
+                this.propertyStateService.loadProperty(value.get("id") || "").subscribe({
+                    next: (property: Property | null) => {
+                        this.property = property!!;
+                        const propertyFeatures = property?.features?.map(item => item['feature']);
                         this.property.features = propertyFeatures;
+                    },
+                    error: () => {
+                        console.log("Erro!")
                     }
-                });
+                })
             }
         )
     }

@@ -65,7 +65,7 @@ export class CreatePropertyFeatureAddComponent implements OnInit {
         })
         this.propertyFeatureAddForm.setForm(this.form);
         
-        this.properties$ = this.propertyStateService.listenToChanges();
+        this.properties$ = this.propertyStateService.listenToPropertiesChanges();
         this.properties$.subscribe((data: Property[]) => {
             this.propertiesSelect = data.map(property => ({
                 name: property.id,
@@ -73,7 +73,7 @@ export class CreatePropertyFeatureAddComponent implements OnInit {
             }));
         });
         
-        this.additionalFeatures$ = this.additionalFeatureStateService.listenToChanges();
+        this.additionalFeatures$ = this.additionalFeatureStateService.listenToAdditionalFeaturesChanges();
         this.additionalFeatures$.subscribe((data: AdditionalFeature[]) => {
             this.featuresSelect = data.map(item => ({
                 name: item.feature,

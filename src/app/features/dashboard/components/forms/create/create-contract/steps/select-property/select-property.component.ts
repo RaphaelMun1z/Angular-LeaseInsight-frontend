@@ -50,7 +50,7 @@ export class SelectPropertyComponent implements OnInit {
         this.contractCreateForm = this.contractFormService.getFormHandler();
         this.form = this.contractFormService.getStep1Form();
         
-        this.properties$ = this.propertyStateService.listenToChanges();
+        this.properties$ = this.propertyStateService.listenToPropertiesChanges();
         this.properties$.subscribe((data: Property[]) => {
             this.properties = data;
         });     

@@ -6,3 +6,7 @@ export interface AdditionalFeature {
 export interface AdditionalFeatureCreate {
     feature: string
 }
+
+export interface AdditionalFeatureUpdate {
+    feature: string
+}

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { PropertyService } from '../services/property.service';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, take, throwError } from 'rxjs';
 import { Property, PropertyMinimal } from '../../shared/interfaces/property';
 
 @Injectable({
@@ -10,10 +10,10 @@ import { Property, PropertyMinimal } from '../../shared/interfaces/property';
 export class PropertyStateService {
     private properties$ = new BehaviorSubject<Property[]>([]);
     private propertiesMinimal$ = new BehaviorSubject<PropertyMinimal[]>([]);
-    private property$ = new BehaviorSubject<Property | null>(null);
     
     private propertyService = inject(PropertyService);
     
+    // Get All
     loadProperties(){
         this.propertyService
         .getProperties()
@@ -25,38 +25,33 @@ export class PropertyStateService {
         this.properties$.next(properties);
     }
     
-    loadProperty(id: string | null){
-        if(id != null){
-            this.propertyService
-            .getPropertyById(id)
-            .pipe(take(1))
-            .subscribe(property => this.shareProperty(property))
-        }
+    listenToPropertiesChanges(): Observable<Property[]>{
+        return this.properties$.asObservable();
     }
-    
-    private shareProperty(property: Property){
-        this.property$.next(property);
-    }
-    
+
+    // Get All (Minimal)
     loadPropertiesMinimal(status: string){
         this.propertyService
         .getPropertiesMinimal(status)
         .pipe(take(1))
         .subscribe(properties => this.sharePropertiesMinimal(properties))
     }
-    
+
     private sharePropertiesMinimal(properties: PropertyMinimal[]){
         this.propertiesMinimal$.next(properties);
     }
     
-    listenToChanges(): Observable<Property[]>{
-        return this.properties$.asObservable();
+    // Get By Id
+    loadProperty(id: string): Observable<Property | null> {
+        return this.propertyService.getPropertyById(id).pipe(
+            take(1), 
+            catchError(error => {
+                return throwError(() => error);
+            })
+        );
     }
     
-    listenToProperty(): Observable<Property | null>{
-        return this.property$.asObservable();
-    }
-    
+    // Add Property
     addProperty(Property: Property){
         const currentPropertys = this.properties$.value;
         this.properties$.next([...currentPropertys, Property]);

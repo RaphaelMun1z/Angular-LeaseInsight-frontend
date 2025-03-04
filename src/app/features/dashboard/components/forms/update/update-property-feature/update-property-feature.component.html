@@ -1,0 +1,25 @@
+<app-breadcrumb [breadCrumbItems]="breadCrumbItems"></app-breadcrumb>
+
+<app-dashboard-base [title]="'Imóveis'">
+    <app-content-block [title]="'Atualizar Característica'" [type]="'Formulário'">
+        <div class="child">
+            <form class="form-container" [formGroup]="form" storage="property-additional-feature-update-form">
+                <app-input-text
+                formControlName="feature"
+                [invalid]="form.controls['feature'].invalid"
+                [label]="'Característica'" 
+                [icon]="'pi-map-marker'"></app-input-text>
+                
+                <div class="flex">
+                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
+                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="propertyAdditionalFeatureUpdateForm.clearForm()"/>
+                </div>
+            </form>
+            <app-form-errors 
+            [item]="'Cliente'"
+            [loading]="propertyAdditionalFeatureUpdateForm.getLoading()"
+            [success]="propertyAdditionalFeatureUpdateForm.getSendSuccess()"
+            [errors]="propertyAdditionalFeatureUpdateForm.getErrorList()"></app-form-errors>
+        </div>
+    </app-content-block>
+</app-dashboard-base>

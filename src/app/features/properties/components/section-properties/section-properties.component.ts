@@ -38,16 +38,12 @@ export class SectionPropertiesComponent implements OnInit {
     }
     
     ngOnInit() {
-        this.getProperties();
+        this.properties$ = this.propertyStateService.listenToPropertiesChanges();
         this.properties$.subscribe((data: Property[]) => {
             data.forEach(item => {
                 item.fullAddress = `${item.residenceAddress.district}, ${item.residenceAddress.city} - ${item.residenceAddress.state}`;
             });
             this.properties = data;
         });
-    }
-
-    getProperties(){
-        this.properties$ = this.propertyStateService.listenToChanges();
     }
 }
