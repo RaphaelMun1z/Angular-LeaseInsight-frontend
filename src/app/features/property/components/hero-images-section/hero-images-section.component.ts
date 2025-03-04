@@ -4,10 +4,13 @@ import { Observable } from 'rxjs';
 
 import { PropertyService } from '../../../../core/services/property.service';
 import { Property } from '../../../../shared/interfaces/property';
+import { SkeletonModule } from 'primeng/skeleton';
+
+import { propertyType } from '../../../../shared/utils/ConstLists';
 
 @Component({
     selector: 'app-hero-images-section',
-    imports: [CommonModule],
+    imports: [CommonModule, SkeletonModule],
     templateUrl: './hero-images-section.component.html',
     styleUrl: './hero-images-section.component.scss'
 })
@@ -57,25 +60,6 @@ export class HeroImagesSectionComponent implements OnChanges {
     }
     
     getPropertyType(type: string): string {
-        switch (type) {
-            case 'HOUSE':
-            return 'Casa';
-            case 'CONDO':
-            return 'Condomínio';
-            case 'FARM':
-            return 'Fazenda';
-            case 'WAREHOUSE':
-            return 'Galpão';
-            case 'COMMERCIAL_APARTMENT':
-            return 'Sala Comercial';
-            case 'RETAIL_STORE':
-            return 'Loja';
-            case 'APARTMENT':
-            return 'Apartamento';
-            case 'LAND_PLOT':
-            return 'Terreno';
-            default:
-            return 'Desconhecido';
-        }
+        return propertyType.find(item => item.code === type)?.name || "Não foi possível carregar.";
     }
 }

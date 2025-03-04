@@ -36,8 +36,8 @@ export const propertyType = [
     { name: "APARTAMENTO", code: "CONDO"},
     { name: "FAZENDA", code: "FARM"},
     { name: "ARMAZÉM", code: "WAREHOUSE"},
-    { name: "APARTAMENTO_COMERCIAL", code: "COMMERCIAL_APARTMENT"},
-    { name: "LOJA_VAREJO", code: "RETAIL_STORE"},
+    { name: "APARTAMENTO COMERCIAL", code: "COMMERCIAL_APARTMENT"},
+    { name: "LOJA VAREJO", code: "RETAIL_STORE"},
     { name: "APARTAMENTO", code: "APARTMENT"},
     { name: "TERRENO", code: "LAND_PLOT"}
 ]

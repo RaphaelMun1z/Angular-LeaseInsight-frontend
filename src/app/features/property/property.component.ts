@@ -8,10 +8,11 @@ import { Property } from '../../shared/interfaces/property';
 import { map, Observable } from 'rxjs';
 import { PropertyStateService } from '../../core/states/property-state.service';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-property',
-    imports: [HeroImagesSectionComponent, DetailsSectionComponent, RecommendedComponent],
+    imports: [HeroImagesSectionComponent, DetailsSectionComponent, RecommendedComponent, CommonModule],
     templateUrl: './property.component.html',
     styleUrl: './property.component.scss'
 })

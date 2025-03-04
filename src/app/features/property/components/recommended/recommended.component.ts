@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SectionEmphasisComponent } from "../../../home/components/section-emphasis/section-emphasis.component";
+import { SectionEmphasisComponent } from "../../../../shared/components/section-emphasis/section-emphasis.component";
 
 @Component({
   selector: 'app-recommended',

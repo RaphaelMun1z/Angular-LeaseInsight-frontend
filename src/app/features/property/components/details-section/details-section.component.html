@@ -2,37 +2,91 @@
     <div class="main">
         <div class="topic !pt-0">
             <h1 class="title">Descrição</h1>
-            <p class="text">{{ property.description }}</p>
+            <ng-container *ngIf="property && property.description; else noPropertyDescription">
+                <p class="text">{{ property.description }}</p>
+            </ng-container>
+            <ng-template #noPropertyDescription>
+                <p-skeleton height="10rem" styleClass="mb-2" />
+            </ng-template>
+            
             <div class="items-number-container">
-                <div class="flex space-x-2 items-center">
-                    <i class="pi pi-moon text-gray-500"></i>
-                    <p class="!text-gray-500 whitespace-nowrap">{{ property.numberBedrooms }} Quartos</p>
-                </div>
-                <div class="flex space-x-2 items-center">
-                    <i class="pi pi-moon text-gray-500"></i>
-                    <p class="!text-gray-500 whitespace-nowrap">{{ property.numberSuites }} Suítes</p>
-                </div>
-                <div class="flex space-x-4 items-center">
-                    <i class="pi pi-window-maximize text-gray-500"></i>
-                    <p class="!text-gray-500 whitespace-nowrap">{{ property.totalArea }} m<sup>2</sup></p>
-                </div>
-                <div class="flex space-x-4 items-center">
-                    <i class="pi pi-window-minimize text-gray-500"></i>
-                    <p class="!text-gray-500 whitespace-nowrap">{{ property.builtArea }} m<sup>2</sup></p>
-                </div>
-                <div class="flex space-x-4 items-center">
-                    <i class="pi pi-car text-gray-500"></i>
-                    <p class="!text-gray-500 whitespace-nowrap">{{ property.garageSpaces }} Vagas</p>
-                </div>
+                <ng-container *ngIf="property && property.numberBedrooms; else noPropertyNumberBedrooms">
+                    <div class="flex space-x-2 items-center">
+                        <i class="pi pi-moon text-gray-500"></i>
+                        <p class="!text-gray-500 whitespace-nowrap">{{ property.numberBedrooms }} Quartos</p>  
+                    </div>
+                </ng-container>
+                <ng-template #noPropertyNumberBedrooms>
+                    <div class="flex space-x-2 items-center">
+                        <p-skeleton height="2rem" class="w-24" />
+                    </div>
+                </ng-template>
+                
+                <ng-container *ngIf="property && property.numberSuites; else noPropertyNumberSuites">
+                    <div class="flex space-x-2 items-center">
+                        <i class="pi pi-moon text-gray-500"></i>
+                        <p class="!text-gray-500 whitespace-nowrap">{{ property.numberSuites }} Suítes</p>
+                    </div>
+                </ng-container>
+                <ng-template #noPropertyNumberSuites>
+                    <div class="flex space-x-2 items-center">
+                        <p-skeleton height="2rem" class="w-24" />
+                    </div>
+                </ng-template>
+                
+                <ng-container *ngIf="property && property.totalArea; else noPropertyTotalArea">
+                    <div class="flex space-x-4 items-center">
+                        <i class="pi pi-window-maximize text-gray-500"></i>
+                        <p class="!text-gray-500 whitespace-nowrap">{{ property.totalArea }} m<sup>2</sup></p>
+                    </div>
+                </ng-container>
+                <ng-template #noPropertyTotalArea>
+                    <div class="flex space-x-2 items-center">
+                        <p-skeleton height="2rem" class="w-24" />
+                    </div>
+                </ng-template>
+                
+                <ng-container *ngIf="property && property.builtArea; else noPropertyBuiltArea">
+                    <div class="flex space-x-4 items-center">
+                        <i class="pi pi-window-minimize text-gray-500"></i>
+                        <p class="!text-gray-500 whitespace-nowrap">{{ property.builtArea }} m<sup>2</sup></p>
+                    </div>
+                </ng-container>
+                <ng-template #noPropertyBuiltArea>
+                    <div class="flex space-x-2 items-center">
+                        <p-skeleton height="2rem" class="w-24" />
+                    </div>
+                </ng-template>
+                
+                <ng-container *ngIf="property && property.garageSpaces; else noPropertyGarageSpaces">
+                    <div class="flex space-x-4 items-center">
+                        <i class="pi pi-car text-gray-500"></i>
+                        <p class="!text-gray-500 whitespace-nowrap">{{ property.garageSpaces }} Vagas</p>
+                    </div>
+                </ng-container>
+                <ng-template #noPropertyGarageSpaces>
+                    <div class="flex space-x-2 items-center">
+                        <p-skeleton height="2rem" class="w-24" />
+                    </div>
+                </ng-template>
             </div>
         </div>
-        <div class="topic" *ngIf="property?.residenceAddress">
+        
+        <div class="topic" *ngIf="property && property?.residenceAddress">
             <h1 class="title">Localização da Propriedade</h1>
             <p class="text">Localização estratégica para garantir praticidade e valorização do seu investimento!</p>
-            <p>{{ property.residenceAddress.street }}, {{ property.number }}, {{ property.residenceAddress.district }}, {{ property.residenceAddress.city }}, {{ property.residenceAddress.state }}, {{ property.residenceAddress.country }} - {{ property.residenceAddress.cep }} ({{ property.residenceAddress.complement }})</p>
+            <ng-container *ngIf="property; else noPropertyAddress">
+                <p>{{ property.residenceAddress.street }}, {{ property.number }}, {{ property.residenceAddress.district }}, {{ property.residenceAddress.city }}, {{ property.residenceAddress.state }}, {{ property.residenceAddress.country }} - {{ property.residenceAddress.cep }} ({{ property.residenceAddress.complement }})</p>
+            </ng-container>
+            <ng-template #noPropertyAddress>
+                <div class="flex space-x-2 items-center">
+                    <p-skeleton height="2rem" class="w-5/6" />
+                </div>
+            </ng-template>
             <img src="https://img.freepik.com/vetores-premium/vista-superior-3d-de-um-mapa-com-ponto-de-localizacao-de-destino_34645-1081.jpg" alt="Localização">
         </div>
-        <div class="topic" *ngIf="property?.features && property.features?.length ?? 0">
+        
+        <div class="topic" *ngIf="property && property.features && property.features?.length ?? 0">
             <h1 class="title">Comodidades</h1>
             <p class="text">Descubra todas as características do imóvel ideal para você com facilidade e precisão!</p>
             <div class="amenities-container">
@@ -47,7 +101,14 @@
     </div>
     <div class="aside">
         <div class="price-block block-content">
-            <h1 class="price">{{ property.rentalValue | currency: 'BRL' }}</h1>
+            <ng-container *ngIf="property && property.rentalValue; else noPropertyRentalValue">
+                <h1 class="price">{{ property.rentalValue | currency: 'BRL' }}</h1>
+            </ng-container>
+            <ng-template #noPropertyRentalValue>
+                <div class="flex space-x-2 items-center">
+                    <p-skeleton height="4rem" class="w-11/12" />
+                </div>
+            </ng-template>
             <p class="text">Imóvel disponível para locação</p>
         </div>
         <div class="contact-block block-content">
@@ -82,9 +143,18 @@
                 <p-avatar label="P" styleClass="mr-2" size="xlarge" shape="circle" />
             </div>
             <div class="details-container">
-                <h3 class="font-semibold text-2xl mb-1.5">{{ property.owner?.name }}</h3>
-                <p class="font-light">{{ property.owner?.phone }}</p>
-                <p class="font-light">{{ property.owner?.email }}</p>
+                <ng-container *ngIf="property && property.owner; else noPropertyOwner">
+                    <h3 class="font-semibold text-2xl mb-1.5">{{ property.owner.name }}</h3>
+                    <p class="font-light">{{ property.owner.phone }}</p>
+                    <p class="font-light">{{ property.owner.email }}</p>
+                </ng-container>
+                <ng-template #noPropertyOwner>
+                    <div class="flex space-x-2 items-center">
+                        <p-skeleton height="3rem" class="w-12/12 mb-2" />
+                        <p-skeleton height="2rem" class="w-8/12 mb-2" />
+                        <p-skeleton height="2rem" class="w-10/12" />
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>
