@@ -47,7 +47,7 @@ export class SelectClientComponent implements OnInit {
     ngOnInit() {
         this.form = this.contractFormService.getStep2Form();
         
-        this.clients$ = this.clientStateService.listenToChanges();
+        this.clients$ = this.clientStateService.listenToClientsChanges();
         this.clients$.subscribe((data: Client[]) => {
             this.clients = data;
             this.loading = false;

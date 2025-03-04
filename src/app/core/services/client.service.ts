@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, switchMap, take } from 'rxjs';
-import { Client, ClientCreate } from '../../shared/interfaces/client';
+import { Client, ClientCreate, ClientUpdate } from '../../shared/interfaces/client';
 import { environment } from '../../../environments/environment';
 import { Invoice, InvoiceFull } from '../../shared/interfaces/invoice';
 import { AuthService } from './auth.service';
@@ -21,13 +21,17 @@ export class ClientService {
     getClients(): Observable<Client[]> {
         return this.http.get<Client[]>(this.url + "/tenants");
     }
+
+    getClientById(id: string): Observable<Client> {
+        return this.http.get<Client>(this.url + "/tenants/" + id);
+    }
     
     saveClient(client: ClientCreate): any {
         return this.http.post<ClientCreate>(this.url + "/tenants", client);
     }
     
-    getClientById(id: string): Observable<Client> {
-        return this.http.get<Client>(this.url + "/tenants/" + id);
+    patchClient(client: ClientUpdate, id: string): any {
+        return this.http.patch<ClientUpdate>(this.url + "/tenants/" + id, client);
     }
     
     getClientInvoices(id: string): Observable<Invoice[]> {
@@ -41,7 +45,7 @@ export class ClientService {
             })
         );
     }
-
+    
     getCurrentClientContracts(): Observable<Contract[]> {
         return this.authService.getCurrentUser().pipe(
             switchMap(user => {
@@ -49,7 +53,7 @@ export class ClientService {
             })
         );
     }
-
+    
     getCurrentClientReports(): Observable<Report[]> {
         return this.authService.getCurrentUser().pipe(
             switchMap(user => {

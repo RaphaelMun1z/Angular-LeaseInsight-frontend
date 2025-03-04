@@ -28,7 +28,7 @@ export class PropertyComponent implements OnInit {
         this.route.paramMap.subscribe(
             value => {
                 this.propertyStateService.loadProperty(value.get("id"));
-                this.getProperty();
+                this.property$ = this.propertyStateService.listenToProperty();
                 this.property$.subscribe((data: Property | null) => {
                     if(data){
                         this.property = data;
@@ -38,9 +38,5 @@ export class PropertyComponent implements OnInit {
                 });
             }
         )
-    }
-    
-    getProperty(){
-        this.property$ = this.propertyStateService.listenToProperty();
     }
 }

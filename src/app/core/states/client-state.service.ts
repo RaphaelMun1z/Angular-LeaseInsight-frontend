@@ -1,10 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { ClientService } from '../services/client.service';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, take, throwError } from 'rxjs';
 import { Client } from '../../shared/interfaces/client';
 import { InvoiceFull } from '../../shared/interfaces/invoice';
 import { Contract } from '../../shared/interfaces/contract';
 import { Report } from '../../shared/interfaces/report';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +21,7 @@ export class ClientStateService {
     private clientService = inject(ClientService);
     constructor() { }
     
+    // Get All
     loadClients(){
         this.clientService
         .getClients()
@@ -31,17 +33,27 @@ export class ClientStateService {
         this.clients$.next(clients);
     }
     
-    loadClient(id: string){
-        this.clientService
-        .getClientById(id)
-        .pipe(take(1))
-        .subscribe(Client => this.shareClient(Client))
+    listenToClientsChanges(): Observable<Client[]>{
+        return this.clients$.asObservable();
     }
     
-    private shareClient(client: Client){
-        this.client$.next(client);
+    // Get By Id
+    loadClient(id: string): Observable<Client | null> {
+        return this.clientService.getClientById(id).pipe(
+            take(1), 
+            catchError(error => {
+                return throwError(() => error);
+            })
+        );
     }
-
+    
+    // Add Client
+    addClient(client: Client){
+        const currentClients = this.clients$.value;
+        this.clients$.next([...currentClients, client]);
+    }
+    
+    // Get Current Client Invoices
     loadCurrentClientInvoices(){
         this.clientService
         .getCurrentClientInvoices()
@@ -52,7 +64,12 @@ export class ClientStateService {
     private shareClientInvoices(currentClientInvoices: InvoiceFull[]){
         this.currentClientInvoices$.next(currentClientInvoices);
     }
-
+    
+    listenToCurrentClientInvoices(): Observable<InvoiceFull[]>{
+        return this.currentClientInvoices$.asObservable();
+    }
+    
+    // Get Current Client Contracts
     loadCurrentClientContracts(){
         this.clientService
         .getCurrentClientContracts()
@@ -63,7 +80,12 @@ export class ClientStateService {
     private shareClientContracts(currentClientContracts: Contract[]){
         this.currentClientContracts$.next(currentClientContracts);
     }
-
+    
+    listenToCurrentClientContracts(): Observable<Contract[]>{
+        return this.currentClientContracts$.asObservable();
+    }
+    
+    // Get Current Client Reports
     loadCurrentClientReports(){
         this.clientService
         .getCurrentClientReports()
@@ -75,28 +97,7 @@ export class ClientStateService {
         this.currentClientReports$.next(currentClientReports);
     }
     
-    listenToChanges(): Observable<Client[]>{
-        return this.clients$.asObservable();
-    }
-    
-    listenToClient(): Observable<Client | null>{
-        return this.client$.asObservable();
-    }
-
-    listenToCurrentClientInvoices(): Observable<InvoiceFull[]>{
-        return this.currentClientInvoices$.asObservable();
-    }
-    
-    listenToCurrentClientContracts(): Observable<Contract[]>{
-        return this.currentClientContracts$.asObservable();
-    }
-
     listenToCurrentClientReports(): Observable<Report[]>{
         return this.currentClientReports$.asObservable();
-    }
-    
-    addClient(client: Client){
-        const currentClients = this.clients$.value;
-        this.clients$.next([...currentClients, client]);
     }
 }

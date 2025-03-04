@@ -31,6 +31,6 @@ export class ClientsComponent implements OnInit {
     }
     
     getClientes(){
-        this.clients$ = this.clientStateService.listenToChanges();
+        this.clients$ = this.clientStateService.listenToClientsChanges();
     }
 }

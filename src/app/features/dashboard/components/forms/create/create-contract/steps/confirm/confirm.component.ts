@@ -40,7 +40,6 @@ export class ConfirmComponent implements OnInit{
     protected property$ = new Observable<Property | null>();
     property! : Property;
     
-    protected client$ = new Observable<Client | null>();
     client!: Client;
     
     imageUrls$ = new BehaviorSubject<{ itemImageSrc: string; thumbnailImageSrc: string; alt: string; }[]>([]);
@@ -78,12 +77,14 @@ export class ConfirmComponent implements OnInit{
             }
         });
         
-        this.client$ = this.clientStateService.listenToClient();
-        this.client$.subscribe((data: Client | null) => {
-            if(data){
-                this.client = data;
+        this.clientStateService.loadClient(this.form.get('step2.tenant.id')?.value).subscribe({
+            next: (client: Client | null) => {
+                this.client = client!!;
+            },
+            error: () => {
+                console.log("Erro!")
             }
-        });
+        })
     }
     
     postForm(){

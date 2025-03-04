@@ -35,3 +35,16 @@ export interface ClientCreate {
         id: string
     }
 }
+
+export interface ClientUpdate {
+    name: string,
+    phone: string,
+    email: string,
+    dateOfBirth: string,
+    cpf: string,
+    rg: string,
+    tenantStatus: string,
+    tenantBillingAddress: {
+        id: string
+    }
+}

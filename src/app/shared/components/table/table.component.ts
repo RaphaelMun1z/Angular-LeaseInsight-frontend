@@ -1,4 +1,6 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,7 +15,6 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { Table } from 'primeng/table';
 import { Tag } from 'primeng/tag';
-import { CommonModule } from '@angular/common';
 
 interface Column {
     field: string;
@@ -28,7 +29,7 @@ interface ExportColumn {
 
 @Component({
     selector: 'app-table',
-    imports: [CommonModule, TableModule, Tag, DropdownModule, InputTextModule, TextareaModule, ToastModule, SelectModule, InputIconModule, IconFieldModule, ButtonModule, ToolbarModule],
+    imports: [CommonModule, RouterModule, TableModule, Tag, DropdownModule, InputTextModule, TextareaModule, ToastModule, SelectModule, InputIconModule, IconFieldModule, ButtonModule, ToolbarModule],
     providers: [MessageService, ConfirmationService],
     templateUrl: './table.component.html',
     styleUrl: './table.component.scss'
@@ -37,6 +38,7 @@ interface ExportColumn {
 export class TableComponent implements OnInit {
     @Input() items!: any[];
     @Input() fields!: {name: string; code: string, type: string}[];
+    @Input() editUrl!: string;
     selectedItems!: any[] | null;
     
     @ViewChild('dt') dt!: Table;

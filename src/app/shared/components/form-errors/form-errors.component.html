@@ -1,6 +1,6 @@
 <ul class="ml-2 w-full alerts-container">
     <p-message *ngIf="loading" severity="info" icon="pi pi-send" text="Carregando..." />
-    <p-message *ngIf="success" severity="success" icon="pi pi-check-circle" styleClass="mb-2">{{ item }} cadastrado com sucesso!</p-message>
+    <p-message *ngIf="success" severity="success" icon="pi pi-check-circle" styleClass="mb-2">{{ item }} salvo com sucesso!</p-message>
     <p-message *ngFor="let err of errors" severity="error" icon="pi pi-times-circle" styleClass="mb-2">
         {{ err.field }}: {{ err.message }}
     </p-message>

@@ -59,6 +59,7 @@ import { ContractsComponent as ContractsProfileComponente } from './features/pro
 import { ReportsComponent as ReportsProfileComponente } from './features/profile/reports/reports.component';
 import { PropertiesComponent as PropertiesProfileComponente } from './features/profile/properties/properties.component';
 import { UnauthorizedComponent } from './core/components/unauthorized/unauthorized.component';
+import { UpdateClientComponent } from './features/dashboard/components/forms/update/update-client/update-client.component';
 
 export const routes: Routes = [
     {
@@ -219,6 +220,10 @@ export const routes: Routes = [
                     {
                         path: 'clientes/criar',
                         component: CreateClientComponent
+                    },
+                    {
+                        path: 'clientes/atualizar/:id',
+                        component: UpdateClientComponent
                     },
                     {
                         path: 'clientes/enderecos-de-cobranca',
