@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+// Guards
 import { authGuard } from './core/guards/auth.guard';
 import { admGuard } from './core/guards/adm.guard';
 import { staffGuard } from './core/guards/staff.guard';
@@ -9,57 +10,80 @@ import { guestGuard } from './core/guards/guest.guard';
 import { propertyFormGuard } from './core/guards/forms/property-form.guard';
 import { contractFormGuard } from './core/guards/forms/contract-form.guard';
 
+// Core components
 import { LayoutComponent } from './core/layouts/layout/layout.component';
 import { LayoutDashboardComponent } from './core/layouts/layout-dashboard/layout-dashboard.component';
 
+import { NotFoundComponent } from './core/components/not-found/not-found.component';
+import { UnauthorizedComponent } from './core/components/unauthorized/unauthorized.component';
+
+// Public pages
 import { HomeComponent } from './features/home/home.component';
-import { PropertiesComponent } from './features/properties/properties.component';
-import { PropertyComponent } from './features/property/property.component';
 import { AboutUsComponent } from './features/about-us/about-us.component';
 import { ContactComponent } from './features/contact/contact.component';
 import { LoginComponent } from './features/login/login.component';
-import { NotFoundComponent } from './core/components/not-found/not-found.component';
-import { GeneralComponent } from './features/dashboard/sections/general/general.component';
-import { PropertiesComponent as PropertiesDashboardComponent } from './features/dashboard/sections/properties/properties.component';
-import { FinanceComponent } from './features/dashboard/sections/finance/finance.component';
-import { EmployeesComponent } from './features/dashboard/sections/employees/employees.component';
-import { ClientsComponent } from './features/dashboard/sections/clients/clients.component';
-import { NotificationsComponent } from './features/dashboard/components/notifications/notifications.component';
-import { SuportComponent } from './features/dashboard/sections/suport/suport.component';
-import { ContractsComponent } from './features/dashboard/sections/contracts/contracts.component';
-import { ReadComponent } from './features/dashboard/components/notifications/components/read/read.component';
-import { UnreadComponent } from './features/dashboard/components/notifications/components/unread/unread.component';
-import { CreateClientComponent } from './features/dashboard/components/forms/create/create-client/create-client.component';
-import { CreateEmployeesComponent } from './features/dashboard/components/forms/create/create-employees/create-employees.component';
-import { CreateContractComponent } from './features/dashboard/components/forms/create/create-contract/create-contract.component';
-import { SelectPropertyComponent } from './features/dashboard/components/forms/create/create-contract/steps/select-property/select-property.component';
-import { SelectClientComponent } from './features/dashboard/components/forms/create/create-contract/steps/select-client/select-client.component';
-import { DetailsComponent } from './features/dashboard/components/forms/create/create-contract/steps/details/details.component';
-import { ConfirmComponent } from './features/dashboard/components/forms/create/create-contract/steps/confirm/confirm.component';
-import { CreatePropertyComponent } from './features/dashboard/components/forms/create/create-property/create-property.component';
-import { CharacteristicsComponent } from './features/dashboard/components/forms/create/create-property/steps/characteristics/characteristics.component';
-import { SelectOwnerComponent } from './features/dashboard/components/forms/create/create-property/steps/select-owner/select-owner.component';
-import { SelectAddressComponent } from './features/dashboard/components/forms/create/create-property/steps/select-address/select-address.component';
-import { ConfirmationComponent } from './features/dashboard/components/forms/create/create-property/steps/confirmation/confirmation.component';
-import { CreatePropertyAddressComponent } from './features/dashboard/components/forms/create/create-property-address/create-property-address.component';
-import { CreatePropertyFeatureComponent } from './features/dashboard/components/forms/create/create-property-feature/create-property-feature.component';
-import { OwnersComponent } from './features/dashboard/sections/owners/owners.component';
-import { CreateOwnerComponent } from './features/dashboard/components/forms/create/create-owner/create-owner.component';
-import { AddressesComponent } from './features/dashboard/sections/properties/addresses/addresses.component';
-import { FeaturesComponent } from './features/dashboard/sections/properties/features/features.component';
-import { InvoicesComponent } from './features/dashboard/sections/invoices/invoices.component';
-import { CreateInvoiceComponent } from './features/dashboard/components/forms/create/create-invoice/create-invoice.component';
-import { CreateClientBillingAddressComponent } from './features/dashboard/components/forms/create/create-client-billing-address/create-client-billing-address.component';
-import { BillingAddressesComponent } from './features/dashboard/sections/clients/billing-addresses/billing-addresses.component';
-import { CreatePropertyFeatureAddComponent } from './features/dashboard/components/forms/create/create-property-feature-add/create-property-feature-add.component';
+import { PropertiesComponent } from './features/properties/properties.component';
+import { PropertyComponent } from './features/property/property.component';
+
+// Profile section
 import { ProfileComponent } from './features/profile/profile.component';
 import { DetailsComponent as DetailsProfileComponente } from './features/profile/details/details.component';
 import { InvoicesComponent as InvoicesProfileComponente } from './features/profile/invoices/invoices.component';
 import { ContractsComponent as ContractsProfileComponente } from './features/profile/contracts/contracts.component';
 import { ReportsComponent as ReportsProfileComponente } from './features/profile/reports/reports.component';
 import { PropertiesComponent as PropertiesProfileComponente } from './features/profile/properties/properties.component';
-import { UnauthorizedComponent } from './core/components/unauthorized/unauthorized.component';
+
+// Dashboard sections
+import { GeneralComponent } from './features/dashboard/sections/general/general.component';
+import { PropertiesComponent as PropertiesDashboardComponent } from './features/dashboard/sections/properties/properties.component';
+import { FinanceComponent } from './features/dashboard/sections/finance/finance.component';
+import { EmployeesComponent } from './features/dashboard/sections/employees/employees.component';
+import { ClientsComponent } from './features/dashboard/sections/clients/clients.component';
+import { SuportComponent } from './features/dashboard/sections/suport/suport.component';
+import { ContractsComponent } from './features/dashboard/sections/contracts/contracts.component';
+import { OwnersComponent } from './features/dashboard/sections/owners/owners.component';
+import { AddressesComponent } from './features/dashboard/sections/properties/addresses/addresses.component';
+import { FeaturesComponent } from './features/dashboard/sections/properties/features/features.component';
+import { InvoicesComponent } from './features/dashboard/sections/invoices/invoices.component';
+import { BillingAddressesComponent } from './features/dashboard/sections/clients/billing-addresses/billing-addresses.component';
+
+// Dashboard components
+import { NotificationsComponent } from './features/dashboard/components/notifications/notifications.component';
+
+// Notification subcomponents
+import { ReadComponent } from './features/dashboard/components/notifications/components/read/read.component';
+import { UnreadComponent } from './features/dashboard/components/notifications/components/unread/unread.component';
+
+// Forms - Create
+import { CreateClientComponent } from './features/dashboard/components/forms/create/create-client/create-client.component';
+import { CreateEmployeeComponent } from './features/dashboard/components/forms/create/create-employee/create-employee.component';
+import { CreateContractComponent } from './features/dashboard/components/forms/create/create-contract/create-contract.component';
+import { CreatePropertyComponent } from './features/dashboard/components/forms/create/create-property/create-property.component';
+import { CreatePropertyAddressComponent } from './features/dashboard/components/forms/create/create-property-address/create-property-address.component';
+import { CreatePropertyFeatureComponent } from './features/dashboard/components/forms/create/create-property-feature/create-property-feature.component';
+import { CreateOwnerComponent } from './features/dashboard/components/forms/create/create-owner/create-owner.component';
+import { CreateInvoiceComponent } from './features/dashboard/components/forms/create/create-invoice/create-invoice.component';
+import { CreateClientBillingAddressComponent } from './features/dashboard/components/forms/create/create-client-billing-address/create-client-billing-address.component';
+import { CreatePropertyFeatureAddComponent } from './features/dashboard/components/forms/create/create-property-feature-add/create-property-feature-add.component';
+
+// Forms - Create (Contract Steps)
+import { SelectPropertyComponent } from './features/dashboard/components/forms/create/create-contract/steps/select-property/select-property.component';
+import { SelectClientComponent } from './features/dashboard/components/forms/create/create-contract/steps/select-client/select-client.component';
+import { DetailsComponent } from './features/dashboard/components/forms/create/create-contract/steps/details/details.component';
+import { ConfirmComponent } from './features/dashboard/components/forms/create/create-contract/steps/confirm/confirm.component';
+
+// Forms - Create (Property Steps)
+import { CharacteristicsComponent } from './features/dashboard/components/forms/create/create-property/steps/characteristics/characteristics.component';
+import { SelectOwnerComponent } from './features/dashboard/components/forms/create/create-property/steps/select-owner/select-owner.component';
+import { SelectAddressComponent } from './features/dashboard/components/forms/create/create-property/steps/select-address/select-address.component';
+import { ConfirmationComponent } from './features/dashboard/components/forms/create/create-property/steps/confirmation/confirmation.component';
+
+// Forms - Update
 import { UpdateClientComponent } from './features/dashboard/components/forms/update/update-client/update-client.component';
+import { UpdateOwnerComponent } from './features/dashboard/components/forms/update/update-owner/update-owner.component';
+import { UpdateEmployeeComponent } from './features/dashboard/components/forms/update/update-employee/update-employee.component';
+import { UpdateInvoiceComponent } from './features/dashboard/components/forms/update/update-invoice/update-invoice.component';
+import { UpdateClientBillingAddressComponent } from './features/dashboard/components/forms/update/update-client-billing-address/update-client-billing-address.component';
 
 export const routes: Routes = [
     {
@@ -210,7 +234,12 @@ export const routes: Routes = [
                     },
                     {
                         path: 'funcionarios/criar',
-                        component: CreateEmployeesComponent,
+                        component: CreateEmployeeComponent,
+                        canActivate: [admGuard],
+                    },
+                    {
+                        path: 'funcionarios/atualizar/:id',
+                        component: UpdateEmployeeComponent,
                         canActivate: [admGuard],
                     },
                     {
@@ -234,12 +263,20 @@ export const routes: Routes = [
                         component: CreateClientBillingAddressComponent
                     },
                     {
+                        path: 'clientes/enderecos-de-cobranca/atualizar/:id',
+                        component: UpdateClientBillingAddressComponent
+                    },
+                    {
                         path: 'proprietarios',
                         component: OwnersComponent
                     },
                     {
                         path: 'proprietarios/criar',
                         component: CreateOwnerComponent
+                    },
+                    {
+                        path: 'proprietarios/atualizar/:id',
+                        component: UpdateOwnerComponent
                     },
                     {
                         path: 'contratos',
@@ -282,6 +319,10 @@ export const routes: Routes = [
                     {
                         path: 'faturas/criar',
                         component: CreateInvoiceComponent,
+                    },
+                    {
+                        path: 'faturas/atualizar/:id',
+                        component: UpdateInvoiceComponent,
                     },
                     {
                         path: 'notificacoes',

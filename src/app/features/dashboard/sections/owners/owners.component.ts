@@ -24,13 +24,9 @@ export class OwnersComponent implements OnInit {
     }
     
     ngOnInit(): void {
-        this.getOwners();
+        this.owners$ = this.ownerStateService.listenToOwnersChanges();
         this.owners$.subscribe((data: Owner[]) => {
             this.owners = data;
         });
-    }
-    
-    getOwners(){
-        this.owners$ = this.ownerStateService.listenToChanges();
     }
 }

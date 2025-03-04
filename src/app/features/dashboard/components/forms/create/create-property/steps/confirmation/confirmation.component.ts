@@ -99,12 +99,14 @@ export class ConfirmationComponent  implements OnInit{
             }
         });
         
-        this.owner$ = this.ownerStateService.listenToClient();
-        this.owner$.subscribe((data: Owner | null) => {
-            if(data){
-                this.owner = data;
+        this.ownerStateService.loadOwner(this.form.get('step2.tenant.id')?.value).subscribe({
+            next: (owner: Owner | null) => {
+                this.owner = owner!!;
+            },
+            error: () => {
+                console.log("Erro!")
             }
-        });
+        })
         
         this.updateImageUrls();
     }

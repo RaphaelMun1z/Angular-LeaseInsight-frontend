@@ -69,7 +69,7 @@ export class CreateClientComponent implements OnInit {
         })
         this.clientCreateForm.setForm(this.form);
         
-        this.addresses$ = this.billingAddressStateService.listenToChanges();
+        this.addresses$ = this.billingAddressStateService.listenToBillingAddressesChanges();
         this.addresses$.subscribe((data: BillingAddress[]) => {
             this.addressesList = this.addressesToList(data);
         });

@@ -1,14 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 
-import { FormHandler } from '../../../../../../shared/utils/FormHandler';
-import { FormStorageDirective } from '../../../../../../shared/directives/form-storage.directive';
-import { Client, ClientUpdate } from '../../../../../../shared/interfaces/client';
+import { ClientStateService } from '../../../../../../core/states/client-state.service';
 import { ClientService } from '../../../../../../core/services/client.service';
+import { Client, ClientUpdate } from '../../../../../../shared/interfaces/client';
 import { BillingAddressStateService } from '../../../../../../core/states/billing-address-state.service';
 import { BillingAddress } from '../../../../../../shared/interfaces/billingAddress';
+
+import { FormHandler } from '../../../../../../shared/utils/FormHandler';
+import { FormStorageDirective } from '../../../../../../shared/directives/form-storage.directive';
 import { clientStatus } from '../../../../../../shared/utils/ConstLists';
 
 import { DashboardBaseComponent } from '../../../dashboard-base/dashboard-base.component';
@@ -25,11 +28,9 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { MenuItem } from 'primeng/api';
-import { ClientStateService } from '../../../../../../core/states/client-state.service';
 
 @Component({
     selector: 'app-update-client',
@@ -45,12 +46,9 @@ export class UpdateClientComponent implements OnInit {
     
     clientStatus = clientStatus;
     addressesList: {name: string, code: string | number }[] = [];
-    
     currentId!: string;
-    
-    protected client$ = new Observable<Client | null>();
     client! : Client;
-    
+
     protected addresses$ = new Observable<BillingAddress[]>();
     selectedOption!: BillingAddress;
     
@@ -103,7 +101,7 @@ export class UpdateClientComponent implements OnInit {
         })
         this.clientUpdateForm.setForm(this.form);
         
-        this.addresses$ = this.billingAddressStateService.listenToChanges();
+        this.addresses$ = this.billingAddressStateService.listenToBillingAddressesChanges();
         this.addresses$.subscribe((data: BillingAddress[]) => {
             this.addressesList = this.addressesToList(data);
         });

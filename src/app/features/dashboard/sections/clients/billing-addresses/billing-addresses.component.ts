@@ -24,13 +24,9 @@ export class BillingAddressesComponent implements OnInit {
     }
     
     ngOnInit(): void {
-        this.getBillingAddresses();
+        this.billingAddresses$ = this.billingAddressStateService.listenToBillingAddressesChanges();
         this.billingAddresses$.subscribe((data: BillingAddress[]) => {
             this.billingAddresses = data;
         });
-    }
-    
-    getBillingAddresses(){
-        this.billingAddresses$ = this.billingAddressStateService.listenToChanges();
     }
 }

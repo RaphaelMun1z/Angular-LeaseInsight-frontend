@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, switchMap } from 'rxjs';
-import { Owner, OwnerCreate } from '../../shared/interfaces/owner';
+import { Owner, OwnerCreate, OwnerUpdate } from '../../shared/interfaces/owner';
 import { environment } from '../../../environments/environment';
 import { Property } from '../../shared/interfaces/property';
 import { AuthService } from './auth.service';
@@ -26,6 +26,10 @@ export class OwnerService {
     
     saveOwner(address: OwnerCreate): any {
         return this.http.post<Owner>(this.url + "/owners", address);
+    }
+    
+    patchOwner(owner: OwnerUpdate, id: string): any {
+        return this.http.patch<OwnerUpdate>(this.url + "/owners/" + id, owner);
     }
     
     getCurrentOwnerProperties(): Observable<Property[]> {

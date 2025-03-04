@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { EmployeeService } from '../services/employee.service';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, take, throwError } from 'rxjs';
 import { Employee } from '../../shared/interfaces/employee';
 
 @Injectable({
@@ -9,10 +9,11 @@ import { Employee } from '../../shared/interfaces/employee';
 
 export class EmployeeStateService {
     private employees$ = new BehaviorSubject<Employee[]>([]);
-    private employeeService = inject(EmployeeService);
     
+    private employeeService = inject(EmployeeService);
     constructor() { }
     
+    // Get All
     loadEmployees(){
         this.employeeService
         .getEmployees()
@@ -24,10 +25,21 @@ export class EmployeeStateService {
         this.employees$.next(employees);
     }
     
-    listenToChanges(): Observable<Employee[]>{
+    listenToEmployeesChanges(): Observable<Employee[]>{
         return this.employees$.asObservable();
     }
     
+    // Get By Id
+    loadEmployee(id: string): Observable<Employee | null> {
+        return this.employeeService.getEmployeeById(id).pipe(
+            take(1), 
+            catchError(error => {
+                return throwError(() => error);
+            })
+        );
+    }
+    
+    // Add Employee
     addEmployee(employee: Employee){
         const currentEmployees = this.employees$.value;
         this.employees$.next([...currentEmployees, employee]);

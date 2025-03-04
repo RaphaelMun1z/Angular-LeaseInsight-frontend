@@ -11,3 +11,9 @@ export interface EmployeeCreate {
     email: string,
     password: string;
 }
+
+export interface EmployeeUpdate {
+    name: string,
+    phone: string,
+    email: string
+}

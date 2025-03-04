@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Invoice, InvoiceCreate } from '../../shared/interfaces/invoice';
+import { Invoice, InvoiceCreate, InvoiceUpdate } from '../../shared/interfaces/invoice';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -23,5 +23,9 @@ export class InvoiceService {
     
     saveInvoice(staff: InvoiceCreate): any {
         return this.http.post<InvoiceCreate>(this.url + "/rental-histories", staff);
+    }
+    
+    patchInvoice(invoice: InvoiceUpdate, id: string): any {
+        return this.http.patch<InvoiceUpdate>(this.url + "/rental-histories/" + id, invoice);
     }
 }

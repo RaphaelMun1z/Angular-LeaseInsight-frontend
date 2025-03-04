@@ -42,7 +42,7 @@ export class SelectOwnerComponent implements OnInit {
     ngOnInit() {
         this.form = this.propertyFormService.getStep3Form();
         
-        this.owners$ = this.ownerStateService.listenToChanges();
+        this.owners$ = this.ownerStateService.listenToOwnersChanges();
         this.owners$.subscribe((data: Owner[]) => {
             this.owners = data;
             this.loading = false;

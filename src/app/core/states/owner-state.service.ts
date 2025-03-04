@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { OwnerService } from '../services/owner.service';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, take, throwError } from 'rxjs';
 import { Owner } from '../../shared/interfaces/owner';
 import { Property } from '../../shared/interfaces/property';
 
@@ -10,12 +10,12 @@ import { Property } from '../../shared/interfaces/property';
 
 export class OwnerStateService {
     private owners$ = new BehaviorSubject<Owner[]>([]);
-    private owner$ = new BehaviorSubject<Owner | null>(null);
     private currentOwnerProperties$ = new BehaviorSubject<Property[]>([]);
     
     private ownerService = inject(OwnerService);
     constructor() { }
     
+    // Get All
     loadOwners(){
         this.ownerService
         .getOwners()
@@ -26,18 +26,28 @@ export class OwnerStateService {
     private shareOwners(owners: Owner[]){
         this.owners$.next(owners);
     }
-    
-    loadOwner(id: string){
-        this.ownerService
-        .getOwnerById(id)
-        .pipe(take(1))
-        .subscribe(owner => this.shareOwner(owner))
+
+    listenToOwnersChanges(): Observable<Owner[]>{
+        return this.owners$.asObservable();
     }
     
-    private shareOwner(owner: Owner){
-        this.owner$.next(owner);
+    // Get By Id
+    loadOwner(id: string): Observable<Owner | null> {
+        return this.ownerService.getOwnerById(id).pipe(
+            take(1), 
+            catchError(error => {
+                return throwError(() => error);
+            })
+        );
+    }
+
+    // Add Owner
+    addOwner(Owner: Owner){
+        const currentOwners = this.owners$.value;
+        this.owners$.next([...currentOwners, Owner]);
     }
     
+    // Get Current Owner Properties
     loadCurrentOwnerProperties(){
         this.ownerService
         .getCurrentOwnerProperties()
@@ -51,18 +61,5 @@ export class OwnerStateService {
     
     listenToCurrentOwnerProperties(): Observable<Property[]>{
         return this.currentOwnerProperties$.asObservable();
-    }
-    
-    listenToClient(): Observable<Owner | null>{
-        return this.owner$.asObservable();
-    }
-    
-    listenToChanges(): Observable<Owner[]>{
-        return this.owners$.asObservable();
-    }
-    
-    addOwner(Owner: Owner){
-        const currentOwners = this.owners$.value;
-        this.owners$.next([...currentOwners, Owner]);
     }
 }

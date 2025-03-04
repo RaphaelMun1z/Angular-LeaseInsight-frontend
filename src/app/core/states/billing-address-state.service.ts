@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { BillingAddressService } from '../services/billingAddress.service';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, take, throwError } from 'rxjs';
 import { BillingAddress } from '../../shared/interfaces/billingAddress';
 
 @Injectable({
@@ -13,6 +13,7 @@ export class BillingAddressStateService {
     
     constructor() { }
     
+    // Get All
     loadBillingAddresses(){
         this.billingAddressService
         .getBillingAddresses()
@@ -24,10 +25,21 @@ export class BillingAddressStateService {
         this.billingAddresses$.next(billingAddresss);
     }
     
-    listenToChanges(): Observable<BillingAddress[]>{
+    listenToBillingAddressesChanges(): Observable<BillingAddress[]>{
         return this.billingAddresses$.asObservable();
     }
     
+    // Get By Id
+    loadBillingAddress(id: string): Observable<BillingAddress | null> {
+        return this.billingAddressService.getBillingAddressById(id).pipe(
+            take(1), 
+            catchError(error => {
+                return throwError(() => error);
+            })
+        );
+    }
+    
+    // Add BillingAddress
     addBillingAddress(billingAddress: BillingAddress){
         const currentBillingAddresss = this.billingAddresses$.value;
         this.billingAddresses$.next([...currentBillingAddresss, billingAddress]);

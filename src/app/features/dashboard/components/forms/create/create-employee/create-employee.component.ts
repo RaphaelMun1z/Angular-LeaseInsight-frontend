@@ -24,13 +24,13 @@ import { SelectModule } from 'primeng/select';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-    selector: 'app-create-employees',
+    selector: 'app-create-employee',
     imports: [FormStorageDirective, FormErrorsComponent, InputTextComponent, InputMaskComponent, BreadcrumbComponent, DashboardBaseComponent, ContentBlockComponent, FormsModule, SelectModule, ButtonModule, CommonModule, PasswordModule, InputGroupModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, ReactiveFormsModule],
-    templateUrl: './create-employees.component.html',
-    styleUrl: './create-employees.component.scss'
+    templateUrl: './create-employee.component.html',
+    styleUrl: './create-employee.component.scss'
 })
 
-export class CreateEmployeesComponent implements OnInit {    
+export class CreateEmployeeComponent implements OnInit {    
     employeeCreateForm = new FormHandler("employee-form");
     breadCrumbItems: MenuItem[] = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Funcionários', route: '/dashboard/funcionarios' }, { label: 'Cadastrar', route: '/dashboard/funcionarios/criar' }];
     protected form!: UntypedFormGroup;

@@ -11,3 +11,9 @@ export interface OwnerCreate {
     email: string;
     password: string;
 }
+
+export interface OwnerUpdate {
+    name: string;
+    phone: string;
+    email: string;
+}

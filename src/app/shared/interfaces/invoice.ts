@@ -6,7 +6,7 @@ export interface Invoice {
     rentalStartDate: string,
     rentalEndDate: string,
     rentalValue: number,
-    paymentStatus: number,
+    paymentStatus: string,
     contractId: string,
     residenceId: string
 }
@@ -16,7 +16,7 @@ export interface InvoiceFull {
     rentalStartDate: string,
     rentalEndDate: string,
     rentalValue: number,
-    paymentStatus: number,
+    paymentStatus: string,
     contract: Contract
 }
 
@@ -24,7 +24,11 @@ export interface InvoiceCreate {
     rentalStartDate: string,
     rentalEndDate: string,
     rentalValue: number,
-    paymentStatus: number,
+    paymentStatus: string,
     contractId: string,
     residenceId: string
+}
+
+export interface InvoiceUpdate {
+    paymentStatus: string,
 }

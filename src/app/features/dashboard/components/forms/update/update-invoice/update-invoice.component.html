@@ -1,0 +1,26 @@
+<app-breadcrumb [breadCrumbItems]="breadCrumbItems"></app-breadcrumb>
+
+<app-dashboard-base [title]="'Faturas'">
+    <app-content-block [title]="'Atualizar Fatura'" [type]="'Formulário'">
+        <div class="child">
+            <form class="form-container" [formGroup]="form" storage="invoice-update-form">
+                <app-input-select
+                formControlName="paymentStatus"
+                [invalid]="form.controls['paymentStatus'].invalid"
+                [label]="'Status de pagamento'" 
+                [icon]="'pi-map-marker'"
+                [items]="paymentStatus"></app-input-select>
+
+                <div class="flex">
+                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
+                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="invoiceUpdateForm.clearForm()"/>
+                </div>
+            </form>
+            <app-form-errors 
+            [item]="'Proprietário'"
+            [loading]="invoiceUpdateForm.getLoading()"
+            [success]="invoiceUpdateForm.getSendSuccess()"
+            [errors]="invoiceUpdateForm.getErrorList()"></app-form-errors>
+        </div>
+    </app-content-block>
+</app-dashboard-base>

@@ -24,13 +24,9 @@ export class InvoicesComponent implements OnInit {
     }
     
     ngOnInit(): void {
-        this.getInvoices();
+        this.invoices$ = this.invoiceStateService.listenToInvoicesChanges();
         this.invoices$.subscribe((data: Invoice[]) => {
             this.invoices = data;
         });
-    }
-    
-    getInvoices(){
-        this.invoices$ = this.invoiceStateService.listenToChanges();
     }
 }

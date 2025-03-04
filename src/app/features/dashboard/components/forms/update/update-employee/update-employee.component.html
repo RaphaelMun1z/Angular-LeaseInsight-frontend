@@ -1,0 +1,38 @@
+<app-breadcrumb [breadCrumbItems]="breadCrumbItems"></app-breadcrumb>
+
+<app-dashboard-base [title]="'Funcionário'">
+    <app-content-block [title]="'Atualizar Funcionário'" [type]="'Formulário'">
+        <div class="child">
+            <form class="form-container" [formGroup]="form" storage="employee-update-form">
+                <app-input-text
+                formControlName="name"
+                [invalid]="form.controls['name'].invalid"
+                [label]="'Nome Completo'" 
+                [icon]="'pi-user'"></app-input-text>
+
+                <app-input-mask 
+                formControlName="phone"
+                [invalid]="form.controls['phone'].invalid"
+                [label]="'Telefone'"
+                [icon]="'pi-phone'"
+                [inputMask]="'(99) 99999-9999'"></app-input-mask>
+
+                <app-input-text
+                formControlName="email"
+                [invalid]="form.controls['email'].invalid"
+                [label]="'E-mail'" 
+                [icon]="'pi-at'"></app-input-text>
+
+                <div class="flex">
+                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
+                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="employeeUpdateForm.clearForm()"/>
+                </div>
+            </form>
+            <app-form-errors 
+            [item]="'Proprietário'"
+            [loading]="employeeUpdateForm.getLoading()"
+            [success]="employeeUpdateForm.getSendSuccess()"
+            [errors]="employeeUpdateForm.getErrorList()"></app-form-errors>
+        </div>
+    </app-content-block>
+</app-dashboard-base>
