@@ -13,7 +13,6 @@ export class OwnerStateService {
     private currentOwnerProperties$ = new BehaviorSubject<Property[]>([]);
     
     private ownerService = inject(OwnerService);
-    constructor() { }
     
     // Get All
     loadOwners(){

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ContractService } from '../services/contract.service';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, take, throwError } from 'rxjs';
 import { Contract } from '../../shared/interfaces/contract';
 
 @Injectable({
@@ -9,10 +9,10 @@ import { Contract } from '../../shared/interfaces/contract';
 
 export class ContractStateService {
     private contracts$ = new BehaviorSubject<Contract[]>([]);
+    
     private contractService = inject(ContractService);
     
-    constructor() { }
-    
+    // Get All
     loadContracts(){
         this.contractService
         .getContracts()
@@ -24,10 +24,21 @@ export class ContractStateService {
         this.contracts$.next(contracts);
     }
     
-    listenToChanges(): Observable<Contract[]>{
+    listenToContractsChanges(): Observable<Contract[]>{
         return this.contracts$.asObservable();
     }
     
+    // Get By Id
+    loadContract(id: string): Observable<Contract | null> {
+        return this.contractService.getContractById(id).pipe(
+            take(1), 
+            catchError(error => {
+                return throwError(() => error);
+            })
+        );
+    }
+    
+    // Add Contract
     addContract(contract: Contract){
         const currentContracts = this.contracts$.value;
         this.contracts$.next([...currentContracts, contract]);

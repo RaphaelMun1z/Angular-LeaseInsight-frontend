@@ -86,6 +86,7 @@ import { UpdateInvoiceComponent } from './features/dashboard/components/forms/up
 import { UpdateClientBillingAddressComponent } from './features/dashboard/components/forms/update/update-client-billing-address/update-client-billing-address.component';
 import { UpdatePropertyAddressComponent } from './features/dashboard/components/forms/update/update-property-address/update-property-address.component';
 import { UpdatePropertyFeatureComponent } from './features/dashboard/components/forms/update/update-property-feature/update-property-feature.component';
+import { UpdateContractComponent } from './features/dashboard/components/forms/update/update-contract/update-contract.component';
 
 export const routes: Routes = [
     {
@@ -291,6 +292,10 @@ export const routes: Routes = [
                     {
                         path: 'contratos',
                         component: ContractsComponent
+                    },
+                    {
+                        path: 'contratos/atualizar/:id',
+                        component: UpdateContractComponent
                     },
                     {
                         path: 'contratos/criar',

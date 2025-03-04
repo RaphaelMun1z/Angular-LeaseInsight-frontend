@@ -63,7 +63,7 @@ export class CreateInvoiceComponent implements OnInit {
     }
     
     getContracts(){
-        this.contracts$ = this.contractStateService.listenToChanges();
+        this.contracts$ = this.contractStateService.listenToContractsChanges();
         this.contracts$.subscribe((data: Contract[]) => {
             this.contractsSelect = data.map(contract => ({
                 name: contract.residence ? "[" + contract.id + "] " + contract.residence?.residenceAddress.street + ", " + contract.residence?.number + " - " + contract.residence?.residenceAddress.district + " - " + contract.residence?.residenceAddress.city + " - " + contract.residence?.residenceAddress.state + " - " + contract.residence?.residenceAddress.country : "[" + contract.id + "] Imóvel excluído.",

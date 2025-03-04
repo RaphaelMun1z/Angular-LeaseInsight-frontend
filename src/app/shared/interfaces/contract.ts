@@ -25,3 +25,7 @@ export interface ContractCreate {
     contractStatus: string,
     invoiceDueDate: number
 }
+
+export interface ContractUpdate {
+    contractStatus: string
+}

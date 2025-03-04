@@ -24,13 +24,9 @@ export class ContractsComponent implements OnInit {
     }
     
     ngOnInit(): void {
-        this.getContracts();
+        this.contracts$ = this.contractStateService.listenToContractsChanges();
         this.contracts$.subscribe((data: Contract[]) => {
             this.contracts = data;
         });
-    }
-    
-    getContracts(){
-        this.contracts$ = this.contractStateService.listenToChanges();
     }
 }
