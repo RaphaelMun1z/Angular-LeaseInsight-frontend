@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { ContractStateService } from '../../../../core/states/contract-state.service';
+import { Contract } from '../../../../shared/interfaces/contract';
+
 import { ContentBlockComponent } from '../../components/content-block/content-block.component';
 import { DashboardBaseComponent } from '../../components/dashboard-base/dashboard-base.component';
-import { TableContractsComponent } from '../../components/views/table-contracts/table-contracts.component';
-import { Contract } from '../../../../shared/interfaces/contract';
-import { Observable } from 'rxjs';
-import { ContractStateService } from '../../../../core/states/contract-state.service';
+import { TableContractsComponent } from '../../components/tables/table-contracts/table-contracts.component';
 
 @Component({
     selector: 'app-contracts',

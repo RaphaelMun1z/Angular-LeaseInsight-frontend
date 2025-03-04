@@ -6,7 +6,7 @@ import { PropertyStateService } from '../../../../core/states/property-state.ser
 
 import { DashboardBaseComponent } from "../../components/dashboard-base/dashboard-base.component";
 import { ContentBlockComponent } from "../../components/content-block/content-block.component";
-import { TablePropertiesComponent } from "../../components/views/table-properties/table-properties.component";
+import { TablePropertiesComponent } from "../../components/tables/table-properties/table-properties.component";
 
 @Component({
     selector: 'app-properties',

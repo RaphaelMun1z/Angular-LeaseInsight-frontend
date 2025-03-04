@@ -6,7 +6,7 @@ import { AdditionalFeature } from '../../../../../shared/interfaces/additionalFe
 
 import { ContentBlockComponent } from '../../../components/content-block/content-block.component';
 import { DashboardBaseComponent } from '../../../components/dashboard-base/dashboard-base.component';
-import { TablePropertiesFeaturesComponent } from '../../../components/views/table-properties-features/table-properties-features.component';
+import { TablePropertiesFeaturesComponent } from '../../../components/tables/table-properties-features/table-properties-features.component';
 
 @Component({
     selector: 'app-features',

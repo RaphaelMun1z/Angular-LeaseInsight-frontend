@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { OwnerStateService } from '../../../../core/states/owner-state.service';
+import { Owner } from '../../../../shared/interfaces/owner';
+
 import { ContentBlockComponent } from '../../components/content-block/content-block.component';
 import { DashboardBaseComponent } from '../../components/dashboard-base/dashboard-base.component';
-import { TableOwnersComponent } from '../../components/views/table-owners/table-owners.component';
-import { Owner } from '../../../../shared/interfaces/owner';
-import { Observable } from 'rxjs';
-import { OwnerStateService } from '../../../../core/states/owner-state.service';
+import { TableOwnersComponent } from '../../components/tables/table-owners/table-owners.component';
 
 @Component({
     selector: 'app-owners',

@@ -1,11 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { TableClientsComponent } from '../../components/views/table-clients/table-clients.component';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { ClientStateService } from '../../../../core/states/client-state.service';
+import { Client } from '../../../../shared/interfaces/client';
+
+import { TableClientsComponent } from '../../components/tables/table-clients/table-clients.component';
 import { ContentBlockComponent } from '../../components/content-block/content-block.component';
 import { DashboardBaseComponent } from '../../components/dashboard-base/dashboard-base.component';
-import { ClientStateService } from '../../../../core/states/client-state.service';
-import { Client, ClientCreate } from '../../../../shared/interfaces/client';
-import { Observable } from 'rxjs';
-import { ClientService } from '../../../../core/services/client.service';
 
 @Component({
     selector: 'app-clients',

@@ -6,7 +6,7 @@ import { Invoice } from '../../../../shared/interfaces/invoice';
 
 import { ContentBlockComponent } from '../../components/content-block/content-block.component';
 import { DashboardBaseComponent } from '../../components/dashboard-base/dashboard-base.component';
-import { TableInvoicesComponent } from '../../components/views/table-invoices/table-invoices.component';
+import { TableInvoicesComponent } from '../../components/tables/table-invoices/table-invoices.component';
 
 @Component({
     selector: 'app-invoices',

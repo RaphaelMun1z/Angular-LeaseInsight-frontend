@@ -6,7 +6,7 @@ import { BillingAddress } from '../../../../../shared/interfaces/billingAddress'
 
 import { ContentBlockComponent } from '../../../components/content-block/content-block.component';
 import { DashboardBaseComponent } from '../../../components/dashboard-base/dashboard-base.component';
-import { TableClientsBillingAddressesComponent } from '../../../components/views/table-clients-billing-addresses/table-clients-billing-addresses.component';
+import { TableClientsBillingAddressesComponent } from '../../../components/tables/table-clients-billing-addresses/table-clients-billing-addresses.component';
 
 @Component({
     selector: 'app-billing-addresses',

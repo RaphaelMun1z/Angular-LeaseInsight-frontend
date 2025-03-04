@@ -9,7 +9,7 @@
             </ng-template>
             
             <ng-container *ngIf="property.propertyType; else noPropertyTitle">
-                <h1 [style]="{'max-width': '70%'}">{{ getPropertyType(property.propertyType) }} em {{ property.residenceAddress.district }} - {{ property.residenceAddress.city }}</h1>
+                <h1>{{ getPropertyType(property.propertyType) }} em {{ property.residenceAddress.district }} - {{ property.residenceAddress.city }}</h1>
             </ng-container>
             <ng-template #noPropertyTitle>
                 <p-skeleton height="4rem" styleClass="mb-2" class="w-6/6" width="50rem" />

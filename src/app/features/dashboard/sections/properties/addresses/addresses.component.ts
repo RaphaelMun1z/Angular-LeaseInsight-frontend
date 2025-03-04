@@ -6,7 +6,7 @@ import { PropertyAddress } from '../../../../../shared/interfaces/propertyAddres
 
 import { ContentBlockComponent } from '../../../components/content-block/content-block.component';
 import { DashboardBaseComponent } from '../../../components/dashboard-base/dashboard-base.component';
-import { TablePropertiesAddressesComponent } from '../../../components/views/table-properties-addresses/table-properties-addresses.component';
+import { TablePropertiesAddressesComponent } from '../../../components/tables/table-properties-addresses/table-properties-addresses.component';
 
 @Component({
     selector: 'app-addresses',
