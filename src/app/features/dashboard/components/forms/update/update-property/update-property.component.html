@@ -1,0 +1,100 @@
+<app-breadcrumb [breadCrumbItems]="breadCrumbItems"></app-breadcrumb>
+
+<app-dashboard-base [title]="'Imóveis'">
+    <app-content-block [title]="'Atualizar Imóvel'" [type]="'Formulário'">
+        <div class="child">
+            <form class="form-container" [formGroup]="form" storage="property-additional-feature-update-form">
+                <app-input-number
+                formControlName="marketValue"
+                [invalid]="form.controls['marketValue'].invalid"
+                [label]="'Valor de Mercado'" 
+                [icon]="'pi-moon'"></app-input-number>
+                
+                <app-input-number
+                formControlName="rentalValue"
+                [invalid]="form.controls['rentalValue'].invalid"
+                [label]="'Valor de Aluguel'" 
+                [icon]="'pi-moon'"></app-input-number>
+                
+                <app-input-number
+                formControlName="numberBedrooms"
+                [invalid]="form.controls['numberBedrooms'].invalid"
+                [label]="'Número de Quartos'" 
+                [icon]="'pi-moon'"></app-input-number>
+                
+                <app-input-number
+                formControlName="numberSuites"
+                [invalid]="form.controls['numberSuites'].invalid"
+                [label]="'Número de Suites'" 
+                [icon]="'pi-moon'"></app-input-number>
+                
+                <app-input-number
+                formControlName="numberBathrooms"
+                [invalid]="form.controls['numberBathrooms'].invalid"
+                [label]="'Número de Banheiros'" 
+                [icon]="'pi-question'"></app-input-number>
+                
+                <app-input-number
+                formControlName="totalArea"
+                [invalid]="form.controls['totalArea'].invalid"
+                [label]="'Área Total'" 
+                [icon]="'pi-window-maximize'"></app-input-number>
+                
+                <app-input-number
+                formControlName="builtArea"
+                [invalid]="form.controls['builtArea'].invalid"
+                [label]="'Área Construída'" 
+                [icon]="'pi-window-minimize'"></app-input-number>
+                
+                <app-input-number
+                formControlName="garageSpaces"
+                [invalid]="form.controls['garageSpaces'].invalid"
+                [label]="'Vagas na Garagem'" 
+                [icon]="'pi-car'"></app-input-number>
+                
+                <app-input-number
+                formControlName="yearConstruction"
+                [invalid]="form.controls['yearConstruction'].invalid"
+                [label]="'Ano de Construção'" 
+                [icon]="'pi-hammer'"></app-input-number>
+                
+                <app-input-number
+                formControlName="dateLastRenovation"
+                [invalid]="form.controls['dateLastRenovation'].invalid"
+                [label]="'Data da última reforma'" 
+                [icon]="'pi-hammer'"></app-input-number>
+                
+                <app-input-select
+                formControlName="propertyType"
+                [invalid]="form.controls['propertyType'].invalid"
+                [label]="'Tipo de Imóvel'" 
+                [icon]="'pi-map-marker'"
+                [items]="propertyTypeOptions"></app-input-select>
+                
+                <app-input-select
+                formControlName="occupancyStatus"
+                [invalid]="form.controls['occupancyStatus'].invalid"
+                [label]="'Status de Ocupação'" 
+                [icon]="'pi-map-marker'"
+                [items]="occupancyStatusOptions"></app-input-select>
+                
+                <app-input-textarea
+                formControlName="description"
+                [invalid]="form.controls['description'].invalid"
+                [label]="'Descrição'" 
+                [icon]="'pi-moon'"
+                ></app-input-textarea>
+                
+                <div class="flex">
+                    <p-button class="mr-2" label="Salvar" icon="pi pi-check" iconPos="right" (onClick)="postForm()"/>
+                    <p-button label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="propertyUpdateForm.clearForm()"/>
+                </div>
+            </form>
+            <app-form-errors 
+            [item]="'Imóvel'"
+            [loading]="propertyUpdateForm.getLoading()"
+            [success]="propertyUpdateForm.getSendSuccess()"
+            [errors]="propertyUpdateForm.getErrorList()"></app-form-errors>
+        </div>
+    </app-content-block>
+</app-dashboard-base>

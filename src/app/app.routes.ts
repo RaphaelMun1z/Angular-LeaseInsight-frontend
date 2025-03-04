@@ -87,6 +87,7 @@ import { UpdateClientBillingAddressComponent } from './features/dashboard/compon
 import { UpdatePropertyAddressComponent } from './features/dashboard/components/forms/update/update-property-address/update-property-address.component';
 import { UpdatePropertyFeatureComponent } from './features/dashboard/components/forms/update/update-property-feature/update-property-feature.component';
 import { UpdateContractComponent } from './features/dashboard/components/forms/update/update-contract/update-contract.component';
+import { UpdatePropertyComponent } from './features/dashboard/components/forms/update/update-property/update-property.component';
 
 export const routes: Routes = [
     {
@@ -175,6 +176,10 @@ export const routes: Routes = [
                     {
                         path: 'imoveis',
                         component: PropertiesDashboardComponent,
+                    },
+                    {
+                        path: 'imoveis/atualizar/:id',
+                        component: UpdatePropertyComponent,
                     },
                     {
                         path: 'imoveis/criar',

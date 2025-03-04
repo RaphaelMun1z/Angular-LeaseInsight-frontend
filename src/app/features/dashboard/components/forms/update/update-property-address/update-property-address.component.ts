@@ -37,7 +37,7 @@ import { MenuItem } from 'primeng/api';
 
 export class UpdatePropertyAddressComponent implements OnInit {
     propertyAddressUpdateForm = new FormHandler("property-address-update-form");
-    breadCrumbItems: MenuItem[] = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Imóveis', route: '/dashboard/imoveis' }, { label: 'Endereço', route: '/dashboard/imoveis/enderecos' }, { label: 'Atualizar', route: '/dashboard/imoveis/enderecos/atualizar' }];
+    breadCrumbItems: MenuItem[] = [{ icon: 'pi pi-home', route: '/dashboard' }, { label: 'Imóveis', route: '/dashboard/imoveis' }, { label: 'Endereço', route: '/dashboard/imoveis/enderecos' }, { label: 'Atualizar', route: '/dashboard/imoveis/endereco/atualizar' }];
     protected form!: UntypedFormGroup;
     
     countriesList = countries;

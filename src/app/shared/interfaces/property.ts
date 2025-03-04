@@ -69,6 +69,23 @@ export interface PropertyCreate {
     images: File[];
 }
 
+export interface PropertyUpdate {
+    propertyType: "HOUSE" | "APARTMENT" | "CONDO" | "TOWNHOUSE" | "OTHER";
+    description: string;
+    complement: string;
+    numberBedrooms: number;
+    numberBathrooms: number;
+    numberSuites: number;
+    totalArea: number;
+    builtArea: number;
+    garageSpaces: number;
+    yearConstruction: string;
+    occupancyStatus: "VACANT" | "OCCUPIED" | "UNDER_RENOVATION";
+    marketValue: number;
+    rentalValue: number;
+    dateLastRenovation: string;
+}
+
 export interface AddFeature {
     property: {
         id: string 

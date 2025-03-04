@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AddFeature, Property, PropertyCreate, PropertyMinimal } from '../../shared/interfaces/property';
+import { AddFeature, Property, PropertyCreate, PropertyMinimal, PropertyUpdate } from '../../shared/interfaces/property';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -25,19 +25,19 @@ export class PropertyService {
         return this.http.get<Property>(this.url + "/residences/" + id);
     }
     
-    getPropertyImageByImageName(fileName: string): Observable<Blob> {
-        return this.http.get<Blob>(`${this.url}/file/downloadFile/${fileName}`, { responseType: 'blob' as 'json' });
+    patchProperty(property: PropertyUpdate, id: string): any {
+        return this.http.patch<PropertyUpdate>(this.url + "/residences/" + id, property);
     }
     
     saveProperty(property: FormData): any {
         return this.http.post<PropertyCreate>(this.url + "/residences", property);
     }
-
+    
+    getPropertyImageByImageName(fileName: string): Observable<Blob> {
+        return this.http.get<Blob>(`${this.url}/file/downloadFile/${fileName}`, { responseType: 'blob' as 'json' });
+    }
+    
     saveFeatureProperty(propertyFeature: any): any {
         return this.http.post<AddFeature>(this.url + "/residences/add-feature", propertyFeature);
-    }
-
-    deleteProperty(id: String): any {
-        return this.http.delete<void>(this.url + "/residences/" + id);
     }
 }

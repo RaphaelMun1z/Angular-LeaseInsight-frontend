@@ -141,9 +141,16 @@ export const invoiceDueDates = [
 ]
 
 export const contractStatus = [
-    { name: "ATIVO", code: "ACTIVE" },
-    { name: "PENDENTE", code: "PENDING" },
-    { name: "EXPIRADO", code: "EXPIRED" },
-    { name: "ENCERRADO", code: "TERMINATED" },
-    { name: "CANCELADO", code: "CANCELLED" }
+    { name: "Encerrado", code: "TERMINATED" },
+    { name: "Expirado", code: "EXPIRED" },
+    { name: "Ativo", code: "ACTIVE" },
+    { name: "Em Negociação", code: "IN_NEGOTIATION" },
+    { name: "Cancelado", code: "CANCELED" },
+    { name: "Pendente de Aprovação", code: "PENDING_APPROVAL" },
+    { name: "Renovado", code: "RENEWED" },
+    { name: "Rejeitado", code: "REJECTED" },
+    { name: "Em Espera", code: "HOLD" },
+    { name: "Aprovado", code: "APPROVED" },
+    { name: "Suspenso", code: "SUSPENDED" },
+    { name: "Em Revisão", code: "UNDER_REVIEW" }
 ];
