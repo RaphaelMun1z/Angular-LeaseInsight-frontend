@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { PropertyService } from '../../../../core/services/property.service';
 import { Property, PropertyMinimal } from '../../../interfaces/property';
+import { propertyType } from '../../../utils/ConstLists';
 
 import { CarouselModule } from 'primeng/carousel';
 import { GalleriaModule } from 'primeng/galleria';
@@ -24,6 +25,21 @@ export class PropertyMinimalComponent implements OnChanges {
     images: string[] = [];
     errImg: string = "https://static.vecteezy.com/ti/vetor-gratis/p1/17173007-nao-pode-carregar-ilustracao-de-conceito-de-imagem-corrompida-de-design-plano-eps10-elemento-grafico-moderno-para-pagina-inicial-interface-do-usuario-de-estado-vazio-infografico-icone-vetor.jpg";
     loadingImages: boolean = true;
+
+    responsiveOptions = [
+        {
+            breakpoint: '991px',
+            numVisible: 4
+        },
+        {
+            breakpoint: '767px',
+            numVisible: 3
+        },
+        {
+            breakpoint: '575px',
+            numVisible: 1
+        }
+    ];
 
     constructor(private service: PropertyService) {}
     
@@ -67,40 +83,6 @@ export class PropertyMinimalComponent implements OnChanges {
     }
     
     getPropertyType(type: string) {
-        switch (type) {
-            case 'HOUSE':
-            return 'Casa';
-            case 'CONDO':
-            return 'Condomínio';
-            case 'FARM':
-            return 'Fazenda';
-            case 'WAREHOUSE':
-            return 'Galpão';
-            case 'COMMERCIAL_APARTMENT':
-            return 'Sala Comercial';
-            case 'RETAIL_STORE':
-            return 'Loja';
-            case 'APARTMENT':
-            return 'Apartamento';
-            case 'LAND_PLOT':
-            return 'Terreno';
-            default:
-            return 'Desconhecido';
-        }
+        return propertyType.find(item => item.code === type)?.name || "Não foi possível carregar!";
     }
-    
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '991px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '767px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
-    ];
 }

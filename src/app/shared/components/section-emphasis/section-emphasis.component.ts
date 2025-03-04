@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { PropertyMinimalComponent } from '../cards/property-minimal/property-minimal.component';
-import { PropertyMinimal } from '../../interfaces/property';
+import { Property, PropertyMinimal } from '../../interfaces/property';
 import { CarouselModule } from 'primeng/carousel';
 
 import { PropertyService } from '../../../core/services/property.service';
@@ -45,10 +45,11 @@ export class SectionEmphasisComponent implements OnInit {
     constructor(private service: PropertyService) {}
     
     ngOnInit() {
-        this.service.getPropertiesMinimal("vacant").subscribe((response) => {
-            if (response) {
-                this.propertiesMinimal = response;
-            }
+        this.service.getPropertiesMinimal("vacant").subscribe((data: PropertyMinimal[]) => {
+            data.forEach(item => {
+                item.fullAddress = `${item.residenceAddress.district}, ${item.residenceAddress.city} - ${item.residenceAddress.state}`;
+            });
+            this.propertiesMinimal = data;
         });
     }
 }
