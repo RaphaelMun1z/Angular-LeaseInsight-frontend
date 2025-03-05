@@ -63,6 +63,5 @@ export class AuthService {
         this.authUserService.removeAuthUser();
         this.setLoggedIn(false);
         this.router.navigate(['login']);
-        this.messageService.add({ severity: 'success', summary: 'Saindo', detail: 'Você saiu do sistema' });
     }
 }

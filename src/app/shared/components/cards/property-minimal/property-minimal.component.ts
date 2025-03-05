@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 
 import { PropertyService } from '../../../../core/services/property.service';
 import { Property, PropertyMinimal } from '../../../interfaces/property';
@@ -25,7 +25,7 @@ export class PropertyMinimalComponent implements OnChanges {
     images: string[] = [];
     errImg: string = "https://static.vecteezy.com/ti/vetor-gratis/p1/17173007-nao-pode-carregar-ilustracao-de-conceito-de-imagem-corrompida-de-design-plano-eps10-elemento-grafico-moderno-para-pagina-inicial-interface-do-usuario-de-estado-vazio-infografico-icone-vetor.jpg";
     loadingImages: boolean = true;
-
+    
     responsiveOptions = [
         {
             breakpoint: '991px',
@@ -40,7 +40,7 @@ export class PropertyMinimalComponent implements OnChanges {
             numVisible: 1
         }
     ];
-
+    
     constructor(private service: PropertyService) {}
     
     ngOnChanges(changes: SimpleChanges): void {
@@ -74,9 +74,6 @@ export class PropertyMinimalComponent implements OnChanges {
                     const imageUrl = URL.createObjectURL(res);
                     observer.next(imageUrl);
                     observer.complete();
-                },
-                error: (err: any) => {
-                    observer.error(err);
                 }
             });
         });

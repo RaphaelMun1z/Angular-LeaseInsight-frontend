@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { AddFeature, Property, PropertyCreate, PropertyMinimal, PropertyUpdate } from '../../shared/interfaces/property';
 import { environment } from '../../../environments/environment';
 
