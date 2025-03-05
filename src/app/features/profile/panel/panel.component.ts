@@ -1,9 +1,8 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AuthStateService } from '../../../core/states/auth-state.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { CurrentUser } from '../../../shared/interfaces/user';
 
@@ -13,6 +12,7 @@ import { BadgeModule } from 'primeng/badge';
 import { MenuModule } from 'primeng/menu';
 import { Button } from 'primeng/button';
 import { MenuItem } from 'primeng/api';
+import { AuthUserService } from '../../../core/services/authUser.service';
 
 @Component({
     selector: 'app-panel',
@@ -23,18 +23,19 @@ import { MenuItem } from 'primeng/api';
 
 export class PanelComponent implements OnInit{
     items: MenuItem[] | undefined;
+    @Input() alternative: boolean = false;
+
     protected currentUser$ = new Observable<CurrentUser | null>();
     currentUser!: CurrentUser;
-    currentUserRole = signal<string|null>(null);
-    @Input() alternative: boolean = false;
     
-    constructor(private authStateService: AuthStateService, private authService: AuthService){
-        this.authStateService.loadAuthUser();
-    }
+    currentUserRole = signal<string|null>(null);
+    
+    private authUserService = inject(AuthUserService);
+    private authService = inject(AuthService);
+    constructor(){}
     
     ngOnInit() {        
-        this.authStateService.loadAuthUser();
-        this.getCurrentUser();
+        this.currentUser$ = this.authUserService.listenToAuthUser();
         this.currentUser$.subscribe({
             next: (data: CurrentUser | null) => {
                 if (data) {
@@ -100,10 +101,6 @@ export class PanelComponent implements OnInit{
         this.items = this.items.filter(item => 
             !item.items || item.items.length > 0
         );
-    }
-    
-    getCurrentUser(){
-        this.currentUser$ = this.authStateService.listenToAuth();
     }
     
     getRole(role: string){

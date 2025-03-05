@@ -38,16 +38,20 @@ export class LoginComponent {
         this.clearMessages()
         this.messages.push({ severity: 'info', icon: 'pi-spinner-dotted', content: 'Carregando...', className: 'animated-icon' },);
         if(this.form.valid){
-            this.authService.login(this.form.value).subscribe({
+            this.authService.signin(this.form.value).subscribe({
                 next: (response) => {
                     this.clearMessages()
-                    this.router.navigate(['']);
+                    if (response && response.token) {
+                        this.router.navigate(['']);
+                    } else {
+                        this.messages.push({ severity: 'warn', icon: 'pi-exclamation-triangle', content: 'Login falhou!' });
+                    }
                 },
-                error: (err: ErrorResponse) => {
+                error: (err: ErrorResponse | undefined) => {
                     this.clearMessages()
-                    if(err.status === 401){
+                    if(err && err.status === 401){
                         this.messages.push({ severity: 'error', icon: 'pi-times-circle', content: 'Credenciais Inválidas!!' });
-                    }else{
+                    }else {
                         this.messages.push({ severity: 'warn', icon: 'pi-exclamation-triangle', content: 'Sistema Indisponível no Momento!' },);
                     }
                 }

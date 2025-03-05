@@ -18,8 +18,8 @@ export class LayoutComponent implements OnInit{
     isLoggedIn = false;
     
     ngOnInit(): void {
-        effect(() => {
-            this.isLoggedIn = this.authService.isLoggedIn();
-        }, {injector: this.injector})
+        this.authService.isLoggedIn$.subscribe(isLogged => {
+            this.isLoggedIn = isLogged;
+        });
     }
 }

@@ -7,21 +7,29 @@
         </div>
     </div>
     <div class="inputs-container">
-        <div class="flex flex-col gap-2">
-            <label for="username">Nome</label>
-            <input pInputText id="username" aria-describedby="username-help" />
-        </div>
-        <div class="flex flex-col gap-2">
-            <label for="username">E-mail</label>
-            <input pInputText id="username" aria-describedby="username-help" />
-        </div>
-        <div class="flex flex-col gap-2">
-            <label for="username">Phone</label>
-            <input pInputText id="username" aria-describedby="username-help" />
-        </div>
+        <form class="form-container" [formGroup]="form">
+            <app-input-text
+            formControlName="name"
+            [invalid]="form.controls['name'].invalid"
+            [label]="'Nome Completo'" 
+            [icon]="'pi-user'"></app-input-text>
+            
+            <app-input-text
+            formControlName="email"
+            [invalid]="form.controls['email'].invalid"
+            [label]="'E-mail'" 
+            [icon]="'pi-at'"></app-input-text>
+            
+            <app-input-mask 
+            formControlName="phone"
+            [invalid]="form.controls['phone'].invalid"
+            [label]="'Telefone'"
+            [icon]="'pi-phone'"
+            [inputMask]="'(99) 99999-9999'"></app-input-mask>    
+        </form>
         <div class="flex flex-col gap-2">
             <label for="username">Tipo de Conta</label>
-            <input pInputText id="username" [disabled]="true" aria-describedby="username-help" />
+            <input pInputText id="username" [(ngModel)]="accountType" [disabled]="true" aria-describedby="username-help" />
         </div>
         <div class="buttons-container">
             <p-button label="Habilitar Edição" icon="pi pi-user-edit" severity="info" />

@@ -1,12 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, switchMap, take } from 'rxjs';
+
+import { AuthUserService } from './authUser.service';
 import { Client, ClientCreate, ClientUpdate } from '../../shared/interfaces/client';
-import { environment } from '../../../environments/environment';
 import { Invoice, InvoiceFull } from '../../shared/interfaces/invoice';
-import { AuthService } from './auth.service';
 import { Contract } from '../../shared/interfaces/contract';
 import { Report } from '../../shared/interfaces/report';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,7 @@ import { Report } from '../../shared/interfaces/report';
 export class ClientService { 
     private url = environment.api;
     
-    authService = inject(AuthService);
+    authUserService = inject(AuthUserService);
     constructor(private http: HttpClient) { }
     
     getClients(): Observable<Client[]> {
@@ -39,7 +40,7 @@ export class ClientService {
     }
     
     getCurrentClientInvoices(): Observable<InvoiceFull[]> {
-        return this.authService.getCurrentUser().pipe(
+        return this.authUserService.getAuthUser().pipe(
             switchMap(user => {
                 return this.http.get<InvoiceFull[]>(this.url + "/tenants/" + user.id + "/invoices");
             })
@@ -47,7 +48,7 @@ export class ClientService {
     }
     
     getCurrentClientContracts(): Observable<Contract[]> {
-        return this.authService.getCurrentUser().pipe(
+        return this.authUserService.getAuthUser().pipe(
             switchMap(user => {
                 return this.http.get<Contract[]>(this.url + "/tenants/" + user.id + "/contracts");
             })
@@ -55,7 +56,7 @@ export class ClientService {
     }
     
     getCurrentClientReports(): Observable<Report[]> {
-        return this.authService.getCurrentUser().pipe(
+        return this.authUserService.getAuthUser().pipe(
             switchMap(user => {
                 return this.http.get<Report[]>(this.url + "/tenants/" + user.id + "/reports");
             })

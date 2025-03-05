@@ -1,15 +1,18 @@
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
-import { CurrentUser } from '../../shared/interfaces/user';
 import { Observable, of } from 'rxjs';
 
-export const tenantGuard: CanActivateFn = (route, state) => {
-    const authService = inject(AuthService);
+import { AuthUserService } from '../services/authUser.service';
+import { CurrentUser } from '../../shared/interfaces/user';
+
+export const tenantGuard: CanActivateFn = (route, state) => {   
+    const authUserService = inject(AuthUserService);
     const router = inject(Router);
         
     return new Observable<boolean>((observer) => {
-        authService.getCurrentUserData().subscribe({
+        let currentUser$ = new Observable<CurrentUser | null>();
+        currentUser$ = authUserService.listenToAuthUser();
+        currentUser$.subscribe({
             next: (data: CurrentUser | null) => {
                 if (data && data.authorities.includes("ROLE_TENANT")) {
                     observer.next(true);
@@ -20,7 +23,6 @@ export const tenantGuard: CanActivateFn = (route, state) => {
                 observer.complete();
             },
             error: (err: any) => {
-                console.log("Erro: " + err);
                 router.navigate(['acesso-negado']);
                 observer.next(false);
                 observer.complete();

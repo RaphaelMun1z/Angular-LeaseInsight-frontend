@@ -1,24 +1,25 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { AuthService } from '../services/auth.service';
-import { inject } from '@angular/core';
 import { catchError, retry, throwError } from 'rxjs';
-import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
-import { ErrorResponse } from '../../shared/interfaces/errorResponse';
+import { inject } from '@angular/core';
 
-export const httpInterceptor: HttpInterceptorFn = (req, next) => {
-    const tokenName = environment.tokenName;
-    
+import { AuthService } from '../services/auth.service';
+import { TokenService } from '../services/token.service';
+
+export const httpInterceptor: HttpInterceptorFn = (req, next) => {    
     const authService = inject(AuthService);
-    const router = inject(Router);
+    const tokenService = inject(TokenService);
     
-    if(authService.isLoggedIn()){
-        if(authService.tokenExpired(authService.getUserToken())){
+    let isLoggedIn = false;
+    authService.isLoggedIn$.subscribe(isLogged => {
+        isLoggedIn = isLogged;
+    });
+    if(isLoggedIn){
+        if(tokenService.tokenExpired(tokenService.getToken())){
             authService.logout();
         }else{
             req = req.clone({
                 setHeaders: {
-                    Authorization: `Bearer ${authService.getUserToken()}`,
+                    Authorization: `Bearer ${tokenService.getToken()}`,
                 }
             });
         }
@@ -28,9 +29,8 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
         retry(2),
         catchError((e: HttpErrorResponse) => {
             if(e.status === 401){
-                localStorage.removeItem(tokenName);
-                router.navigate(['login']);
-            }
+                authService.logout();
+            } 
             
             const error = e.error;
             return throwError(() => error);

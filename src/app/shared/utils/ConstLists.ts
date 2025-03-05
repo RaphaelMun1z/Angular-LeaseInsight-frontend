@@ -154,3 +154,9 @@ export const contractStatus = [
     { name: "Suspenso", code: "SUSPENDED" },
     { name: "Em Revisão", code: "UNDER_REVIEW" }
 ];
+
+export const accountLevels = [
+    { name: "Administrador", code: "adm" },
+    { name: "Funcionário", code: "staff" },
+    { name: "Inquilino", code: "tenant" },
+]

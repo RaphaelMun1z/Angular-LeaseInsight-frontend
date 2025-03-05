@@ -1,19 +1,19 @@
 import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Observable } from 'rxjs';
 
-import { AvatarModule } from 'primeng/avatar';
-import { MegaMenuItem } from 'primeng/api';
-import { MegaMenu } from 'primeng/megamenu';
-import { BadgeModule } from 'primeng/badge';
+import { AuthUserService } from '../../services/authUser.service';
+import { CurrentUser } from '../../../shared/interfaces/user';
+import { PanelComponent } from '../../../features/profile/panel/panel.component';
+
 import { InputTextModule } from 'primeng/inputtext';
-import { SplitButton } from 'primeng/splitbutton';
+import { AvatarModule } from 'primeng/avatar';
 import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
-import { PanelComponent } from '../../../features/profile/panel/panel.component';
-import { AuthStateService } from '../../states/auth-state.service';
-import { Observable } from 'rxjs';
-import { CurrentUser } from '../../../shared/interfaces/user';
+import { MegaMenu } from 'primeng/megamenu';
+import { BadgeModule } from 'primeng/badge';
+import { MegaMenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-navbar',
@@ -33,13 +33,11 @@ export class NavbarComponent implements OnInit {
     currentUser!: CurrentUser;
     currentUserRole = signal<string|null>(null);
     
-    constructor(private authStateService: AuthStateService, private router: Router) {
-        this.authStateService.loadAuthUser();
-    }
+    private authUserService = inject(AuthUserService);
+    constructor() {}
     
     ngOnInit() {
-        this.authStateService.loadAuthUser();
-        this.getCurrentUser();
+        this.currentUser$ = this.authUserService.listenToAuthUser();
         this.currentUser$.subscribe({
             next: (data: CurrentUser | null) => {
                 if (data) {
@@ -74,10 +72,6 @@ export class NavbarComponent implements OnInit {
                 route: 'contato'
             }
         ];
-    }
-    
-    getCurrentUser(){
-        this.currentUser$ = this.authStateService.listenToAuth();
     }
     
     getRole(role: string){

@@ -1,10 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, switchMap } from 'rxjs';
+
+import { AuthUserService } from './authUser.service';
 import { Owner, OwnerCreate, OwnerUpdate } from '../../shared/interfaces/owner';
-import { environment } from '../../../environments/environment';
 import { Property } from '../../shared/interfaces/property';
-import { AuthService } from './auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ import { AuthService } from './auth.service';
 export class OwnerService { 
     private url = environment.api;
     
-    authService = inject(AuthService);
+    private authUserService = inject(AuthUserService);
     constructor(private http: HttpClient) { }
     
     getOwners(): Observable<Owner[]> {
@@ -33,7 +34,7 @@ export class OwnerService {
     }
     
     getCurrentOwnerProperties(): Observable<Property[]> {
-        return this.authService.getCurrentUser().pipe(
+        return this.authUserService.getAuthUser().pipe(
             switchMap(user => {
                 return this.http.get<Property[]>(this.url + "/owners/" + user.id + "/residences");
             })

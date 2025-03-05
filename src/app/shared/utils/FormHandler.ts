@@ -9,8 +9,9 @@ export class FormHandler {
     protected formStorageName!: string;
     protected form! : UntypedFormGroup;
     
-    constructor(formStorageName: string) {
-        this.formStorageName = formStorageName;
+    constructor(formStorageName: string | null) {
+        if(formStorageName != null)
+            this.formStorageName = formStorageName;
     }
     
     public getForm(): UntypedFormGroup {
@@ -36,7 +37,7 @@ export class FormHandler {
     public setErrorList(errorList: { field: string; message: string }[]): void {
         this.errorList = errorList;
     }
-
+    
     public addError(error: { field: string; message: string }){
         this.errorList.push(error);
     }
@@ -69,7 +70,7 @@ export class FormHandler {
         this.setErrorList([]);
         this.setErrors({});
     }
-
+    
     public clearForm(){
         this.form.reset();
         this.clearErrors();
@@ -96,19 +97,19 @@ export class FormHandler {
         this.setLoading(false);
         this.setSendSuccess(true);
         this.clearForm();
-
+        
         setTimeout(() => {
             this.removeCurrentStorage();
         }, 500)
-
+        
         setTimeout(() => {
             this.setSendSuccess(false);
         }, 5000)
     }
-
+    
     public failCaseState(errors: { [key: string]: string }) {
         this.setLoading(false);
-
+        
         try {
             if(errors['status'] == '422'){
                 this.setErrors({"erros": errors['message']});
@@ -121,7 +122,7 @@ export class FormHandler {
         
         this.updateErrorList();
     }
-
+    
     public removeCurrentStorage(){
         localStorage.removeItem(this.formStorageName);
     }
