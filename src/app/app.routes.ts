@@ -88,6 +88,8 @@ import { UpdatePropertyAddressComponent } from './features/dashboard/components/
 import { UpdatePropertyFeatureComponent } from './features/dashboard/components/forms/update/update-property-feature/update-property-feature.component';
 import { UpdateContractComponent } from './features/dashboard/components/forms/update/update-contract/update-contract.component';
 import { UpdatePropertyComponent } from './features/dashboard/components/forms/update/update-property/update-property.component';
+import { RegisterOwnerComponent } from './features/register/register-owner/register-owner.component';
+import { RegisterTenantComponent } from './features/register/register-tenant/register-tenant.component';
 
 export const routes: Routes = [
     {
@@ -106,6 +108,16 @@ export const routes: Routes = [
             {
                 path: 'login',
                 component: LoginComponent,
+                canActivate: [guestGuard]
+            },
+            {
+                path: 'registrar/proprietario',
+                component: RegisterOwnerComponent,
+                canActivate: [guestGuard]
+            },
+            {
+                path: 'registrar/inquilino',
+                component: RegisterTenantComponent,
                 canActivate: [guestGuard]
             },
             {

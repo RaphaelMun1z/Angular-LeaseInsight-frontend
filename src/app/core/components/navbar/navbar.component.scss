@@ -93,14 +93,21 @@
                 margin-left: 0 !important;
             }
         }
-
+        
         .p-megamenu-overlay{
             min-width: inherit;
             left: 50%;
             transform: translateX(-50%);
         }
-
+        
         .p-megamenu-end{
+            .owner-button{
+                span{
+                    color: #334155 !important;
+                    font-weight: 400 !important;
+                }
+            }
+            
             .p-button{
                 padding-right: 1.5vw;
                 padding-left: 1.5vw;
@@ -109,3 +116,4 @@
         }
     }
 }
+

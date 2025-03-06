@@ -36,7 +36,7 @@
                 width: 100%;
                 height: fit-content;
                 gap: 3vh;
-                margin-top: 3vh;
+                margin-top: 4vh;
                 
                 .p-inputtext{
                     padding: 2vh 1vw;
@@ -64,11 +64,31 @@
                         font-weight: 400;
                     }
                 }
-                
+
+                .passwords-container{
+                    position: relative;
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: column;
+                    width: 100%;
+                    height: fit-content;
+
+                    .confirmPasswordInput{
+                        margin-top: 4vh;
+                        margin-bottom: 1vh;
+                    }
+
+                    .password-mismatch-error{
+                        font-weight: 500;
+                        color: #dc2626;
+                        font-size: 0.875rem;
+                    }
+                }
+
                 .clean-button{
                     margin-top: 1vh;
                     width: 100%;
-                    
+
                     ::ng-deep {
                         .p-button{
                             width: 100% !important;
@@ -167,10 +187,7 @@
         width: 100% !important;
     }
     
-    .alternative-input{
-        .p-inputtext{
-            width: 100% !important;
-            padding: 2vh 1vw;
-        }
+    .p-password-input{
+        width: 100% !important;
     }
 }

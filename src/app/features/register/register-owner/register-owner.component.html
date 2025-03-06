@@ -1,0 +1,70 @@
+<section class="login-container">
+    <div class="child">
+        <div class="form">
+            <div class="header">
+                <img src="assets/logo.png" alt="Logo">
+                <h3>LeaseInsight</h3>
+            </div>
+            <p>Cadastre-se na plataforma para gerenciar seus imóveis com facilidade e eficiência.</p>
+            <form class="inputs" [formGroup]="form" (submit)="postForm()">
+                <app-input-text
+                formControlName="name"
+                [invalid]="form.controls['name'].invalid"
+                [label]="'Nome Completo'" 
+                [icon]="'pi-user'"></app-input-text>
+                
+                <app-input-mask 
+                formControlName="phone"
+                [invalid]="form.controls['phone'].invalid"
+                [label]="'Telefone'"
+                [icon]="'pi-phone'"
+                [inputMask]="'(99) 99999-9999'"></app-input-mask>
+                
+                <app-input-text
+                formControlName="email"
+                [invalid]="form.controls['email'].invalid"
+                [label]="'E-mail'" 
+                [icon]="'pi-at'"></app-input-text>
+                
+                <div class="passwords-container">
+                    <app-input-password
+                    formControlName="password"
+                    [invalid]="form.controls['password'].invalid"
+                    [label]="'Senha'" 
+                    [icon]="'pi-user'"></app-input-password>
+                    
+                    <app-input-password
+                    class="confirmPasswordInput"
+                    formControlName="confirmPassword"
+                    [invalid]="form.controls['confirmPassword'].invalid"
+                    [label]="'Confirme a Senha'" 
+                    [icon]="'pi-user'"></app-input-password>
+                    
+                    <span class="password-mismatch-error p-message p-component p-message-error p-message-simple p-message-sm ng-trigger ng-trigger-messageAnimation" *ngIf="passwordMismatch">As senhas não coincidem.</span>
+                </div>
+                
+                <div class="flex flex-col w-full">
+                    <p-button type="submit" label="Registrar" class="submit-button" [disabled]="formIsValidated()"/>
+                    <p-button class="clean-button" label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="ownerRegisterForm.clearForm()"/>
+                </div>
+                <a href="#" class="forgot-pass"><p>Já possui uma conta? Clique aqui para Acessar.</p></a>
+            </form>
+            <app-form-errors 
+            [item]="'Proprietário'"
+            [loading]="ownerRegisterForm.getLoading()"
+            [success]="ownerRegisterForm.getSendSuccess()"
+            [errors]="ownerRegisterForm.getErrorList()"></app-form-errors>
+        </div>
+    </div>
+    <div class="child c-2">
+        <div class="bg">
+            <img src="https://i.pinimg.com/736x/d0/60/1b/d0601b4a6b90f0f9843cbf3fd1c68e1f.jpg" alt="Imagem Ilustrativa">
+        </div>
+        <div class="logo">   
+            <div class="header">
+                <img src="assets/logo.png" alt="Logo">
+                <h3>LeaseInsight</h3>
+            </div>
+        </div>
+    </div>
+</section>

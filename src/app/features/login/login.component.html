@@ -6,21 +6,35 @@
                 <h3>LeaseInsight</h3>
             </div>
             <p>Faça login na plataforma para ter acesso ao portal corporativo.</p>
-            <form class="inputs" [formGroup]="form" (submit)="onSubmit()">
-                <div class="w-full">
-                    <span class="font-medium block mb-2">E-mail</span>
-                    <input class="w-full" formControlName="email" pInputText name="email" placeholder="E-mail*" />
+            <form class="inputs" [formGroup]="form" (submit)="postForm()">
+                <app-input-text
+                class="alternative-input"
+                formControlName="email"
+                [invalid]="form.controls['email'].invalid"
+                [label]="'E-mail'" 
+                [icon]="'pi-at'"></app-input-text>
+
+                <app-input-password
+                class="alternative-input"
+                formControlName="password"
+                [invalid]="form.controls['password'].invalid"
+                [label]="'Senha'" 
+                [icon]="'pi-user'"></app-input-password>
+
+                <div class="flex flex-col w-full">
+                    <p-button type="submit" [label]="isLoading ? 'Carregando...' : 'Acessar'" class="submit-button" [loading]="isLoading" [disabled]="formIsValidated()"/>
+                    <p-button class="clean-button" label="Limpar" icon="pi pi-eraser" iconPos="right" severity="contrast" (onClick)="loginForm.clearForm()"/>
                 </div>
-                <div class="w-full">
-                    <span class="font-medium block mb-2">Senha</span>
-                    <p-password class="w-full" [feedback]="false" [toggleMask]="true" promptLabel="Informe sua senha" name="password" formControlName="password" placeholder="Senha*" />
+                <div class="flex flex-col justify-center items-center w-full">
+                    <a href="#" class="forgot-pass"><p>Esqueceu sua senha? Clique aqui.</p></a>
+                    <a href="#" class="forgot-pass"><p>Já possui uma conta? Clique aqui.</p></a>
                 </div>
-                <p-button type="submit" label="Acessar" class="submit-button"/>
-                <a href="#" class="forgot-pass"><p>Esqueceu sua senha?</p></a>
             </form>
-            <ul class="mt-6 w-full messages-list">
-                <p-message *ngFor="let message of messages" [icon]="'pi ' + message.icon" [severity]="message.severity" [text]="message.content" [class]="message.className" />
-            </ul>
+            <app-form-errors 
+            [item]="'Inquilino'"
+            [loading]="loginForm.getLoading()"
+            [success]="loginForm.getSendSuccess()"
+            [errors]="loginForm.getErrorList()"></app-form-errors>
         </div>
     </div>
     <div class="child c-2">
