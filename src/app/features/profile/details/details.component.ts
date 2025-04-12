@@ -28,6 +28,8 @@ export class DetailsComponent implements OnInit {
     currentUser!: CurrentUser;
     
     accountType!: string;
+
+    profileChangesEnabled: boolean = false;
     
     private formBuilderService = inject(UntypedFormBuilder);
     private authUserService = inject(AuthUserService);

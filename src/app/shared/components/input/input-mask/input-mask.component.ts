@@ -16,11 +16,11 @@ const INPUT_FIELD_VALUE_ACCESSOR: any = {
 }
 
 @Component({
-  selector: 'app-input-mask',
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, InputMaskModule, InputGroupModule, InputTextModule, InputGroupAddonModule, FloatLabelModule, Message],
-  templateUrl: './input-mask.component.html',
-  styleUrl: './input-mask.component.scss',
-  providers: [INPUT_FIELD_VALUE_ACCESSOR]
+    selector: 'app-input-mask',
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, InputMaskModule, InputGroupModule, InputTextModule, InputGroupAddonModule, FloatLabelModule, Message],
+    templateUrl: './input-mask.component.html',
+    styleUrl: './input-mask.component.scss',
+    providers: [INPUT_FIELD_VALUE_ACCESSOR]
 })
 
 export class InputMaskComponent implements ControlValueAccessor {
@@ -29,6 +29,8 @@ export class InputMaskComponent implements ControlValueAccessor {
     @Input() invalid!: boolean;
     @Input() control!: FormControl | null;
     @Input() isReadOnly = false;
+    @Input() isDisabled = false;
+    
     @Input() inputMask!: string;
     
     private innerValue: any;
@@ -58,7 +60,7 @@ export class InputMaskComponent implements ControlValueAccessor {
         this.onTouchedCb = fn;
     }
     
-    setDisabledState?(isDisabled: boolean): void {
-        this.isReadOnly = isDisabled;
-    }
+    setDisabledState(isDisabled: boolean): void {
+        this.isDisabled = isDisabled;
+    }      
 }

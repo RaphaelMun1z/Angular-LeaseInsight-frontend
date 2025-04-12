@@ -111,10 +111,12 @@ export class FormHandler {
         this.setLoading(false);
         
         try {
-            if(errors['status'] == '422'){
+            if(errors['status'] == '401'){
+                this.setErrors({ "Acesso negado": "Credenciais inválidas!" });
+            }else if(errors['status'] == '422'){
                 this.setErrors({"erros": errors['message']});
             }else{
-                this.setErrors(errors);
+                this.setErrors({ "Acesso negado": "Sistema fora do ar! Tente novamente mais tarde." });
             }
         } catch (err) {
             this.setErrors({ "Erro": "Ocorreu um erro inesperado! Tente novamente mais tarde." });

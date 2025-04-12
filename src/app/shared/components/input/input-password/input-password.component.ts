@@ -30,6 +30,7 @@ export class InputPasswordComponent implements ControlValueAccessor {
     @Input() invalid!: boolean;
     @Input() control!: FormControl | null;
     @Input() isReadOnly = false;
+    @Input() toggleMaskActive = true;
     
     private innerValue: any;
     get value(){

@@ -54,35 +54,11 @@ export class LoginComponent implements OnInit{
             },
             error: (errors: { [key: string]: string }) => { 
                 this.isLoading = false;  
+                console.log(errors);
                 this.loginForm.failCaseState(errors);
             }
         });
     }
-    
-    /* onSubmit() {
-    this.clearMessages()
-    this.messages.push({ severity: 'info', icon: 'pi-spinner-dotted', content: 'Carregando...', className: 'animated-icon' },);
-    if(this.form.valid){
-    this.authService.signin(this.form.value).subscribe({
-    next: (response) => {
-    this.clearMessages()
-    if (response && response.token) {
-    this.router.navigate(['']);
-    } else {
-    this.messages.push({ severity: 'warn', icon: 'pi-exclamation-triangle', content: 'Login falhou!' });
-    }
-    },
-    error: (err: ErrorResponse | undefined) => {
-    this.clearMessages()
-    if(err && err.status === 401){
-    this.messages.push({ severity: 'error', icon: 'pi-times-circle', content: 'Credenciais Inválidas!!' });
-    }else {
-    this.messages.push({ severity: 'warn', icon: 'pi-exclamation-triangle', content: 'Sistema Indisponível no Momento!' },);
-    }
-    }
-    })
-    }
-    } */
     
     formIsValidated(): boolean{
         return this.form.invalid;

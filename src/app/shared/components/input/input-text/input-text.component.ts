@@ -28,6 +28,7 @@ export class InputTextComponent implements ControlValueAccessor {
     @Input() invalid!: boolean;
     @Input() control!: FormControl | null;
     @Input() isReadOnly = false;
+    @Input() isDisabled = false;
     
     private innerValue: any;
     get value(){
@@ -56,7 +57,7 @@ export class InputTextComponent implements ControlValueAccessor {
         this.onTouchedCb = fn;
     }
     
-    setDisabledState?(isDisabled: boolean): void {
-        this.isReadOnly = isDisabled;
-    }
+    setDisabledState(isDisabled: boolean): void {
+        this.isDisabled = isDisabled;
+    }   
 }

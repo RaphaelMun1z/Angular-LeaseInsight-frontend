@@ -10,18 +10,21 @@
         <form class="form-container" [formGroup]="form">
             <app-input-text
             formControlName="name"
+            [isDisabled]="!profileChangesEnabled"
             [invalid]="form.controls['name'].invalid"
             [label]="'Nome Completo'" 
             [icon]="'pi-user'"></app-input-text>
             
             <app-input-text
             formControlName="email"
+            [isDisabled]="!profileChangesEnabled"
             [invalid]="form.controls['email'].invalid"
             [label]="'E-mail'" 
             [icon]="'pi-at'"></app-input-text>
             
             <app-input-mask 
             formControlName="phone"
+            [isDisabled]="!profileChangesEnabled"
             [invalid]="form.controls['phone'].invalid"
             [label]="'Telefone'"
             [icon]="'pi-phone'"

@@ -19,7 +19,8 @@
                 formControlName="password"
                 [invalid]="form.controls['password'].invalid"
                 [label]="'Senha'" 
-                [icon]="'pi-user'"></app-input-password>
+                [icon]="'pi-user'"
+                [toggleMaskActive]="false"></app-input-password>
 
                 <div class="flex flex-col w-full">
                     <p-button type="submit" [label]="isLoading ? 'Carregando...' : 'Acessar'" class="submit-button" [loading]="isLoading" [disabled]="formIsValidated()"/>
