@@ -1,42 +1,44 @@
 <section class="container">
-    <div class="picture-container">
-        <p-avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
-        <div class="buttons-container">
-            <p-button label="Alterar foto" icon="pi pi-user" severity="info" />
-            <p-button label="Excluir foto" icon="pi pi-user" variant="outlined" severity="danger" />
-        </div>
-    </div>
     <div class="inputs-container">
-        <form class="form-container" [formGroup]="form">
-            <app-input-text
-            formControlName="name"
-            [isDisabled]="!profileChangesEnabled"
-            [invalid]="form.controls['name'].invalid"
-            [label]="'Nome Completo'" 
-            [icon]="'pi-user'"></app-input-text>
+        <ng-container *ngIf="accountType; else loading" [ngSwitch]="accountType">
+            <app-adm-profile-edit-form 
+            *ngSwitchCase="'Administrador'"
+            [form]="form"
+            [authUserForm]="authUserForm"
+            [currentUser]="currentUser"
+            [accountType]="accountType"></app-adm-profile-edit-form>
+
+            <app-staff-profile-edit-form
+            *ngSwitchCase="'Funcionário'"
+            [form]="form"
+            [authUserForm]="authUserForm"
+            [currentUser]="currentUser"
+            [accountType]="accountType"></app-staff-profile-edit-form>
+
+            <app-owner-profile-edit-form
+            *ngSwitchCase="'Proprietário'"
+            [form]="form"
+            [authUserForm]="authUserForm"
+            [currentUser]="currentUser"
+            [accountType]="accountType"></app-owner-profile-edit-form>
+
+            <app-tenant-profile-edit-form
+            *ngSwitchCase="'Inquilino'"
+            [form]="form"
+            [authUserForm]="authUserForm"
+            [currentUser]="currentUser"
+            [accountType]="accountType"></app-tenant-profile-edit-form>
             
-            <app-input-text
-            formControlName="email"
-            [isDisabled]="!profileChangesEnabled"
-            [invalid]="form.controls['email'].invalid"
-            [label]="'E-mail'" 
-            [icon]="'pi-at'"></app-input-text>
-            
-            <app-input-mask 
-            formControlName="phone"
-            [isDisabled]="!profileChangesEnabled"
-            [invalid]="form.controls['phone'].invalid"
-            [label]="'Telefone'"
-            [icon]="'pi-phone'"
-            [inputMask]="'(99) 99999-9999'"></app-input-mask>    
-        </form>
-        <div class="flex flex-col gap-2">
-            <label for="username">Tipo de Conta</label>
-            <input pInputText id="username" [(ngModel)]="accountType" [disabled]="true" aria-describedby="username-help" />
-        </div>
-        <div class="buttons-container">
-            <p-button label="Habilitar Edição" icon="pi pi-user-edit" severity="info" />
-            <p-button label="Salvar" icon="pi pi-check" severity="success" [disabled]="true" />
-        </div>
+            <div *ngSwitchDefault>
+                <p>Não foi possível carregar seu perfil no momento.</p>
+            </div>
+        </ng-container>
+        
+        <ng-template #loading>
+            <div class="loading-wrapper">
+                <div class="spinner"></div>
+                <p>Carregando...</p>
+            </div>
+        </ng-template>
     </div>
 </section>

@@ -158,5 +158,6 @@ export const contractStatus = [
 export const accountLevels = [
     { name: "Administrador", code: "adm" },
     { name: "Funcionário", code: "staff" },
+    { name: "Proprietário", code: "owner" },
     { name: "Inquilino", code: "tenant" },
 ]

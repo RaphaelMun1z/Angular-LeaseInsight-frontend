@@ -1,0 +1,51 @@
+<div class="container"> 
+    <div class="picture-container">
+        <p-avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
+        <div class="buttons-container" *ngIf="form.valid">
+            <p-button label="Alterar foto" icon="pi pi-user" severity="info" />
+            <p-button label="Excluir foto" icon="pi pi-user" variant="outlined" severity="danger" />
+        </div>
+    </div>
+    <form class="form-container" [formGroup]="form">
+        <app-input-text
+        formControlName="name"
+        [isDisabled]="this.form.controls['name'].disabled"
+        [invalid]="form.controls['name'].invalid"
+        [label]="'Nome Completo'" 
+        [icon]="'pi-user'"></app-input-text>
+        
+        <app-input-text
+        formControlName="email"
+        [isDisabled]="this.form.controls['email'].disabled"
+        [invalid]="form.controls['email'].invalid"
+        [label]="'E-mail'" 
+        [icon]="'pi-at'"></app-input-text>
+        
+        <app-input-mask 
+        formControlName="phone"
+        [isDisabled]="this.form.controls['phone'].disabled"
+        [invalid]="form.controls['phone'].invalid"
+        [label]="'Telefone'"
+        [icon]="'pi-phone'"
+        [inputMask]="'(99) 99999-9999'"></app-input-mask>  
+        
+        <ng-content></ng-content>
+    </form>
+    <hr>
+    <div class="flex flex-col gap-2">
+        <label for="username">Tipo de Conta</label>
+        <input pInputText id="username" [(ngModel)]="accountType" [disabled]="true" aria-describedby="username-help" />
+    </div>
+    <ng-container *ngIf="postForm">
+        <app-form-errors 
+        *ngIf="authUserForm.getErrorList().length > 0 || authUserForm.getSendSuccess() || authUserForm.getLoading()"
+        [item]="'Perfil'"
+        [loading]="authUserForm.getLoading()"
+        [success]="authUserForm.getSendSuccess()"
+        [errors]="authUserForm.getErrorList()"></app-form-errors>
+        <div class="buttons-container">
+            <p-button *ngIf="form.valid" (onClick)="toggleProfileEdit();postForm()" label="Salvar" icon="pi pi-check" severity="success" [disabled]="form.disabled"></p-button>
+            <p-button label="{{form.valid ? 'Cancelar' : 'Editar perfil' }}" (onClick)="toggleProfileEdit()" icon="pi pi-user-edit" [severity]="form.valid ? 'warn' : 'info'" />
+        </div>
+    </ng-container>
+</div>

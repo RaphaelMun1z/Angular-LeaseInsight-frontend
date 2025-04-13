@@ -28,8 +28,8 @@ export class InputMaskComponent implements ControlValueAccessor {
     @Input() icon!: string;
     @Input() invalid!: boolean;
     @Input() control!: FormControl | null;
-    @Input() isReadOnly = false;
-    @Input() isDisabled = false;
+    @Input() isReadOnly: boolean = false;
+    @Input() isDisabled: boolean = false;
     
     @Input() inputMask!: string;
     
@@ -59,8 +59,4 @@ export class InputMaskComponent implements ControlValueAccessor {
     registerOnTouched(fn: any): void {
         this.onTouchedCb = fn;
     }
-    
-    setDisabledState(isDisabled: boolean): void {
-        this.isDisabled = isDisabled;
-    }      
 }

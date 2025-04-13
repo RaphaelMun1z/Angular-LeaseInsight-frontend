@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
@@ -27,8 +27,8 @@ export class InputTextComponent implements ControlValueAccessor {
     @Input() icon!: string;
     @Input() invalid!: boolean;
     @Input() control!: FormControl | null;
-    @Input() isReadOnly = false;
-    @Input() isDisabled = false;
+    @Input() isReadOnly: boolean = false;
+    @Input() isDisabled: boolean = false;
     
     private innerValue: any;
     get value(){
@@ -56,8 +56,4 @@ export class InputTextComponent implements ControlValueAccessor {
     registerOnTouched(fn: any): void {
         this.onTouchedCb = fn;
     }
-    
-    setDisabledState(isDisabled: boolean): void {
-        this.isDisabled = isDisabled;
-    }   
 }

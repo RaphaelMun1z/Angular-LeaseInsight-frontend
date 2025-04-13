@@ -93,10 +93,12 @@ export class FormHandler {
         this.setLoading(true);
     }
     
-    public successCaseState(){
+    public successCaseState(cleanFormEnabled: boolean = true) {
         this.setLoading(false);
         this.setSendSuccess(true);
-        this.clearForm();
+
+        if(cleanFormEnabled)
+            this.clearForm();
         
         setTimeout(() => {
             this.removeCurrentStorage();

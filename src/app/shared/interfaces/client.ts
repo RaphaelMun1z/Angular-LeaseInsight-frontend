@@ -41,10 +41,5 @@ export interface ClientUpdate {
     phone: string,
     email: string,
     dateOfBirth: string,
-    cpf: string,
-    rg: string,
-    tenantStatus: string,
-    tenantBillingAddress: {
-        id: string
-    }
+    tenantStatus: string
 }
