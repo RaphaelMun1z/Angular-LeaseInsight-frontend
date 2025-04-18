@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-import { AddFeature, Property, PropertyCreate, PropertyMinimal, PropertyUpdate } from '../../shared/interfaces/property';
+import { AddFeature, PagedResidenceResponse, Property, PropertyCreate, PropertyMinimal, PropertyUpdate } from '../../shared/interfaces/property';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -16,6 +16,31 @@ export class PropertyService {
     getProperties(): Observable<Property[]> {
         return this.http.get<Property[]>(this.url + "/residences");
     }
+    
+    getPropertiesPaginated(page: number, size: number, sortRentalValue: string | null, city: string | null, rentalValue: number | null, propertyType: string | null): Observable<PagedResidenceResponse> {
+        let params = new HttpParams()
+        .set('page', page.toString())
+        .set('size', size.toString())
+
+        if (sortRentalValue) {
+            params = params.set('sort', `rentalValue,${sortRentalValue}`);
+        }
+        
+        if (city) {
+            params = params.set('city', city);
+        }
+        
+        if (rentalValue !== null && rentalValue !== undefined) {
+            params = params.set('rentalValue', rentalValue.toString());
+        }
+        
+        if(propertyType !== null && propertyType !== undefined){
+            params = params.set('propertyType', propertyType.toString());
+        }
+        
+        return this.http.get<PagedResidenceResponse>(`${this.url}/residences/dynamic-search`, { params });
+    }
+    
     
     getPropertiesMinimal(status: string): Observable<PropertyMinimal[]> {
         return this.http.get<PropertyMinimal[]>(this.url + "/residences/occupancy-status/" + status);

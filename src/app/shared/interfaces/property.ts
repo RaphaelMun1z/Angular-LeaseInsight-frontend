@@ -2,6 +2,20 @@ import { Feature } from "./feature";
 import { Owner } from "./owner";
 import { PropertyAddress } from "./propertyAddress";
 
+interface PageMetadata {
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    number: number;
+}
+
+export interface PagedResidenceResponse {
+    _embedded: {
+        residenceResponseDTOList: Property[];
+    };
+    page: PageMetadata;
+}
+
 interface File {
     id: string,
     name: string,

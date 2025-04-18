@@ -1,19 +1,63 @@
 <section class="content-container">
     <div class="header">
         <h1>O que você procura?</h1>
-        <div class="places-container">
-            <p-splitbutton class="item" label="Cidade" severity="secondary" />
-            <p-splitbutton class="item" label="Tipo de Imóvel" severity="secondary" />
-            <p-splitbutton class="item" label="Tipo de Locação" severity="secondary" />
-            <p-button class="item submit" label="Buscar" icon="pi pi-search" iconPos="right" />
+        <div class="places-container" [class.sticky]="isSticky">
+            <p-select class="item" [options]="cityItems" [(ngModel)]="citySelected" optionLabel="name" placeholder="Cidade" />
+            <p-select class="item" [options]="propertyTypeItems" [(ngModel)]="propertyTypeSelected" optionLabel="name" placeholder="Tipo de Imóvel" />
+            <p-select class="item" [options]="orderItems" [(ngModel)]="sortRentalValue" optionLabel="name" placeholder="Ordem" />
+            <p-button class="item submit" label="Buscar" icon="pi pi-search" iconPos="right" (click)="this.getData();" />
+            <p-button *ngIf="citySelected != null || propertyTypeSelected != null || sortRentalValue != null" class="item i-no-bg submit" icon="pi pi-filter-slash" (click)="this.resetFilters();" />
         </div>
     </div>
-    <div class="properties-container grid grid-cols-3 gap-10">
-        <div class="item" *ngFor="let property of properties">
-            <app-property-minimal [propertyMinimal]="property"></app-property-minimal>
+    <div class="min-h-[400px] w-full">
+        <div *ngIf="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2.5rem]">
+            <div *ngFor="let item of [1,2,3,4,5,6]" class="border rounded-lg overflow-hidden bg-white">
+                <p-skeleton width="100%" height="200px" styleClass="mb-2"></p-skeleton>
+                <div class="p-4">
+                    <p-skeleton width="25%" height="2.25rem" styleClass="mb-3"></p-skeleton>
+                    <p-skeleton width="40%" height="3.25rem" styleClass="mb-3"></p-skeleton>
+                    <p-skeleton width="90%" height="1.25rem" styleClass="mb-3"></p-skeleton>
+                    <div class="flex justify-between">
+                        <p-skeleton width="40%" height="1rem"></p-skeleton>
+                        <p-skeleton width="40%" height="1rem"></p-skeleton>
+                    </div>
+                    <p-skeleton width="100%" height="2.5rem" styleClass="mt-4"></p-skeleton>
+                </div>
+            </div>
+        </div>
+        
+        <div *ngIf="!loading && properties && properties.length > 0" class="properties-container grid grid-cols-3 gap-10">
+            <div class="item" *ngFor="let property of properties">
+                <app-property-minimal [propertyMinimal]="property"></app-property-minimal>
+            </div>
+        </div>
+        
+        <div *ngIf="!loading && properties && properties.length === 0">
+            <div class="flex flex-col items-center justify-center py-16 text-center">
+                <div class="bg-gray-100 p-6 rounded-full mb-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">Nenhum imóvel disponível</h3>
+                <p class="text-gray-500 max-w-md mb-6">Não encontramos propriedades que correspondam à sua pesquisa. Tente ajustar os filtros ou volte mais tarde.</p>
+                
+                <div class="flex gap-3">
+                    <button 
+                    (click)="resetFilters()"
+                    class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    Limpar filtros
+                </button>
+                <button 
+                (click)="refresh()"
+                class="px-5 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                Recarregar
+            </button>
         </div>
     </div>
-    <div class="card flex justify-center">
-        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
-    </div>    
+</div>
+</div>
+<div class="card flex justify-center" *ngIf="properties && properties.length > 0;">
+    <p-paginator (onPageChange)="onPageChange($event)" [first]="page * size" [rows]="size" [totalRecords]="totalRecords" [rowsPerPageOptions]="[6, 9, 12]" />
+</div>    
 </section>

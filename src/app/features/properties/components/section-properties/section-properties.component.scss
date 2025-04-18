@@ -48,30 +48,56 @@
             padding: 1vw;
             margin-top: 2.5vh;
             gap: 1vw;
+            transition: all .5s ease-in-out;
+            bottom: 0;
+            
+            &.sticky{
+                position: fixed;
+                z-index: 99;
+                bottom: 5px;
+                margin: 0;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+                transition: all .5s ease-in-out;
+            }
             
             .item{
                 position: relative;
                 display: flex;
                 width: fit-content;
-                height: fit-content;
+                align-items: center;
                 border-radius: 10px;
                 background-color: rgb(242, 241, 239);
                 font-weight: 500;
                 color: #222;
+                border: none;
+                
+                &.i-no-bg{
+                    background-color: transparent !important;
+                }
+                
+                ::ng-deep .p-select-label{
+                    padding: 1.2vh 0.75vw 1.2vh 1.5vw !important;
+                }
+                
+                ::ng-deep .p-select-dropdown{
+                    padding: 1.2vh 1.5vw 1.2vh 0.75vw !important;
+                    
+                }
                 
                 ::ng-deep .p-button-secondary{
                     background-color: transparent;
-                    padding: 1.2vh 1.3vw;
+                    padding: 1.2vh 0.75vw 1.2vh 1.5vw;
                 }
                 
                 ::ng-deep .p-button-label,
+                ::ng-deep .p-select-label,
                 ::ng-deep .p-icon{
                     font-size: 1vw;
                     color: #353128;
                 }
                 
                 ::ng-deep .p-splitbutton-dropdown{
-                    padding: 0 1.5vw;
+                    padding: 0 1.5vw 0 0.75vw;
                 }
             }
             
@@ -105,3 +131,4 @@
         }
     }
 }
+
