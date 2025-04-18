@@ -1,7 +1,80 @@
-<app-standard-profile-edit-form
-[form]="form"
-[authUserForm]="authUserForm"
-[accountType]="accountType"
-[postForm]="postForm">
-Campos adicionais...
+<form [formGroup]="form">
+    <app-standard-profile-edit-form
+    [form]="form"
+    [authUserForm]="authUserForm"
+    [accountType]="accountType"
+    [postForm]="postForm">
+    <app-input-mask 
+    formControlName="cpf"
+    [isDisabled]="this.form.controls['cpf'].disabled"
+    [invalid]="form.controls['cpf'].invalid"
+    [label]="'CPF'"
+    [icon]="'pi-id-card'"
+    [inputMask]="'999.999.999-99'"></app-input-mask>
+    
+    <app-input-mask 
+    formControlName="rg"
+    [isDisabled]="this.form.controls['rg'].disabled"
+    [invalid]="form.controls['rg'].invalid"
+    [label]="'RG'"
+    [icon]="'pi-id-card'"
+    [inputMask]="'99.999.999-9'"></app-input-mask>
+    
+    <hr>
+
+    <div class="addressContainer" formGroupName="tenantBillingAddress">
+        <h2>Endereço:</h2>
+
+        <app-input-mask 
+        formControlName="cep"
+        [isDisabled]="form.get('tenantBillingAddress.cep')?.disabled ?? true"
+        [invalid]="form.get('tenantBillingAddress.cep')?.invalid ?? false"
+        [label]="'CEP'"
+        [icon]="'pi-map-marker'"
+        [inputMask]="'99.999-999'"></app-input-mask>
+        
+        <app-input-text
+        formControlName="street"
+        [isDisabled]="form.get('tenantBillingAddress.street')?.disabled ?? true"
+        [invalid]="form.get('tenantBillingAddress.street')?.invalid ?? false"
+        [label]="'Logradouro'" 
+        [icon]="'pi-map-marker'"></app-input-text>
+        
+        <app-input-text
+        formControlName="district"
+        [isDisabled]="form.get('tenantBillingAddress.district')?.disabled ?? true"
+        [invalid]="form.get('tenantBillingAddress.district')?.invalid ?? false"
+        [label]="'Bairro'" 
+        [icon]="'pi-map-marker'"></app-input-text>
+        
+        <app-input-text
+        formControlName="city"
+        [isDisabled]="form.get('tenantBillingAddress.city')?.disabled ?? true"
+        [invalid]="form.get('tenantBillingAddress.city')?.invalid ?? false"
+        [label]="'Cidade'" 
+        [icon]="'pi-map-marker'"></app-input-text>
+        
+        <app-input-text
+        formControlName="state"
+        [isDisabled]="form.get('tenantBillingAddress.state')?.disabled ?? true"
+        [invalid]="form.get('tenantBillingAddress.state')?.invalid ?? false"
+        [label]="'Estado'" 
+        [icon]="'pi-map-marker'"></app-input-text>
+        
+        <app-input-select
+        formControlName="country"
+        [isDisabled]="form.get('tenantBillingAddress.country')?.disabled ?? true"
+        [invalid]="form.get('tenantBillingAddress.country')?.invalid ?? false"
+        [label]="'País'" 
+        [icon]="'pi-map-marker'"
+        [items]="countriesList"></app-input-select>
+        
+        <app-input-text
+        formControlName="complement"
+        [isDisabled]="form.get('tenantBillingAddress.complement')?.disabled ?? true"
+        [invalid]="form.get('tenantBillingAddress.complement')?.invalid ?? false"
+        [label]="'Complemento'" 
+        [icon]="'pi-map-marker'"></app-input-text>
+    </div>
 </app-standard-profile-edit-form>
+</form>

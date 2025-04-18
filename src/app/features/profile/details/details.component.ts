@@ -53,7 +53,6 @@ export class DetailsComponent implements OnInit {
                         email: user.email,
                     })
                     this.accountType = this.getAccountLevel(user.role);
-                    console.log(this.accountType);
                 }
             },
             error: (err: any) => {

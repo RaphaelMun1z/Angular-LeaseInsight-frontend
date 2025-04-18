@@ -13,3 +13,8 @@ export interface CurrentUser {
     role: string;
     authorities: string[];
 }
+
+export interface CurrentTenant extends CurrentUser {
+    rg: string;
+    cpf: string;
+}

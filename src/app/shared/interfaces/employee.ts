@@ -1,8 +1,6 @@
-export interface Employee {
-    id: string,
-    name: string,
-    phone: string,
-    email: string
+import { CurrentUser } from "./user";
+
+export interface Employee extends CurrentUser{
 }
 
 export interface EmployeeCreate {

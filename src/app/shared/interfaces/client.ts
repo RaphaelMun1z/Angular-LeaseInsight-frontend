@@ -1,8 +1,6 @@
-export interface Client {
-    id: string,
-    name: string,
-    phone: string,
-    email: string,
+import { CurrentUser } from "./user"
+
+export interface Client extends CurrentUser {
     dateOfBirth: string,
     cpf: string,
     rg: string,

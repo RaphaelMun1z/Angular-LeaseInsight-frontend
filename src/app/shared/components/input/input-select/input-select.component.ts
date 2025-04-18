@@ -28,7 +28,8 @@ export class InputSelectComponent implements ControlValueAccessor {
     @Input() icon!: string;
     @Input() invalid!: boolean;
     @Input() control!: FormControl | null;
-    @Input() isReadOnly = false;
+    @Input() isReadOnly: boolean = false;
+    @Input() isDisabled: boolean = false;
     @Input() items: {name: string | number, code: string | number }[] | undefined;
     selectedItem!: {name: string | number, code: string | number };
 

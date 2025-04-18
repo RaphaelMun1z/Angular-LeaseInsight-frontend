@@ -31,7 +31,7 @@ export class StaffProfileEditFormComponent {
         });
     }
     
-    postForm(){
+    postForm = () => {
         this.authUserForm.validForm();
         const data: ClientUpdate = this.form.value;
         

@@ -1,8 +1,6 @@
-export interface Owner {
-    id: string;
-    name: string;
-    phone: string;
-    email: string;
+import { CurrentUser } from "./user";
+
+export interface Owner extends CurrentUser{
 }
 
 export interface OwnerCreate {

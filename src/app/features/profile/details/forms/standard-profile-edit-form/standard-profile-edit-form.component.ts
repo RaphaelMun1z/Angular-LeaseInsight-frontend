@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UntypedFormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { CurrentUser } from '../../../../../shared/interfaces/user';
 import { FormHandler } from '../../../../../shared/utils/FormHandler';
 
 import { InputTextComponent } from '../../../../../shared/components/input/input-text/input-text.component';
