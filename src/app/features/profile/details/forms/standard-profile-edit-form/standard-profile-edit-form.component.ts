@@ -24,13 +24,13 @@ export class StandardProfileEditFormComponent {
     @Input() authUserForm!: FormHandler;
     @Input() accountType!: string;
 
+    loading: boolean = false;
+    systemDown: boolean = false;
+
     @Input() postForm?: () => void;
-    
-    toggleProfileEdit() {
-        if (!this.form.enabled) {
-            this.form.enable();
-        } else {
-            this.form.disable();
-        }
+
+    onCancel(): void {
+        this.form.reset();
+        this.form.disable();
     }
 }

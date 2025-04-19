@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Observable, take } from 'rxjs';
 
 import { PropertyStateService } from '../../../../core/states/property-state.service';
@@ -31,9 +31,10 @@ export class SectionPropertiesComponent implements OnInit{
     totalRecords!: number;
     
     loading: boolean = true;
+    systemDown: boolean = false;
     
     sortRentalValue: { name: string; code: string } | null = null; 
-    propertyTypeSelected!: { name: string; code: string } | null;
+    propertyTypeSelected!: { name: string; code: number } | null;
     citySelected!: { name: string; code: string } | null;
     maxRentalValue!: number | null;
     
@@ -43,15 +44,15 @@ export class SectionPropertiesComponent implements OnInit{
     cityItems = [
         {
             name: 'Monte Carmelo',
-            code: 'Monte Carmelo'
+            code: 'monte-carmelo'
         },
         {
             name: 'Santos',
-            code: 'Santos'
+            code: 'santos'
         },
         {
             name: 'São Paulo',
-            code: 'São Paulo'
+            code: 'sao-paulo'
         },
     ]
     
@@ -77,12 +78,40 @@ export class SectionPropertiesComponent implements OnInit{
         },
     ];
     
-    constructor(private propertyService: PropertyService, private propertyStateService: PropertyStateService){
+    constructor(private route: ActivatedRoute, private propertyService: PropertyService, private propertyStateService: PropertyStateService){
         this.getData();
     }
     
     ngOnInit(): void {
         this.calculateStickyOffset();
+        
+        this.route.queryParams.subscribe(params => {
+            const cityParam = this.cityItems.find(c => {
+                return c.code.toLowerCase() === params['city'].toLowerCase();
+            })
+            
+            if(cityParam != null && cityParam != undefined){
+                this.citySelected = cityParam;
+            }
+            
+            const typeParam = this.propertyTypeItems.find(t => {
+                return t.code === parseInt(params['type']);
+            })
+            
+            if(typeParam != null && typeParam != undefined){
+                this.propertyTypeSelected = typeParam;
+            }
+            
+            const orderParam = this.orderItems.find(o => {
+                return o.code.toLowerCase() === params['order'].toLowerCase();
+            })
+            
+            if(orderParam != null && orderParam != undefined){
+                this.sortRentalValue = orderParam;
+            }
+                    
+            this.getData();
+        });
     }
     
     @HostListener('window:scroll')
@@ -115,36 +144,47 @@ export class SectionPropertiesComponent implements OnInit{
             behavior: 'smooth'
         });
         
+        this.systemDown = false;
         this.loading = true;
         
         const sortValue = this.sortRentalValue?.code ?? null;
-        const city = this.citySelected?.code ?? null;
-        const propertyType = this.propertyTypeSelected?.code ?? null;
+        const city = this.citySelected?.name ?? null;
+        const propertyType = this.propertyTypeSelected?.code.toString() ?? null;
         const maxValue = this.maxRentalValue ?? null;
         
         this.propertyService
         .getPropertiesPaginated(this.page, this.size, sortValue, city, maxValue, propertyType)
         .pipe(take(1))
-        .subscribe((data: PagedResidenceResponse) => {
-            this.page = data.page.number;
-            this.size = data.page.size;
-            this.totalRecords = data.page.totalElements;
-            
-            if(!data._embedded){
+        .subscribe({
+            next: (data: PagedResidenceResponse) => {
+                this.page = data.page.number;
+                this.size = data.page.size;
+                this.totalRecords = data.page.totalElements;
+                
+                if(!data._embedded){
+                    this.properties = [];
+                    return;
+                }
+                
+                data._embedded.residenceResponseDTOList.forEach(item => {
+                    item.fullAddress = `${item.residenceAddress.district}, ${item.residenceAddress.city} - ${item.residenceAddress.state}`;
+                });
+                
+                this.properties = data._embedded.residenceResponseDTOList;
+                
+                setTimeout(() => {
+                    this.loading = false;
+                }, 1000)
+            },
+            error: (err) => {
                 this.properties = [];
-                return;
+                this.loading = false;
+                this.systemDown = true;
+            },
+            complete: () => {
+                this.loading = false;
             }
-            
-            data._embedded.residenceResponseDTOList.forEach(item => {
-                item.fullAddress = `${item.residenceAddress.district}, ${item.residenceAddress.city} - ${item.residenceAddress.state}`;
-            });
-            
-            this.properties = data._embedded.residenceResponseDTOList;
         });
-        
-        setTimeout(() => {
-            this.loading = false;
-        }, 1000)
     }
     
     resetFilters() {

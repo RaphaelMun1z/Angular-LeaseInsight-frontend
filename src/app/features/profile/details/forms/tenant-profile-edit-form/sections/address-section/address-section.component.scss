@@ -1,0 +1,27 @@
+.container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    gap: 3.5vh 0;
+}
+
+form{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 3.5vh 0;
+}
+
+.form-container {
+    transition: all 0.3s ease;
+}
+
+.dark .form-container {
+    background-color: #1f2937;
+}

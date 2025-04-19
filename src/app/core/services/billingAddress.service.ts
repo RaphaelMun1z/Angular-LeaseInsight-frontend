@@ -20,6 +20,10 @@ export class BillingAddressService {
     getBillingAddressById(id: string): Observable<BillingAddress> {
         return this.http.get<BillingAddress>(this.url + "/billing-addresses/" + id);
     }
+
+    getBillingAddressByAuthUser(): Observable<BillingAddress> {
+        return this.http.get<BillingAddress>(this.url + "/billing-addresses/authuser");
+    }
     
     saveBillingAddress(billingAddress: BillingAddressCreate): any {
         return this.http.post<BillingAddressCreate>(this.url + "/billing-addresses", billingAddress);

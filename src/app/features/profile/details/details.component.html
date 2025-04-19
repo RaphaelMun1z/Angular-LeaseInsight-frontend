@@ -1,44 +1,37 @@
-<section class="container">
-    <div class="inputs-container">
-        <ng-container *ngIf="accountType; else loading" [ngSwitch]="accountType">
-            <app-adm-profile-edit-form 
-            *ngSwitchCase="'Administrador'"
-            [form]="form"
-            [authUserForm]="authUserForm"
-            [currentUser]="currentUser"
-            [accountType]="accountType"></app-adm-profile-edit-form>
-
-            <app-staff-profile-edit-form
-            *ngSwitchCase="'Funcionário'"
-            [form]="form"
-            [authUserForm]="authUserForm"
-            [currentUser]="currentUser"
-            [accountType]="accountType"></app-staff-profile-edit-form>
-
-            <app-owner-profile-edit-form
-            *ngSwitchCase="'Proprietário'"
-            [form]="form"
-            [authUserForm]="authUserForm"
-            [currentUser]="currentUser"
-            [accountType]="accountType"></app-owner-profile-edit-form>
-
-            <app-tenant-profile-edit-form
-            *ngSwitchCase="'Inquilino'"
-            [form]="form"
-            [authUserForm]="authUserForm"
-            [currentUser]="currentUser"
-            [accountType]="accountType"></app-tenant-profile-edit-form>
-            
-            <div *ngSwitchDefault>
-                <p>Não foi possível carregar seu perfil no momento.</p>
-            </div>
-        </ng-container>
-        
-        <ng-template #loading>
-            <div class="loading-wrapper">
-                <div class="spinner"></div>
-                <p>Carregando...</p>
-            </div>
-        </ng-template>
+<ng-container *ngIf="accountType; else loading" [ngSwitch]="accountType">
+    <app-adm-profile-edit-form 
+    *ngSwitchCase="'Administrador'"
+    [form]="form"
+    [authUserForm]="authUserForm"
+    [currentUser]="currentUser"
+    [accountType]="accountType"></app-adm-profile-edit-form>
+    
+    <app-staff-profile-edit-form
+    *ngSwitchCase="'Funcionário'"
+    [form]="form"
+    [authUserForm]="authUserForm"
+    [currentUser]="currentUser"
+    [accountType]="accountType"></app-staff-profile-edit-form>
+    
+    <app-owner-profile-edit-form
+    *ngSwitchCase="'Proprietário'"
+    [form]="form"
+    [authUserForm]="authUserForm"
+    [currentUser]="currentUser"
+    [accountType]="accountType"></app-owner-profile-edit-form>
+    
+    <app-tenant-profile-edit-form
+    *ngSwitchCase="'Inquilino'"
+    [form]="form"
+    [authUserForm]="authUserForm"
+    [currentUser]="currentUser"
+    [accountType]="accountType"></app-tenant-profile-edit-form>
+    
+    <div *ngSwitchDefault>
+        <p>Não foi possível carregar seu perfil no momento.</p>
     </div>
-</section>
+</ng-container>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

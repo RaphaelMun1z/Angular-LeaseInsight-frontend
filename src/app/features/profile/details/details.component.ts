@@ -13,10 +13,11 @@ import { TenantProfileEditFormComponent } from "./forms/tenant-profile-edit-form
 import { OwnerProfileEditFormComponent } from "./forms/owner-profile-edit-form/owner-profile-edit-form.component";
 import { AdmProfileEditFormComponent } from './forms/adm-profile-edit-form/adm-profile-edit-form.component';
 import { StaffProfileEditFormComponent } from './forms/staff-profile-edit-form/staff-profile-edit-form.component';
+import { LoadingComponent } from '../../../core/components/loading/loading.component';
 
 @Component({
     selector: 'app-details',
-    imports: [CommonModule, TenantProfileEditFormComponent, OwnerProfileEditFormComponent, AdmProfileEditFormComponent, StaffProfileEditFormComponent],
+    imports: [CommonModule, TenantProfileEditFormComponent, LoadingComponent, OwnerProfileEditFormComponent, AdmProfileEditFormComponent, StaffProfileEditFormComponent],
     templateUrl: './details.component.html',
     styleUrl: './details.component.scss'
 })
@@ -52,7 +53,9 @@ export class DetailsComponent implements OnInit {
                         phone: user.phone,
                         email: user.email,
                     })
-                    this.accountType = this.getAccountLevel(user.role);
+                    setTimeout(() => {
+                        this.accountType = this.getAccountLevel(user.role);
+                    }, 2000);
                 }
             },
             error: (err: any) => {

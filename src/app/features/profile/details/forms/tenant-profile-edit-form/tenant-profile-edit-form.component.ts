@@ -9,13 +9,10 @@ import { FormHandler } from '../../../../../shared/utils/FormHandler';
 import { StandardProfileEditFormComponent } from '../standard-profile-edit-form/standard-profile-edit-form.component';
 import { InputMaskComponent } from '../../../../../shared/components/input/input-mask/input-mask.component';
 import { AuthUserService } from '../../../../../core/services/authUser.service';
-import { InputTextComponent } from '../../../../../shared/components/input/input-text/input-text.component';
-import { InputSelectComponent } from '../../../../../shared/components/input/input-select/input-select.component';
-import { countries } from '../../../../../shared/utils/ConstLists';
 
 @Component({
     selector: 'app-tenant-profile-edit-form',
-    imports: [CommonModule, StandardProfileEditFormComponent, InputMaskComponent, InputTextComponent, InputSelectComponent, ReactiveFormsModule],
+    imports: [CommonModule, StandardProfileEditFormComponent, InputMaskComponent, ReactiveFormsModule],
     templateUrl: './tenant-profile-edit-form.component.html',
     styleUrl: './tenant-profile-edit-form.component.scss'
 })
@@ -27,7 +24,6 @@ export class TenantProfileEditFormComponent implements OnInit{
     @Input() accountType!: string;
     
     client!: Client;
-    countriesList = countries;
     
     private authUserService = inject(AuthUserService);
     private formBuilderService = inject(UntypedFormBuilder);
@@ -87,11 +83,21 @@ export class TenantProfileEditFormComponent implements OnInit{
         this.clientService.patchClient(data, this.currentUser.id).subscribe({
             next: (res: any) => {    
                 this.authUserForm.successCaseState(false);
+                this.toggleProfileEdit();
             },
             error: (errors: { [key: string]: string }) => { 
                 this.recoverDefaultFormValues();
                 this.authUserForm.failCaseState(errors);
+                this.toggleProfileEdit();
             }
         });
+    }
+
+    toggleProfileEdit() {
+        if (!this.form.enabled) {
+            this.form.enable();
+        } else {
+            this.form.disable();
+        }
     }
 }

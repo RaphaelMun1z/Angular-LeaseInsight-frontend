@@ -5,8 +5,6 @@
 .container{
     position: relative;
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
     width: 100%;
     height: fit-content;
     border: 1px solid var(--p-menu-border-color);
@@ -19,7 +17,6 @@
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
-        width: 60%;
         height: fit-content;
         gap: 1.5vh;
         padding-top: 2vh;

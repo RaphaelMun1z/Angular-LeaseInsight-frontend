@@ -38,11 +38,21 @@ export class OwnerProfileEditFormComponent {
         this.ownerService.patchOwner(data, this.currentUser.id).subscribe({
             next: (res: any) => {    
                 this.authUserForm.successCaseState(false);
+                this.toggleProfileEdit();
             },
             error: (errors: { [key: string]: string }) => { 
                 this.recoverDefaultFormValues();
                 this.authUserForm.failCaseState(errors);
+                this.toggleProfileEdit();
             }
         });
+    }
+
+    toggleProfileEdit() {
+        if (!this.form.enabled) {
+            this.form.enable();
+        } else {
+            this.form.disable();
+        }
     }
 }

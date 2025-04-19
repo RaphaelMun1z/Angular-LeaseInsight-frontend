@@ -90,6 +90,8 @@ import { UpdateContractComponent } from './features/dashboard/components/forms/u
 import { UpdatePropertyComponent } from './features/dashboard/components/forms/update/update-property/update-property.component';
 import { RegisterOwnerComponent } from './features/register/register-owner/register-owner.component';
 import { RegisterTenantComponent } from './features/register/register-tenant/register-tenant.component';
+import { AddressSectionComponent } from './features/profile/details/forms/tenant-profile-edit-form/sections/address-section/address-section.component';
+import { UserProfileEditBaseComponent } from './features/profile/details/forms/user-profile-edit-base/user-profile-edit-base.component';
 
 export const routes: Routes = [
     {
@@ -148,7 +150,22 @@ export const routes: Routes = [
                     },
                     {
                         path: 'detalhes',
-                        component: DetailsProfileComponente
+                        component: UserProfileEditBaseComponent,
+                        children: [
+                            {
+                                path: '',
+                                redirectTo: 'geral',
+                                pathMatch: 'full'
+                            },
+                            {
+                                path: 'geral',
+                                component: DetailsProfileComponente,
+                            },
+                            {
+                                path: 'endereco',
+                                component: AddressSectionComponent
+                            }
+                        ]
                     },
                     {
                         path: 'faturas',

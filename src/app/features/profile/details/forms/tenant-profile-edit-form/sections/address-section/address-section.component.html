@@ -1,0 +1,106 @@
+<div class="container">
+    <ng-container *ngIf="loading">
+        <app-loading></app-loading>
+    </ng-container>
+    
+    <ng-container *ngIf="!loading">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg">
+            <div class="flex items-start gap-3 items-center" style="align-items: center;">
+                <div class="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-full w-12 h-12 flex items-center justify-center">
+                    <i class="pi pi-map-marker text-blue-600 dark:text-blue-400 text-lg"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white">Endereço Cadastral</h2>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">
+                        Informações do seu endereço principal
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex gap-2">
+                <p-button 
+                *ngIf="form.disabled"
+                label="Editar"
+                icon="pi pi-pencil"
+                styleClass="p-button-text p-button-sm"
+                (onClick)="form.enable()"></p-button>
+                
+                <p-button 
+                *ngIf="!form.disabled"
+                label="Cancelar"
+                icon="pi pi-times"
+                styleClass="p-button-text p-button-sm p-button-secondary"
+                (onClick)="onCancel()"></p-button>
+                
+                <p-button 
+                *ngIf="!form.disabled"
+                label="Salvar"
+                icon="pi pi-check"
+                styleClass="p-button-sm"
+                [loading]="loading"
+                (onClick)="postForm()"></p-button>
+            </div>
+        </div>
+        
+        <form class="form-container" [formGroup]="form">    
+            <app-input-mask 
+            formControlName="cep"
+            [isDisabled]="form.get('cep')?.disabled ?? true"
+            [invalid]="form.get('cep')?.invalid ?? false"
+            [label]="'CEP'"
+            [icon]="'pi-map-marker'"
+            [inputMask]="'99.999-999'"></app-input-mask>
+            
+            <app-input-text
+            formControlName="street"
+            [isDisabled]="form.get('street')?.disabled ?? true"
+            [invalid]="form.get('street')?.invalid ?? false"
+            [label]="'Logradouro'" 
+            [icon]="'pi-map-marker'"></app-input-text>
+            
+            <app-input-text
+            formControlName="district"
+            [isDisabled]="form.get('district')?.disabled ?? true"
+            [invalid]="form.get('district')?.invalid ?? false"
+            [label]="'Bairro'" 
+            [icon]="'pi-map-marker'"></app-input-text>
+            
+            <app-input-text
+            formControlName="city"
+            [isDisabled]="form.get('city')?.disabled ?? true"
+            [invalid]="form.get('city')?.invalid ?? false"
+            [label]="'Cidade'" 
+            [icon]="'pi-map-marker'"></app-input-text>
+            
+            <app-input-text
+            formControlName="state"
+            [isDisabled]="form.get('state')?.disabled ?? true"
+            [invalid]="form.get('state')?.invalid ?? false"
+            [label]="'Estado'" 
+            [icon]="'pi-map-marker'"></app-input-text>
+            
+            <app-input-select
+            formControlName="country"
+            [isDisabled]="form.get('country')?.disabled ?? true"
+            [invalid]="form.get('country')?.invalid ?? false"
+            [label]="'País'" 
+            [icon]="'pi-map-marker'"
+            [items]="countriesList"></app-input-select>
+            
+            <app-input-text
+            formControlName="complement"
+            [isDisabled]="form.get('complement')?.disabled ?? true"
+            [invalid]="form.get('complement')?.invalid ?? false"
+            [label]="'Complemento'" 
+            [icon]="'pi-map-marker'"></app-input-text>
+        </form>
+        <ng-container *ngIf="postForm">
+            <app-form-errors 
+            *ngIf="billingAddressForm.getErrorList().length > 0 || billingAddressForm.getSendSuccess() || billingAddressForm.getLoading()"
+            [item]="'Perfil'"
+            [loading]="billingAddressForm.getLoading()"
+            [success]="billingAddressForm.getSendSuccess()"
+            [errors]="billingAddressForm.getErrorList()"></app-form-errors>
+        </ng-container>
+    </ng-container>
+</div>

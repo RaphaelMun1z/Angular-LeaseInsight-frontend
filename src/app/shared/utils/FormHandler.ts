@@ -94,19 +94,21 @@ export class FormHandler {
     }
     
     public successCaseState(cleanFormEnabled: boolean = true) {
-        this.setLoading(false);
-        this.setSendSuccess(true);
-
-        if(cleanFormEnabled)
-            this.clearForm();
-        
         setTimeout(() => {
-            this.removeCurrentStorage();
-        }, 500)
-        
-        setTimeout(() => {
-            this.setSendSuccess(false);
-        }, 5000)
+            this.setLoading(false);
+            this.setSendSuccess(true);
+            
+            if(cleanFormEnabled)
+                this.clearForm();
+            
+            setTimeout(() => {
+                this.removeCurrentStorage();
+            }, 500)
+            
+            setTimeout(() => {
+                this.setSendSuccess(false);
+            }, 5000)
+        }, 1000)
     }
     
     public failCaseState(errors: { [key: string]: string }) {

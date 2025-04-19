@@ -1,5 +1,5 @@
-<div class="aside">
-    <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60" [class.alternativeStyle]="alternative">
+<!-- <div class="aside">
+    <p-menu [model]="items" class="flex justify-center border-none" styleClass="w-full md:w-60" [class.alternativeStyle]="alternative">
         <ng-template #start *ngIf="!alternative">
             <span class="inline-flex items-start gap-1 px-2 py-2">
                 <span class="text-xl font-semibold">
@@ -37,4 +37,76 @@
             <p-button (click)="logout()" class="w-full logout-btn" label="Sair" [raised]="true" severity="danger" [icon]="'pi pi-sign-out'"/>
         </ng-template>
     </p-menu>
+</div> -->
+<div class="aside h-full">
+    <p-menu 
+    [model]="items" 
+    class="flex justify-center border-0 shadow-none" 
+    styleClass="w-full md:w-64 bg-white dark:bg-gray-800 rounded-lg"
+    [class.alternativeStyle]="alternative">
+    
+    <ng-template #start *ngIf="!alternative">
+        <div class="px-4 py-4 border-b border-gray-100 dark:border-gray-700">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-100 dark:bg-blue-900/20 p-2 rounded-lg h-[2.5rem] w-[2.5rem] flex items-center justify-center">
+                    <i class="pi pi-th-large text-blue-600 dark:text-blue-400 text-xl"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-800 dark:text-white">
+                    Meu Painel
+                </span>
+            </div>
+        </div>
+    </ng-template>
+    
+    <ng-template #submenuheader let-item>
+        <div class="px-4 py-2 bg-gray-50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 font-semibold text-sm uppercase tracking-wider">
+            {{ item.label }}
+        </div>
+    </ng-template>
+    
+    <ng-template #item let-item>
+        <a pRipple 
+        class="flex items-center p-3 mx-2 my-1 rounded-lg transition-colors hover:bg-blue-50 dark:hover:bg-gray-700"
+        [routerLink]="item.routerLink"
+        routerLinkActive="bg-blue-50 dark:bg-gray-700 font-medium">
+        <span [class]="item.icon + ' text-gray-600 dark:text-gray-300'"></span>
+        <span class="ml-3 text-gray-700 dark:text-gray-200">{{ item.label }}</span>
+        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" [severity]="'info'" />
+        <span *ngIf="item.shortcut" class="ml-auto border border-gray-200 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300 text-xs p-1">
+            {{ item.shortcut }}
+        </span></a>
+    </ng-template>
+    
+    <ng-template #end *ngIf="!alternative">
+        <div class="px-4 py-4 border-t border-gray-100 dark:border-gray-700">
+            <div pRipple class="flex items-center gap-3 w-full p-2 rounded-lg transition-colors">
+                <p-avatar 
+                [label]="currentUser?.name?.charAt(0) || 'U'" 
+                class="bg-blue-500 text-white"
+                size="large" 
+                shape="circle" />
+                
+                <div class="text-left" *ngIf="currentUser">
+                    <span class="block font-semibold text-gray-800 dark:text-white">{{ currentUser.name }}</span>
+                    <span class="block text-sm text-gray-500 dark:text-gray-400">{{ getRole(currentUser.role) }}</span>
+                </div>
+            </div>
+            
+            <button pRipple 
+            class="flex items-center gap-2 w-full p-3 mt-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            [routerLink]="'/'">
+            <i class="pi pi-home text-gray-600 dark:text-gray-300"></i>
+            <span class="text-gray-700 dark:text-gray-200">Voltar ao Início</span></button>
+            
+            <p-button 
+            (click)="logout()" 
+            class="w-full mt-3"
+            label="Sair" 
+            severity="danger"
+            [raised]="true" 
+            icon="pi pi-sign-out"
+            styleClass="p-button-sm"></p-button>
+        </div>
+    </ng-template>
+</p-menu>
 </div>

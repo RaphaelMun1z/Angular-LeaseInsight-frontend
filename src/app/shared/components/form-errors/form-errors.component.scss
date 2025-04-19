@@ -1,15 +1,22 @@
-.alerts-container{
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    width: 100%;
-    height: fit-content;
-    margin-top: 5vh;
+.alerts-container {
+    .pi {
+        flex-shrink: 0;
+    }
     
-    ::ng-deep{
-        .p-message{
-            width: fit-content !important;
+    .pi-times {
+        opacity: 0.7;
+        transition: opacity 0.2s;
+        
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.dark {
+    .alerts-container {
+        [class*="bg-"] {
+            background-opacity: 0.9;
         }
     }
 }

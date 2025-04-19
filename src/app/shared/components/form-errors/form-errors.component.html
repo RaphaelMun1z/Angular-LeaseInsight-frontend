@@ -1,7 +1,22 @@
-<ul class="ml-2 w-full alerts-container">
-    <p-message *ngIf="loading" severity="info" icon="pi pi-send" text="Carregando..." />
-    <p-message *ngIf="success" severity="success" icon="pi pi-check-circle" styleClass="mb-2">{{ item }} salvo com sucesso!</p-message>
-    <p-message *ngFor="let err of errors" severity="error" icon="pi pi-times-circle" styleClass="mb-2">
-        {{ err.field }}: {{ err.message }}
-    </p-message>
-</ul>
+<div class="alerts-container space-y-3 mt-4" role="alert" aria-live="polite">
+    <div *ngIf="loading" @fadeInOut class="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 rounded-lg border border-blue-200 dark:border-blue-800">
+        <i class="pi pi-spin pi-spinner text-lg"></i>
+        <span>{{ loadingMessage || 'Carregando...' }}</span>
+    </div>
+    
+    <div *ngIf="success" @fadeInOut class="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200 rounded-lg border border-green-200 dark:border-green-800">
+        <i class="pi pi-check-circle text-lg"></i>
+        <span>{{ successMessage || ('Operação concluída com sucesso!') }}</span>
+        <i class="pi pi-times ml-auto cursor-pointer hover:text-green-700 dark:hover:text-green-300" (click)="dismissSuccess()"></i>
+    </div>
+    
+    <div *ngFor="let err of errors" @fadeInOut class="flex items-start gap-3 p-4 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200 rounded-lg border border-red-200 dark:border-red-800">
+        <i [class]="getErrorIcon(err.type)" class="text-lg mt-0.5"></i>
+        <div class="flex-1 min-w-0">
+            <p class="font-medium truncate">{{ err.title || 'Ocorreu um erro' }}</p>
+            <p class="text-sm break-words">{{ err.message }}</p>
+            <p *ngIf="err.details" class="text-xs mt-1 opacity-80 break-words">{{ err.details }}</p>
+        </div>
+        <i class="pi pi-times ml-auto cursor-pointer hover:text-red-700 dark:hover:text-red-300 flex-shrink-0" (click)="removeError(err)"></i>
+    </div>
+</div>

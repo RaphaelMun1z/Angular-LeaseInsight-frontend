@@ -1,17 +1,76 @@
 <section class="content-container">
     <div class="header">
-        <p>Seamless and friendly service</p>
-        <h1>Popular choices nearby</h1>
-        <div class="places-container">
-            <div class="item active">Uberlândia</div>
-            <div class="item">Uberaba</div>
-            <div class="item">Monte Carmelo</div>
-            <div class="item">Araguari</div>
+        <p>Serviço descomplicado e personalizado</p>
+        <h1>Opções populares nas proximidades</h1>
+        <div class="places-container flex">
+            <div *ngFor="let location of locations">
+                <div class="item" [class.active]="location.active" (click)="selectLocation(location)">{{location.name}}</div>
+            </div>
         </div>
     </div>
-    <div class="properties-container grid grid-cols-3 gap-10">
+    <div class="min-h-[400px] w-full">
+        <div *ngIf="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2.5rem]">
+            <div *ngFor="let item of [1,2,3,4,5,6]" class="border rounded-lg overflow-hidden bg-white">
+                <p-skeleton width="100%" height="200px" styleClass="mb-2"></p-skeleton>
+                <div class="p-4">
+                    <p-skeleton width="25%" height="2.25rem" styleClass="mb-3"></p-skeleton>
+                    <p-skeleton width="40%" height="3.25rem" styleClass="mb-3"></p-skeleton>
+                    <p-skeleton width="90%" height="1.25rem" styleClass="mb-3"></p-skeleton>
+                    <div class="flex justify-between">
+                        <p-skeleton width="40%" height="1rem"></p-skeleton>
+                        <p-skeleton width="40%" height="1rem"></p-skeleton>
+                    </div>
+                    <p-skeleton width="100%" height="2.5rem" styleClass="mt-4"></p-skeleton>
+                </div>
+            </div>
+        </div>
+        
+        <div *ngIf="systemDown" class="flex flex-col items-center justify-center py-16 text-center">
+            <div class="bg-gray-100 p-6 rounded-full mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" />
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">Sistema temporariamente indisponível</h3>
+            <p class="text-gray-500 max-w-md mb-6">Estamos enfrentando instabilidades. Tente novamente mais tarde ou entre em contato com o suporte se o problema persistir.</p>
+            
+            <div class="flex gap-3">
+                <button 
+                (click)="refresh()"
+                class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                Tentar novamente
+            </button>
+            <button 
+            [routerLink]="'/'"
+            class="px-5 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            Voltar para o início</button>
+        </div>
+    </div>
+    
+    <div *ngIf="!loading && properties && properties.length > 0" class="properties-container grid grid-cols-3 gap-10 w-full">
         <div class="item" *ngFor="let property of properties">
             <app-property-minimal [propertyMinimal]="property"></app-property-minimal>
         </div>
     </div>
+    
+    <div *ngIf="!loading && !systemDown && properties && properties.length === 0">
+        <div class="flex flex-col items-center justify-center py-16 text-center">
+            <div class="bg-gray-100 p-6 rounded-full mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">Nenhum imóvel disponível</h3>
+            <p class="text-gray-500 max-w-md mb-6">Não encontramos propriedades que correspondam à sua pesquisa. Tente ajustar os filtros ou volte mais tarde.</p>
+            
+            <div class="flex gap-3">
+                <button 
+                (click)="refresh()"
+                class="px-5 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                Recarregar
+            </button>
+        </div>
+    </div>
+</div>
+</div>
 </section>
