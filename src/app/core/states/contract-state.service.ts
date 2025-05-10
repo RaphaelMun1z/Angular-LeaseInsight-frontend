@@ -43,4 +43,11 @@ export class ContractStateService {
         const currentContracts = this.contracts$.value;
         this.contracts$.next([...currentContracts, contract]);
     }
+    
+    // Remove Contract
+    removeContract(id: string) {
+        const currentContracts = this.contracts$.value;
+        const updatedContracts = currentContracts.filter(p => p.id !== id);
+        this.contracts$.next(updatedContracts);
+    }
 }

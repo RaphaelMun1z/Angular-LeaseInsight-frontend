@@ -28,4 +28,8 @@ export class EmployeeService {
     patchEmployee(employee: EmployeeUpdate, id: string): any {
         return this.http.patch<EmployeeUpdate>(this.url + "/staffs/" + id, employee);
     }
+
+    deleteEmployee(id: string): any {
+        return this.http.delete<void>(this.url + "/staffs/" + id);
+    }
 }

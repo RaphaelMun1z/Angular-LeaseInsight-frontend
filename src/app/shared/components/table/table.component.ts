@@ -15,6 +15,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { Table } from 'primeng/table';
 import { Tag } from 'primeng/tag';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 interface Column {
     field: string;
@@ -29,7 +30,8 @@ interface ExportColumn {
 
 @Component({
     selector: 'app-table',
-    imports: [CommonModule, RouterModule, TableModule, Tag, DropdownModule, InputTextModule, TextareaModule, ToastModule, SelectModule, InputIconModule, IconFieldModule, ButtonModule, ToolbarModule],
+    standalone: true,
+    imports: [CommonModule, RouterModule, ConfirmDialogModule, TableModule, Tag, DropdownModule, InputTextModule, TextareaModule, ToastModule, SelectModule, InputIconModule, IconFieldModule, ButtonModule, ToolbarModule],
     providers: [ConfirmationService],
     templateUrl: './table.component.html',
     styleUrl: './table.component.scss'
@@ -40,6 +42,7 @@ export class TableComponent implements OnInit {
     @Input() fields!: {name: string; code: string, type: string}[];
     @Input() editUrl!: string;
     selectedItems!: any[] | null;
+    @Input() delItemFunc!: (itemId: string) => void;
     
     @ViewChild('dt') dt!: Table;
     @Input() exportCols!: Column[];
@@ -52,7 +55,7 @@ export class TableComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private cd: ChangeDetectorRef
     ) {}
-
+    
     ngOnInit(): void {
         this.configureTable();
     }
@@ -66,41 +69,67 @@ export class TableComponent implements OnInit {
         this.exportColumns = this.exportCols.map((col) => ({ title: col.header, dataKey: col.field }));
     }
     
-    deleteSelectedItems() {
+    deleteItemDB(itemId: string) {
+        if (this.delItemFunc) {
+            this.delItemFunc(itemId);
+        } else {
+            console.error('deleteItemDB function not provided');
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Erro!',
+                detail: 'Não foi possível completar a operação',
+                life: 3000
+            });
+        }
+    }
+    
+    deleteSelectedItems(event: Event) {
         this.confirmationService.confirm({
-            message: 'Você tem certeza que você quer deletar os itens selecionados?',
-            header: 'Confirmar',
+            target: event.target as EventTarget,
+            header: 'Atenção!',
+            message: 'Tem certeza que deseja excluir os registro selecionados?',
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'Cancelar',
+                severity: 'secondary',
+                outlined: true
+            },
+            acceptButtonProps: {
+                label: 'Excluir',
+                severity: 'danger'
+            },
             accept: () => {
+                this.selectedItems?.forEach((item) => {
+                    this.deleteItemDB(item.id);
+                });
                 this.items = this.items.filter((val) => !this.selectedItems?.includes(val));
                 this.selectedItems = null;
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Operação Realizada',
-                    detail: 'Clientes Deletados',
-                    life: 3000
-                });
             }
         });
     }
     
-    deleteItem(item: any) {
+    deleteItem(event: Event, item: any) {
         this.confirmationService.confirm({
-            message: 'Você tem certeza que você quer deletar ' + item.name + '?',
-            header: 'Confirmar',
+            target: event.target as EventTarget,
+            header: 'Atenção!',
+            message: 'Tem certeza que deseja excluir este registro?',
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'Cancelar',
+                severity: 'secondary',
+                outlined: true
+            },
+            acceptButtonProps: {
+                label: 'Excluir',
+                severity: 'danger'
+            },
             accept: () => {
+                this.deleteItemDB(item.id);
                 this.items = this.items.filter((val) => val.id !== item.id);
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Operação Realizada',
-                    detail: 'Registro Deletado',
-                    life: 3000
-                });
             }
         });
     }
-
+    
     getValueByPath(item: any, path: string): any {
         return path.split('.').reduce((acc, key) => acc && acc[key], item);
     }

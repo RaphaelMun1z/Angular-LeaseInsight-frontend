@@ -62,4 +62,8 @@ export class ClientService {
             })
         );
     }
+
+    deleteClient(id: string): any {
+        return this.http.delete<void>(this.url + "/tenants/" + id);
+    }
 }

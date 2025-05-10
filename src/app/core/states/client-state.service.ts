@@ -100,4 +100,11 @@ export class ClientStateService {
     listenToCurrentClientReports(): Observable<Report[]>{
         return this.currentClientReports$.asObservable();
     }
+
+    // Remove Client
+    removeClient(id: string) {
+        const currentClients = this.clients$.value;
+        const updatedClients = currentClients.filter(p => p.id !== id);
+        this.clients$.next(updatedClients);
+    }
 }

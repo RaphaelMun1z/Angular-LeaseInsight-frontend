@@ -28,4 +28,8 @@ export class ContractService {
     patchContract(contract: ContractUpdate, id: string): any {
         return this.http.patch<ContractUpdate>(this.url + "/contracts/" + id, contract);
     }
+
+    deleteContract(id: string): any {
+        return this.http.delete<void>(this.url + "/contracts/" + id);
+    }
 }

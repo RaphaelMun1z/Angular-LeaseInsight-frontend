@@ -78,6 +78,7 @@ export class UpdateInvoiceComponent implements OnInit {
         const data: InvoiceUpdate = this.form.value;
         this.invoiceService.patchInvoice(data, this.currentId).subscribe({
             next: (res: any) => {    
+                console.log(data);
                 this.invoiceUpdateForm.successCaseState();
                 this.router.navigate(['/dashboard/faturas']);
             },

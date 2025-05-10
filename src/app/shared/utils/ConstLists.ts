@@ -20,15 +20,15 @@ export const clientStatus = [
 ];
 
 export const paymentStatus = [
-    { name: "Pendente", code: 1 },
-    { name: "Pago", code: 2 },
-    { name: "Vencido", code: 3 },
-    { name: "Cancelado", code: 4 },
-    { name: "Em processo", code: 5 },
-    { name: "Pago parcialmente", code: 6 },
-    { name: "Em disputa", code: 7 },
-    { name: "Reembolsado", code: 8 },
-    { name: "Em cobrança", code: 9 }
+    { name: "Pendente", code: 'PENDING' },
+    { name: "Pago", code: 'PAID' },
+    { name: "Vencido", code: 'OVERDUE' },
+    { name: "Cancelado", code: 'CANCELED' },
+    { name: "Em processo", code: 'IN_PROCESS' },
+    { name: "Pago parcialmente", code: 'PARTIALLY_PAID' },
+    { name: "Em disputa", code: 'DISPUTED' },
+    { name: "Reembolsado", code: 'REFUNDED' },
+    { name: "Em cobrança", code: 'IN_COLLECTION' }
 ]
 
 export const propertyType = [

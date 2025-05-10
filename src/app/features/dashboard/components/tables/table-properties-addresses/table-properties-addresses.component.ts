@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 
-import { TableComponent } from '../../../../../shared/components/table/table.component';
+import { TableComponent as MyTableComponente  } from '../../../../../shared/components/table/table.component';
 import { PropertyAddress } from '../../../../../shared/interfaces/propertyAddress';
+import { CommonModule } from '@angular/common';
 
 interface Column {
     field: string;
@@ -11,7 +12,8 @@ interface Column {
 
 @Component({
     selector: 'app-table-properties-addresses',
-    imports: [TableComponent],
+    standalone: true,
+    imports: [CommonModule, MyTableComponente],
     templateUrl: './table-properties-addresses.component.html',
     styleUrl: './table-properties-addresses.component.scss'
 })

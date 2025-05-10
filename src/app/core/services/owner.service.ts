@@ -40,4 +40,8 @@ export class OwnerService {
             })
         );
     }
+
+    deleteOwner(id: string): any {
+        return this.http.delete<void>(this.url + "/owners/" + id);
+    }
 }

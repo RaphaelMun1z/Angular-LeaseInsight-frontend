@@ -61,4 +61,11 @@ export class OwnerStateService {
     listenToCurrentOwnerProperties(): Observable<Property[]>{
         return this.currentOwnerProperties$.asObservable();
     }
+
+    // Remove Owner
+    removeOwner(id: string) {
+        const currentOwners = this.owners$.value;
+        const updatedOwners = currentOwners.filter(p => p.id !== id);
+        this.owners$.next(updatedOwners);
+    }
 }

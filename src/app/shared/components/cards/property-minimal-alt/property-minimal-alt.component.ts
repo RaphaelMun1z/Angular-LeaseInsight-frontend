@@ -28,6 +28,7 @@ export class PropertyMinimalAltComponent implements OnChanges {
     selectedId!: string;
     frontImage: string | null = null;
     loadingImages: boolean = true;
+    @Input() delItemFunc!: (itemId: string) => void;
     
     responsiveOptions = [
         {
@@ -114,6 +115,20 @@ export class PropertyMinimalAltComponent implements OnChanges {
             return 'Outros';
         }
     }
+
+    deleteItemDB(itemId: string) {
+        if (this.delItemFunc) {
+            this.delItemFunc(itemId);
+        } else {
+            console.error('deleteItemDB function not provided');
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Erro!',
+                detail: 'Não foi possível completar a operação',
+                life: 3000
+            });
+        }
+    }
     
     confirmDelete(event: Event, propertyId: string) {
         this.confirmationService.confirm({
@@ -130,31 +145,7 @@ export class PropertyMinimalAltComponent implements OnChanges {
                 severity: 'danger'
             },
             accept: () => {
-                this.deleteProperty(propertyId);
-            }
-        });
-    }
-    
-    deleteProperty(propertyId: string) {
-        this.service.deleteProperty(propertyId).pipe(take(1))
-        .subscribe({
-            next: (res: any) => {
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Sucesso',
-                    detail: 'Imóvel excluído com sucesso!'
-                });
-                this.stateService.removeProperty(propertyId);
-            },
-            error: (err: any) => {
-                this.messageService.add({ 
-                    severity: 'error', 
-                    summary: 'Erro', 
-                    detail: err.message 
-                });
-            },
-            complete: () => {
-                console.log("Complete")
+                this.deleteItemDB(propertyId);
             }
         });
     }

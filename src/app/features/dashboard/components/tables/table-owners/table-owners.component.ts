@@ -1,7 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { Owner } from '../../../../../shared/interfaces/owner';
+import { MessageService } from 'primeng/api';
+import { take } from 'rxjs';
+import { OwnerService } from '../../../../../core/services/owner.service';
+import { OwnerStateService } from '../../../../../core/states/owner-state.service';
 
 interface Column {
     field: string;
@@ -31,4 +35,33 @@ export class TableOwnersComponent {
         { name: "Telefone", code: "phone", type: "normal" },
         { name: "E-mail", code: "email", type: "normal" },
     ]
+    
+    private service = inject(OwnerService);
+    private stateService = inject(OwnerStateService);
+    private messageService = inject(MessageService);
+    
+    deleteOwner = (ownerId: string) => {
+        console.log(ownerId)
+        this.service.deleteOwner(ownerId).pipe(take(1))
+        .subscribe({
+            next: (res: any) => {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Sucesso',
+                    detail: 'Proprietário excluído com sucesso!'
+                });
+                this.stateService.removeOwner(ownerId);
+            },
+            error: (err: any) => {
+                this.messageService.add({ 
+                    severity: 'error', 
+                    summary: 'Erro', 
+                    detail: err.message 
+                });
+            },
+            complete: () => {
+                console.log("Complete")
+            }
+        });
+    }
 }

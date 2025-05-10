@@ -1,8 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { Employee } from '../../../../../shared/interfaces/employee';
+import { take } from 'rxjs';
+import { EmployeeService } from '../../../../../core/services/employee.service';
+import { EmployeeStateService } from '../../../../../core/states/employee-state.service';
 
 interface Column {
     field: string;
@@ -33,4 +36,33 @@ export class TableEmployeesComponent {
         { name: "Telefone", code: "phone", type: "normal" },
         { name: "E-mail", code: "email", type: "normal" },
     ]
+    
+    private service = inject(EmployeeService);
+    private stateService = inject(EmployeeStateService);
+    private messageService = inject(MessageService);
+    
+    deleteEmployee = (employeeId: string) => {
+        console.log(employeeId)
+        this.service.deleteEmployee(employeeId).pipe(take(1))
+        .subscribe({
+            next: (res: any) => {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Sucesso',
+                    detail: 'Funcionário excluído com sucesso!'
+                });
+                this.stateService.removeEmployee(employeeId);
+            },
+            error: (err: any) => {
+                this.messageService.add({ 
+                    severity: 'error', 
+                    summary: 'Erro', 
+                    detail: err.message 
+                });
+            },
+            complete: () => {
+                console.log("Complete")
+            }
+        });
+    }
 }

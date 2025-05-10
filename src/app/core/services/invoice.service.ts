@@ -28,4 +28,8 @@ export class InvoiceService {
     patchInvoice(invoice: InvoiceUpdate, id: string): any {
         return this.http.patch<InvoiceUpdate>(this.url + "/rental-histories/" + id, invoice);
     }
+
+    deleteInvoice(id: string): any {
+        return this.http.delete<void>(this.url + "/rental-histories/" + id);
+    }
 }

@@ -1,7 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { Contract } from '../../../../../shared/interfaces/contract';
+import { MessageService } from 'primeng/api';
+import { take } from 'rxjs';
+import { ContractService } from '../../../../../core/services/contract.service';
+import { ContractStateService } from '../../../../../core/states/contract-state.service';
 
 interface Column {
     field: string;
@@ -37,4 +41,33 @@ export class TableContractsComponent {
         { name: "Nome do Inquilino", code: "tenant.name", type: "normal" },
         { name: "Endereço da Residência", code: "residence.residenceAddress.district", type: "normal" },
     ]
+    
+    private service = inject(ContractService);
+    private stateService = inject(ContractStateService);
+    private messageService = inject(MessageService);
+    
+    deleteContract = (ownerId: string) => {
+        console.log(ownerId)
+        this.service.deleteContract(ownerId).pipe(take(1))
+        .subscribe({
+            next: (res: any) => {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Sucesso',
+                    detail: 'Contrato excluído com sucesso!'
+                });
+                this.stateService.removeContract(ownerId);
+            },
+            error: (err: any) => {
+                this.messageService.add({ 
+                    severity: 'error', 
+                    summary: 'Erro', 
+                    detail: err.message 
+                });
+            },
+            complete: () => {
+                console.log("Complete")
+            }
+        });
+    }
 }

@@ -44,4 +44,11 @@ export class InvoiceStateService {
         const currentInvoices = this.invoices$.value;
         this.invoices$.next([...currentInvoices, invoice]);
     }
+
+    // Remove Invoice
+    removeInvoice(id: string) {
+        const currentInvoices = this.invoices$.value;
+        const updatedInvoices = currentInvoices.filter(p => p.id !== id);
+        this.invoices$.next(updatedInvoices);
+    }
 }

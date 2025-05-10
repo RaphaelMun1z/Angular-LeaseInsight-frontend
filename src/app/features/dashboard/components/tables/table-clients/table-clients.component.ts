@@ -1,7 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { Client } from '../../../../../shared/interfaces/client';
+import { MessageService } from 'primeng/api';
+import { take } from 'rxjs';
+import { ClientService } from '../../../../../core/services/client.service';
+import { ClientStateService } from '../../../../../core/states/client-state.service';
 
 interface Column {
     field: string;
@@ -33,4 +37,33 @@ export class TableClientsComponent {
         { name: "E-mail", code: "email", type: "normal" },
         { name: "Status", code: "tenantStatus", type: "tag" },
     ]
+    
+    private service = inject(ClientService);
+    private stateService = inject(ClientStateService);
+    private messageService = inject(MessageService);
+    
+    deleteClient = (clientId: string) => {
+        console.log(clientId)
+        this.service.deleteClient(clientId).pipe(take(1))
+        .subscribe({
+            next: (res: any) => {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Sucesso',
+                    detail: 'Cliente excluído com sucesso!'
+                });
+                this.stateService.removeClient(clientId);
+            },
+            error: (err: any) => {
+                this.messageService.add({ 
+                    severity: 'error', 
+                    summary: 'Erro', 
+                    detail: err.message 
+                });
+            },
+            complete: () => {
+                console.log("Complete")
+            }
+        });
+    }
 }

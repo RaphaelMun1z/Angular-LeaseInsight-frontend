@@ -44,4 +44,11 @@ export class EmployeeStateService {
         const currentEmployees = this.employees$.value;
         this.employees$.next([...currentEmployees, employee]);
     }
+
+    // Remove Employee
+    removeEmployee(id: string) {
+        const currentEmployees = this.employees$.value;
+        const updatedEmployees = currentEmployees.filter(p => p.id !== id);
+        this.employees$.next(updatedEmployees);
+    }
 }

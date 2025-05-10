@@ -1,7 +1,7 @@
 <div class="container">
     <p-toolbar styleClass="mb-6" class="!w-full">
         <ng-template #start>
-            <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedItems()" [disabled]="!selectedItems || !selectedItems.length" />
+            <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedItems($event)" [disabled]="!selectedItems || !selectedItems.length" />
         </ng-template>
         
         <ng-template #end>
@@ -74,7 +74,7 @@
             
             <td>
                 <p-button *ngIf="editUrl && item.id" icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" [routerLink]="editUrl + item.id"/>
-                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteItem(item)" />
+                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteItem($event, item)" />
             </td>
         </tr>
     </ng-template>
@@ -84,3 +84,4 @@
     </ng-template>
 </p-table>
 </div>
+<p-confirmdialog />

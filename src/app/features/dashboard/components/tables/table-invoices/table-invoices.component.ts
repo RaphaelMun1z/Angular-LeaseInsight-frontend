@@ -1,7 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { Invoice } from '../../../../../shared/interfaces/invoice';
+import { InvoiceService } from '../../../../../core/services/invoice.service';
+import { take } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { InvoiceStateService } from '../../../../../core/states/invoice-state.service';
 
 interface Column {
     field: string;
@@ -35,4 +39,33 @@ export class TableInvoicesComponent {
         { name: "Código do Contrato", code: "contractId", type: "normal" },
         { name: "Código da Propriedade", code: "residenceId", type: "normal" },
     ]
+    
+    private service = inject(InvoiceService);
+    private stateService = inject(InvoiceStateService);
+    private messageService = inject(MessageService);
+    
+    deleteInvoice = (invoiceId: string) => {
+        console.log(invoiceId)
+        this.service.deleteInvoice(invoiceId).pipe(take(1))
+        .subscribe({
+            next: (res: any) => {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Sucesso',
+                    detail: 'Fatura excluída com sucesso!'
+                });
+                this.stateService.removeInvoice(invoiceId);
+            },
+            error: (err: any) => {
+                this.messageService.add({ 
+                    severity: 'error', 
+                    summary: 'Erro', 
+                    detail: err.message 
+                });
+            },
+            complete: () => {
+                console.log("Complete")
+            }
+        });
+    }
 }
