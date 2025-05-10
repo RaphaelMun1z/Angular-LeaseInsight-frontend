@@ -28,7 +28,7 @@ export class PropertyStateService {
     listenToPropertiesChanges(): Observable<Property[]>{
         return this.properties$.asObservable();
     }
-
+    
     // Get All (Minimal)
     loadPropertiesMinimal(status: string){
         this.propertyService
@@ -36,7 +36,7 @@ export class PropertyStateService {
         .pipe(take(1))
         .subscribe(properties => this.sharePropertiesMinimal(properties))
     }
-
+    
     private sharePropertiesMinimal(properties: PropertyMinimal[]){
         this.propertiesMinimal$.next(properties);
     }
@@ -55,5 +55,12 @@ export class PropertyStateService {
     addProperty(Property: Property){
         const currentPropertys = this.properties$.value;
         this.properties$.next([...currentPropertys, Property]);
+    }
+    
+    // Remove Property
+    removeProperty(id: string) {
+        const currentProperties = this.properties$.value;
+        const updatedProperties = currentProperties.filter(p => p.id !== id);
+        this.properties$.next(updatedProperties);
     }
 }

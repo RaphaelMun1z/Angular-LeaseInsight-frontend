@@ -31,14 +31,10 @@ export class CreateContractComponent  implements OnInit {
     ngOnInit() {
         this.form = this.formBuilderService.group({
             step1: this.formBuilderService.group({
-                residence: this.formBuilderService.group({
-                    id: ['', Validators.required],
-                }),
+                residenceId: ['', Validators.required],
             }),
             step2: this.formBuilderService.group({
-                tenant: this.formBuilderService.group({
-                    id: ['', Validators.required],
-                })
+                tenantId: ['', Validators.required],
             }),
             step3: this.formBuilderService.group({
                 contractStartDate: ['', Validators.required],

@@ -89,7 +89,7 @@ export class CreateClientComponent implements OnInit {
             next: (res: any) => {    
                 this.clientCreateForm.successCaseState();
             },
-            error: (errors: { [key: string]: string }) => { 
+            error: (errors: { [key: string]: string }) => {
                 this.clientCreateForm.failCaseState(errors);
             }
         });

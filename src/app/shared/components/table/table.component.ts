@@ -30,7 +30,7 @@ interface ExportColumn {
 @Component({
     selector: 'app-table',
     imports: [CommonModule, RouterModule, TableModule, Tag, DropdownModule, InputTextModule, TextareaModule, ToastModule, SelectModule, InputIconModule, IconFieldModule, ButtonModule, ToolbarModule],
-    providers: [MessageService, ConfirmationService],
+    providers: [ConfirmationService],
     templateUrl: './table.component.html',
     styleUrl: './table.component.scss'
 })

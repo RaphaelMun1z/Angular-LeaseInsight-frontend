@@ -1,27 +1,7 @@
-<div class="container">
-    <div class="item" *ngFor="let property of properties">
-        <div class="p-2 w-full rounded border border-transparent transition-all transition-duration-200"
-        [ngClass]="{ 'border-primary': selectedId === property.id}">
-        <div class="flex flex-wrap p-2 items-center gap-4">
-            <p-avatar [style]="{'width': '117px', 'height': '117px'}" icon="pi pi-home" styleClass="mr-2" size="xlarge" />
-            <div class="flex-1 flex flex-col gap-1">
-                <p class="font-light text-sm text-gray-500">#{{ property.id }}</p>
-                <p class="font-light text-sm text-gray-500"><p-tag severity="secondary" value="{{getType(property.propertyType)}}" /></p>
-                <span class="font-semibold text-2xl">{{ property.residenceAddress.street }}, {{ property.number }}, {{ property.residenceAddress.district }}, {{ property.residenceAddress.city }}, {{ property.residenceAddress.state }}, {{ property.residenceAddress.country }}</span>
-                <div class="flex items-center gap-2 mt-2">
-                    <p-tag severity="info" value="R$ {{ property.rentalValue }}"/>
-                    <p-tag severity="success" value="{{ property.occupancyStatus }}"/>
-                    <p-tag icon="pi pi-images" severity="warn" *ngIf="property.files.length < 4" value="{{ property.files.length }} Imagens" />
-                    <p-tag icon="pi pi-images" severity="info" *ngIf="property.files.length >= 4" value="{{ property.files.length }} Imagens" />
-                    <div class="card flex justify-center gap-2">
-                        <p-toast />
-                        <p-confirmpopup />
-                        <p-button [routerLink]="['/imovel/'+property.id]" label="Abrir" severity="info" />
-                        <p-button [routerLink]="['atualizar/'+property.id]" label="Editar" severity="warn" />
-                    </div>
-                </div>
-            </div>
+<div class="container mx-auto p-4">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="item" *ngFor="let property of properties">
+            <app-property-minimal-alt [propertyMinimal]="property"></app-property-minimal-alt>
         </div>
     </div>
-</div>
 </div>

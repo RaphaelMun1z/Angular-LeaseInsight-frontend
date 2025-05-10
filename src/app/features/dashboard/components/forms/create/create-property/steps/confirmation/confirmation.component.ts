@@ -28,7 +28,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-confirmation',
     imports: [DividerModule, ImageModule, FieldsetModule, GalleriaModule, FormErrorsComponent, AvatarModule, CommonModule, ConfirmDialog, ToastModule, ButtonModule],
-    providers: [ConfirmationService, MessageService],
+    providers: [ConfirmationService],
     templateUrl: './confirmation.component.html',
     styleUrl: './confirmation.component.scss'
 })
@@ -92,7 +92,8 @@ export class ConfirmationComponent  implements OnInit{
     }
     
     ngOnInit(): void {
-        this.propertyAddressStateService.loadPropertyAddress(this.form.get('step2.residenceAddress.id')?.value).subscribe({
+        const addressId = this.form.get('step2.residenceAddress')?.value;
+        this.propertyAddressStateService.loadPropertyAddress(addressId).subscribe({
             next: (address: PropertyAddress | null) => {
                 this.address = address!!;
             },
@@ -101,7 +102,8 @@ export class ConfirmationComponent  implements OnInit{
             }
         })
         
-        this.ownerStateService.loadOwner(this.form.get('step2.tenant.id')?.value).subscribe({
+        const ownerId = this.form.get('step3.owner')?.value;
+        this.ownerStateService.loadOwner(ownerId).subscribe({
             next: (owner: Owner | null) => {
                 this.owner = owner!!;
             },
@@ -119,7 +121,6 @@ export class ConfirmationComponent  implements OnInit{
         this.propertyService.saveProperty(data).subscribe({
             next: (res: any) => {    
                 this.propertyCreateForm.successCaseState();
-                this.router.navigate(['/imoveis']);
             },
             error: (errors: { [key: string]: string }) => { 
                 this.propertyCreateForm.failCaseState(errors);

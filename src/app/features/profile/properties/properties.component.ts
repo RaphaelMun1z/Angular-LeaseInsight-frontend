@@ -36,7 +36,7 @@ interface ExportColumn {
 @Component({
     selector: 'app-properties',
     imports: [TableModule, FormsModule, DropdownModule, DashboardBaseComponent, ContentBlockComponent, Toolbar, TagModule, IconFieldModule, Button, InputTextModule, InputIconModule, MultiSelectModule, SelectModule, CommonModule],
-    providers: [MessageService, ConfirmationService],
+    providers: [ConfirmationService],
     templateUrl: './properties.component.html',
     styleUrl: './properties.component.scss'
 })

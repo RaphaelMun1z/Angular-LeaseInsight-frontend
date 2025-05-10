@@ -53,6 +53,10 @@ export class PropertyService {
     patchProperty(property: PropertyUpdate, id: string): any {
         return this.http.patch<PropertyUpdate>(this.url + "/residences/" + id, property);
     }
+
+    deleteProperty(id: string): any {
+        return this.http.delete<void>(this.url + "/residences/" + id);
+    }
     
     saveProperty(property: FormData): any {
         return this.http.post<PropertyCreate>(this.url + "/residences", property);

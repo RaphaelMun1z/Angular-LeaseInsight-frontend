@@ -105,10 +105,9 @@ export class UpdatePropertyComponent implements OnInit {
         const data: PropertyUpdate = this.form.value;
         this.propertyService.patchProperty(data, this.currentId).subscribe({
             next: (res: any) => {    
-                this.propertyUpdateForm.successCaseState();
-                this.router.navigate(['/dashboard/imoveis']);
+                this.propertyUpdateForm.successCaseState(false);
             },
-            error: (errors: { [key: string]: string }) => { 
+            error: (errors: { [key: string]: string }) => {
                 this.propertyUpdateForm.failCaseState(errors);
             }
         });

@@ -69,9 +69,7 @@ export class SelectClientComponent implements OnInit {
     
     selected(idSelected: string){
         this.form.patchValue({
-            tenant: {
-                id: idSelected
-            }
+            tenantId: idSelected
         });
         this.router.navigate(['/dashboard/contratos/criar/detalhes']);
     }

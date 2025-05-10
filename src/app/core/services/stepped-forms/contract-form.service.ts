@@ -65,8 +65,8 @@ export class ContractFormService {
     
     formatData(): ContractCreate {
         const formattedData = {
-            residence: this.form.value.step1.residence,
-            tenant: this.form.value.step2.tenant,
+            residenceId: this.form.value.step1.residenceId,
+            tenantId: this.form.value.step2.tenantId,
             contractStartDate: new Date(this.form.value.step3.contractStartDate).toISOString().split('T')[0],
             contractEndDate: new Date(this.form.value.step3.contractEndDate).toISOString().split('T')[0],
             defaultRentalValue: this.form.value.step3.defaultRentalValue,

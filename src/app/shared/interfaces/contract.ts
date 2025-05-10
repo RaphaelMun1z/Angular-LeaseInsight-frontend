@@ -13,12 +13,8 @@ export interface Contract {
 }
 
 export interface ContractCreate {
-    residence: {
-        id: string
-    },
-    tenant: {
-        id: string
-    },
+    residenceId: string,
+    tenantId: string,
     contractStartDate: string,
     contractEndDate: string,
     defaultRentalValue: number,

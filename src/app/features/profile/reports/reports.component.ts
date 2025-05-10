@@ -36,7 +36,7 @@ interface ExportColumn {
 @Component({
     selector: 'app-reports',
     imports: [TableModule, FormsModule, DropdownModule, DashboardBaseComponent, ContentBlockComponent, Toolbar, TagModule, IconFieldModule, Button, InputTextModule, InputIconModule, MultiSelectModule, SelectModule, CommonModule],
-    providers: [MessageService, ConfirmationService],
+    providers: [ConfirmationService],
     templateUrl: './reports.component.html',
     styleUrl: './reports.component.scss'
 })

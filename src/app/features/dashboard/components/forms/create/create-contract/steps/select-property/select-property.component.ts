@@ -16,6 +16,7 @@ import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { DataView } from 'primeng/dataview';
 import { Tag } from 'primeng/tag';
+import { PropertyService } from '../../../../../../../../core/services/property.service';
 
 @Component({
     selector: 'app-select-property',
@@ -39,8 +40,7 @@ export class SelectPropertyComponent implements OnInit {
     properties : Property[] = [];
     
     router = inject(Router);
-    private propertyStateService = inject(PropertyStateService);
-    constructor(){
+    constructor(private propertyService: PropertyService, private propertyStateService: PropertyStateService) {
         this.propertyStateService.loadProperties();
     }
     
@@ -120,9 +120,7 @@ export class SelectPropertyComponent implements OnInit {
     
     selected(idSelected: string){
         this.form.patchValue({
-            residence: {
-                id: idSelected
-            }
+            residenceId: idSelected
         });
         this.router.navigate(['/dashboard/contratos/criar/selecionar-cliente']);
     }

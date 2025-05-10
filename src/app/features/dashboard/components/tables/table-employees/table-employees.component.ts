@@ -13,7 +13,7 @@ interface Column {
 @Component({
     selector: 'app-table-employees',
     imports: [TableComponent],
-    providers: [MessageService, ConfirmationService],
+    providers: [ConfirmationService],
     templateUrl: './table-employees.component.html',
     styleUrl: './table-employees.component.scss'
 })

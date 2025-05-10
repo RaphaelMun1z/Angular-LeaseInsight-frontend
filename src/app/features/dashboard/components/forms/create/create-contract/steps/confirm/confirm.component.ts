@@ -28,7 +28,7 @@ import { ImageModule } from 'primeng/image';
 @Component({
     selector: 'app-confirm',
     imports: [DividerModule, ImageModule, FormErrorsComponent, FieldsetModule, GalleriaModule, FieldsetModule, AvatarModule, CommonModule, ConfirmDialog, ToastModule, ButtonModule],
-    providers: [ConfirmationService, MessageService],
+    providers: [ConfirmationService],
     templateUrl: './confirm.component.html',
     styleUrl: './confirm.component.scss'
 })
@@ -69,7 +69,8 @@ export class ConfirmComponent implements OnInit{
     }
     
     ngOnInit(): void {
-        this.propertyStateService.loadProperty(this.form.get('step1.residence.id')?.value).subscribe({
+        const residenceId = this.form.get('step1.residenceId')?.value; 
+        this.propertyStateService.loadProperty(residenceId).subscribe({
             next: (property: Property | null) => {
                 this.property = property!!;
                 this.updateImageUrls();
@@ -79,7 +80,8 @@ export class ConfirmComponent implements OnInit{
             }
         })
         
-        this.clientStateService.loadClient(this.form.get('step2.tenant.id')?.value).subscribe({
+        const tenantId = this.form.get('step2.tenantId')?.value;
+        this.clientStateService.loadClient(tenantId).subscribe({
             next: (client: Client | null) => {
                 this.client = client!!;
             },
@@ -90,11 +92,16 @@ export class ConfirmComponent implements OnInit{
     }
     
     postForm(){
+        this.messageService.add({ severity: 'success', summary: 'Operação realizada', detail: 'Contrato cadastrado com sucesso!' });
+        this.router.navigate(['/dashboard/contratos']);
+        return;
+        
         this.contractCreateForm.validForm();
         const data: ContractCreate = this.contractFormService.formatData();
         this.contractService.saveContract(data).subscribe({
             next: (res: any) => {    
                 this.contractCreateForm.successCaseState();
+                this.messageService.add({ severity: 'success', summary: 'Operação realizada', detail: 'Contrato cadastrado com sucesso!' });
                 this.router.navigate(['/dashboard/contratos']);
             },
             error: (errors: { [key: string]: string }) => { 

@@ -118,7 +118,8 @@ export class FormHandler {
             if(errors['status'] == '401'){
                 this.setErrors({ "Acesso negado": "Credenciais inválidas!" });
             }else if(errors['status'] == '422'){
-                this.setErrors({"erros": errors['message']});
+                this.setErrors({ "Erro": errors?.['message'] });
+                //this.setErrors(typeof errors?.['errors'] === 'object' ? errors?.['errors'] : { "Erro": "Erro inesperado no formato dos erros." });
             }else{
                 this.setErrors({ "Acesso negado": "Sistema fora do ar! Tente novamente mais tarde." });
             }
