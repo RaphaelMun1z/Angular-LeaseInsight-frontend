@@ -178,7 +178,7 @@
         </ul>
     </li>
     
-    <li>
+    <li *ngIf="currentUser?.role === 'adm'">
         <a
         pRipple
         pStyleClass="@next"

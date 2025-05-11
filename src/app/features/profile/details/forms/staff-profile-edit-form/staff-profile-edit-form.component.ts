@@ -7,6 +7,7 @@ import { CurrentUser } from '../../../../../shared/interfaces/user';
 import { FormHandler } from '../../../../../shared/utils/FormHandler';
 import { StandardProfileEditFormComponent } from '../standard-profile-edit-form/standard-profile-edit-form.component';
 import { EmployeeService } from '../../../../../core/services/employee.service';
+import { AuthUserService } from '../../../../../core/services/authUser.service';
 
 @Component({
     selector: 'app-staff-profile-edit-form',
@@ -22,6 +23,7 @@ export class StaffProfileEditFormComponent {
     @Input() accountType!: string;
     
     private employeeService = inject(EmployeeService);
+    private authUserService = inject(AuthUserService);
     
     recoverDefaultFormValues() {
         this.form.patchValue({
@@ -38,11 +40,27 @@ export class StaffProfileEditFormComponent {
         this.employeeService.patchEmployee(data, this.currentUser.id).subscribe({
             next: (res: any) => {    
                 this.authUserForm.successCaseState(false);
+                this.toggleProfileEdit();
+                
+                this.authUserService.updateAuthUser({
+                    name: data.name,
+                    email: data.email,
+                    phone: data.phone,
+                });
             },
             error: (errors: { [key: string]: string }) => { 
                 this.recoverDefaultFormValues();
                 this.authUserForm.failCaseState(errors);
+                this.toggleProfileEdit();
             }
         });
+    }
+    
+    toggleProfileEdit() {
+        if (!this.form.enabled) {
+            this.form.enable();
+        } else {
+            this.form.disable();
+        }
     }
 }

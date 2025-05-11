@@ -7,6 +7,7 @@ import { CurrentUser } from '../../../../../shared/interfaces/user';
 import { FormHandler } from '../../../../../shared/utils/FormHandler';
 import { StandardProfileEditFormComponent } from '../standard-profile-edit-form/standard-profile-edit-form.component';
 import { OwnerService } from '../../../../../core/services/owner.service';
+import { AuthUserService } from '../../../../../core/services/authUser.service';
 
 @Component({
     selector: 'app-owner-profile-edit-form',
@@ -22,7 +23,8 @@ export class OwnerProfileEditFormComponent {
     @Input() accountType!: string;
     
     private ownerService = inject(OwnerService);
-
+    private authUserService = inject(AuthUserService);
+    
     recoverDefaultFormValues() {
         this.form.patchValue({
             name: this.currentUser.name,
@@ -39,6 +41,12 @@ export class OwnerProfileEditFormComponent {
             next: (res: any) => {    
                 this.authUserForm.successCaseState(false);
                 this.toggleProfileEdit();
+                
+                this.authUserService.updateAuthUser({
+                    name: data.name,
+                    email: data.email,
+                    phone: data.phone,
+                });
             },
             error: (errors: { [key: string]: string }) => { 
                 this.recoverDefaultFormValues();
@@ -47,7 +55,7 @@ export class OwnerProfileEditFormComponent {
             }
         });
     }
-
+    
     toggleProfileEdit() {
         if (!this.form.enabled) {
             this.form.enable();

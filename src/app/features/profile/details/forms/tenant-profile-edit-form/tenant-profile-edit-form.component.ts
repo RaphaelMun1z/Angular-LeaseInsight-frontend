@@ -84,6 +84,12 @@ export class TenantProfileEditFormComponent implements OnInit{
             next: (res: any) => {    
                 this.authUserForm.successCaseState(false);
                 this.toggleProfileEdit();
+
+                this.authUserService.updateAuthUser({
+                    name: data.name,
+                    email: data.email,
+                    phone: data.phone,
+                });
             },
             error: (errors: { [key: string]: string }) => { 
                 this.recoverDefaultFormValues();

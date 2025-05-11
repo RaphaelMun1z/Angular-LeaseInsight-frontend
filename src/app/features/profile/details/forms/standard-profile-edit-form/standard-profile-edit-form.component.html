@@ -42,9 +42,15 @@
             (onClick)="postForm()"></p-button>
         </div>
     </div>
-
+    
     <div class="picture-container">
-        <p-avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
+        <p-avatar 
+        icon="pi pi-user" 
+        [label]="form.controls['name'].value?.charAt(0) || 'U'" 
+        class="bg-blue-500 text-white"
+        [ngStyle]="{ 'font-size': '60px' }"
+        size="xlarge" 
+        shape="circle" />
         <div class="buttons-container" *ngIf="form.valid">
             <p-button label="Alterar foto" icon="pi pi-user" severity="info" />
             <p-button label="Excluir foto" icon="pi pi-user" variant="outlined" severity="danger" />

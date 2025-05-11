@@ -22,6 +22,10 @@ export class AuthUserService {
         return this._http.get<CurrentUser>(this.url + "/users/me");
     }
     
+    getCurrentUserData(): CurrentUser | null {
+        return this.authUser$.getValue();
+    }
+    
     // Set Auth User
     setAuthUser(): void {
         this.getAuthUser().pipe(
@@ -47,5 +51,20 @@ export class AuthUserService {
     removeAuthUser() {
         this.authUser$.next(null);
         this.authUser.update(() => null);
+    }
+    
+    updateAuthUser(updatedUser: Partial<CurrentUser>) {
+        this.authUser$.pipe(
+            take(1),
+            map(user => {
+                if (!user) return null;
+                return { ...user, ...updatedUser };
+            }),
+            tap(user => {
+                if (user) {
+                    this.shareAuthUser(user);
+                }
+            })
+        ).subscribe();
     }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DashboardBaseComponent } from '../../components/dashboard-base/dashboard-base.component';
 import { MenuModule } from 'primeng/menu';
 import { DividerModule } from 'primeng/divider';
@@ -10,6 +10,7 @@ import { BadgeModule } from 'primeng/badge';
 import { PanelModule } from 'primeng/panel';
 import { AccordionModule } from 'primeng/accordion';
 import { CardModule } from 'primeng/card';
+import { AuthUserService } from '../../../../core/services/authUser.service';
 
 interface QuickAccessItem {
     label: string;
@@ -25,16 +26,16 @@ interface QuickAccessItem {
     styleUrl: './general.component.scss'
 })
 
-export class GeneralComponent {
-    constructor(private router: Router) {}
+export class GeneralComponent implements OnInit {
+    constructor(private router: Router, private authUserService: AuthUserService) {}
     
     quickAccessItems: QuickAccessItem[] = [
         {
             label: 'Imóveis',
             icon: 'pi pi-home text-green-500',
             actions: [
-                { label: 'Listar', icon: 'pi pi-list', route: 'imoveis' },
-                { label: 'Cadastrar', icon: 'pi pi-plus', route: 'imoveis/cadastrar' }
+                { label: 'Listar', icon: 'pi pi-list', route: 'dashboard/imoveis' },
+                { label: 'Cadastrar', icon: 'pi pi-plus', route: 'dashboard/imoveis/criar' }
             ],
             pinned: false
         },
@@ -42,17 +43,8 @@ export class GeneralComponent {
             label: 'Clientes',
             icon: 'pi pi-users text-blue-500',
             actions: [
-                { label: 'Listar', icon: 'pi pi-list', route: 'clientes' },
-                { label: 'Cadastrar', icon: 'pi pi-user-plus', route: 'clientes/cadastrar' }
-            ],
-            pinned: false
-        },
-        {
-            label: 'Funcionários',
-            icon: 'pi pi-briefcase text-yellow-500',
-            actions: [
-                { label: 'Listar', icon: 'pi pi-list', route: 'funcionarios' },
-                { label: 'Cadastrar', icon: 'pi pi-plus', route: 'funcionarios/cadastrar' }
+                { label: 'Listar', icon: 'pi pi-list', route: 'dashboard/clientes' },
+                { label: 'Cadastrar', icon: 'pi pi-user-plus', route: 'dashboard/clientes/criar' }
             ],
             pinned: false
         },
@@ -60,8 +52,8 @@ export class GeneralComponent {
             label: 'Proprietários',
             icon: 'pi pi-id-card text-indigo-500',
             actions: [
-                { label: 'Listar', icon: 'pi pi-list', route: 'proprietarios' },
-                { label: 'Cadastrar', icon: 'pi pi-plus', route: 'proprietarios/cadastrar' }
+                { label: 'Listar', icon: 'pi pi-list', route: 'dashboard/proprietarios' },
+                { label: 'Cadastrar', icon: 'pi pi-plus', route: 'dashboard/proprietarios/criar' }
             ],
             pinned: false
         },
@@ -69,8 +61,8 @@ export class GeneralComponent {
             label: 'Contratos',
             icon: 'pi pi-file text-purple-500',
             actions: [
-                { label: 'Listar', icon: 'pi pi-list', route: 'contratos' },
-                { label: 'Cadastrar', icon: 'pi pi-plus', route: 'contratos/cadastrar' }
+                { label: 'Listar', icon: 'pi pi-list', route: 'dashboard/contratos' },
+                { label: 'Cadastrar', icon: 'pi pi-plus', route: 'dashboard/contratos/criar' }
             ],
             pinned: false
         },
@@ -78,8 +70,8 @@ export class GeneralComponent {
             label: 'Faturas',
             icon: 'pi pi-credit-card text-pink-500',
             actions: [
-                { label: 'Listar', icon: 'pi pi-list', route: 'faturas' },
-                { label: 'Cadastrar', icon: 'pi pi-plus', route: 'faturas/cadastrar' }
+                { label: 'Listar', icon: 'pi pi-list', route: 'dashboard/faturas' },
+                { label: 'Cadastrar', icon: 'pi pi-plus', route: 'dashboard/faturas/criar' }
             ],
             pinned: false
         },
@@ -87,7 +79,7 @@ export class GeneralComponent {
             label: 'Avisos e Notificações',
             icon: 'pi pi-bell text-orange-500',
             actions: [
-                { label: 'Listar', icon: 'pi pi-list', route: 'avisos' }
+                { label: 'Listar', icon: 'pi pi-list', route: 'dashboard/avisos' }
             ],
             pinned: false
         },
@@ -95,7 +87,7 @@ export class GeneralComponent {
             label: 'Financeiro',
             icon: 'pi pi-wallet text-emerald-500',
             actions: [
-                { label: 'Acessar', icon: 'pi pi-arrow-right', route: 'financeiro' }
+                { label: 'Acessar', icon: 'pi pi-arrow-right', route: 'dashboard/financeiro' }
             ],
             pinned: false
         },
@@ -103,7 +95,7 @@ export class GeneralComponent {
             label: 'Análise Estatística',
             icon: 'pi pi-chart-bar text-teal-500',
             actions: [
-                { label: 'Acessar', icon: 'pi pi-arrow-right', route: 'analise' }
+                { label: 'Acessar', icon: 'pi pi-arrow-right', route: 'dashboard/analise' }
             ],
             pinned: false
         },
@@ -111,7 +103,7 @@ export class GeneralComponent {
             label: 'Suporte',
             icon: 'pi pi-question-circle text-red-500',
             actions: [
-                { label: 'Abrir', icon: 'pi pi-arrow-right', route: 'suporte' }
+                { label: 'Abrir', icon: 'pi pi-arrow-right', route: 'dashboard/suporte' }
             ],
             pinned: false
         },
@@ -119,11 +111,29 @@ export class GeneralComponent {
             label: 'Configuração',
             icon: 'pi pi-cog text-gray-600',
             actions: [
-                { label: 'Ajustes', icon: 'pi pi-sliders-h', route: 'configuracoes' }
+                { label: 'Ajustes', icon: 'pi pi-sliders-h', route: 'dashboard/configuracoes' }
             ],
             pinned: false
         }
     ];
+    
+    ngOnInit(): void {
+        const userRole = this.authUserService.getCurrentUserData()?.role;
+        
+        this.quickAccessItems = [...this.quickAccessItems];
+
+        if (userRole === 'adm') {
+            this.quickAccessItems.splice(2, 0, {
+                label: 'Funcionários',
+                icon: 'pi pi-briefcase text-yellow-500',
+                actions: [
+                    { label: 'Listar', icon: 'pi pi-list', route: 'dashboard/funcionarios' },
+                    { label: 'Cadastrar', icon: 'pi pi-plus', route: 'dashboard/funcionarios/criar' }
+                ],
+                pinned: false
+            });
+        }
+    }
     
     goTo(path: string): void {
         this.router.navigate([`/${path}`]);

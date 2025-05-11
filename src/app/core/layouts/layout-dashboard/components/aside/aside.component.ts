@@ -11,10 +11,11 @@ import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
 import { Ripple } from 'primeng/ripple';
 import { Drawer } from 'primeng/drawer';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-aside',
-    imports: [RouterModule, DrawerModule, ButtonModule, Ripple, AvatarModule, StyleClass],
+    imports: [CommonModule, RouterModule, DrawerModule, ButtonModule, Ripple, AvatarModule, StyleClass],
     templateUrl: './aside.component.html',
     styleUrl: './aside.component.scss'
 })

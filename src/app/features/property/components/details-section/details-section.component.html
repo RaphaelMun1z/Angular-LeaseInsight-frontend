@@ -83,10 +83,10 @@
                     <p-skeleton height="2rem" class="w-5/6" />
                 </div>
             </ng-template>
-            <img src="https://img.freepik.com/vetores-premium/vista-superior-3d-de-um-mapa-com-ponto-de-localizacao-de-destino_34645-1081.jpg" alt="Localização">
+            <app-map [address]="fullAddress"/>
         </div>
         
-        <div class="topic" *ngIf="property && property.features && property.features?.length ?? 0">
+        <div class="topic" *ngIf="property && property.features && (property.features?.length ?? 0)">
             <h1 class="title">Comodidades</h1>
             <p class="text">Descubra todas as características do imóvel ideal para você com facilidade e precisão!</p>
             <div class="amenities-container">

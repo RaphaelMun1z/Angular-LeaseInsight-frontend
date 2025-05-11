@@ -10,9 +10,11 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
     const tokenService = inject(TokenService);
     
     let isLoggedIn = false;
+    
     authService.isLoggedIn$.subscribe(isLogged => {
         isLoggedIn = isLogged;
     });
+    
     if(isLoggedIn){
         if(tokenService.tokenExpired(tokenService.getToken())){
             authService.logout();
